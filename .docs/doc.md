@@ -91,15 +91,48 @@ Da auch die Zustandsverwaltung somit im Browser stattfindet, sind sämtliche Mas
 ## 2 Technologie Stack
 
 ### 2.1 React + Typescript
+[ReactJS](https://reactjs.org/) ist eine Bibliothek zur Erstellung von webbasierten UIs. Ein spezielles Merkmal der Library ist die komponentenbasierte Herangehensweise an
+die Erstellung einer grafischen Benutzeroberfläche. So können repetitive Muster sehr effizient und effektiv umgesetzt und gewartet werden.
+Für das Projekt wird React 18 verwendet.
 
 ### 2.2 Node Package Manager (npm)
+Der [Node Package Manager (npm)](https://docs.npmjs.com/about-npm) wird für das Dependency Management eingesetzt. 
+NPM bietet zum einen die CLI, welche die Interaktion mit npm erlaubt, zum anderen die Registry, welche die entsprechenden Packages beinhaltet.
+Für das Projekt wird npm Version 10.4.0 eingesetzt.
 
 ### 2.3 Tailwind + DaisyUI
+[Tailwind](https://tailwindcss.com/) und [DaisyUI](https://daisyui.com/) werden für das Styling des Spiels eingesetzt. Tailwind erlaubt das Styling ohne viel CSS und direkt durch HTML-Klassen bzw. JSX-Klassennamen.
+Damit und mit einer bedachten Komponenten-Aufteilung des GUI können schnell optisch ansprechende Resultate erzielt werden.
+Gleichzeitig bietet Tailwind dem Entwickler viele Möglichkeiten, eigene Styles mit CSS zu implementieren oder mit der Konfiguration das Verhalten von Tailwind zu beeinflussen.
+Tailwind wird in der Version 3.4.1 verwendet.
+
+DaisyUI integriert mit Tailwind und bietet vorgefertigte Komponenten für Standard-Elemente von GUIs an. Dadurch kann die Optik des Spiels mit überschaubarem Aufwand merklich aufgewertet werden.
+Für DaisyUI kommt die Version 4.6.2 eingesetzt.
+
 
 ### 2.4 MongoDB
+Die Persistenz im Projekt wird mit [MongoDB](https://www.mongodb.com/) umgesetzt. MongoDB ist eine NoSQL Dokumentdatenbank, die sehr oft für Web Development verwendet wird.
+Datensätze werden als Dokumente (in unserem Fall in JSON) abgelegt. Sammlungen von Dokumenten werden Collections genannt (z.B. Score-Collection, mit einzelnen Spielstand-Documents, oder Chat-Collection mit Chat-Documents).
+Aufgrund der hohen Flexibilität, Skalierbarkeit und Einfachheit in der Anwendung wird für das Projekt eine NoSQL Datenbank verwendet.
+
+Da MongoDB mit [Mongo Atlas](https://www.mongodb.com/atlas/database) kostenfrei (begrenzt) eine Cloud-Datenbank zur Verfügung stellt
+und der Autor bereits Erfahrung mit deren Verwendung hat, fällt die Wahl auf das Produkt für die finale Abgabe.
+
+Während der Entwicklung wird ein Mongo-Container in Docker verwendet.
 
 ### 2.5 Socket.io
+Für die Echtzeitkommunikation zwischen Server(n) und Webclients kommt [Socket.io](https://socket.io/) zum Einsatz. Socket.IO nutzt das [WebSocket Protokoll](https://en.wikipedia.org/wiki/WebSocket), um eine bidirektionale, nahezu verzögerungsfreie Verbindung
+zwischen Server und Client aufzubauen. Zusätzliche Funktionalitäten wie HTTP long-polling (Server schickt Response erst, wenn Daten vorhanden sind) als Fallback zur regulären WebSocket-Verbindung, automatisches Wiederherstellen der Verbindung nach Unterbrüchen, Pufferung von
+Datenpaketen und der Möglichkeit, Acknowledgments zu senden, eignet sich Socket.io bestens zur Verwendung im Projekt für die Chatfunktion und später eventuell für den remote Multiplayer.
+
+Im Projekt wird die aktuellste Version von Socket.io gemäss [npmjs.com](https://www.npmjs.com/package/socket.io) verwendet (z.Z. 4.7.4)
 
 ### 2.6 Docker
+[Docker](https://www.docker.com/) wird während der Entwicklung für Dev Containers eingesetzt, damit keine Dependencies und Services lokal installiert werden müssen.
+
+Weiter erfolgt die Abgabe, sowohl des Backends als auch des Frontends, um die Installation zu vereinfachen und den Aufwand auf das clonen des Repositories und wenige Commands zu reduzieren.
 
 ### 2.7 GitLab
+Für die Source-Code-Verwaltung und die Versionierung wird GitLab verwendet. Innerhalb von Gitlab werden insbesondere Issues verwendet,
+um User Stories und Tasks zu erfassen. Zu Planungszwecken wird ausserdem ein Board mit den Phasen "Backlog", "Sprint Backlog", "Development",
+"Verification" und "Done" erstellt. Die Branch-Strategie folgt grundsätzlich den Empfehlungen des Git-flow-Workflow.
