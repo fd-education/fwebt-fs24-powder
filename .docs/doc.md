@@ -25,28 +25,29 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
     * [2.5 Socket.io](#25-socketio)
     * [2.6 Docker](#26-docker)
     * [2.7 GitLab](#27-gitlab)
-  * [3 Anforderungen](#3-anforderungen)
+  * [3 Funktionale Anforderungen](#3-funktionale-anforderungen)
     * [3.1 MUSS-Anforderungen](#31-muss-anforderungen)
-      * [3.1.1 Spielername](#311-spielername)
-      * [3.1.2 Spiel-Start](#312-spiel-start)
-      * [3.1.3 Spiel-Pause](#313-spiel-pause)
-      * [3.1.4 Spiel-Abbruch](#314-spiel-abbruch)
-      * [3.1.5 Powdromino Vorschau](#315-powdromino-vorschau)
-      * [3.1.6 Powdromino bewegen](#316-powdromino-bewegen)
-      * [3.1.7 Powdromino drehen](#317-powdromino-drehen)
-      * [3.1.8 Powdromino beschleunigen](#318-powdromino-beschleunigen)
-      * [3.1.9 Powdromino Zerfall](#319-powdromino-zerfall)
-      * [3.1.10 Schwierigkeitsgrade](#3110-schwierigkeitsgrade)
-      * [3.1.11 Reihe entfernen](#3111-reihe-entfernen)
-      * [3.1.12 Niederlage](#3112-niederlage)
-      * [3.1.13 Score zählen einfach](#3113-score-zählen-einfach)
-      * [3.1.14 Score zählen mit Multiplikator](#3114-score-zählen-mit-multiplikator)
-      * [3.1.15 Scoreboard](#3115-scoreboard)
+      * [3.1.1 FA-001 Spielername](#311-fa-001-spielername)
+      * [3.1.2 FA-002 Spiel-Start](#312-fa-002-spiel-start)
+      * [3.1.3 FA-003 Spiel-Pause](#313-fa-003-spiel-pause)
+      * [3.1.4 FA-004 Spiel-Abbruch](#314-fa-004-spiel-abbruch)
+      * [3.1.5 FA-005 Powdromino Vorschau](#315-fa-005-powdromino-vorschau)
+      * [3.1.6 FA-006 Powdromino bewegen](#316-fa-006-powdromino-bewegen)
+      * [3.1.7 FA-007 Powdromino drehen](#317-fa-007-powdromino-drehen)
+      * [3.1.8 FA-008 Powdromino beschleunigen](#318-fa-008-powdromino-beschleunigen)
+      * [3.1.9 FA-009 Powdromino Zerfall](#319-fa-009-powdromino-zerfall)
+      * [3.1.10 FA-010 Schwierigkeitsgrade](#3110-fa-010-schwierigkeitsgrade)
+      * [3.1.11 FA-011 Reihe entfernen](#3111-fa-011-reihe-entfernen)
+      * [3.1.12 FA-012 Niederlage](#3112-fa-012-niederlage)
+      * [3.1.13 FA-013 Score zählen einfach](#3113-fa-013-score-zählen-einfach)
+      * [3.1.14 FA-014 Score zählen mit Multiplikator](#3114-fa-014-score-zählen-mit-multiplikator)
+      * [3.1.15 FA-015 Scoreboard](#3115-fa-015-scoreboard)
     * [3.2 KANN-Anforderungen](#32-kann-anforderungen)
-      * [3.2.1 Lokaler Multiplayer-Modus](#321-lokaler-multiplayer-modus)
-      * [3.2.2 Lobby-Chat](#322-lobby-chat)
-      * [3.2.3 Remote Multiplayer-Modus](#323-remote-multiplayer-modus)
-    * [Template FA](#template-fa)
+      * [3.2.1 FA-016 Lokaler Multiplayer-Modus](#321-fa-016-lokaler-multiplayer-modus)
+      * [3.2.2 FA-017 Lobby-Chat](#322-fa-017-lobby-chat)
+      * [3.2.3 FA-018 Remote Multiplayer-Modus](#323-fa-018-remote-multiplayer-modus)
+  * [4 Nicht-Funktionale Anforderungen](#4-nicht-funktionale-anforderungen)
+    * [4.1 Internationalisierung](#41-internationalisierung)
     * [Template NFA](#template-nfa)
 <!-- TOC -->
 
@@ -192,7 +193,7 @@ verwendet (z.Z. 4.7.4)
 und Services lokal installiert werden müssen.
 
 Weiter erfolgt die Abgabe, sowohl des Backends als auch des Frontends, um die Installation zu vereinfachen und den
-Aufwand auf das clonen des Repositories und wenige Commands zu reduzieren.
+Aufwand auf das Clonen des Repositories und wenige Commands zu reduzieren.
 
 ### 2.7 GitLab
 
@@ -202,15 +203,15 @@ um User Stories und Tasks zu erfassen. Zu Planungszwecken wird ausserdem ein Boa
 Backlog", "Development",
 "Verification" und "Done" erstellt. Die Branch-Strategie folgt grundsätzlich den Empfehlungen des Git-flow-Workflow.
 
-## 3 Anforderungen
+## 3 Funktionale Anforderungen
 
 ### 3.1 MUSS-Anforderungen
 
-#### 3.1.1 Spielername
+#### 3.1.1 FA-001 Spielername
 <table>
   <tr>
     <th>ID</th>
-    <td>1</td>
+    <td>FA-001</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -258,11 +259,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.2 Spiel-Start
+#### 3.1.2 FA-002 Spiel-Start
 <table>
   <tr>
     <th>ID</th>
-    <td>2</td>
+    <td>FA-002</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -310,11 +311,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.3 Spiel-Pause
+#### 3.1.3 FA-003 Spiel-Pause
 <table>
   <tr>
     <th>ID</th>
-    <td>3</td>
+    <td>FA-003</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -362,11 +363,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.4 Spiel-Abbruch
+#### 3.1.4 FA-004 Spiel-Abbruch
 <table>
   <tr>
     <th>ID</th>
-    <td>4</td>
+    <td>FA-004</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -414,11 +415,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.5 Powdromino Vorschau
+#### 3.1.5 FA-005 Powdromino Vorschau
 <table>
   <tr>
     <th>ID</th>
-    <td>5</td>
+    <td>FA-005</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -466,11 +467,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.6 Powdromino bewegen
+#### 3.1.6 FA-006 Powdromino bewegen
 <table>
   <tr>
     <th>ID</th>
-    <td>6</td>
+    <td>FA-006</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -518,11 +519,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.7 Powdromino drehen
+#### 3.1.7 FA-007 Powdromino drehen
 <table>
   <tr>
     <th>ID</th>
-    <td>7</td>
+    <td>FA-007</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -570,11 +571,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.8 Powdromino beschleunigen
+#### 3.1.8 FA-008 Powdromino beschleunigen
 <table>
   <tr>
     <th>ID</th>
-    <td>8</td>
+    <td>FA-008</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -622,11 +623,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.9 Powdromino Zerfall
+#### 3.1.9 FA-009 Powdromino Zerfall
 <table>
   <tr>
     <th>ID</th>
-    <td>9</td>
+    <td>FA-009</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -674,11 +675,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.10 Schwierigkeitsgrade
+#### 3.1.10 FA-010 Schwierigkeitsgrade
 <table>
   <tr>
     <th>ID</th>
-    <td>10</td>
+    <td>FA-010</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -726,11 +727,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.11 Reihe entfernen
+#### 3.1.11 FA-011 Reihe entfernen
 <table>
   <tr>
     <th>ID</th>
-    <td>11</td>
+    <td>FA-011</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -778,11 +779,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.12 Niederlage
+#### 3.1.12 FA-012 Niederlage
 <table>
     <tr>
         <th>ID</th>
-        <td>12</td>
+        <td>FA-012</td>
     </tr>
     <tr>
         <th>Name</th>
@@ -831,11 +832,11 @@ Backlog", "Development",
     </tr>
 </table>
 
-#### 3.1.13 Score zählen einfach
+#### 3.1.13 FA-013 Score zählen einfach
 <table>
   <tr>
     <th>ID</th>
-    <td>13</td>
+    <td>FA-013</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -883,11 +884,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.14 Score zählen mit Multiplikator
+#### 3.1.14 FA-014 Score zählen mit Multiplikator
 <table>
   <tr>
     <th>ID</th>
-    <td>14</td>
+    <td>FA-014</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -935,11 +936,11 @@ Backlog", "Development",
   </tr>
 </table>
 
-#### 3.1.15 Scoreboard
+#### 3.1.15 FA-015 Scoreboard
 <table>
   <tr>
     <th>ID</th>
-    <td>15</td>
+    <td>FA-015</td>
   </tr>
   <tr>
     <th>Name</th>
@@ -989,73 +990,160 @@ Backlog", "Development",
 
 ### 3.2 KANN-Anforderungen
 
-#### 3.2.1 Lokaler Multiplayer-Modus
-
-
-#### 3.2.2 Lobby-Chat
-
-
-#### 3.2.3 Remote Multiplayer-Modus
-
-
-### Template FA
-
-
+#### 3.2.1 FA-016 Lokaler Multiplayer-Modus
 <table>
-    <tr>
-        <th>ID</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Name</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Ziel</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Akteure</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Ereignis</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Vorbedingung Standardablauf</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Standardablauf</th>
-        <td>
-        </td>
-    </tr>
-    <tr>
-        <th>Alternativablauf</th>
-        <td>
-        </td>
-    </tr>
-    <tr>
-        <th>Nachbedingung Erfolg</th>
-        <td>
-        </td>
-    </tr>
-    <tr>
-        <th>Nachbedingung Alternativ</th>
-        <td>
-        </td>
-    </tr>
-    <tr>
-        <th>Klassifizierung</th>
-        <td>
-        </td>
-    </tr>
-    <tr>
-        <th>Aufwand</th>
-        <td>
-        </td>
-    </tr>
+  <tr>
+    <th>ID</th>
+    <td>FA-016</td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>Lokaler Multiplayer-Modus</td>
+  </tr>
+  <tr>
+    <th>Ziel</th>
+    <td>Zwei Spieler können an einem Gerät gegeneinander spielen.</td>
+  </tr>
+  <tr>
+    <th>Akteure</th>
+    <td>Spieler</td>
+  </tr>
+  <tr>
+    <th>Ereignis</th>
+    <td>Ein Multiplayer-Spiel wird gestartet.</td>
+  </tr>
+  <tr>
+    <th>Vorbedingung Standardablauf</th>
+    <td>Akteur befindet sich auf der Start-Übersicht und ist dem Spiel namentlich bekannt.</td>
+  </tr>
+  <tr>
+    <th>Standardablauf</th>
+    <td>1. Akteur klickt auf den "Lokaler Multiplayer"-Knopf<br/>2. Pop-Up erscheint, fordert zur Eingabe des Namens des Gegners auf, gibt die Möglichkeit das Duell zu starten oder zur Start-Übersicht zurückzukehren<br>3. Akteur gibt Namen des Gegners an<br>4. Akteur klickt den "Duell starten"-Knopf</td>
+  </tr>
+  <tr>
+    <th>Alternativablauf</th>
+    <td>3a. Akteur gibt keinen Namen ein<br/>4a. Akteur klickt den "Abbrechen"-Knopf</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Erfolg</th>
+    <td>Ein Duell-Spiel mit zwei Feldern wird gestartet.</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Alternativ</th>
+    <td>Das Spiel kann nicht gestartet werden, falls kein Name angegeben wurde.<br/>Akteur wird zur Start-Übersicht zurückgeschickt.</td>
+  </tr>
+  <tr>
+    <th>Klassifizierung</th>
+    <td>Funktional, KANN</td>
+  </tr>
+  <tr>
+    <th>Aufwand</th>
+    <td>Mittel</td>
+  </tr>
+</table>
+
+#### 3.2.2 FA-017 Lobby-Chat
+<table>
+  <tr>
+    <th>ID</th>
+    <td>FA-017</td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>Lobby-Chat</td>
+  </tr>
+  <tr>
+    <th>Ziel</th>
+    <td>Spieler können in der Start-Übersicht an einem globalen Chat teilnehmen</td>
+  </tr>
+  <tr>
+    <th>Akteure</th>
+    <td>Spieler</td>
+  </tr>
+  <tr>
+    <th>Ereignis</th>
+    <td>Globale Chat-Nachrichten können versendet und gelesen werden.</td>
+  </tr>
+  <tr>
+    <th>Vorbedingung Standardablauf</th>
+    <td>Akteur befindet sich auf der Start-Übersicht und ist dem Spiel namentlich bekannt.</td>
+  </tr>
+  <tr>
+    <th>Standardablauf</th>
+    <td>1. Akteur tippt eine Nachricht im Chat ein<br/>2. Akteur klickt den "Senden"-Knopf</td>
+  </tr>
+  <tr>
+    <th>Alternativablauf</th>
+    <td>1a. Akteur tippt keine Nachricht ein</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Erfolg</th>
+    <td>Eine Nachricht wird an die gesamte Lobby gesendet.</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Alternativ</th>
+    <td>Leere Nachrichten können nicht gesendet werden.</td>
+  </tr>
+  <tr>
+    <th>Klassifizierung</th>
+    <td>Funktional, KANN</td>
+  </tr>
+  <tr>
+    <th>Aufwand</th>
+    <td>Mittel</td>
+  </tr>
+</table>
+
+#### 3.2.3 FA-018 Remote Multiplayer-Modus
+<table>
+  <tr>
+    <th>ID</th>
+    <td>FA-018</td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>Remote Multiplayer-Modus</td>
+  </tr>
+  <tr>
+    <th>Ziel</th>
+    <td>Zwei Spieler können an verschiedenen Geräten gegeneinander spielen.</td>
+  </tr>
+  <tr>
+    <th>Akteure</th>
+    <td>Spieler</td>
+  </tr>
+  <tr>
+    <th>Ereignis</th>
+    <td>Ein remote Multiplayer-Spiel wird gestartet.</td>
+  </tr>
+  <tr>
+    <th>Vorbedingung Standardablauf</th>
+    <td>Akteur befindet sich auf der Start-Übersicht und ist dem Spiel namentlich bekannt.</td>
+  </tr>
+  <tr>
+    <th>Standardablauf</th>
+    <td>1. Akteur klickt auf den "Remote Multiplayer"-Knopf<br/>2. Pop-Up erscheint, zeigt an, dass auf einen Gegner gewartet wird, gibt die Möglichkeit das Duell zu starten sobald ein Gegner da ist oder zur Start-Übersicht zurückzukehren<br>3. Gegner nimmt das Duell an<br>4. Akteur klickt den "Duell starten"-Knopf</td>
+  </tr>
+  <tr>
+    <th>Alternativablauf</th>
+    <td>3a. Kein Gegner nimmt das Duell an<br/>4a. Akteur klickt den "Abbrechen"-Knopf</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Erfolg</th>
+    <td>Ein Duell-Spiel mit zwei Feldern wird gestartet.</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Alternativ</th>
+    <td>Das Spiel kann nicht gestartet werden, falls kein Gegner das Duell annimmt.<br/>Akteur wird zur Start-Übersicht zurückgeschickt.</td>
+  </tr>
+  <tr>
+    <th>Klassifizierung</th>
+    <td>Funktional, KANN</td>
+  </tr>
+  <tr>
+    <th>Aufwand</th>
+    <td>Gross</td>
+  </tr>
 </table>
 
 ### Template NFA
