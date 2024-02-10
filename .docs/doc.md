@@ -81,6 +81,7 @@ Websockets synchronisiert.
 Grundlegend sind die Spielregeln von Tetris.
 Von Tetris übernommen werden ausserdem die Blockformen und Blockfarben.
 
+<!--suppress CheckImageSize -->
 <img src="./img/color-blocks.png" alt="Powdromino Farben" width="50%"/>
 <img src="./img/powdrominos.png" alt="Powdromino Formen" width="50%"/>
 
