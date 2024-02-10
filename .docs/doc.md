@@ -136,3 +136,125 @@ Weiter erfolgt die Abgabe, sowohl des Backends als auch des Frontends, um die In
 Für die Source-Code-Verwaltung und die Versionierung wird GitLab verwendet. Innerhalb von Gitlab werden insbesondere Issues verwendet,
 um User Stories und Tasks zu erfassen. Zu Planungszwecken wird ausserdem ein Board mit den Phasen "Backlog", "Sprint Backlog", "Development",
 "Verification" und "Done" erstellt. Die Branch-Strategie folgt grundsätzlich den Empfehlungen des Git-flow-Workflow.
+
+## 3 Anforderungen
+
+### 3.1 MUSS-Anforderungen
+
+#### 3.1.1 Spieler-Name
+
+#### 3.1.2 Spiel-Start
+
+#### 3.1.3 Spiel-Pause
+
+#### 3.1.4 Spiel-Ende
+
+#### 3.1.5 Powdromino bewegen
+
+#### 3.1.6 Powdromino drehen
+
+#### 3.1.7 Powdromino beschleunigen
+
+#### 3.1.8 Powdromino Zerfall
+
+#### 3.1.9 Schwierigkeitsgrade
+
+#### 3.1.10 Reihe entfernen
+
+#### 3.1.11 Niederlage
+
+#### 3.1.12 Score zählen einfach
+
+#### 3.1.13 Score zählen mit Multiplikator
+
+#### 3.1.14 Scoreboard
+
+### 3.2 KANN-Anforderungen
+
+#### 3.2.1 Lokaler Multiplayer-Modus
+
+#### 3.2.2 Lobby-Chat
+
+#### 3.2.3 Remote Multiplayer-Modus
+
+### Template FA
+
+<table>
+  <tr>
+    <th>ID</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Ziel</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Akteure</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Ereignis</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Vorbedingung</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Standardablauf</th>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <th>Alternativablauf</th>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Erfolg</th>
+      <td>
+      </td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Fehler</th>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <th>Klassifizierung</th>
+    <td>
+    </td>
+  </tr>  <tr>
+    <th>Aufwand</th>
+    <td>
+    </td>
+  </tr>
+</table>
+
+### Template NFA
+
+<table>
+  <tr>
+    <th>ID</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Ziel</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Klassifizierung</th>
+    <td>
+    </td>
+  </tr>
+</table>
+
+
