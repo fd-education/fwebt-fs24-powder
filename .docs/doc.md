@@ -21,10 +21,11 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
     * [2.1 React + Typescript](#21-react--typescript)
     * [2.2 Node Package Manager (npm)](#22-node-package-manager-npm)
     * [2.3 Tailwind + DaisyUI](#23-tailwind--daisyui)
-    * [2.4 MongoDB](#24-mongodb)
-    * [2.5 Socket.io](#25-socketio)
-    * [2.6 Docker](#26-docker)
-    * [2.7 GitLab](#27-gitlab)
+    * [2.4 i18next](#24-i18next)
+    * [2.5 MongoDB](#25-mongodb)
+    * [2.6 Socket.io](#26-socketio)
+    * [2.7 Docker](#27-docker)
+    * [2.8 GitLab](#28-gitlab)
   * [3 Funktionale Anforderungen](#3-funktionale-anforderungen)
     * [3.1 MUSS-Anforderungen](#31-muss-anforderungen)
       * [3.1.1 FA-001 Spielername](#311-fa-001-spielername)
@@ -47,8 +48,12 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
       * [3.2.2 FA-017 Lobby-Chat](#322-fa-017-lobby-chat)
       * [3.2.3 FA-018 Remote Multiplayer-Modus](#323-fa-018-remote-multiplayer-modus)
   * [4 Nicht-Funktionale Anforderungen](#4-nicht-funktionale-anforderungen)
-    * [4.1 Internationalisierung](#41-internationalisierung)
-    * [Template NFA](#template-nfa)
+    * [4.1 MUSS-Anforderungen](#41-muss-anforderungen)
+      * [4.1.1 NFA-001 Client-Server](#411-nfa-001-client-server)
+      * [4.1.2 NFA-002 Persistenz](#412-nfa-002-persistenz)
+    * [4.2 KANN-Anforderungen](#42-kann-anforderungen)
+      * [4.2.1 NFA-003 Internationalisierung](#421-nfa-003-internationalisierung)
+    * [4.2.2 NFA-004 Light-/ Dark-Mode](#422-nfa-004-light--dark-mode)
 <!-- TOC -->
 
 ---
@@ -158,7 +163,11 @@ DaisyUI integriert mit Tailwind und bietet vorgefertigte Komponenten für Standa
 Optik des Spiels mit überschaubarem Aufwand merklich aufgewertet werden.
 Für DaisyUI kommt die Version 4.6.2 eingesetzt.
 
-### 2.4 MongoDB
+### 2.4 i18next
+[i18next](https://www.i18next.com/) ist ein Framework für die Internationalisierung von Web-Anwendungen und integriert über ein dediziertes Modul ([i18next-react](https://github.com/i18next/react-i18next)) direkt mit React, 
+wodurch Übersetzungen aus den entsprechenden JSON-Files direkt über einen Hook zugänglich werden.
+
+### 2.5 MongoDB
 
 Die Persistenz im Projekt wird mit [MongoDB](https://www.mongodb.com/) umgesetzt. MongoDB ist eine NoSQL
 Dokumentdatenbank, die sehr oft für Web Development verwendet wird.
@@ -173,7 +182,7 @@ und der Autor bereits Erfahrung mit deren Verwendung hat, fällt die Wahl auf da
 
 Während der Entwicklung wird ein Mongo-Container in Docker verwendet.
 
-### 2.5 Socket.io
+### 2.6 Socket.io
 
 Für die Echtzeitkommunikation zwischen Server(n) und Webclients kommt [Socket.io](https://socket.io/) zum Einsatz.
 Socket.IO nutzt das [WebSocket Protokoll](https://en.wikipedia.org/wiki/WebSocket), um eine bidirektionale, nahezu
@@ -187,7 +196,7 @@ die Chatfunktion und später eventuell für den remote Multiplayer.
 Im Projekt wird die aktuellste Version von Socket.io gemäss [npmjs.com](https://www.npmjs.com/package/socket.io)
 verwendet (z.Z. 4.7.4)
 
-### 2.6 Docker
+### 2.7 Docker
 
 [Docker](https://www.docker.com/) wird während der Entwicklung für Dev Containers eingesetzt, damit keine Dependencies
 und Services lokal installiert werden müssen.
@@ -195,7 +204,7 @@ und Services lokal installiert werden müssen.
 Weiter erfolgt die Abgabe, sowohl des Backends als auch des Frontends, um die Installation zu vereinfachen und den
 Aufwand auf das Clonen des Repositories und wenige Commands zu reduzieren.
 
-### 2.7 GitLab
+### 2.8 GitLab
 
 Für die Source-Code-Verwaltung und die Versionierung wird GitLab verwendet. Innerhalb von Gitlab werden insbesondere
 Issues verwendet,
@@ -1146,27 +1155,104 @@ Backlog", "Development",
   </tr>
 </table>
 
-### Template NFA
+## 4 Nicht-Funktionale Anforderungen
 
+### 4.1 MUSS-Anforderungen
 
+#### 4.1.1 NFA-001 Client-Server
 <table>
     <tr>
         <th>ID</th>
-        <td></td>
+        <td>NFA-001</td>
     </tr>
     <tr>
         <th>Name</th>
-        <td></td>
+        <td>Client-Server</td>
     </tr>
     <tr>
         <th>Ziel</th>
-        <td></td>
+        <td>Der Datenbank-Zugriff, sowie die eventuell umgesetzte Websocket-Kommunikation finden über eine Server-Komponente statt.</td>
     </tr>
     <tr>
         <th>Klassifizierung</th>
-        <td>
-        </td>
+        <td>Nicht funktional, MUSS</td>
+    </tr>    
+    <tr>
+        <th>Aufwand</th>
+        <td>Mittel</td>
     </tr>
 </table>
 
+#### 4.1.2 NFA-002 Persistenz
+<table>
+    <tr>
+        <th>ID</th>
+        <td>NFA-002</td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td>Persistenz</td>
+    </tr>
+    <tr>
+        <th>Ziel</th>
+        <td>Spielstände und Chat-Nachrichten werden in einer Datenbank persistiert.</td>
+    </tr>
+    <tr>
+        <th>Klassifizierung</th>
+        <td>Nicht funktional, MUSS</td>
+    </tr>    
+    <tr>
+        <th>Aufwand</th>
+        <td>Mittel</td>
+    </tr>
+</table>
+
+### 4.2 KANN-Anforderungen
+#### 4.2.1 NFA-003 Internationalisierung
+<table>
+    <tr>
+        <th>ID</th>
+        <td>NFA-003</td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td>Internationalisierung</td>
+    </tr>
+    <tr>
+        <th>Ziel</th>
+        <td>Sämtliche Texte innerhalb der Anwendung sind in Deutsch und Englisch verfügbar.</td>
+    </tr>
+    <tr>
+        <th>Klassifizierung</th>
+        <td>Nicht funktional, MUSS</td>
+    </tr>    
+    <tr>
+        <th>Aufwand</th>
+        <td>Mittel</td>
+    </tr>
+</table>
+
+### 4.2.2 NFA-004 Light-/ Dark-Mode
+<table>
+    <tr>
+        <th>ID</th>
+        <td>NFA-004</td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td>Light-/ Dark-Mode</td>
+    </tr>
+    <tr>
+        <th>Ziel</th>
+        <td>Benutzer können das GUI des Spiels zwischen Light- und Dark-Mode umstellen.</td>
+    </tr>
+    <tr>
+        <th>Klassifizierung</th>
+        <td>Nicht funktional, KANN</td>
+    </tr>    
+    <tr>
+        <th>Aufwand</th>
+        <td>Klein</td>
+    </tr>
+</table>
 
