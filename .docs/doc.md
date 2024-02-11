@@ -724,7 +724,7 @@ Backlog", "Development",
   </tr>
   <tr>
     <th>Nachbedingung Erfolg</th>
-    <td>Spielfeld wird mit 20 x 20 Block-Kacheln geladen.</td>
+    <td>Spielfeld wird mit 15 x 20 Block-Kacheln geladen.</td>
   </tr>
   <tr>
     <th>Nachbedingung Alternativ</th>
