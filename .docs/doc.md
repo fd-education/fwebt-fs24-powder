@@ -1,4 +1,4 @@
-![Powder-Icon](./img/powder-icon-s.png)
+![Powder-Icon](img/icon/powder-icon-s.png)
 
 # Dokumentation: Powder
 
@@ -54,6 +54,10 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
     * [4.2 KANN-Anforderungen](#42-kann-anforderungen)
       * [4.2.1 NFA-003 Internationalisierung](#421-nfa-003-internationalisierung)
     * [4.2.2 NFA-004 Light-/ Dark-Mode](#422-nfa-004-light--dark-mode)
+  * [5 Planung](#5-planung)
+    * [5.1 Prototypen](#51-prototypen)
+      * [5.1.1 Landing Page](#511-landing-page)
+    * [5.2 Architekturentscheidungen](#52-architekturentscheidungen)
 <!-- TOC -->
 
 ---
@@ -88,20 +92,20 @@ Grundlegend sind die Spielregeln von Tetris.
 Von Tetris übernommen werden ausserdem die Blockformen und Blockfarben.
 
 <!--suppress CheckImageSize -->
-<img src="./img/color-blocks.png" alt="Powdromino Farben" width="50%"/>
-<img src="./img/powdrominos.png" alt="Powdromino Formen" width="50%"/>
+<img src="img/powdrominos/color-blocks.png" alt="Powdromino Farben" width="50%"/>
+<img src="img/powdrominos/powdrominos.png" alt="Powdromino Formen" width="50%"/>
 
 
 Powdrominos sind **nicht** entsprechend ihrer Form gefärbt. Jede Form kann jede Farbe haben.
 
-<img src="./img/different-color-powdrominos.png" alt="Powdromino verschiedene Farben" width="50%"/>
+<img src="img/powdrominos/different-color-powdrominos.png" alt="Powdromino verschiedene Farben" width="50%"/>
 
 
 Die Blöcke, aus denen Powdrominos gebaut sind bestehen aus Substrukturen, die 10x kleiner sind, als die Blöcke selbst.
 Beim Aufprall auf den Boden des Spielfelds oder auf andere Blöcke, zerfallen sie in diese Substrukturen.
 Die Substrukturen haben eine eigene Physik bzw. Schwerkraft und bilden in der Folge Haufen.
 
-<img src="./img/powdromino-desintegration.png" alt="Zerfall von Powdrominos" width="50%"/>
+<img src="img/powdrominos/powdromino-desintegration.png" alt="Zerfall von Powdrominos" width="50%"/>
 
 Das Ziel des Spiels ist weiterhin, eine Reihe von Elementen vom linken zum rechten Spielfeldrand zu bilden.
 Da die Powdrominos jedoch beim Aufprall zerfallen, spielt es keine Rolle, ob die verbindende Reihe von Elementen
@@ -1255,4 +1259,14 @@ Backlog", "Development",
         <td>Klein</td>
     </tr>
 </table>
+
+## 5 Planung
+
+### 5.1 Prototypen
+
+#### 5.1.1 Landing Page
+<img src="./img/prototypes/landing-page-light.png" alt="Light Screen Landing Page" width="50%">
+<img src="./img/prototypes/landing-page-dark.png" alt="Dark Screen Landing Page" width="50%">
+
+### 5.2 Architekturentscheidungen
 

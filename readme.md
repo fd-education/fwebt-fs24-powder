@@ -1,4 +1,4 @@
-![Powder-Icon](./.docs/img/powder-icon-s.png)
+![Powder-Icon](.docs/img/icon/powder-icon-s.png)
 
 # Powder
 
