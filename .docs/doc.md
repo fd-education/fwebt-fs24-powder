@@ -1305,14 +1305,3 @@ Die Architektur berücksichtigt zu den MUSS- auch die KANN-Anforderungen, um ein
 
 <img src="./img/architecture/global-architecture.jpg" alt="Globale Architektur des Spiels" width="50%">
 
-
-#### 5.2.2 Architektur Frontend
-
-##### 5.2.2.1 Landing Page
-
-
-##### 5.2.2.2 Home Page
-
-
-##### 5.2.2.3 Game Page
-
