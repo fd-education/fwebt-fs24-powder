@@ -1296,7 +1296,7 @@ Backlog", "Development",
 ### 5.2 Architekturentscheidungen
 Die Semesterarbeit wird als Client-Server-Anwendung mit Persistenz implementiert.
 
-<img src="./img/architecture/client-server.jpg" alt="Client-Server Architektur" width="50%">
+<img src="./img/architecture/client-server.jpg" alt="Client-Server Architektur" width="20%">
 
 #### 5.2.1 Architektur Global
 Die globale Architektur zeigt das Zusammenspiel von Frontend, Backend und Persistenz zur Erreichung der in [Abschnitt 3](#3-funktionale-anforderungen) dokumentierten
