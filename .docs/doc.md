@@ -63,10 +63,6 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
       * [5.1.5 Game Page: Multiplayer](#515-game-page-multiplayer)
     * [5.2 Architekturentscheidungen](#52-architekturentscheidungen)
       * [5.2.1 Architektur Global](#521-architektur-global)
-      * [5.2.2 Architektur Frontend](#522-architektur-frontend)
-        * [5.2.2.1 Landing Page](#5221-landing-page)
-        * [5.2.2.2 Home Page](#5222-home-page)
-        * [5.2.2.3 Game Page](#5223-game-page)
 <!-- TOC -->
 
 ---
