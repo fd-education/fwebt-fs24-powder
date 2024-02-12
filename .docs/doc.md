@@ -57,6 +57,10 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
   * [5 Planung](#5-planung)
     * [5.1 Prototypen](#51-prototypen)
       * [5.1.1 Landing Page](#511-landing-page)
+      * [5.1.2 Menü Page](#512-menü-page)
+      * [5.1.3 Game Page: Singleplayer Einfach](#513-game-page-singleplayer-einfach)
+      * [5.1.4 Game Page: Singleplayer Schwer](#514-game-page-singleplayer-schwer)
+      * [5.1.5 Game Page: Multiplayer](#515-game-page-multiplayer)
     * [5.2 Architekturentscheidungen](#52-architekturentscheidungen)
 <!-- TOC -->
 
@@ -1267,6 +1271,22 @@ Backlog", "Development",
 #### 5.1.1 Landing Page
 <img src="./img/prototypes/landing-page-light.png" alt="Light Screen Landing Page" width="50%">
 <img src="./img/prototypes/landing-page-dark.png" alt="Dark Screen Landing Page" width="50%">
+
+#### 5.1.2 Menü Page
+<img src="./img/prototypes/menu-page-light.png" alt="Light Screen Menu Page" width="50%">
+<img src="./img/prototypes/menu-page-dark.png" alt="Dark Screen Menu Page" width="50%">
+
+#### 5.1.3 Game Page: Singleplayer Einfach
+<img src="./img/prototypes/game-page-light-easy.png" alt="Light Screen Easy Game Page" width="50%">
+<img src="./img/prototypes/game-page-dark-easy.png" alt="Dark Screen Easy Game Page" width="50%">
+
+#### 5.1.4 Game Page: Singleplayer Schwer
+<img src="./img/prototypes/game-page-light-hard.png" alt="Light Screen Hard Game Page" width="50%">
+<img src="./img/prototypes/game-page-dark-hard.png" alt="Dark Screen Hard Game Page" width="50%">
+
+#### 5.1.5 Game Page: Multiplayer
+<img src="./img/prototypes/game-page-multiplayer-light.png" alt="Light Screen Multiplayer Game Page" width="50%">
+<img src="./img/prototypes/game-page-multiplayer-dark.png" alt="Dark Screen Multiplayer Game Page" width="50%">
 
 ### 5.2 Architekturentscheidungen
 
