@@ -62,6 +62,11 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
       * [5.1.4 Game Page: Singleplayer Schwer](#514-game-page-singleplayer-schwer)
       * [5.1.5 Game Page: Multiplayer](#515-game-page-multiplayer)
     * [5.2 Architekturentscheidungen](#52-architekturentscheidungen)
+      * [5.2.1 Architektur Global](#521-architektur-global)
+      * [5.2.2 Architektur Frontend](#522-architektur-frontend)
+        * [5.2.2.1 Landing Page](#5221-landing-page)
+        * [5.2.2.2 Home Page](#5222-home-page)
+        * [5.2.2.3 Game Page](#5223-game-page)
 <!-- TOC -->
 
 ---
@@ -1139,7 +1144,7 @@ Backlog", "Development",
   </tr>
   <tr>
     <th>Standardablauf</th>
-    <td>1. Akteur klickt auf den "Remote Multiplayer"-Knopf<br/>2. Pop-Up erscheint, zeigt an, dass auf einen Gegner gewartet wird, gibt die Möglichkeit das Duell zu starten sobald ein Gegner da ist oder zur Start-Übersicht zurückzukehren<br>3. Gegner nimmt das Duell an<br>4. Akteur klickt den "Duell starten"-Knopf</td>
+    <td>1. Akteur klickt auf den "Remote Multiplayer"-Knopf<br/>2. Pop-Up erscheint, zeigt an, dass auf einen Gegner gewartet wird, gibt die Möglichkeit das Duell zu starten, sobald ein Gegner da ist oder zur Start-Übersicht zurückzukehren<br>3. Gegner nimmt das Duell an<br>4. Akteur klickt den "Duell starten"-Knopf</td>
   </tr>
   <tr>
     <th>Alternativablauf</th>
@@ -1289,4 +1294,25 @@ Backlog", "Development",
 <img src="./img/prototypes/game-page-multiplayer-dark.png" alt="Dark Screen Multiplayer Game Page" width="50%">
 
 ### 5.2 Architekturentscheidungen
+Die Semesterarbeit wird als Client-Server-Anwendung mit Persistenz implementiert.
+
+<img src="./img/architecture/client-server.jpg" alt="Client-Server Architektur" width="50%">
+
+#### 5.2.1 Architektur Global
+Die globale Architektur zeigt das Zusammenspiel von Frontend, Backend und Persistenz zur Erreichung der in [Abschnitt 3](#3-funktionale-anforderungen) dokumentierten
+funktionalen Anforderungen. Dabei werden das Backend und die Persistenz nur Oberflächlich betrachtet. <br/>
+Die Architektur berücksichtigt zu den MUSS- auch die KANN-Anforderungen, um ein umfassendes Bild der beteiligten Komponenten zu zeigen.
+
+<img src="./img/architecture/global-architecture.jpg" alt="Globale Architektur des Spiels" width="50%">
+
+
+#### 5.2.2 Architektur Frontend
+
+##### 5.2.2.1 Landing Page
+
+
+##### 5.2.2.2 Home Page
+
+
+##### 5.2.2.3 Game Page
 
