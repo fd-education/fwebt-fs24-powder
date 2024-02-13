@@ -1,0 +1,22 @@
+{
+  "name": "@powder/server",
+  "version": "0.0.1",
+  "description": "Server side (backend) of the Powder game.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.ffhs.ch/web-technologien/fwebt/fs24/infp-w-af004-fwebt_pibs-be-1-pva/studs/fwebt-fs24-powder"
+  },
+  "keywords": [
+    "Powder",
+    "Nestjs",
+    "Typescript",
+    "MongoDB",
+    "Websockets"
+  ],
+  "author": "Fabian Diemand, fabian.diemand@students.ffhs.ch",
+  "license": "ISC"
+}
