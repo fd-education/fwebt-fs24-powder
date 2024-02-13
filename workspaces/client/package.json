@@ -1,0 +1,50 @@
+{
+  "name": "@powder/client",
+  "version": "0.0.1",
+  "description": "Client side (frontend) of the Powder game.",
+  "main": "dist/index.js",
+  "scripts": {
+    "serve": "webpack serve --mode development",
+    "build:dev": "webpack --mode development",
+    "build:prod": "webpack --mode production"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "serve": "^14.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@powder/common": "file:../common",
+    "@types/react-dom": "^18.2.19",
+    "autoprefixer": "^10.4.17",
+    "babel-loader": "^9.1.3",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^6.10.0",
+    "postcss": "^8.4.33",
+    "postcss-loader": "^8.1.0",
+    "postcss-preset-env": "^9.3.0",
+    "style-loader": "^3.3.4",
+    "tailwindcss": "^3.4.1",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.ffhs.ch/web-technologien/fwebt/fs24/infp-w-af004-fwebt_pibs-be-1-pva/studs/fwebt-fs24-powder"
+  },
+  "keywords": [
+    "Powder",
+    "React",
+    "Typescript",
+    "Tailwind",
+    "DaisyUI"
+  ],
+  "author": "Fabian Diemand, fabian.diemand@students.ffhs.ch",
+  "license": "ISC"
+}
