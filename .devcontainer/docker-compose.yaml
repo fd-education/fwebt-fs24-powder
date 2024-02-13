@@ -1,6 +1,7 @@
 version: '3.9'
 services:
   devcontainer:
+    container_name: powder-devcontainer
     image: mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye
     volumes: 
       - ../:/workspaces:cached
@@ -8,6 +9,7 @@ services:
     command: sleep infinity
 
   mongo:
+    container_name: powder-mongodb
     image: mongo:7.0
     restart: unless-stopped
     volumes:
@@ -17,6 +19,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
 
   mongo-express:
+    container_name: powder-mongo-express
     image: mongo-express:1.0.2-20-alpine3.19
     restart: unless-stopped
     ports:
