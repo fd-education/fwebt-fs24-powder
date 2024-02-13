@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "outDir": "./dist",
+    "rootDir": "src",
+    "lib": ["dom", "ES2023", "scripthost"]
+  },
+  "include": ["src/**/*"]
+}

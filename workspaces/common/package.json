@@ -1,0 +1,30 @@
+{
+  "name": "@powder/common",
+  "version": "0.0.1",
+  "description": "Shared code (i.e. types, enums, constants) between the powder-client (frontend) and the powder-server (backend) of the Powder game.",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist"
+  ],
+  "scripts": {
+    "build": "rimraf dist tsconfig.tsbuildinfo && tsc",
+    "postinstall": "npm run build",
+    "watch": "tsc -w"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.ffhs.ch/web-technologien/fwebt/fs24/infp-w-af004-fwebt_pibs-be-1-pva/studs/fwebt-fs24-powder"
+  },
+  "keywords": [
+    "Powder",
+    "Typescript"
+  ],
+  "author": "Fabian Diemand, fabian.diemand@students.ffhs.ch",
+  "license": "ISC"
+}
