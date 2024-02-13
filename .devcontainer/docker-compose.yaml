@@ -4,7 +4,7 @@ services:
     container_name: powder-devcontainer
     image: mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye
     volumes: 
-      - ../:/workspaces:cached
+      - ../:/app:cached
     network_mode: service:mongo
     command: sleep infinity
 

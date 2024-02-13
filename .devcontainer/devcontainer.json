@@ -1,9 +1,10 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node
 {
+	"name": "Powder Devcontainer",
   "dockerComposeFile": "docker-compose.yaml",
   "service": "devcontainer",
-  "workspaceFolder": "/workspaces",
+  "workspaceFolder": "/app",
   "mounts": [{
     "source": "/home/${localEnv:USER}/.ssh",
     "target": "/home/node/.ssh",
@@ -23,11 +24,10 @@
 				"formulahendry.auto-close-tag",
 				"dbaeumer.vscode-eslint",
 				"Gruntfuggly.todo-tree",
-				"yandeu.five-server"
 			]
 		}
 	}
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// Uncomment to connect as root instead.
 	// "remoteUser": "root"
 }
 
