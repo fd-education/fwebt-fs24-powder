@@ -4,6 +4,6 @@ import {TestEnum} from '@powder/common';
 export const App = () => {
 
   return (
-    <div>{TestEnum.ONE}</div>
+    <div className='bg-black'>{TestEnum.ONE}</div>
   );
 }
