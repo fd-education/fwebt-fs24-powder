@@ -6,6 +6,7 @@
   "scripts": {
     "serve": "webpack serve --mode development",
     "format": "npx prettier . --write",
+    "lint": "npx eslint src",
     "build:dev": "webpack --mode development",
     "build:prod": "webpack --mode production"
   },
@@ -26,6 +27,7 @@
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.10.0",
     "daisyui": "^4.7.2",
+    "eslint": "^8.56.0",
     "postcss": "^8.4.33",
     "postcss-loader": "^8.1.0",
     "postcss-preset-env": "^9.3.0",
@@ -33,6 +35,7 @@
     "style-loader": "^3.3.4",
     "tailwindcss": "^3.4.1",
     "ts-loader": "^9.5.1",
+    "typescript-eslint": "^7.0.1",
     "webpack": "^5.90.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
