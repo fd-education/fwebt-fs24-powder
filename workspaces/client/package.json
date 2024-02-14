@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "serve": "webpack serve --mode development",
+    "format": "npx prettier . --write",
     "build:dev": "webpack --mode development",
     "build:prod": "webpack --mode production"
   },
