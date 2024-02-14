@@ -28,6 +28,8 @@
     "css-loader": "^6.10.0",
     "daisyui": "^4.7.2",
     "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.33.2",
     "postcss": "^8.4.33",
     "postcss-loader": "^8.1.0",
     "postcss-preset-env": "^9.3.0",
