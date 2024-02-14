@@ -221,6 +221,23 @@ um User Stories und Tasks zu erfassen. Zu Planungszwecken wird ausserdem ein Boa
 Backlog", "Development",
 "Verification" und "Done" erstellt. Die Branch-Strategie folgt grundsätzlich den Empfehlungen des Git-flow-Workflow.
 
+### 2.9 Weitere Dependencies
+
+**ESLint + typescript-eslint + eslint-plugin-react** <br>
+[ESLint](https://eslint.org/), [typescript-eslint](https://typescript-eslint.io/) und [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) werden eingesetzt, um den Code statisch und regelbasiert auf Fehler zu überprüfen. Die Grundfunktionalität des Lintings wird mit ESLint eingeführt. typescript-eslint ergänzt die Unterstützung für TypeScript und eslint-plugin-react enthält React-spezifische Regeln.
+
+Die Konfiguration von ESLint kann sich im Projektverlauf verändern.
+
+**Prettier + eslint-config-prettier** <br>
+[Prettier](https://prettier.io/) und [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) werden für die Formatierung des Sourcecodes eingesetzt. Mit Prettier wird dabei die Formatierungsfunktionalität eingeführt. eslint-config-prettier muss in der Konfiguration von ESLint verwendet werden, damit hinsichtlich der Formatierung keine Konflikte zwischen Prettier uns ESLint entstehen.
+
+Die Konfiguration von Prettier kann sich im Projekverlauf verändern.
+
+**Webpack + Babel** <br>
+[Webpack](https://webpack.js.org/) und [Babel](https://babeljs.io/) werden eingesetzt, um den für die Entwicklung des Spiels verwendeten Sprachstandard von JavaScript/ TypeScript in Browser-kompatibles JavaScript der Version ES5 zu transpilieren. Der Vorgang des Transpilierens wird durch Babel vorgenommen. Webpack bündelt die Resourcen für die Anwendung (nur clientseitig!) in ein grosses JavaScript-File, um die Performance im Browser zu steigern, ohne die Möglichkeiten der Modularität während der Entwicklung einzuschränken.
+
+Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins installiert, auf welche im Rahmen der Dokumentation nicht detailliert eingegangen wird.
+
 ## 3 Funktionale Anforderungen
 
 ### 3.1 MUSS-Anforderungen
