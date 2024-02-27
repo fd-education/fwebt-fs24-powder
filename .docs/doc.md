@@ -108,7 +108,7 @@ Powdrominos sind **nicht** entsprechend ihrer Form gefärbt. Jede Form kann jede
 <img src="img/powdrominos/different-color-powdrominos.png" alt="Powdromino verschiedene Farben" width="50%"/>
 
 
-Die Blöcke, aus denen Powdrominos gebaut sind bestehen aus Substrukturen, die 10x kleiner sind, als die Blöcke selbst.
+Die Blöcke, aus denen Powdrominos gebaut sind bestehen aus Substrukturen, die dreimal kleiner sind, als die Blöcke selbst.
 Beim Aufprall auf den Boden des Spielfelds oder auf andere Blöcke, zerfallen sie in diese Substrukturen.
 Die Substrukturen haben eine eigene Physik bzw. Schwerkraft und bilden in der Folge Haufen.
 
@@ -126,9 +126,9 @@ geben.
 
 Ferner gibt es einen Punktmultiplikator, entsprechend der Anzahl entfernter Substrukturen:
 
-- Faktor 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 2)
-- Faktor 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 3)
-- Faktor 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 10 x 4)
+- Faktor 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 2)
+- Faktor 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 3)
+- Faktor 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 3 x 4)
 
 Damit wird die beim regulären Tetris ein höheres Risiko beim Stapeln der Elemente belohnt.
 
@@ -853,7 +853,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
   <tr>
     <th>Nachbedingung Erfolg</th>
-    <td>Der Score des entfernten Komplexes wird nach folgender Logik berechnet und zum Gesamt-Score hinzuaddiert:<br/>- Entfernte Substrukturen x 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 2)<br>- Entfernte Substrukturen x 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 3)<br>- Entfernte Substrukturen x 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 10 x 4)</td>
+    <td>Der Score des entfernten Komplexes wird nach folgender Logik berechnet und zum Gesamt-Score hinzuaddiert:<br/>- Entfernte Substrukturen x 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 2)<br>- Entfernte Substrukturen x 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 3)<br>- Entfernte Substrukturen x 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 3 x 4)</td>
   </tr>
   <tr>
     <th>Nachbedingung Alternativ</th>
