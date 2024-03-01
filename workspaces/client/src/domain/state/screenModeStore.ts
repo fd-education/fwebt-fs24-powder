@@ -10,7 +10,7 @@ interface ScreenModeState {
 export const useScreenModeStore = create<ScreenModeState>()(
   persist(
     (set) => ({
-      screenMode: ScreenMode.LIGHT,
+      screenMode: ScreenMode.DARK,
       setScreenMode: (screenMode) => {
         if (screenMode === ScreenMode.DARK || localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)){
           document.documentElement.classList.add('dark')
