@@ -1,5 +1,5 @@
-import React from 'react'
-import { ScreenModeToggle } from '../components/settings/ScreenModeToggle'
+import React from 'react';
+import { ScreenModeToggle } from '../components/settings/ScreenModeToggle';
 
 export const LandingPage = () => {
   return (
@@ -7,5 +7,5 @@ export const LandingPage = () => {
       <h1>Welcome to the Landing Page</h1>
       <ScreenModeToggle />
     </>
-  )
-}
+  );
+};

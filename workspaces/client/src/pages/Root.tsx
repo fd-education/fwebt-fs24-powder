@@ -1,5 +1,5 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 export const RootPage = () => {
   return (
@@ -7,5 +7,5 @@ export const RootPage = () => {
       <h1>This is the root page</h1>
       <Outlet />
     </>
-  )
-}
+  );
+};

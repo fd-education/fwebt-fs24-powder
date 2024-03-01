@@ -5,7 +5,7 @@ import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
 
 export const ScreenModeToggle = () => {
-  const { screenMode, setScreenMode } = useScreenModeStore()
+  const { screenMode, setScreenMode } = useScreenModeStore();
 
   return screenMode === ScreenMode.LIGHT ? (
     <button onClick={() => setScreenMode(ScreenMode.DARK)}>
@@ -15,5 +15,5 @@ export const ScreenModeToggle = () => {
     <button onClick={() => setScreenMode(ScreenMode.LIGHT)}>
       <SunIcon />
     </button>
-  )
-}
+  );
+};

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { isRouteErrorResponse, useRouteError } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 export const ErrorPage = () => {
   const error = useRouteError();
@@ -19,7 +19,7 @@ export const ErrorPage = () => {
       console.error(error);
       setErrorMessage('Unknown error');
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -29,5 +29,5 @@ export const ErrorPage = () => {
         <i>{errorMessage}</i>
       </p>
     </>
-  )
-}
+  );
+};
