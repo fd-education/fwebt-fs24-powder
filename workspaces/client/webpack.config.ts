@@ -1,11 +1,12 @@
-const path = require('path')
-const CopyPlugin = require('copy-webpack-plugin')
+import path from 'path';
+import webpack from 'webpack';
+import CopyPlugin from 'copy-webpack-plugin';
+import 'webpack-dev-server';
 
-module.exports = {
+const config: webpack.Configuration = {
   entry: './src/index.tsx',
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+  devServer: {
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -45,3 +46,5 @@ module.exports = {
     }),
   ],
 }
+
+export default config;
