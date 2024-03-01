@@ -22,12 +22,12 @@ export const ErrorPage = () => {
   }, [])
 
   return (
-    <div>
+    <>
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has ocurred.</p>
       <p>
         <i>{errorMessage}</i>
       </p>
-    </div>
+    </>
   )
 }
