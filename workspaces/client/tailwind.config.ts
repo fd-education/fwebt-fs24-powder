@@ -6,7 +6,7 @@ const config: Config = {
   theme: {
     fontFamily: {
       'blocked': 'Blocked',
-      'roboto-mono': 'RobotoMono'
+      'sans': 'RobotoMono'
     },
     colors: {
       'primary-light': '#F0EAEA',
