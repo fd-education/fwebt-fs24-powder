@@ -1,11 +1,16 @@
 import React from 'react';
-import { ScreenModeToggle } from '../components/settings/ScreenModeToggle';
+import { TitleBig } from '../components/util/TitleBig';
+import { NameInput } from '../components/landing/NameInput';
+import { SettingsGroup } from '../components/settings/SettingsGroup';
 
 export const LandingPage = () => {
   return (
-    <>
-      <h1>Welcome to the Landing Page</h1>
-      <ScreenModeToggle />
-    </>
+    <div className={`h-full w-full flex flex-col items-center`}>
+      <TitleBig />
+      <div className={`h-full flex flex-col items-center justify-center`}>
+        <NameInput />
+        <SettingsGroup />
+      </div>
+    </div>
   );
 };

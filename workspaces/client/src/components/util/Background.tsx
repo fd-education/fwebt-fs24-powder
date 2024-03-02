@@ -1,10 +1,8 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import { BaseProps } from '../../domain/types/BaseProps';
 
-type Props = {
-  children: ReactNode;
-};
 
-export const Background = (props: Props) => {
+export const Background = (props: BaseProps) => {
   return (
     <div
       className={`h-dvh w-dvw bg-powder-hills-light dark:bg-powder-hills-dark bg-cover`}

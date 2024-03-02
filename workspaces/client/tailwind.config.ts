@@ -11,6 +11,8 @@ const config: Config = {
     colors: {
       'primary-light': '#F0EAEA',
       'primary-dark': '#2C2727',
+      'white': '#FFFFFF',
+      'black': '#000000',
       'chat-bubble-received': '#303C33',
       'chat-bubble-sent': '#FFFFFF',
       'button-color': '#68926A',
