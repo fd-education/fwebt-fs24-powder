@@ -4,6 +4,9 @@ import daisyui from 'daisyui';
 const config: Config = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    fontFamily: {
+      'blocked': 'Blocked'
+    },
     extend: {
       backgroundImage: {
         'powder-hills-dark':

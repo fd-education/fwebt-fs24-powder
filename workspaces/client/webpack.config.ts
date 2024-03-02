@@ -5,6 +5,7 @@ import 'webpack-dev-server';
 
 const config: webpack.Configuration = {
   entry: './src/index.tsx',
+  devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
   },
@@ -25,6 +26,11 @@ const config: webpack.Configuration = {
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
+      {
+
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
       },
     ],
   },
