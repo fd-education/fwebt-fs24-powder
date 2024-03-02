@@ -5,7 +5,8 @@ const config: Config = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     fontFamily: {
-      'blocked': 'Blocked'
+      'blocked': 'Blocked',
+      'roboto-mono': 'RobotoMono'
     },
     extend: {
       backgroundImage: {
