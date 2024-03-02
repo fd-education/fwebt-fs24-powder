@@ -15,8 +15,8 @@ export const RootPage = () => {
   },[])
 
   return (
-    <>
+    <div className='h-full w-full py-8 px-5'>
       <Outlet />
-    </>
+    </div>
   );
 };
