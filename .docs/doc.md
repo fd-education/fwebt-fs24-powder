@@ -65,6 +65,7 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
       - [5.1.5 Game Page: Multiplayer](#515-game-page-multiplayer)
     - [5.2 Architekturentscheidungen](#52-architekturentscheidungen)
       - [5.2.1 Architektur Global](#521-architektur-global)
+      - [5.2.2 Architektur Frontend](#522-architektur-frontend)
 <!-- TOC -->
 
 ---
@@ -1319,5 +1320,15 @@ Die globale Architektur zeigt das Zusammenspiel von Frontend, Backend und Persis
 funktionalen Anforderungen. Dabei werden das Backend und die Persistenz nur Oberflächlich betrachtet. <br/>
 Die Architektur berücksichtigt zu den MUSS- auch die KANN-Anforderungen, um ein umfassendes Bild der beteiligten Komponenten zu zeigen.
 
-<img src="./img/architecture/global-architecture.jpg" alt="Globale Architektur des Spiels" width="50%">
+<img src="./img/architecture/global-architecture.png" alt="Globale Architektur des Spiels" width="50%">
+
+#### 5.2.2 Architektur Frontend
+Das Frontend ist modularisiert und entsprechend in Pages und Components eingeteilt. Pages setzen sich aus mehreren Components und weiterem JSX für deren Positionierung zusammen. 
+Components dienen der Auslagerung von Darstellung und Logik, damit der Deduplizierung von Code und einer verbesserten Wartbarkeit der Code Base. 
+Sie sind bestmöglich nach dem Single Responsibility Prinzip aufgebaut. <br/>
+Sämtliche Pages sind in eine Root Page eingebettet, welche das Parent-Element des Routing Trees darstellt. 
+Neben den drei Hauptpages (Landing, Lobby, Game) gibt es eine Error Page, welche genutzt wird, um ein nutzerfreundliches Error-Handling zu erlauben.
+
+<img src="./img/architecture/components.png" alt="Frontend Architektur des Spiels" width="50%">
+
 
