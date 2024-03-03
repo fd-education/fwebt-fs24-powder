@@ -24,7 +24,6 @@ export const useGame = () => {
   }, [dispatchState]);
 
   const renderedBoard = structuredClone(board) as PowdrominoTypes[][];
-  console.log(renderedBoard);
 
   if(gameStarted){
     shape
