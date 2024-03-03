@@ -5,13 +5,13 @@
 FS 2024, Fortgeschrittene Web Technologien, Fabian Diemand <br>
 Dozent: Christian Klauenbösch <br>
 Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fwebt/fs24/infp-w-af004-fwebt_pibs-be-1-pva/studs/fwebt-fs24-powder)
+
 --- 
 
 ## Inhalt
 
 <!-- TOC -->
 - [Dokumentation: Powder](#dokumentation-powder)
-  - [Repository: Powder GitLab Repository](#repository-powder-gitlab-repository)
   - [Inhalt](#inhalt)
   - [1 Projektidee und Geschäftsregeln](#1-projektidee-und-geschäftsregeln)
     - [1.1 Kontext des Projekts](#11-kontext-des-projekts)
@@ -37,18 +37,18 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
       - [3.1.5 FA-005 Powdromino Vorschau](#315-fa-005-powdromino-vorschau)
       - [3.1.6 FA-006 Powdromino bewegen](#316-fa-006-powdromino-bewegen)
       - [3.1.7 FA-007 Powdromino drehen](#317-fa-007-powdromino-drehen)
-      - [3.1.8 FA-008 Powdromino beschleunigen](#318-fa-008-powdromino-beschleunigen)
-      - [3.1.9 FA-009 Powdromino Zerfall](#319-fa-009-powdromino-zerfall)
-      - [3.1.10 FA-010 Schwierigkeitsgrade](#3110-fa-010-schwierigkeitsgrade)
-      - [3.1.11 FA-011 Reihe entfernen](#3111-fa-011-reihe-entfernen)
-      - [3.1.12 FA-012 Niederlage](#3112-fa-012-niederlage)
-      - [3.1.13 FA-013 Score zählen einfach](#3113-fa-013-score-zählen-einfach)
-      - [3.1.14 FA-014 Score zählen mit Multiplikator](#3114-fa-014-score-zählen-mit-multiplikator)
-      - [3.1.15 FA-015 Scoreboard](#3115-fa-015-scoreboard)
+      - [3.1.8 FA-009 Powdromino Zerfall](#318-fa-009-powdromino-zerfall)
+      - [3.1.9 FA-011 Reihe entfernen](#319-fa-011-reihe-entfernen)
+      - [3.1.10 FA-012 Niederlage](#3110-fa-012-niederlage)
+      - [3.1.11 FA-013 Score zählen einfach](#3111-fa-013-score-zählen-einfach)
+      - [3.1.12 FA-014 Score zählen mit Multiplikator](#3112-fa-014-score-zählen-mit-multiplikator)
+      - [3.1.13 FA-015 Scoreboard](#3113-fa-015-scoreboard)
     - [3.2 KANN-Anforderungen](#32-kann-anforderungen)
       - [3.2.1 FA-016 Lokaler Multiplayer-Modus](#321-fa-016-lokaler-multiplayer-modus)
       - [3.2.2 FA-017 Lobby-Chat](#322-fa-017-lobby-chat)
       - [3.2.3 FA-018 Remote Multiplayer-Modus](#323-fa-018-remote-multiplayer-modus)
+      - [3.2.4 FA-008 Powdromino beschleunigen](#324-fa-008-powdromino-beschleunigen)
+      - [3.2.5 FA-010 Schwierigkeitsgrade](#325-fa-010-schwierigkeitsgrade)
   - [4 Nicht-Funktionale Anforderungen](#4-nicht-funktionale-anforderungen)
     - [4.1 MUSS-Anforderungen](#41-muss-anforderungen)
       - [4.1.1 NFA-001 Client-Server](#411-nfa-001-client-server)
@@ -65,6 +65,7 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
       - [5.1.5 Game Page: Multiplayer](#515-game-page-multiplayer)
     - [5.2 Architekturentscheidungen](#52-architekturentscheidungen)
       - [5.2.1 Architektur Global](#521-architektur-global)
+      - [5.2.2 Architektur Frontend](#522-architektur-frontend)
 <!-- TOC -->
 
 ---
@@ -108,7 +109,7 @@ Powdrominos sind **nicht** entsprechend ihrer Form gefärbt. Jede Form kann jede
 <img src="img/powdrominos/different-color-powdrominos.png" alt="Powdromino verschiedene Farben" width="50%"/>
 
 
-Die Blöcke, aus denen Powdrominos gebaut sind bestehen aus Substrukturen, die 10x kleiner sind, als die Blöcke selbst.
+Die Blöcke, aus denen Powdrominos gebaut sind bestehen aus Substrukturen, die dreimal kleiner sind, als die Blöcke selbst.
 Beim Aufprall auf den Boden des Spielfelds oder auf andere Blöcke, zerfallen sie in diese Substrukturen.
 Die Substrukturen haben eine eigene Physik bzw. Schwerkraft und bilden in der Folge Haufen.
 
@@ -126,9 +127,9 @@ geben.
 
 Ferner gibt es einen Punktmultiplikator, entsprechend der Anzahl entfernter Substrukturen:
 
-- Faktor 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 2)
-- Faktor 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 3)
-- Faktor 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 10 x 4)
+- Faktor 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 2)
+- Faktor 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 3)
+- Faktor 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 3 x 4)
 
 Damit wird die beim regulären Tetris ein höheres Risiko beim Stapeln der Elemente belohnt.
 
@@ -608,59 +609,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
 </table>
 
-#### 3.1.8 FA-008 Powdromino beschleunigen
-<table>
-  <tr>
-    <th>ID</th>
-    <td>FA-008</td>
-  </tr>
-  <tr>
-    <th>Name</th>
-    <td>Powdromino beschleunigen</td>
-  </tr>
-  <tr>
-    <th>Ziel</th>
-    <td>Powdrominos können schneller abgesenkt werden.</td>
-  </tr>
-  <tr>
-    <th>Akteure</th>
-    <td>Spieler</td>
-  </tr>
-  <tr>
-    <th>Ereignis</th>
-    <td>Akteur betätigt die untere Pfeil- oder S-Taste.</td>
-  </tr>
-  <tr>
-    <th>Vorbedingung Standardablauf</th>
-    <td>Akteur befindet sich in einem laufenden Spiel.</td>
-  </tr>
-  <tr>
-    <th>Standardablauf</th>
-    <td>1. Akteur betätigt untere Pfeiltaste oder S<br/>2. Powdromino bewegt sich in doppelter Geschwindigkeit auf den Boden zu</td>
-  </tr>
-  <tr>
-    <th>Alternativablauf</th>
-    <td>-</td>
-  </tr>
-  <tr>
-    <th>Nachbedingung Erfolg</th>
-    <td>Powdromino senkt sich schneller.</td>
-  </tr>
-  <tr>
-    <th>Nachbedingung Alternativ</th>
-    <td>-</td>
-  </tr>
-  <tr>
-    <th>Klassifizierung</th>
-    <td>Funktional, MUSS</td>
-  </tr>
-  <tr>
-    <th>Aufwand</th>
-    <td>Mittel</td>
-  </tr>
-</table>
-
-#### 3.1.9 FA-009 Powdromino Zerfall
+#### 3.1.8 FA-009 Powdromino Zerfall
 <table>
   <tr>
     <th>ID</th>
@@ -712,59 +661,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
 </table>
 
-#### 3.1.10 FA-010 Schwierigkeitsgrade
-<table>
-  <tr>
-    <th>ID</th>
-    <td>FA-010</td>
-  </tr>
-  <tr>
-    <th>Name</th>
-    <td>Schwierigkeitsgrade</td>
-  </tr>
-  <tr>
-    <th>Ziel</th>
-    <td>Spieler können zwischen zwei Schwierigkeitsgraden wählen.</td>
-  </tr>
-  <tr>
-    <th>Akteure</th>
-    <td>Spieler</td>
-  </tr>
-  <tr>
-    <th>Ereignis</th>
-    <td>Akteur wählt vor dem Spielstart eine Schwierigkeitsoption.</td>
-  </tr>
-  <tr>
-    <th>Vorbedingung Standardablauf</th>
-    <td>Akteur ist namentlich bekannt und startet ein Spiel (vgl. Anforderung 2).</td>
-  </tr>
-  <tr>
-    <th>Standardablauf</th>
-    <td>1. Akteur wählt höheren Schwierigkeitsgrad<br/>2. Akteur klickt "Start"-Knopf</td>
-  </tr>
-  <tr>
-    <th>Alternativablauf</th>
-    <td>1a. Akteur belässt Standard-Schwierigkeitsgrad</td>
-  </tr>
-  <tr>
-    <th>Nachbedingung Erfolg</th>
-    <td>Spielfeld wird mit 15 x 20 Block-Kacheln geladen.</td>
-  </tr>
-  <tr>
-    <th>Nachbedingung Alternativ</th>
-    <td>Spielfeld wird mit 10 x 20 Block-Kacheln geladen.</td>
-  </tr>
-  <tr>
-    <th>Klassifizierung</th>
-    <td>Funktional, MUSS</td>
-  </tr>
-  <tr>
-    <th>Aufwand</th>
-    <td>Klein</td>
-  </tr>
-</table>
-
-#### 3.1.11 FA-011 Reihe entfernen
+#### 3.1.9 FA-011 Reihe entfernen
 <table>
   <tr>
     <th>ID</th>
@@ -816,7 +713,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
 </table>
 
-#### 3.1.12 FA-012 Niederlage
+#### 3.1.10 FA-012 Niederlage
 <table>
     <tr>
         <th>ID</th>
@@ -869,7 +766,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     </tr>
 </table>
 
-#### 3.1.13 FA-013 Score zählen einfach
+#### 3.1.11 FA-013 Score zählen einfach
 <table>
   <tr>
     <th>ID</th>
@@ -921,7 +818,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
 </table>
 
-#### 3.1.14 FA-014 Score zählen mit Multiplikator
+#### 3.1.12 FA-014 Score zählen mit Multiplikator
 <table>
   <tr>
     <th>ID</th>
@@ -957,7 +854,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
   <tr>
     <th>Nachbedingung Erfolg</th>
-    <td>Der Score des entfernten Komplexes wird nach folgender Logik berechnet und zum Gesamt-Score hinzuaddiert:<br/>- Entfernte Substrukturen x 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 2)<br>- Entfernte Substrukturen x 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 3)<br>- Entfernte Substrukturen x 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 10 x 4)</td>
+    <td>Der Score des entfernten Komplexes wird nach folgender Logik berechnet und zum Gesamt-Score hinzuaddiert:<br/>- Entfernte Substrukturen x 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 2)<br>- Entfernte Substrukturen x 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 3)<br>- Entfernte Substrukturen x 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 3 x 4)</td>
   </tr>
   <tr>
     <th>Nachbedingung Alternativ</th>
@@ -965,15 +862,15 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
   <tr>
     <th>Klassifizierung</th>
-    <td>-</td>
+    <td>Funktional, MUSS</td>
   </tr>
   <tr>
     <th>Aufwand</th>
-    <td>Funktional, MUSS</td>
+    <td>Mittel</td>
   </tr>
 </table>
 
-#### 3.1.15 FA-015 Scoreboard
+#### 3.1.13 FA-015 Scoreboard
 <table>
   <tr>
     <th>ID</th>
@@ -1183,6 +1080,111 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
 </table>
 
+#### 3.2.4 FA-008 Powdromino beschleunigen
+<table>
+  <tr>
+    <th>ID</th>
+    <td>FA-008</td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>Powdromino beschleunigen</td>
+  </tr>
+  <tr>
+    <th>Ziel</th>
+    <td>Powdrominos können schneller abgesenkt werden.</td>
+  </tr>
+  <tr>
+    <th>Akteure</th>
+    <td>Spieler</td>
+  </tr>
+  <tr>
+    <th>Ereignis</th>
+    <td>Akteur betätigt die untere Pfeil- oder S-Taste.</td>
+  </tr>
+  <tr>
+    <th>Vorbedingung Standardablauf</th>
+    <td>Akteur befindet sich in einem laufenden Spiel.</td>
+  </tr>
+  <tr>
+    <th>Standardablauf</th>
+    <td>1. Akteur betätigt untere Pfeiltaste oder S<br/>2. Powdromino bewegt sich in doppelter Geschwindigkeit auf den Boden zu</td>
+  </tr>
+  <tr>
+    <th>Alternativablauf</th>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Erfolg</th>
+    <td>Powdromino senkt sich schneller.</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Alternativ</th>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th>Klassifizierung</th>
+    <td>Funktional, MUSS</td>
+  </tr>
+  <tr>
+    <th>Aufwand</th>
+    <td>Mittel</td>
+  </tr>
+</table>
+
+#### 3.2.5 FA-010 Schwierigkeitsgrade
+<table>
+  <tr>
+    <th>ID</th>
+    <td>FA-010</td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>Schwierigkeitsgrade</td>
+  </tr>
+  <tr>
+    <th>Ziel</th>
+    <td>Spieler können zwischen zwei Schwierigkeitsgraden wählen.</td>
+  </tr>
+  <tr>
+    <th>Akteure</th>
+    <td>Spieler</td>
+  </tr>
+  <tr>
+    <th>Ereignis</th>
+    <td>Akteur wählt vor dem Spielstart eine Schwierigkeitsoption.</td>
+  </tr>
+  <tr>
+    <th>Vorbedingung Standardablauf</th>
+    <td>Akteur ist namentlich bekannt und startet ein Spiel (vgl. Anforderung 2).</td>
+  </tr>
+  <tr>
+    <th>Standardablauf</th>
+    <td>1. Akteur wählt höheren Schwierigkeitsgrad<br/>2. Akteur klickt "Start"-Knopf</td>
+  </tr>
+  <tr>
+    <th>Alternativablauf</th>
+    <td>1a. Akteur belässt Standard-Schwierigkeitsgrad</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Erfolg</th>
+    <td>Spielfeld wird mit 15 x 20 Block-Kacheln geladen.</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Alternativ</th>
+    <td>Spielfeld wird mit 10 x 20 Block-Kacheln geladen.</td>
+  </tr>
+  <tr>
+    <th>Klassifizierung</th>
+    <td>Funktional, MUSS</td>
+  </tr>
+  <tr>
+    <th>Aufwand</th>
+    <td>Klein</td>
+  </tr>
+</table>
+
+
 ## 4 Nicht-Funktionale Anforderungen
 
 ### 4.1 MUSS-Anforderungen
@@ -1318,5 +1320,15 @@ Die globale Architektur zeigt das Zusammenspiel von Frontend, Backend und Persis
 funktionalen Anforderungen. Dabei werden das Backend und die Persistenz nur Oberflächlich betrachtet. <br/>
 Die Architektur berücksichtigt zu den MUSS- auch die KANN-Anforderungen, um ein umfassendes Bild der beteiligten Komponenten zu zeigen.
 
-<img src="./img/architecture/global-architecture.jpg" alt="Globale Architektur des Spiels" width="50%">
+<img src="./img/architecture/global-architecture.png" alt="Globale Architektur des Spiels" width="50%">
+
+#### 5.2.2 Architektur Frontend
+Das Frontend ist modularisiert und entsprechend in Pages und Components eingeteilt. Pages setzen sich aus mehreren Components und weiterem JSX für deren Positionierung zusammen. 
+Components dienen der Auslagerung von Darstellung und Logik, damit der Deduplizierung von Code und einer verbesserten Wartbarkeit der Code Base. 
+Sie sind bestmöglich nach dem Single Responsibility Prinzip aufgebaut. <br/>
+Sämtliche Pages sind in eine Root Page eingebettet, welche das Parent-Element des Routing Trees darstellt. 
+Neben den drei Hauptpages (Landing, Lobby, Game) gibt es eine Error Page, welche genutzt wird, um ein nutzerfreundliches Error-Handling zu erlauben.
+
+<img src="./img/architecture/components.png" alt="Frontend Architektur des Spiels" width="50%">
+
 

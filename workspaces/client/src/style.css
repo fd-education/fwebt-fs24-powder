@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
+
+@font-face{
+  font-family: 'Blocked';
+  src: url('./fonts/Blocked/blocked.woff') format('woff');
+  src: url('./fonts/Blocked/blocked.woff2') format('woff2');
+  src: url('./fonts/Blocked/blocked.ttf') format('truetype');
+}
+
+@font-face{
+  font-family: 'RobotoMono';
+  src: url('./fonts/RobotoMono/robotomono.woff') format('woff');
+  src: url('./fonts/RobotoMono/robotomono.woff2') format('woff2');
+  src: url('./fonts/RobotoMono/robotomono.ttf') format('truetype');
+}
+
 @tailwind utilities;

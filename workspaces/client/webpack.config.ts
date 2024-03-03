@@ -1,11 +1,13 @@
-const path = require('path')
-const CopyPlugin = require('copy-webpack-plugin')
+import path from 'path';
+import webpack from 'webpack';
+import CopyPlugin from 'copy-webpack-plugin';
+import 'webpack-dev-server';
 
-module.exports = {
+const config: webpack.Configuration = {
   entry: './src/index.tsx',
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+  devtool: 'source-map',
+  devServer: {
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -24,6 +26,11 @@ module.exports = {
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
+      {
+
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
       },
     ],
   },
@@ -44,4 +51,6 @@ module.exports = {
       ],
     }),
   ],
-}
+};
+
+export default config;
