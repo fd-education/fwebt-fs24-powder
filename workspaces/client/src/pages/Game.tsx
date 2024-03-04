@@ -20,7 +20,7 @@ export const GamePage = () => {
         <Score />
       </div>
       <div className='h-full flex flex-col justify-center items-center'>
-        <Board currentState={board}/>
+        <Board state={board} />
         <SettingsGroup />
       </div>
       <div className='h-full flex flex-col justify-center'>

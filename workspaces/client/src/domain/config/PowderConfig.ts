@@ -1,11 +1,13 @@
 type Config = {
   BOARD_COLS: number;
   BOARD_ROWS: number;
-  LOOP_SPEED: number;
+  STANDARD_LOOP_SPEED: number;
+  COLLISION_LOOP_SPEED: number;
 }
 
 export const PowderConfig: Config = {
   BOARD_COLS: 10,
   BOARD_ROWS: 20,
-  LOOP_SPEED: 500,
+  STANDARD_LOOP_SPEED: 300,
+  COLLISION_LOOP_SPEED: 200,
 }

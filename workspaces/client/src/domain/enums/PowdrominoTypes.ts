@@ -1,3 +1,5 @@
+export type BoardType = (PowdrominoTypes | VoidCell)[][];
+
 export enum PowdrominoTypes {
   I = 'I',
   J = 'J',
@@ -9,5 +11,5 @@ export enum PowdrominoTypes {
 }
 
 export enum VoidCell {
-  VOID = 'void'
+  VOID = '-'
 }
