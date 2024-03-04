@@ -4,10 +4,11 @@ import { PanelHeading } from '../util/PanelHeading';
 import { PowderButton } from '../util/PowderButton';
 
 interface ScoreProps{
-  score: number
+  score: number;
+  lines: number;
 }
 
-export const Score = ({score}: ScoreProps) => {
+export const Score = ({score, lines}: ScoreProps) => {
   const pauseGame = () => {
     console.warn('Pause Game to be done.');
   };
@@ -21,6 +22,7 @@ export const Score = ({score}: ScoreProps) => {
       <PanelHeading text='Score' />
       <p>{score}</p>
       <PanelHeading text='Lines' />
+      <p>{lines}</p>
       <PowderButton text='pause' clickHandler={pauseGame} />
       <PowderButton text='end' clickHandler={endGame} />
     </Panel>

@@ -11,7 +11,8 @@ export const useGame = () => {
   const [isSettling, setIsSettling] = useState<boolean>(false);
   const [nextPowdrominos, setNextPowdrominos] = useState<PowdrominoTypes[]>();
   const [score, setScore] = useState<number>(0);
-
+  const [lines, setLines] = useState<number>(0);
+  
   const [{ board, shapeRow, shapeCol, block, shape }, dispatchState] =
     useBoard();
 
@@ -46,6 +47,7 @@ export const useGame = () => {
       }
     }
     setScore(prevScore => prevScore + calculateReward(fullLines));
+    setLines(prevLines => prevLines + fullLines);
 
     const updatedNextPowdrominos = structuredClone(
       nextPowdrominos
@@ -137,7 +139,8 @@ export const useGame = () => {
     board: renderedBoard,
     start,
     started,
-    score
+    score,
+    lines
   };
 };
 
