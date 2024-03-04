@@ -79,8 +79,7 @@ export const useGame = () => {
     if (!started) return;
 
     const handleKeyDownEvent = (e: KeyboardEvent) => {
-      console.log('Key Pressed');
-      console.log(e);
+      if(e.repeat) return;
 
       if (e.key === 'ArrowUp') {
         dispatchState({
