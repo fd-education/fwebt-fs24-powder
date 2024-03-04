@@ -193,9 +193,6 @@ export const getPreviewBoard = (next: PowdrominoTypes[]): BoardType => {
     .fill(null)
     .map(() => Array(5).fill(VoidCell.VOID));
 
-  console.log(next.toString());
-
-  const colOffset = 1;
   let rowOffset = 1;
 
   next.forEach((powdromino) => {
@@ -203,10 +200,10 @@ export const getPreviewBoard = (next: PowdrominoTypes[]): BoardType => {
       row.some((hasBlock) => hasBlock)
     );
 
+    const colOffset = Math.floor(shape.length/2);
     addShapeToBoard(board, powdromino, shape, rowOffset, colOffset);
     rowOffset += shape[0].length + 1;
   });
 
-  console.log(board);
   return board;
 };
