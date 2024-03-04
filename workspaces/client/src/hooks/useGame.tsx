@@ -2,7 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { getRandomPowdromino, isColliding, useBoard } from './useBoard';
 import { useInterval } from './useInterval';
 import { PowderConfig } from '../domain/config/PowderConfig';
-import { BoardType, PowdrominoTypes, VoidCell } from '../domain/enums/PowdrominoTypes';
+import {
+  BoardType,
+  PowdrominoTypes,
+  VoidCell,
+} from '../domain/enums/PowdrominoTypes';
 import { POWDROMINOS, PowdrominoShape } from '../domain/game/Powdromino.shapes';
 
 export const useGame = () => {
@@ -12,7 +16,7 @@ export const useGame = () => {
   const [nextPowdrominos, setNextPowdrominos] = useState<PowdrominoTypes[]>();
   const [score, setScore] = useState<number>(0);
   const [lines, setLines] = useState<number>(0);
-  
+
   const [{ board, shapeRow, shapeCol, block, shape }, dispatchState] =
     useBoard();
 
@@ -40,14 +44,14 @@ export const useGame = () => {
     addShapeToBoard(boardWithFixedPowdromino, block, shape, shapeRow, shapeCol);
 
     let fullLines = 0;
-    for(let r = PowderConfig.BOARD_ROWS - 1; r >= 0; r--){
-      if(boardWithFixedPowdromino[r].every((cell) => cell !== VoidCell.VOID)){
+    for (let r = PowderConfig.BOARD_ROWS - 1; r >= 0; r--) {
+      if (boardWithFixedPowdromino[r].every((cell) => cell !== VoidCell.VOID)) {
         fullLines += 1;
         boardWithFixedPowdromino.splice(r, 1);
       }
     }
-    setScore(prevScore => prevScore + calculateReward(fullLines));
-    setLines(prevLines => prevLines + fullLines);
+    setScore((prevScore) => prevScore + calculateReward(fullLines));
+    setLines((prevLines) => prevLines + fullLines);
 
     const updatedNextPowdrominos = structuredClone(
       nextPowdrominos
@@ -56,7 +60,7 @@ export const useGame = () => {
     updatedNextPowdrominos.unshift(getRandomPowdromino());
     setNextPowdrominos(updatedNextPowdrominos);
 
-    if(isColliding(board, POWDROMINOS[nextPowdromino].shape, 0, 3)){
+    if (isColliding(board, POWDROMINOS[nextPowdromino].shape, 0, 3)) {
       setStarted(false);
       setLoopSpeed(null);
     } else {
@@ -98,7 +102,7 @@ export const useGame = () => {
     if (!started) return;
 
     const handleKeyDownEvent = (e: KeyboardEvent) => {
-      if(e.repeat) return;
+      if (e.repeat) return;
 
       if (e.key === 'ArrowUp') {
         dispatchState({
@@ -135,35 +139,38 @@ export const useGame = () => {
     addShapeToBoard(renderedBoard, block, shape, shapeRow, shapeCol);
   }
 
+  const previewBoard = getPreviewBoard(nextPowdrominos);
+
   return {
     board: renderedBoard,
     start,
     started,
     score,
-    lines
+    lines,
+    previewBoard,
   };
 };
 
 const calculateReward = (fullLines: number): number => {
-  switch(fullLines){
+  switch (fullLines) {
     case 0:
       return 0;
     case 1:
       return 10;
     case 2:
       return 20;
-    case 3: 
+    case 3:
       return 30;
     case 4:
       return 40;
     default:
       throw new Error(`Unhandled number of full lines: ${fullLines}`);
   }
-}
+};
 
-const addShapeToBoard = (
+export const addShapeToBoard = (
   board: BoardType,
-  block: PowdrominoTypes,
+  powdromino: PowdrominoTypes,
   shape: PowdrominoShape,
   shapeRow: number,
   shapeCol: number
@@ -173,8 +180,33 @@ const addShapeToBoard = (
     .forEach((row: boolean[], ri: number) => {
       row.forEach((hasBlock: boolean, ci: number) => {
         if (hasBlock) {
-          board[shapeRow + ri][shapeCol + ci] = block;
+          board[shapeRow + ri][shapeCol + ci] = powdromino;
         }
       });
     });
+};
+
+export const getPreviewBoard = (next: PowdrominoTypes[]): BoardType => {
+  if (!next) return;
+
+  const board = Array(16)
+    .fill(null)
+    .map(() => Array(5).fill(VoidCell.VOID));
+
+  console.log(next.toString());
+
+  const colOffset = 1;
+  let rowOffset = 1;
+
+  next.forEach((powdromino) => {
+    const shape = POWDROMINOS[powdromino].shape.filter((row: boolean[]) =>
+      row.some((hasBlock) => hasBlock)
+    );
+
+    addShapeToBoard(board, powdromino, shape, rowOffset, colOffset);
+    rowOffset += shape[0].length + 1;
+  });
+
+  console.log(board);
+  return board;
 };
