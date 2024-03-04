@@ -18,7 +18,10 @@ export type PowderState = {
 type Event = {
   updatedBoard?: BoardType;
   nextPowdromino?: PowdrominoTypes;
-  type: 'start' | 'drop' | 'move' | 'settle';
+  isRotate?: boolean;
+  isMoveLeft?: boolean;
+  isMoveRight?: boolean;
+  type: 'start' | 'drop' | 'move' | 'settle' | 'rotate';
 };
 
 export const useBoard = (): [PowderState, Dispatch<Event>] => {
@@ -68,8 +71,27 @@ const stateReducer = (state: PowderState, event: Event): PowderState => {
         block: event.nextPowdromino,
         shape: POWDROMINOS[event.nextPowdromino].shape,
       };
-    case 'move':
+    case 'move': {
+      const rotatedPowdromino = event.isRotate
+        ? rotatePowdromino(updatedState.shape)
+        : updatedState.shape;
+      let cOffset = event.isMoveLeft? -1 : 0;
+      cOffset = event.isMoveRight? 1 : cOffset;
+
+      if (
+        !isColliding(
+          updatedState.board,
+          rotatedPowdromino,
+          updatedState.shapeRow,
+          updatedState.shapeCol + cOffset
+        )
+      ) {
+        updatedState.shapeCol += cOffset;
+        updatedState.shape = rotatedPowdromino;
+      } 
+      
       break;
+    }
     default:
       throw new Error(`Unknown event type: ${event.type}`);
   }
@@ -116,3 +138,20 @@ export const isColliding = (
 
   return collided;
 };
+
+export const rotatePowdromino = (shape: PowdrominoShape): PowdrominoShape => {
+  const shapeRows = shape.length;
+  const shapeCols = shape[0].length;
+
+  const rotatedPowdromino = Array(shapeRows)
+    .fill(null)
+    .map(() => Array(shapeCols).fill(false));
+
+  for(let r = 0; r < shapeRows; r++){
+    for(let c = 0; c < shapeCols; c++){
+      rotatedPowdromino[c][shapeRows - 1 - r] = shape[r][c];
+    }
+  }
+
+  return rotatedPowdromino;
+}

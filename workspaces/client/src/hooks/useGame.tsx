@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getRandomPowdromino, isColliding, useBoard } from './useBoard';
 import { useInterval } from './useInterval';
 import { PowderConfig } from '../domain/config/PowderConfig';
@@ -18,7 +18,7 @@ export const useGame = () => {
     const startingPowdrominos = [
       getRandomPowdromino(),
       getRandomPowdromino(),
-      getRandomPowdromino()
+      getRandomPowdromino(),
     ];
     setNextPowdrominos(startingPowdrominos);
     setIsSettling(false);
@@ -28,7 +28,7 @@ export const useGame = () => {
   }, [dispatchState]);
 
   const freezeSettledPosition = useCallback(() => {
-    if(!isColliding(board, shape, shapeRow + 1, shapeCol)){
+    if (!isColliding(board, shape, shapeRow + 1, shapeCol)) {
       setIsSettling(false);
       setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
       return;
@@ -37,17 +37,22 @@ export const useGame = () => {
     const boardWithFixedPowdromino = structuredClone(board) as BoardType;
     addShapeToBoard(boardWithFixedPowdromino, block, shape, shapeRow, shapeCol);
 
-    const updatedNextPowdrominos = structuredClone(nextPowdrominos) as PowdrominoTypes[];
+    const updatedNextPowdrominos = structuredClone(
+      nextPowdrominos
+    ) as PowdrominoTypes[];
     const nextPowdromino = updatedNextPowdrominos.pop() as PowdrominoTypes;
     updatedNextPowdrominos.unshift(getRandomPowdromino());
     setNextPowdrominos(updatedNextPowdrominos);
 
-
-    dispatchState({type: 'settle', updatedBoard: boardWithFixedPowdromino, nextPowdromino});
-  }, [board, dispatchState, block, shape, shapeRow, shapeCol, nextPowdrominos])
+    dispatchState({
+      type: 'settle',
+      updatedBoard: boardWithFixedPowdromino,
+      nextPowdromino,
+    });
+  }, [board, dispatchState, block, shape, shapeRow, shapeCol, nextPowdrominos]);
 
   const gameLoop = useCallback(() => {
-    if(isSettling){
+    if (isSettling) {
       freezeSettledPosition();
     } else if (isColliding(board, shape, shapeRow + 1, shapeCol)) {
       setLoopSpeed(PowderConfig.COLLISION_LOOP_SPEED);
@@ -55,12 +60,57 @@ export const useGame = () => {
     } else {
       dispatchState({ type: 'drop' });
     }
-  }, [board, dispatchState, shapeRow, shapeCol, shape, freezeSettledPosition, isSettling]);
+  }, [
+    board,
+    dispatchState,
+    shapeRow,
+    shapeCol,
+    shape,
+    freezeSettledPosition,
+    isSettling,
+  ]);
 
   useInterval(() => {
     if (!started) return;
     gameLoop();
   }, loopSpeed);
+
+  useEffect(() => {
+    if (!started) return;
+
+    const handleKeyDownEvent = (e: KeyboardEvent) => {
+      console.log('Key Pressed');
+      console.log(e);
+
+      if (e.key === 'ArrowUp') {
+        dispatchState({
+          type: 'move',
+          isRotate: true,
+        });
+      }
+
+      if (e.key === 'ArrowRight') {
+        dispatchState({
+          type: 'move',
+          isMoveRight: true,
+        });
+      }
+
+      if (e.key === 'ArrowLeft') {
+        dispatchState({
+          type: 'move',
+          isMoveLeft: true,
+        });
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDownEvent);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDownEvent);
+      setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+    };
+  }, [started, dispatchState]);
 
   const renderedBoard = structuredClone(board) as BoardType;
   if (started) {
