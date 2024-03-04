@@ -65,7 +65,10 @@ const stateReducer = (state: PowderState, event: Event): PowderState => {
       break;
     case 'settle':
       return {
-        board: event.updatedBoard,
+        board: [
+          ...getEmptyBoard(PowderConfig.BOARD_ROWS - event.updatedBoard!.length),
+          ...event.updatedBoard
+        ],
         shapeRow: 0,
         shapeCol: 3,
         block: event.nextPowdromino,

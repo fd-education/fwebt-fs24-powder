@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { getRandomPowdromino, isColliding, useBoard } from './useBoard';
 import { useInterval } from './useInterval';
 import { PowderConfig } from '../domain/config/PowderConfig';
-import { BoardType, PowdrominoTypes } from '../domain/enums/PowdrominoTypes';
+import { BoardType, PowdrominoTypes, VoidCell } from '../domain/enums/PowdrominoTypes';
 import { PowdrominoShape } from '../domain/game/Powdromino.shapes';
 
 export const useGame = () => {
@@ -10,6 +10,7 @@ export const useGame = () => {
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
   const [isSettling, setIsSettling] = useState<boolean>(false);
   const [nextPowdrominos, setNextPowdrominos] = useState<PowdrominoTypes[]>();
+  const [score, setScore] = useState<number>(0);
 
   const [{ board, shapeRow, shapeCol, block, shape }, dispatchState] =
     useBoard();
@@ -36,6 +37,15 @@ export const useGame = () => {
 
     const boardWithFixedPowdromino = structuredClone(board) as BoardType;
     addShapeToBoard(boardWithFixedPowdromino, block, shape, shapeRow, shapeCol);
+
+    let fullLines = 0;
+    for(let r = PowderConfig.BOARD_ROWS - 1; r >= 0; r--){
+      if(boardWithFixedPowdromino[r].every((cell) => cell !== VoidCell.VOID)){
+        fullLines += 1;
+        boardWithFixedPowdromino.splice(r, 1);
+      }
+    }
+    setScore(prevScore => prevScore + calculateReward(fullLines));
 
     const updatedNextPowdrominos = structuredClone(
       nextPowdrominos
@@ -120,8 +130,26 @@ export const useGame = () => {
     board: renderedBoard,
     start,
     started,
+    score
   };
 };
+
+const calculateReward = (fullLines: number): number => {
+  switch(fullLines){
+    case 0:
+      return 0;
+    case 1:
+      return 10;
+    case 2:
+      return 20;
+    case 3: 
+      return 30;
+    case 4:
+      return 40;
+    default:
+      throw new Error(`Unhandled number of full lines: ${fullLines}`);
+  }
+}
 
 const addShapeToBoard = (
   board: BoardType,
