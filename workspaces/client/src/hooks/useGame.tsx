@@ -3,7 +3,7 @@ import { getRandomPowdromino, isColliding, useBoard } from './useBoard';
 import { useInterval } from './useInterval';
 import { PowderConfig } from '../domain/config/PowderConfig';
 import { BoardType, PowdrominoTypes, VoidCell } from '../domain/enums/PowdrominoTypes';
-import { PowdrominoShape } from '../domain/game/Powdromino.shapes';
+import { POWDROMINOS, PowdrominoShape } from '../domain/game/Powdromino.shapes';
 
 export const useGame = () => {
   const [started, setStarted] = useState<boolean>(false);
@@ -53,6 +53,13 @@ export const useGame = () => {
     const nextPowdromino = updatedNextPowdrominos.pop() as PowdrominoTypes;
     updatedNextPowdrominos.unshift(getRandomPowdromino());
     setNextPowdrominos(updatedNextPowdrominos);
+
+    if(isColliding(board, POWDROMINOS[nextPowdromino].shape, 0, 3)){
+      setStarted(false);
+      setLoopSpeed(null);
+    } else {
+      setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+    }
 
     dispatchState({
       type: 'settle',
