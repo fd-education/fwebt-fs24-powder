@@ -104,6 +104,10 @@ export const useGame = () => {
     const handleKeyDownEvent = (e: KeyboardEvent) => {
       if (e.repeat) return;
 
+      if (e.key === 'ArrowDown') {
+        setLoopSpeed(50);
+      }
+
       if (e.key === 'ArrowUp') {
         dispatchState({
           type: 'move',
@@ -126,10 +130,20 @@ export const useGame = () => {
       }
     };
 
+    const handleKeyUpEvent = (e: KeyboardEvent) => {
+      if (e.repeat) return;
+
+      if(e.key === 'ArrowDown'){
+        setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+      }
+    }
+
     document.addEventListener('keydown', handleKeyDownEvent);
+    document.addEventListener('keyup', handleKeyUpEvent);
 
     return () => {
       document.removeEventListener('keydown', handleKeyDownEvent);
+      document.removeEventListener('keyup', handleKeyUpEvent);
       setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
     };
   }, [started, dispatchState]);
