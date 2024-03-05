@@ -20,7 +20,7 @@ export const useGame = () => {
   const [{ board, shapeRow, shapeCol, block, shape }, dispatchState] =
     useBoard();
 
-  const start = useCallback(() => {
+  const startGame = useCallback(() => {
     const startingPowdrominos = [
       getRandomPowdromino(),
       getRandomPowdromino(),
@@ -143,7 +143,7 @@ export const useGame = () => {
 
   return {
     board: renderedBoard,
-    start,
+    startGame,
     started,
     score,
     lines,

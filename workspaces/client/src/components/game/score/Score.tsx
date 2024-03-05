@@ -2,7 +2,6 @@ import React from 'react';
 import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
 import { PowderButton } from '../../util/PowderButton';
-import { useGame } from '../../../hooks/useGame';
 import { NumberDisplay } from './NumberDisplay';
 
 interface ScoreProps {
@@ -11,7 +10,13 @@ interface ScoreProps {
 }
 
 export const Score = ({ score, lines }: ScoreProps) => {
-  const { pauseGame, continueGame, endGame } = useGame();
+  const pauseGame = () => {
+    console.log('TBD')
+  }
+
+  const endGame = () => {
+    console.log('TBD')
+  }
 
   return (
     <Panel>
