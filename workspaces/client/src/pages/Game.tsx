@@ -7,7 +7,7 @@ import { SettingsGroup } from '../components/settings/SettingsGroup';
 import { useGame } from '../hooks/useGame';
 
 export const GamePage = () => {
-  const { board, start, score, lines, previewBoard } = useGame();
+  const { board, start, score, lines, previewBlocks } = useGame();
 
   useEffect(() => {
     start();
@@ -24,7 +24,7 @@ export const GamePage = () => {
         <SettingsGroup />
       </div>
       <div className='h-full flex flex-col justify-center'>
-        <Preview previewBoard={previewBoard} />
+        <Preview previewBlocks={previewBlocks} />
       </div>
     </div>
   );

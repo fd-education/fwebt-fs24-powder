@@ -139,7 +139,7 @@ export const useGame = () => {
     addShapeToBoard(renderedBoard, block, shape, shapeRow, shapeCol);
   }
 
-  const previewBoard = getPreviewBoard(nextPowdrominos);
+  const previewBlocks = getPreviewBlocks(nextPowdrominos);
 
   return {
     board: renderedBoard,
@@ -147,7 +147,7 @@ export const useGame = () => {
     started,
     score,
     lines,
-    previewBoard,
+    previewBlocks,
   };
 };
 
@@ -186,24 +186,22 @@ export const addShapeToBoard = (
     });
 };
 
-export const getPreviewBoard = (next: PowdrominoTypes[]): BoardType => {
+export const getPreviewBlocks = (next: PowdrominoTypes[]): BoardType[] => {
   if (!next) return;
 
-  const board = Array(16)
-    .fill(null)
-    .map(() => Array(5).fill(VoidCell.VOID));
-
-  let rowOffset = 1;
+  const boards: BoardType[] = [];
 
   next.forEach((powdromino) => {
-    const shape = POWDROMINOS[powdromino].shape.filter((row: boolean[]) =>
-      row.some((hasBlock) => hasBlock)
-    );
+    const shape = POWDROMINOS[powdromino].shape
+    .filter((row: boolean[]) => (row.some((hasBlock) => hasBlock)));
 
-    const colOffset = Math.floor(shape.length/2);
-    addShapeToBoard(board, powdromino, shape, rowOffset, colOffset);
-    rowOffset += shape[0].length + 1;
+    const board = Array(shape.length)
+      .fill(null)
+      .map(() => Array(shape[0].length).fill(VoidCell.VOID));
+
+    addShapeToBoard(board, powdromino, shape, 0, 0);
+    boards.push(board)
   });
 
-  return board;
+  return boards;
 };
