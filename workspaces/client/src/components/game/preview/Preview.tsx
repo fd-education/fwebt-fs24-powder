@@ -10,12 +10,12 @@ interface PreviewProps {
 
 export const Preview = ({ previewBlocks }: PreviewProps) => {
   return (
-    <Panel>
+    <Panel height='h-[45%]'>
       <PanelHeading text='Up next' />
-      <div className='flex flex-col-reverse justify-items-center'>
+      <div className='h-full flex flex-col-reverse justify-around'>
         {previewBlocks &&
           previewBlocks.map((blocks, bi) => (
-            <div key={bi} className='my-2'>
+            <div key={bi}>
               {blocks.map((row, ri) => (
                 <div key={ri} className='flex'>
                   {row.map((cell, ci) => (
