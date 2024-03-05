@@ -10,7 +10,7 @@ interface PreviewProps {
 
 export const Preview = ({ previewBlocks }: PreviewProps) => {
   return (
-    <Panel height='h-[45%]'>
+    <Panel height='min-h-[50%]'>
       <PanelHeading text='Up next' />
       <div className='h-full flex flex-col-reverse justify-around'>
         {previewBlocks &&
