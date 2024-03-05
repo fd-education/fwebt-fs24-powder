@@ -21,7 +21,7 @@ type Event = {
   isRotate?: boolean;
   isMoveLeft?: boolean;
   isMoveRight?: boolean;
-  type: 'start' | 'drop' | 'move' | 'settle' | 'rotate';
+  type: 'start' | 'drop' | 'move' | 'settle';
 };
 
 export const useBoard = (): [PowderState, Dispatch<Event>] => {
