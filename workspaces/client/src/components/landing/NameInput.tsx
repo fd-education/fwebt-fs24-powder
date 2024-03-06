@@ -12,10 +12,11 @@ export const NameInput = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
+    // Verwende hier useState() anstelle auf den DOM zuzugreifen, um ein Input-Wert abzugreifen
     const target = event.target as typeof event.target & {
       playerName: { value: string };
     };
-    
+
     const playerName = target.playerName.value;
     if(!playerName){
       console.error('Playername must be specified!');

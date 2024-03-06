@@ -1,6 +1,7 @@
 import React from 'react';
 
 export const MoonIcon = () => {
+  // Du kannst das SVG auch als Datei abspeichern und mit IMG verwenden -> siehe create-creact-app-Template: https://git.ffhs.ch/web-technologien/fwebt/fs24/infp-w-af004-fwebt_pibs-be-1-pva/pva-3-apod-template/-/blob/9f95b1a1d85e31ccb83bbee74f1886caf753b9c9/src/App.js
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

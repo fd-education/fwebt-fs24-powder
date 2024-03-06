@@ -1,5 +1,6 @@
 import React from 'react';
 
+// TitleBig und TitleSmall liessen sich in eine Komponente zusammenführen und parametrisieren (abgesehen von 1 CSS-Klasse dasselbe)
 export const TitleBig = () => {
   return (
     <div>
