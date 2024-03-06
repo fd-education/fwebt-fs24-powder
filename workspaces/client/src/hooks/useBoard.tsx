@@ -1,27 +1,27 @@
 import { Dispatch, useReducer } from 'react';
 import {
   BoardType,
-  PowdrominoTypes,
+  BlockName,
   VoidCell,
-} from '../domain/enums/PowdrominoTypes';
-import { POWDROMINOS, PowdrominoShape } from '../domain/game/Powdromino.shapes';
+} from '../domain/enums/BlockName';
+import { blockShapes, BlockShape } from '../domain/game/Powdromino.shapes';
 import { PowderConfig } from '../domain/config/PowderConfig';
 
 export type PowderState = {
   board: BoardType;
   shapeRow: number;
   shapeCol: number;
-  block: PowdrominoTypes;
-  shape: PowdrominoShape;
+  block: BlockName;
+  shape: BlockShape;
 };
 
 type Event = {
   updatedBoard?: BoardType;
-  nextPowdromino?: PowdrominoTypes;
+  nextPowdromino?: BlockName;
   isRotate?: boolean;
   isMoveLeft?: boolean;
   isMoveRight?: boolean;
-  type: 'start' | 'drop' | 'move' | 'settle';
+  type: 'start' | 'drop' | 'move' | 'settle' | 'pause';
 };
 
 export const useBoard = (): [PowderState, Dispatch<Event>] => {
@@ -31,8 +31,8 @@ export const useBoard = (): [PowderState, Dispatch<Event>] => {
       board: [],
       shapeRow: 0,
       shapeCol: 0,
-      block: PowdrominoTypes.O,
-      shape: POWDROMINOS.O.shape,
+      block: BlockName.O,
+      shape: blockShapes.O.shape,
     },
     (emptyState) => {
       const state = {
@@ -57,22 +57,26 @@ const stateReducer = (state: PowderState, event: Event): PowderState => {
         shapeRow: 0,
         shapeCol: 3,
         block: firstBlock,
-        shape: POWDROMINOS[firstBlock].shape,
+        shape: blockShapes[firstBlock].shape,
       };
     }
+    case 'pause':
+      return updatedState;
     case 'drop':
       updatedState.shapeRow++;
       break;
     case 'settle':
       return {
         board: [
-          ...getEmptyBoard(PowderConfig.BOARD_ROWS - event.updatedBoard!.length),
-          ...event.updatedBoard
+          ...getEmptyBoard(
+            PowderConfig.BOARD_ROWS - event.updatedBoard!.length
+          ),
+          ...event.updatedBoard,
         ],
         shapeRow: 0,
         shapeCol: 3,
         block: event.nextPowdromino,
-        shape: POWDROMINOS[event.nextPowdromino].shape,
+        shape: blockShapes[event.nextPowdromino].shape,
       };
     case 'move': {
       const rotatedPowdromino = event.isRotate
@@ -108,16 +112,16 @@ export const getEmptyBoard = (height = PowderConfig.BOARD_ROWS): BoardType => {
     .map(() => Array(PowderConfig.BOARD_COLS).fill(VoidCell.VOID));
 };
 
-export const getRandomPowdromino = (): PowdrominoTypes => {
-  const powdrominos = Object.values(PowdrominoTypes);
+export const getRandomPowdromino = (): BlockName => {
+  const powdrominos = Object.values(BlockName);
   return powdrominos[
     Math.floor(Math.random() * powdrominos.length)
-  ] as PowdrominoTypes;
+  ] as BlockName;
 };
 
 export const isColliding = (
   board: BoardType,
-  shape: PowdrominoShape,
+  shape: BlockShape,
   shapeRow: number,
   shapeCol: number
 ): boolean => {
@@ -142,7 +146,7 @@ export const isColliding = (
   return collided;
 };
 
-export const rotatePowdromino = (shape: PowdrominoShape): PowdrominoShape => {
+export const rotatePowdromino = (shape: BlockShape): BlockShape => {
   const shapeRows = shape.length;
   const shapeCols = shape[0].length;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Panel } from '../../util/Panel';
-import { BoardType } from '../../../domain/enums/PowdrominoTypes';
+import { BoardType } from '../../../domain/enums/BlockName';
 import { Cell } from './Cell';
 
 interface BoardProps {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
-import { BoardType } from '../../../domain/enums/PowdrominoTypes';
+import { BoardType } from '../../../domain/enums/BlockName';
 import { PreviewCell } from './PreviewCell';
 
 interface PreviewProps {

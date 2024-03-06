@@ -3,14 +3,15 @@ import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
 import { PowderButton } from '../../util/PowderButton';
 import { NumberDisplay } from './NumberDisplay';
+import { useGame } from '../../../hooks/useGame';
+import { useScoreStore } from '../../../domain/state/scoreStore';
 
-interface ScoreProps {
-  score: number;
-  lines: number;
-}
+export const Score = () => {
+  const {pauseGame} = useGame();
+  const {playerScore, playerLines} = useScoreStore();
 
-export const Score = ({ score, lines }: ScoreProps) => {
-  const pauseGame = () => {
+  const pause = () => {
+    pauseGame();
     console.log('TBD')
   }
 
@@ -23,13 +24,13 @@ export const Score = ({ score, lines }: ScoreProps) => {
       <div className='flex flex-col justify-center space-y-4'>
         <div>
           <PanelHeading text='Score' />
-          <NumberDisplay number={score} />
+          <NumberDisplay number={playerScore} />
         </div>
         <div>
           <PanelHeading text='Lines' />
-          <NumberDisplay number={lines} />
+          <NumberDisplay number={playerLines} />
         </div>
-        <PowderButton text='pause' clickHandler={() => pauseGame()} />
+        <PowderButton text='pause' clickHandler={() => pause()} />
         <PowderButton text='end' clickHandler={endGame} />
       </div>
     </Panel>

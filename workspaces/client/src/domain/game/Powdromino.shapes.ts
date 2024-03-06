@@ -1,16 +1,16 @@
-export type PowdrominoShape = boolean[][];
+export type BlockShape = boolean[][];
 
-export interface PowdrominoObject{
-  I: {shape: PowdrominoShape},
-  J: {shape: PowdrominoShape},
-  L: {shape: PowdrominoShape},
-  Z: {shape: PowdrominoShape},
-  S: {shape: PowdrominoShape},
-  O: {shape: PowdrominoShape},
-  T: {shape: PowdrominoShape},
+export interface BlockShapeObject{
+  I: {shape: BlockShape},
+  J: {shape: BlockShape},
+  L: {shape: BlockShape},
+  Z: {shape: BlockShape},
+  S: {shape: BlockShape},
+  O: {shape: BlockShape},
+  T: {shape: BlockShape},
 }
 
-export const POWDROMINOS: PowdrominoObject = {
+export const blockShapes: BlockShapeObject = {
   I: {
     shape: [
       [false, true, false, false],

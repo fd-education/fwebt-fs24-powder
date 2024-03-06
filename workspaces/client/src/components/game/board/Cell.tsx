@@ -1,8 +1,8 @@
 import React from 'react';
-import { PowdrominoTypes, VoidCell } from '../../../domain/enums/PowdrominoTypes';
+import { BlockName, VoidCell } from '../../../domain/enums/BlockName';
 
 interface CellProps {
-  cellType: PowdrominoTypes | VoidCell;
+  cellType: BlockName | VoidCell;
 }
 
 export const Cell = ({ cellType }: CellProps) => {
@@ -11,25 +11,25 @@ export const Cell = ({ cellType }: CellProps) => {
       {cellType === VoidCell.VOID && (
         <div className={`h-full w-full bg-primary-light`}></div>
       )}
-      {cellType === PowdrominoTypes.I && (
+      {cellType === BlockName.I && (
         <div className={`h-full w-full bg-powdromino-purple`}></div>
       )}
-      {cellType === PowdrominoTypes.J && (
+      {cellType === BlockName.J && (
         <div className={`h-full w-full bg-powdromino-green`}></div>
       )}
-      {cellType === PowdrominoTypes.L && (
+      {cellType === BlockName.L && (
         <div className={`h-full w-full bg-powdromino-red`}></div>
       )}
-      {cellType === PowdrominoTypes.Z && (
+      {cellType === BlockName.Z && (
         <div className={`h-full w-full bg-powdromino-sky`}></div>
       )}
-      {cellType === PowdrominoTypes.S && (
+      {cellType === BlockName.S && (
         <div className={`h-full w-full bg-powdromino-blue`}></div>
       )}
-      {cellType === PowdrominoTypes.O && (
+      {cellType === BlockName.O && (
         <div className={`h-full w-full bg-powdromino-orange`}></div>
       )}
-      {cellType === PowdrominoTypes.T && (
+      {cellType === BlockName.T && (
         <div className={`h-full w-full bg-powdromino-yellow`}></div>
       )}
     </div>

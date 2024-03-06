@@ -7,7 +7,7 @@ import { SettingsGroup } from '../components/settings/SettingsGroup';
 import { useGame } from '../hooks/useGame';
 
 export const GamePage = () => {
-  const { board, startGame, score, lines, previewBlocks } = useGame();
+  const { board, startGame, previewBlocks } = useGame();
 
   useEffect(() => {
     startGame();
@@ -17,7 +17,7 @@ export const GamePage = () => {
     <div className='h-full w-full flex justify-center gap-16'>
       <div className='h-full flex flex-col justify-start content-center gap-48'>
         <TitleSmall />
-        <Score score={score} lines={lines} />
+        <Score />
       </div>
       <div className='h-full flex flex-col justify-center items-center'>
         <Board state={board} />

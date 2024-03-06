@@ -4,23 +4,27 @@ import { useInterval } from './useInterval';
 import { PowderConfig } from '../domain/config/PowderConfig';
 import {
   BoardType,
-  PowdrominoTypes,
+  BlockName,
   VoidCell,
-} from '../domain/enums/PowdrominoTypes';
-import { POWDROMINOS, PowdrominoShape } from '../domain/game/Powdromino.shapes';
+} from '../domain/enums/BlockName';
+import { blockShapes, BlockShape } from '../domain/game/Powdromino.shapes';
+import { useScoreStore } from '../domain/state/scoreStore';
 
 export const useGame = () => {
   const [started, setStarted] = useState<boolean>(false);
+  const [paused, setPaused] = useState<boolean>(false);
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
   const [isSettling, setIsSettling] = useState<boolean>(false);
-  const [nextPowdrominos, setNextPowdrominos] = useState<PowdrominoTypes[]>();
-  const [score, setScore] = useState<number>(0);
-  const [lines, setLines] = useState<number>(0);
+  const [nextPowdrominos, setNextPowdrominos] = useState<BlockName[]>();
+
+  const {incPlayerScore, incPlayerLines} = useScoreStore();
 
   const [{ board, shapeRow, shapeCol, block, shape }, dispatchState] =
     useBoard();
 
   const startGame = useCallback(() => {
+    console.log('Start Game');
+
     const startingPowdrominos = [
       getRandomPowdromino(),
       getRandomPowdromino(),
@@ -33,7 +37,21 @@ export const useGame = () => {
     dispatchState({ type: 'start' });
   }, [dispatchState]);
 
+  const pauseGame = useCallback(() => {
+    console.log('Pause Game');
+
+    setStarted(false);
+    setPaused(true);
+    setLoopSpeed(null);
+
+    dispatchState({
+      type: 'pause',
+    });
+  }, [dispatchState]);
+
   const freezeSettledPosition = useCallback(() => {
+    console.log('Freeze Position');
+
     if (!isColliding(board, shape, shapeRow + 1, shapeCol)) {
       setIsSettling(false);
       setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
@@ -50,17 +68,18 @@ export const useGame = () => {
         boardWithFixedPowdromino.splice(r, 1);
       }
     }
-    setScore((prevScore) => prevScore + calculateReward(fullLines));
-    setLines((prevLines) => prevLines + fullLines);
+
+    incPlayerScore(calculateReward(fullLines));
+    incPlayerLines(fullLines);
 
     const updatedNextPowdrominos = structuredClone(
       nextPowdrominos
-    ) as PowdrominoTypes[];
-    const nextPowdromino = updatedNextPowdrominos.pop() as PowdrominoTypes;
+    ) as BlockName[];
+    const nextPowdromino = updatedNextPowdrominos.pop() as BlockName;
     updatedNextPowdrominos.unshift(getRandomPowdromino());
     setNextPowdrominos(updatedNextPowdrominos);
 
-    if (isColliding(board, POWDROMINOS[nextPowdromino].shape, 0, 3)) {
+    if (isColliding(board, blockShapes[nextPowdromino].shape, 0, 3)) {
       setStarted(false);
       setLoopSpeed(null);
     } else {
@@ -75,11 +94,18 @@ export const useGame = () => {
   }, [board, dispatchState, block, shape, shapeRow, shapeCol, nextPowdrominos]);
 
   const gameLoop = useCallback(() => {
+    console.log('Game Loop');
+    console.log('IsPaused: ', paused);
+    console.log('IsStarted: ', started);
+
+
     if (isSettling) {
       freezeSettledPosition();
     } else if (isColliding(board, shape, shapeRow + 1, shapeCol)) {
       setLoopSpeed(PowderConfig.COLLISION_LOOP_SPEED);
       setIsSettling(true);
+    } else if(paused){
+      setLoopSpeed(null);
     } else {
       dispatchState({ type: 'drop' });
     }
@@ -133,10 +159,10 @@ export const useGame = () => {
     const handleKeyUpEvent = (e: KeyboardEvent) => {
       if (e.repeat) return;
 
-      if(e.key === 'ArrowDown'){
+      if (e.key === 'ArrowDown') {
         setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
       }
-    }
+    };
 
     document.addEventListener('keydown', handleKeyDownEvent);
     document.addEventListener('keyup', handleKeyUpEvent);
@@ -158,9 +184,8 @@ export const useGame = () => {
   return {
     board: renderedBoard,
     startGame,
+    pauseGame,
     started,
-    score,
-    lines,
     previewBlocks,
   };
 };
@@ -172,11 +197,11 @@ const calculateReward = (fullLines: number): number => {
     case 1:
       return 10;
     case 2:
-      return 20;
-    case 3:
       return 30;
+    case 3:
+      return 60;
     case 4:
-      return 40;
+      return 100;
     default:
       throw new Error(`Unhandled number of full lines: ${fullLines}`);
   }
@@ -184,8 +209,8 @@ const calculateReward = (fullLines: number): number => {
 
 export const addShapeToBoard = (
   board: BoardType,
-  powdromino: PowdrominoTypes,
-  shape: PowdrominoShape,
+  powdromino: BlockName,
+  shape: BlockShape,
   shapeRow: number,
   shapeCol: number
 ) => {
@@ -200,21 +225,22 @@ export const addShapeToBoard = (
     });
 };
 
-export const getPreviewBlocks = (next: PowdrominoTypes[]): BoardType[] => {
+export const getPreviewBlocks = (next: BlockName[]): BoardType[] => {
   if (!next) return;
 
   const boards: BoardType[] = [];
 
   next.forEach((powdromino) => {
-    const shape = POWDROMINOS[powdromino].shape
-    .filter((row: boolean[]) => (row.some((hasBlock) => hasBlock)));
+    const shape = blockShapes[powdromino].shape.filter((row: boolean[]) =>
+      row.some((hasBlock) => hasBlock)
+    );
 
     const board = Array(shape.length)
       .fill(null)
       .map(() => Array(shape[0].length).fill(VoidCell.VOID));
 
     addShapeToBoard(board, powdromino, shape, 0, 0);
-    boards.push(board)
+    boards.push(board);
   });
 
   return boards;

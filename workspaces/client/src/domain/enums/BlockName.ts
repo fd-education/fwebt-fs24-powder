@@ -1,6 +1,6 @@
-export type BoardType = (PowdrominoTypes | VoidCell)[][];
+export type BoardType = (BlockName | VoidCell)[][];
 
-export enum PowdrominoTypes {
+export enum BlockName {
   I = 'I',
   J = 'J',
   L = 'L',
