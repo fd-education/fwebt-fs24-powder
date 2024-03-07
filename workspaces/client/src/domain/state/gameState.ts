@@ -14,6 +14,7 @@ interface GameState {
   started: boolean;
   paused: boolean;
   ended: boolean;
+  lost: boolean;
   hasCollision: boolean;
   isSettling: boolean;
   setIsSettling: (value: boolean) => void;
@@ -149,6 +150,7 @@ export const useGameStateStore = create<GameState>()((set) => ({
   started: false,
   paused: false,
   ended: false,
+  lost: false,
   startGame: () => {
     const firstBlock = getRandomBlock();
     const nextBlocks = [getRandomBlock(), getRandomBlock(), getRandomBlock()];
@@ -310,6 +312,8 @@ export const useGameStateStore = create<GameState>()((set) => ({
       if (isColliding(updatedBoard, updatedShape, 0, 3)) {
         return {
           started: false,
+          ended: true,
+          lost: true,
           board: updatedBoard,
           renderedBoard: updatedBoard,
           shapeRow: -1,
