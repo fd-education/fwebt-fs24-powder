@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { TitleSmall } from '../components/util/TitleSmall';
 import { Board } from '../components/game/board/Board';
 import { Score } from '../components/game/score/Score';
 import { Preview } from '../components/game/preview/Preview';
@@ -9,6 +8,7 @@ import { useGameStateStore } from '../domain/state/gameState';
 import { Pause } from '../components/game/Pause';
 import { Lost } from '../components/game/Lost';
 import { End } from '../components/game/End';
+import { Title, TitleSize } from '../components/util/Title';
 export const GamePage = () => {
   const { startGame } = useGame();
   const { paused, lost, ended } = useGameStateStore();
@@ -23,7 +23,7 @@ export const GamePage = () => {
       {ended && lost && <Lost />}
       {ended && !lost && <End />}
       <div className='h-full flex flex-col justify-start content-center gap-48'>
-        <TitleSmall />
+        <Title size={TitleSize.SMALL} />
         <Score />
       </div>
       <div className='h-full flex flex-col justify-center items-center'>
