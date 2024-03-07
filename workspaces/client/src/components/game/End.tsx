@@ -11,7 +11,7 @@ export const End = () => {
   const { playerScore, playerLines } = useScoreStore();
 
   return (
-    <div className='h-full w-full fixed top-0 left-0  bg-primary-light-transparent dark:bg-primary-dark-transparent flex items-center justify-center'>
+    <div className='h-full w-full fixed top-0 left-0  bg-primary-light-trans7 dark:bg-primary-dark-trans7 flex items-center justify-center'>
       <Panel>
         <div className='flex flex-col items-center space-y-8'>
           <PanelHeading text='you gave up?! :(' />

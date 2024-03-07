@@ -10,9 +10,11 @@ const config: Config = {
     },
     colors: {
       'primary-light': 'rgba(240, 234, 234, 1)',
-      'primary-light-transparent': 'rgba(240, 234, 234, .7)',
+      'primary-light-trans8': 'rgba(240, 234, 234, .8)',
+      'primary-light-trans7': 'rgba(240, 234, 234, .7)',
       'primary-dark': 'rgba(44, 39, 39, 1)',
-      'primary-dark-transparent': 'rgba(44, 39, 39, .7)',
+      'primary-dark-trans8': 'rgba(44, 39, 39, .8)',
+      'primary-dark-trans7': 'rgba(44, 39, 39, .7)',
       white: 'rgba(255, 255, 255, 1)',
      'white-transparent': 'rgba(255, 255, 255, .8)',
       black: 'rgba(0, 0, 0, 1)',
