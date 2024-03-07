@@ -18,6 +18,8 @@ export const useGame = () => {
     settleBlock,
     startGame: start,
     started,
+    paused,
+    ended,
     nextTick,
     nextRound,
     rotateBlock,
@@ -74,15 +76,15 @@ export const useGame = () => {
   }, [loopSpeed, isSettling, hasCollision]);
 
   useInterval(() => {
-    if (!started) return;
+    if (!started || paused || ended) return;
     gameLoop();
   }, loopSpeed);
 
   useEffect(() => {
-    if (!started) return;
+    if (!started || paused || ended) return;
 
     const handleKeyDownEvent = (e: KeyboardEvent) => {
-      if (e.repeat) return;
+      if (!started || paused || ended || e.repeat) return;
 
       switch (e.key) {
         case 'ArrowDown':
@@ -101,7 +103,7 @@ export const useGame = () => {
     };
 
     const handleKeyUpEvent = (e: KeyboardEvent) => {
-      if (e.repeat) return;
+      if (!started || paused || ended || e.repeat) return;
 
       switch (e.key) {
         case 'ArrowDown':
@@ -117,7 +119,7 @@ export const useGame = () => {
       document.removeEventListener('keydown', handleKeyDownEvent);
       document.removeEventListener('keyup', handleKeyUpEvent);
     };
-  }, [started, renderedBoard, loopSpeed]);
+  }, [started, paused, ended, renderedBoard, loopSpeed, isColliding, isSettling]);
 
   return {
     startGame,

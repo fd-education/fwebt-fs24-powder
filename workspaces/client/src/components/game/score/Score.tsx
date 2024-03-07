@@ -4,17 +4,11 @@ import { PanelHeading } from '../../util/PanelHeading';
 import { PowderButton } from '../../util/PowderButton';
 import { NumberDisplay } from './NumberDisplay';
 import { useScoreStore } from '../../../domain/state/scoreStore';
+import { useGameStateStore } from '../../../domain/state/gameState';
 
 export const Score = () => {
   const { playerScore, playerLines } = useScoreStore();
-
-  const pause = () => {
-    console.log('TBD');
-  };
-
-  const endGame = () => {
-    console.log('TBD');
-  };
+  const { pauseGame, continueGame, paused, endGame } = useGameStateStore();
 
   return (
     <Panel>
@@ -27,8 +21,12 @@ export const Score = () => {
           <PanelHeading text='Lines' />
           <NumberDisplay number={playerLines} />
         </div>
-        <PowderButton text='pause' clickHandler={() => pause()} />
-        <PowderButton text='end' clickHandler={endGame} />
+        {paused ? (
+          <PowderButton text='continue' clickHandler={() => continueGame()} />
+          ) : (
+          <PowderButton text='pause' clickHandler={() => pauseGame()} />
+        )}
+        <PowderButton text='end' clickHandler={() => endGame()} />
       </div>
     </Panel>
   );

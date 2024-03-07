@@ -12,12 +12,17 @@ interface GameState {
   block: BlockName;
   shape: BlockShape;
   started: boolean;
+  paused: boolean;
+  ended: boolean;
   hasCollision: boolean;
   isSettling: boolean;
   setIsSettling: (value: boolean) => void;
   nextBlocks: BlockName[];
   nextBlockShapes: BoardType[];
   startGame: () => void;
+  continueGame: () => void;
+  pauseGame: () => void;
+  endGame: () => void;
   nextTick: () => void;
   moveBlockLeft: () => void;
   moveBlockRight: () => void;
@@ -142,6 +147,8 @@ export const useGameStateStore = create<GameState>()((set) => ({
   nextBlocks: [],
   nextBlockShapes: [],
   started: false,
+  paused: false,
+  ended: false,
   startGame: () => {
     const firstBlock = getRandomBlock();
     const nextBlocks = [getRandomBlock(), getRandomBlock(), getRandomBlock()];
@@ -163,6 +170,27 @@ export const useGameStateStore = create<GameState>()((set) => ({
       nextBlockShapes: getPreviewBlocks(nextBlocks),
       started: true,
     });
+  },
+  pauseGame: () => {
+    set((state) => {
+      const invalidState = state.paused || !state.started || state.ended;
+      return invalidState ? {} : { paused: true };
+    })
+  },
+  continueGame: () => {
+    set((state) => {
+      const invalidState = !state.paused || !state.started || state.ended;
+      return invalidState ? {} : { paused: false };
+    })
+  },
+  endGame: () => {
+    set((state) => {
+      const invalidState = !state.started || state.paused || state.ended;
+      return invalidState ? {} : {
+        started: false,
+        ended: true
+      }
+    })
   },
   nextTick: () => {
     set((state) => {
