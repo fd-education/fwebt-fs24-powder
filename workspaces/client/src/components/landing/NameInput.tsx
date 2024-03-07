@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
 import { useNavigate } from 'react-router-dom';
@@ -6,22 +6,19 @@ import { usePlayerNameStore } from '../../domain/state/playerNameStore';
 
 export const NameInput = () => {
   const { setPlayerName } = usePlayerNameStore();
+  const [name, setName] = useState<string>('');
+
   const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    const target = event.target as typeof event.target & {
-      playerName: { value: string };
-    };
-
-    const playerName = target.playerName.value;
-    if (!playerName) {
+    if (!name) {
       console.error('Playername must be specified!');
       return;
     }
 
-    setPlayerName(playerName);
+    setPlayerName(name);
     navigate('/lobby');
   };
 
@@ -36,6 +33,7 @@ export const NameInput = () => {
             type='text'
             name='playerName'
             placeholder='enter your name'
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <input
