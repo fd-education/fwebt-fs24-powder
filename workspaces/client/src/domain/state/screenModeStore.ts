@@ -7,23 +7,33 @@ interface ScreenModeState {
   setScreenMode: (screenMode: ScreenMode) => void;
 }
 
+const getScreenMode = (): ScreenMode => {
+  const isDark =
+    ('theme' in localStorage &&
+      JSON.parse(localStorage.theme).state.screenMode === 'dark') ||
+    (!('theme' in localStorage) &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches) ||
+    document.documentElement.classList.contains('dark');
+
+  return isDark ? ScreenMode.DARK : ScreenMode.LIGHT;
+};
+
 export const useScreenModeStore = create<ScreenModeState>()(
   persist(
     (set) => ({
-      screenMode: ScreenMode.DARK,
+      screenMode: getScreenMode(),
       setScreenMode: (screenMode) => {
-        if (
-          screenMode === ScreenMode.DARK ||
-          localStorage.theme === 'dark' ||
-          (!('theme' in localStorage) &&
-            window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
+        set(() => {
+          if (screenMode === ScreenMode.DARK) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
 
-        set({ screenMode });
+          return {
+            screenMode,
+          };
+        });
       },
     }),
     {

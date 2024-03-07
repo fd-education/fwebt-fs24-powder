@@ -1,12 +1,12 @@
 import React from 'react';
-import { TitleBig } from '../components/util/TitleBig';
+import { Title, TitleSize } from '../components/util/Title';
 import { NameInput } from '../components/landing/NameInput';
 import { SettingsGroup } from '../components/settings/SettingsGroup';
 
 export const LandingPage = () => {
   return (
     <div className={`h-full w-full flex flex-col items-center`}>
-      <TitleBig />
+      <Title size={TitleSize.BIG} />
       <div className={`h-full flex flex-col items-center justify-center`}>
         <NameInput />
         <SettingsGroup />

@@ -8,4 +8,4 @@ export const LobbyChat = () => {
       <PanelHeading text='Lobby Chat' />
     </Panel>
   );
-}
+};

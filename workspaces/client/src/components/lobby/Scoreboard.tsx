@@ -8,4 +8,4 @@ export const Scoreboard = () => {
       <PanelHeading text='Scoreboard' />
     </Panel>
   );
-}
+};

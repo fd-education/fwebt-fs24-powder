@@ -1,7 +1,6 @@
 import React from 'react';
 import { BaseProps } from '../../domain/types/BaseProps';
 
-
 export const Background = (props: BaseProps) => {
   return (
     <div

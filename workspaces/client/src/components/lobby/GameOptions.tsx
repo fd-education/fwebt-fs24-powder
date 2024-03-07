@@ -24,12 +24,18 @@ export const GameOptions = () => {
 
   return (
     <Panel>
-      <PanelHeading text='Singleplayer' />
-      <PowderButton text='play' clickHandler={playSinglePlayer}/>
-      <PanelHeading text='Multiplayer' />
-      <div>
-        <PowderButton text='local' clickHandler={playLocalMultiplayer}/>
-        <PowderButton text='remote' clickHandler={playRemoteMultiplayer}/>
+      <div className='space-y-8'>
+        <div className='flex flex-col items-center space-y-2'>
+          <PanelHeading text='Singleplayer' />
+          <PowderButton text='play' clickHandler={playSinglePlayer} />
+        </div>
+        <div className='flex flex-col items-center space-y-2'>
+          <PanelHeading text='Multiplayer' />
+          <div className='space-x-6'>
+            <PowderButton text='local' clickHandler={playLocalMultiplayer} />
+            <PowderButton text='remote' clickHandler={playRemoteMultiplayer} />
+          </div>
+        </div>
       </div>
     </Panel>
   );
