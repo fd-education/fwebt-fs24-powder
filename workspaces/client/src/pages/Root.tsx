@@ -8,8 +8,7 @@ export const RootPage = () => {
 
   useEffect(() => {
     if (playerName) {
-      // TODO Navigate to Lobby
-      navigate('/game');
+      navigate('/lobby');
     } else {
       navigate('/landing');
     }

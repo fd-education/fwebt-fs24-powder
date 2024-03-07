@@ -11,10 +11,12 @@ export const LobbyPage = () => {
       <div className='h-full flex flex-col justify-center'>
         <LobbyChat />
       </div>
-      <div className='h-full flex flex-col justify-center items-center'>
+      <div className='h-full flex flex-col justify-center items-center space-y-16'>
         <TitleSmall />
-        <GameOptions />
-        <SettingsGroup />
+        <div className='flex flex-col items-center'>
+          <GameOptions />
+          <SettingsGroup />
+        </div>
       </div>
       <div className='h-full flex flex-col justify-center'>
         <Scoreboard />
