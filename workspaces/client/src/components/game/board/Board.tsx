@@ -1,18 +1,15 @@
 import React from 'react';
 import { Panel } from '../../util/Panel';
-import { BoardType } from '../../../domain/enums/BlockName';
 import { Cell } from './Cell';
+import { useGameStateStore } from '../../../domain/state/gameState';
 
-interface BoardProps {
-  state: BoardType;
-}
-
-export const Board = ({state}: BoardProps) => {
+export const Board = () => {
+  const { renderedBoard } = useGameStateStore();
 
   return (
     <Panel>
       <div>
-        {state.map((row, ri) => (
+        {renderedBoard.map((row, ri) => (
           <div key={ri} className='flex'>
             {row.map((cell, ci) => (
               <Cell key={`${ri}-${ci}`} cellType={cell} />

@@ -3,21 +3,18 @@ import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
 import { PowderButton } from '../../util/PowderButton';
 import { NumberDisplay } from './NumberDisplay';
-import { useGame } from '../../../hooks/useGame';
 import { useScoreStore } from '../../../domain/state/scoreStore';
 
 export const Score = () => {
-  const {pauseGame} = useGame();
-  const {playerScore, playerLines} = useScoreStore();
+  const { playerScore, playerLines } = useScoreStore();
 
   const pause = () => {
-    pauseGame();
-    console.log('TBD')
-  }
+    console.log('TBD');
+  };
 
   const endGame = () => {
-    console.log('TBD')
-  }
+    console.log('TBD');
+  };
 
   return (
     <Panel>

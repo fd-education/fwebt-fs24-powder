@@ -1,123 +1,77 @@
 import { useCallback, useEffect, useState } from 'react';
-import { getRandomPowdromino, isColliding, useBoard } from './useBoard';
 import { useInterval } from './useInterval';
 import { PowderConfig } from '../domain/config/PowderConfig';
-import {
-  BoardType,
-  BlockName,
-  VoidCell,
-} from '../domain/enums/BlockName';
-import { blockShapes, BlockShape } from '../domain/game/Powdromino.shapes';
+import { BoardType, VoidCell } from '../domain/enums/BlockName';
 import { useScoreStore } from '../domain/state/scoreStore';
+import { isColliding, useGameStateStore } from '../domain/state/gameState';
 
 export const useGame = () => {
-  const [started, setStarted] = useState<boolean>(false);
-  const [paused, setPaused] = useState<boolean>(false);
-  const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
-  const [isSettling, setIsSettling] = useState<boolean>(false);
-  const [nextPowdrominos, setNextPowdrominos] = useState<BlockName[]>();
-
-  const {incPlayerScore, incPlayerLines} = useScoreStore();
-
-  const [{ board, shapeRow, shapeCol, block, shape }, dispatchState] =
-    useBoard();
-
-  const startGame = useCallback(() => {
-    console.log('Start Game');
-
-    const startingPowdrominos = [
-      getRandomPowdromino(),
-      getRandomPowdromino(),
-      getRandomPowdromino(),
-    ];
-    setNextPowdrominos(startingPowdrominos);
-    setIsSettling(false);
-    setStarted(true);
-    setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
-    dispatchState({ type: 'start' });
-  }, [dispatchState]);
-
-  const pauseGame = useCallback(() => {
-    console.log('Pause Game');
-
-    setStarted(false);
-    setPaused(true);
-    setLoopSpeed(null);
-
-    dispatchState({
-      type: 'pause',
-    });
-  }, [dispatchState]);
-
-  const freezeSettledPosition = useCallback(() => {
-    console.log('Freeze Position');
-
-    if (!isColliding(board, shape, shapeRow + 1, shapeCol)) {
-      setIsSettling(false);
-      setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
-      return;
-    }
-
-    const boardWithFixedPowdromino = structuredClone(board) as BoardType;
-    addShapeToBoard(boardWithFixedPowdromino, block, shape, shapeRow, shapeCol);
-
-    let fullLines = 0;
-    for (let r = PowderConfig.BOARD_ROWS - 1; r >= 0; r--) {
-      if (boardWithFixedPowdromino[r].every((cell) => cell !== VoidCell.VOID)) {
-        fullLines += 1;
-        boardWithFixedPowdromino.splice(r, 1);
-      }
-    }
-
-    incPlayerScore(calculateReward(fullLines));
-    incPlayerLines(fullLines);
-
-    const updatedNextPowdrominos = structuredClone(
-      nextPowdrominos
-    ) as BlockName[];
-    const nextPowdromino = updatedNextPowdrominos.pop() as BlockName;
-    updatedNextPowdrominos.unshift(getRandomPowdromino());
-    setNextPowdrominos(updatedNextPowdrominos);
-
-    if (isColliding(board, blockShapes[nextPowdromino].shape, 0, 3)) {
-      setStarted(false);
-      setLoopSpeed(null);
-    } else {
-      setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
-    }
-
-    dispatchState({
-      type: 'settle',
-      updatedBoard: boardWithFixedPowdromino,
-      nextPowdromino,
-    });
-  }, [board, dispatchState, block, shape, shapeRow, shapeCol, nextPowdrominos]);
-
-  const gameLoop = useCallback(() => {
-    console.log('Game Loop');
-    console.log('IsPaused: ', paused);
-    console.log('IsStarted: ', started);
-
-
-    if (isSettling) {
-      freezeSettledPosition();
-    } else if (isColliding(board, shape, shapeRow + 1, shapeCol)) {
-      setLoopSpeed(PowderConfig.COLLISION_LOOP_SPEED);
-      setIsSettling(true);
-    } else if(paused){
-      setLoopSpeed(null);
-    } else {
-      dispatchState({ type: 'drop' });
-    }
-  }, [
-    board,
-    dispatchState,
+  const { incPlayerScore, incPlayerLines } = useScoreStore();
+  const {
+    shape,
     shapeRow,
     shapeCol,
-    shape,
-    freezeSettledPosition,
+    renderedBoard,
+    hasCollision,
     isSettling,
-  ]);
+    setIsSettling,
+    settleBlock,
+    startGame: start,
+    started,
+    nextTick,
+    nextRound,
+    rotateBlock,
+    moveBlockLeft,
+    moveBlockRight,
+  } = useGameStateStore();
+
+  const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
+
+  const startGame = useCallback(() => {
+    setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+    start();
+  }, [start]);
+
+  const removeFullLines = useCallback(
+    (board: BoardType): [number, BoardType] => {
+      let removedLines = 0;
+      const boardClone = structuredClone(board) as BoardType;
+      for (let r = PowderConfig.BOARD_ROWS - 1; r >= 0; r--) {
+        if (boardClone[r].every((cell) => cell !== VoidCell.VOID)) {
+          removedLines += 1;
+          boardClone.splice(r, 1);
+        }
+      }
+      return [removedLines, boardClone];
+    },
+    []
+  );
+
+  const gameLoop = useCallback(() => {
+    if (isSettling) {
+      if (!isColliding(renderedBoard, shape, shapeRow + 1, shapeCol)) {
+        setIsSettling(false);
+        setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+        return;
+      }
+
+      const fixedBoard = structuredClone(renderedBoard) as BoardType;
+      const [removedLines, updatedBoard] = removeFullLines(fixedBoard);
+
+      incPlayerScore(calculateReward(removedLines));
+      incPlayerLines(removedLines);
+
+      settleBlock();
+      setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+      nextRound(removedLines, updatedBoard);
+      setIsSettling(false);
+    } else if (hasCollision) {
+      setIsSettling(true);
+      setLoopSpeed(PowderConfig.COLLISION_LOOP_SPEED);
+    } else {
+      nextTick();
+    }
+  }, [loopSpeed, isSettling, hasCollision]);
 
   useInterval(() => {
     if (!started) return;
@@ -130,37 +84,29 @@ export const useGame = () => {
     const handleKeyDownEvent = (e: KeyboardEvent) => {
       if (e.repeat) return;
 
-      if (e.key === 'ArrowDown') {
-        setLoopSpeed(50);
-      }
-
-      if (e.key === 'ArrowUp') {
-        dispatchState({
-          type: 'move',
-          isRotate: true,
-        });
-      }
-
-      if (e.key === 'ArrowRight') {
-        dispatchState({
-          type: 'move',
-          isMoveRight: true,
-        });
-      }
-
-      if (e.key === 'ArrowLeft') {
-        dispatchState({
-          type: 'move',
-          isMoveLeft: true,
-        });
+      switch (e.key) {
+        case 'ArrowDown':
+          setLoopSpeed(PowderConfig.FASTDROP_LOOP_SPEED);
+          break;
+        case 'ArrowUp':
+          rotateBlock();
+          break;
+        case 'ArrowRight':
+          moveBlockRight();
+          break;
+        case 'ArrowLeft':
+          moveBlockLeft();
+          break;
       }
     };
 
     const handleKeyUpEvent = (e: KeyboardEvent) => {
       if (e.repeat) return;
 
-      if (e.key === 'ArrowDown') {
-        setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+      switch (e.key) {
+        case 'ArrowDown':
+          setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+          break;
       }
     };
 
@@ -170,23 +116,11 @@ export const useGame = () => {
     return () => {
       document.removeEventListener('keydown', handleKeyDownEvent);
       document.removeEventListener('keyup', handleKeyUpEvent);
-      setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
     };
-  }, [started, dispatchState]);
-
-  const renderedBoard = structuredClone(board) as BoardType;
-  if (started) {
-    addShapeToBoard(renderedBoard, block, shape, shapeRow, shapeCol);
-  }
-
-  const previewBlocks = getPreviewBlocks(nextPowdrominos);
+  }, [started, renderedBoard, loopSpeed]);
 
   return {
-    board: renderedBoard,
     startGame,
-    pauseGame,
-    started,
-    previewBlocks,
   };
 };
 
@@ -205,43 +139,4 @@ const calculateReward = (fullLines: number): number => {
     default:
       throw new Error(`Unhandled number of full lines: ${fullLines}`);
   }
-};
-
-export const addShapeToBoard = (
-  board: BoardType,
-  powdromino: BlockName,
-  shape: BlockShape,
-  shapeRow: number,
-  shapeCol: number
-) => {
-  shape
-    .filter((row) => row.some((hasBlock) => hasBlock))
-    .forEach((row: boolean[], ri: number) => {
-      row.forEach((hasBlock: boolean, ci: number) => {
-        if (hasBlock) {
-          board[shapeRow + ri][shapeCol + ci] = powdromino;
-        }
-      });
-    });
-};
-
-export const getPreviewBlocks = (next: BlockName[]): BoardType[] => {
-  if (!next) return;
-
-  const boards: BoardType[] = [];
-
-  next.forEach((powdromino) => {
-    const shape = blockShapes[powdromino].shape.filter((row: boolean[]) =>
-      row.some((hasBlock) => hasBlock)
-    );
-
-    const board = Array(shape.length)
-      .fill(null)
-      .map(() => Array(shape[0].length).fill(VoidCell.VOID));
-
-    addShapeToBoard(board, powdromino, shape, 0, 0);
-    boards.push(board);
-  });
-
-  return boards;
 };

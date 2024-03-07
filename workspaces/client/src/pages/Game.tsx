@@ -5,9 +5,8 @@ import { Score } from '../components/game/score/Score';
 import { Preview } from '../components/game/preview/Preview';
 import { SettingsGroup } from '../components/settings/SettingsGroup';
 import { useGame } from '../hooks/useGame';
-
 export const GamePage = () => {
-  const { board, startGame, previewBlocks } = useGame();
+  const { startGame } = useGame();
 
   useEffect(() => {
     startGame();
@@ -20,11 +19,11 @@ export const GamePage = () => {
         <Score />
       </div>
       <div className='h-full flex flex-col justify-center items-center'>
-        <Board state={board} />
+        <Board />
         <SettingsGroup />
       </div>
       <div className='h-full flex flex-col justify-center items-center'>
-        <Preview previewBlocks={previewBlocks} />
+        <Preview />
       </div>
     </div>
   );
