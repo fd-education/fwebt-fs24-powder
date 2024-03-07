@@ -154,7 +154,7 @@ const initialState: GameStateVariables = {
   paused: false,
   ended: false,
   lost: false,
-}
+};
 
 export const useGameStateStore = create<GameState>()((set) => ({
   ...initialState,
@@ -180,7 +180,7 @@ export const useGameStateStore = create<GameState>()((set) => ({
       started: true,
       ended: false,
       lost: false,
-      paused: false
+      paused: false,
     });
   },
   pauseGame: () => {
