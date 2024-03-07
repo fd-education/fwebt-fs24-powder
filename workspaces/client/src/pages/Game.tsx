@@ -5,8 +5,11 @@ import { Score } from '../components/game/score/Score';
 import { Preview } from '../components/game/preview/Preview';
 import { SettingsGroup } from '../components/settings/SettingsGroup';
 import { useGame } from '../hooks/useGame';
+import { useGameStateStore } from '../domain/state/gameState';
+import { Pause } from '../components/game/Pause';
 export const GamePage = () => {
   const { startGame } = useGame();
+  const { paused } = useGameStateStore();
 
   useEffect(() => {
     startGame();
@@ -14,6 +17,7 @@ export const GamePage = () => {
 
   return (
     <div className='h-full w-full flex justify-center gap-16'>
+      {paused && <Pause/>}
       <div className='h-full flex flex-col justify-start content-center gap-48'>
         <TitleSmall />
         <Score />

@@ -3,11 +3,12 @@ import { BlockName, VoidCell } from '../../../domain/enums/BlockName';
 
 interface CellProps {
   cellType: BlockName | VoidCell;
+  display: boolean;
 }
 
-export const Cell = ({ cellType }: CellProps) => {
+export const Cell = ({ cellType, display }: CellProps) => {
   return (
-    <div className={`h-8 w-8 border-2`}>
+    <div className={`h-8 w-8 border-2 ${!display && 'invisible'}`}>
       {cellType === VoidCell.VOID && (
         <div className={`h-full w-full bg-primary-light`}></div>
       )}

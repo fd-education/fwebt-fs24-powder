@@ -21,11 +21,7 @@ export const Score = () => {
           <PanelHeading text='Lines' />
           <NumberDisplay number={playerLines} />
         </div>
-        {paused ? (
-          <PowderButton text='continue' clickHandler={() => continueGame()} />
-          ) : (
           <PowderButton text='pause' clickHandler={() => pauseGame()} />
-        )}
         <PowderButton text='end' clickHandler={() => endGame()} />
       </div>
     </Panel>

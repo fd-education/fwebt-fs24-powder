@@ -5,7 +5,7 @@ import { PreviewCell } from './PreviewCell';
 import { useGameStateStore } from '../../../domain/state/gameState';
 
 export const Preview = () => {
-  const { nextBlockShapes } = useGameStateStore();
+  const { nextBlockShapes, paused } = useGameStateStore();
 
   return (
     <Panel height='min-h-[50%]'>
@@ -17,7 +17,7 @@ export const Preview = () => {
               {blocks.map((row, ri) => (
                 <div key={ri} className='flex'>
                   {row.map((cell, ci) => (
-                    <PreviewCell key={`${ri}-${ci}`} cellType={cell} />
+                    <PreviewCell key={`${ri}-${ci}`} cellType={cell} display={!paused}/>
                   ))}
                 </div>
               ))}

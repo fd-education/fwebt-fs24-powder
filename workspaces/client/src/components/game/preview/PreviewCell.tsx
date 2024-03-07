@@ -3,11 +3,12 @@ import { BlockName, VoidCell } from '../../../domain/enums/BlockName';
 
 interface PreviewCellProps {
   cellType: BlockName | VoidCell;
+  display: boolean;
 }
 
-export const PreviewCell = ({ cellType }: PreviewCellProps) => {
+export const PreviewCell = ({ cellType, display }: PreviewCellProps) => {
   return (
-    <div className={`h-6 w-6`}>
+    <div className={`h-6 w-6 ${!display && 'invisible'}`}>
       {cellType === VoidCell.VOID && (
         <div className={`h-full w-full invisible`}></div>
       )}
