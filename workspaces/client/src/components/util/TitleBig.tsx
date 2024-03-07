@@ -11,4 +11,4 @@ export const TitleBig = () => {
       </h2>
     </div>
   );
-}
+};

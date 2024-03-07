@@ -7,9 +7,9 @@ export enum BlockName {
   Z = 'Z',
   S = 'S',
   O = 'O',
-  T = 'T'
+  T = 'T',
 }
 
 export enum VoidCell {
-  VOID = '-'
+  VOID = '-',
 }

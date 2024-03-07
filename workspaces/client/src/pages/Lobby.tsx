@@ -13,7 +13,7 @@ export const LobbyPage = () => {
       </div>
       <div className='h-full flex flex-col justify-center items-center'>
         <TitleSmall />
-        <GameOptions/>
+        <GameOptions />
         <SettingsGroup />
       </div>
       <div className='h-full flex flex-col justify-center'>

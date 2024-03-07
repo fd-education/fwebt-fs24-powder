@@ -39,7 +39,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-    <Background>
-      <RouterProvider router={router} />
-    </Background>
+  <Background>
+    <RouterProvider router={router} />
+  </Background>
 );

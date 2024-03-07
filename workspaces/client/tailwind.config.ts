@@ -5,20 +5,20 @@ const config: Config = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     fontFamily: {
-      'blocked': 'Blocked',
-      'sans': 'RobotoMono'
+      blocked: 'Blocked',
+      sans: 'RobotoMono',
     },
     colors: {
       'primary-light': '#F0EAEA',
       'primary-dark': '#2C2727',
-      'white': '#FFFFFF',
-      'black': '#000000',
+      white: '#FFFFFF',
+      black: '#000000',
       'chat-bubble-received': '#303C33',
       'chat-bubble-sent': '#FFFFFF',
       'button-color': '#68926A',
       'powdromino-purple': '#6100FF',
       'powdromino-purple-light': '#B183FD',
-      'powdromino-purple-dark': '#30007D', 
+      'powdromino-purple-dark': '#30007D',
       'powdromino-green': '#00FF47',
       'powdromino-green-light': '#9AFFB6',
       'powdromino-green-dark': '#00711F',

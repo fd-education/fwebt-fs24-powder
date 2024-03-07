@@ -12,10 +12,10 @@ export const usePlayerNameStore = create<PlayerNameState>()(
       playerName: '',
       setPlayerName: (playerName) => {
         set({ playerName });
-      }
+      },
     }),
     {
-      name: 'player'
+      name: 'player',
     }
   )
 );

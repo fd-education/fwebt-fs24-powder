@@ -25,11 +25,11 @@ export const GameOptions = () => {
   return (
     <Panel>
       <PanelHeading text='Singleplayer' />
-      <PowderButton text='play' clickHandler={playSinglePlayer}/>
+      <PowderButton text='play' clickHandler={playSinglePlayer} />
       <PanelHeading text='Multiplayer' />
       <div>
-        <PowderButton text='local' clickHandler={playLocalMultiplayer}/>
-        <PowderButton text='remote' clickHandler={playRemoteMultiplayer}/>
+        <PowderButton text='local' clickHandler={playLocalMultiplayer} />
+        <PowderButton text='remote' clickHandler={playRemoteMultiplayer} />
       </div>
     </Panel>
   );

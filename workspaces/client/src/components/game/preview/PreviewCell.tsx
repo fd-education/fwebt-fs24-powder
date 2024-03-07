@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  BlockName,
-  VoidCell,
-} from '../../../domain/enums/BlockName';
+import { BlockName, VoidCell } from '../../../domain/enums/BlockName';
 
 interface PreviewCellProps {
   cellType: BlockName | VoidCell;
