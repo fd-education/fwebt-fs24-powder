@@ -9,11 +9,15 @@ import { Pause } from '../components/game/Pause';
 import { Lost } from '../components/game/Lost';
 import { End } from '../components/game/End';
 import { Title, TitleSize } from '../components/util/Title';
+import { useScreenModeStore } from '../domain/state/screenModeStore';
+import { useScoreStore } from '../domain/state/scoreStore';
 export const GamePage = () => {
   const { startGame } = useGame();
   const { paused, lost, ended } = useGameStateStore();
+  const {clearScores} = useScoreStore();
 
   useEffect(() => {
+    clearScores();
     startGame();
   }, []);
 
