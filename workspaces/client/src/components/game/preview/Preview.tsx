@@ -17,7 +17,11 @@ export const Preview = () => {
               {blocks.map((row, ri) => (
                 <div key={ri} className='flex'>
                   {row.map((cell, ci) => (
-                    <PreviewCell key={`${ri}-${ci}`} cellType={cell} display={!paused}/>
+                    <PreviewCell
+                      key={`${ri}-${ci}`}
+                      cellType={cell}
+                      display={!paused}
+                    />
                   ))}
                 </div>
               ))}

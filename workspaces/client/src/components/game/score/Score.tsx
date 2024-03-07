@@ -8,7 +8,7 @@ import { useGameStateStore } from '../../../domain/state/gameState';
 
 export const Score = () => {
   const { playerScore, playerLines } = useScoreStore();
-  const { pauseGame, continueGame, paused, endGame } = useGameStateStore();
+  const { pauseGame, endGame } = useGameStateStore();
 
   return (
     <Panel>
@@ -21,7 +21,7 @@ export const Score = () => {
           <PanelHeading text='Lines' />
           <NumberDisplay number={playerLines} />
         </div>
-          <PowderButton text='pause' clickHandler={() => pauseGame()} />
+        <PowderButton text='pause' clickHandler={() => pauseGame()} />
         <PowderButton text='end' clickHandler={() => endGame()} />
       </div>
     </Panel>

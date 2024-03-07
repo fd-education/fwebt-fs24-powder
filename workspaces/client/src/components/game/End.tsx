@@ -2,7 +2,6 @@ import React from 'react';
 import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
 import { PowderButton } from '../util/PowderButton';
-import { useGameStateStore } from '../../domain/state/gameState';
 import { useNavigate } from 'react-router-dom';
 import { useScoreStore } from '../../domain/state/scoreStore';
 import { NumberDisplay } from './score/NumberDisplay';

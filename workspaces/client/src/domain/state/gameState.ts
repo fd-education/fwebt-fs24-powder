@@ -177,22 +177,24 @@ export const useGameStateStore = create<GameState>()((set) => ({
     set((state) => {
       const invalidState = state.paused || !state.started || state.ended;
       return invalidState ? {} : { paused: true };
-    })
+    });
   },
   continueGame: () => {
     set((state) => {
       const invalidState = !state.paused || !state.started || state.ended;
       return invalidState ? {} : { paused: false };
-    })
+    });
   },
   endGame: () => {
     set((state) => {
       const invalidState = !state.started || state.paused || state.ended;
-      return invalidState ? {} : {
-        started: false,
-        ended: true
-      }
-    })
+      return invalidState
+        ? {}
+        : {
+            started: false,
+            ended: true,
+          };
+    });
   },
   nextTick: () => {
     set((state) => {

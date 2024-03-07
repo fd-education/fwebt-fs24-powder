@@ -119,7 +119,15 @@ export const useGame = () => {
       document.removeEventListener('keydown', handleKeyDownEvent);
       document.removeEventListener('keyup', handleKeyUpEvent);
     };
-  }, [started, paused, ended, renderedBoard, loopSpeed, isColliding, isSettling]);
+  }, [
+    started,
+    paused,
+    ended,
+    renderedBoard,
+    loopSpeed,
+    isColliding,
+    isSettling,
+  ]);
 
   return {
     startGame,

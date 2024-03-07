@@ -1,15 +1,15 @@
 import React from 'react';
 
-export enum TitleSize{
+export enum TitleSize {
   BIG = 'big',
-  SMALL = 'small'
+  SMALL = 'small',
 }
 
-interface TitleProps{
+interface TitleProps {
   size: TitleSize;
 }
 
-export const Title = ({size}: TitleProps) => {
+export const Title = ({ size }: TitleProps) => {
   return (
     <div>
       <h1
