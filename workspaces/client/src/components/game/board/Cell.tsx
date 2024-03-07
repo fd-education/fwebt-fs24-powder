@@ -8,9 +8,9 @@ interface CellProps {
 
 export const Cell = ({ cellType, display }: CellProps) => {
   return (
-    <div className={`h-8 w-8 border-2 ${!display && 'invisible'}`}>
+    <div className={`h-8 w-8 border-2 dark:border-black-transparent border-white-transparent border-collapse ${!display && 'invisible'}`}>
       {cellType === VoidCell.VOID && (
-        <div className={`h-full w-full bg-primary-light`}></div>
+        <div className={`h-full w-full`}></div>
       )}
       {cellType === BlockName.I && (
         <div className={`h-full w-full bg-powdromino-purple`}></div>

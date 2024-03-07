@@ -8,7 +8,7 @@ export const Board = () => {
 
   return (
     <Panel>
-      <div>
+      <div className='border-2 border-white-transparent dark:border-black-transparent'>
         {renderedBoard.map((row, ri) => (
           <div key={ri} className='flex'>
             {row.map((cell, ci) => (

@@ -139,7 +139,7 @@ export const getPreviewBlocks = (next: BlockName[]): BoardType[] => {
   return boards.reverse();
 };
 
-const initialState: GameStateVariables = {
+export const useGameStateStore = create<GameState>()((set) => ({
   board: [],
   renderedBoard: [],
   shapeRow: 0,
@@ -154,10 +154,6 @@ const initialState: GameStateVariables = {
   paused: false,
   ended: false,
   lost: false,
-};
-
-export const useGameStateStore = create<GameState>()((set) => ({
-  ...initialState,
   startGame: () => {
     const firstBlock = getRandomBlock();
     const nextBlocks = [getRandomBlock(), getRandomBlock(), getRandomBlock()];
