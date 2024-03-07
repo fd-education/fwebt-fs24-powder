@@ -4,22 +4,25 @@ import { BlockName } from '../enums/BlockName';
 import { BlockShape, blockShapes } from '../game/Powdromino.shapes';
 import { PowderConfig } from '../config/PowderConfig';
 
-interface GameState {
+interface GameStateVariables {
   board: BoardType;
   renderedBoard: BoardType;
   shapeRow: number;
   shapeCol: number;
   block: BlockName;
   shape: BlockShape;
+  nextBlocks: BlockName[];
+  nextBlockShapes: BoardType[];
   started: boolean;
   paused: boolean;
   ended: boolean;
   lost: boolean;
   hasCollision: boolean;
   isSettling: boolean;
+}
+
+interface GameState extends GameStateVariables {
   setIsSettling: (value: boolean) => void;
-  nextBlocks: BlockName[];
-  nextBlockShapes: BoardType[];
   startGame: () => void;
   continueGame: () => void;
   pauseGame: () => void;
@@ -136,7 +139,7 @@ export const getPreviewBlocks = (next: BlockName[]): BoardType[] => {
   return boards.reverse();
 };
 
-export const useGameStateStore = create<GameState>()((set) => ({
+const initialState: GameStateVariables = {
   board: [],
   renderedBoard: [],
   shapeRow: 0,
@@ -151,6 +154,10 @@ export const useGameStateStore = create<GameState>()((set) => ({
   paused: false,
   ended: false,
   lost: false,
+}
+
+export const useGameStateStore = create<GameState>()((set) => ({
+  ...initialState,
   startGame: () => {
     const firstBlock = getRandomBlock();
     const nextBlocks = [getRandomBlock(), getRandomBlock(), getRandomBlock()];
@@ -171,6 +178,9 @@ export const useGameStateStore = create<GameState>()((set) => ({
       nextBlocks,
       nextBlockShapes: getPreviewBlocks(nextBlocks),
       started: true,
+      ended: false,
+      lost: false,
+      paused: false
     });
   },
   pauseGame: () => {
