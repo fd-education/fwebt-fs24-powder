@@ -22,7 +22,7 @@ export const Score = () => {
           <NumberDisplay number={playerLines} />
         </div>
         <PowderButton text='pause' clickHandler={() => pauseGame()} />
-        <PowderButton text='end' clickHandler={() => endGame()} />
+        <PowderButton text='end' clickHandler={() => endGame(false)} />
       </div>
     </Panel>
   );

@@ -2,9 +2,11 @@ import React from 'react';
 import { Panel } from '../../util/Panel';
 import { Cell } from './Cell';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
+import { useBoardStateStore } from '../../../domain/state/boardStateStore';
 
 export const Board = () => {
-  const { renderedBoard, paused } = useGameStateStore();
+  const { paused } = useGameStateStore();
+  const { renderedBoard } = useBoardStateStore();
 
   return (
     <Panel>

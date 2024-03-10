@@ -3,32 +3,36 @@ import { useInterval } from './useInterval';
 import { PowderConfig } from '../domain/config/PowderConfig';
 import { BoardType, VoidCell } from '../domain/enums/BlockName';
 import { useScoreStore } from '../domain/state/scoreStore';
-import { useGameStateStore } from '../domain/state/gameStateStore';
 import { useGamePhysics } from './useGamePhysics';
+import { useGameStateStore } from '../domain/state/gameStateStore';
+import { useBoardStateStore } from '../domain/state/boardStateStore';
 
 export const useGame = () => {
   const { incPlayerScore, incPlayerLines } = useScoreStore();
   const {
-    shape,
-    shapeRow,
-    shapeCol,
-    renderedBoard,
-    hasCollision,
-    isSettling,
-    setIsSettling,
-    settleBlock,
     startGame: start,
+    endGame,
     started,
     paused,
     ended,
-    nextTick,
-    nextRound,
-    rotateBlock,
+  } = useGameStateStore();
+  const {
+    renderedBoard,
+    shape,
+    shapeRow,
+    shapeCol,
+    hasCollision,
+    dropBlock,
+    isSettling,
+    setIsSettling,
     moveBlockLeft,
     moveBlockRight,
-  } = useGameStateStore();
+    rotateBlock,
+    settleBlock,
+    nextRound,
+  } = useBoardStateStore();
 
-  const {checkCollisions} = useGamePhysics();
+  const { checkCollisions } = useGamePhysics();
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
 
   const startGame = useCallback(() => {
@@ -67,13 +71,15 @@ export const useGame = () => {
 
       settleBlock();
       setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
-      nextRound(removedLines, updatedBoard);
+      const hasLost = nextRound(removedLines, updatedBoard);
+
+      if (hasLost) endGame(true);
       setIsSettling(false);
     } else if (hasCollision) {
       setIsSettling(true);
       setLoopSpeed(PowderConfig.COLLISION_LOOP_SPEED);
     } else {
-      nextTick();
+      dropBlock();
     }
   }, [loopSpeed, isSettling, hasCollision]);
 
