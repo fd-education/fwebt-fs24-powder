@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { BlockName, BoardType, VoidCell } from '../enums/BlockName';
-import { BlockShape, blockShapes } from '../game/Powdromino.shapes';
+import { BlockShape, blockShapes } from '../game/BlockShapes';
 import { PowderConfig } from '../config/PowderConfig';
 import { useGamePhysics } from '../../hooks/useGamePhysics';
 

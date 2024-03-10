@@ -1,5 +1,5 @@
 import { BoardType, VoidCell } from '../domain/enums/BlockName';
-import { BlockShape } from '../domain/game/Powdromino.shapes';
+import { BlockShape } from '../domain/game/BlockShapes';
 
 export const useGamePhysics = () => {
   const checkCollisions = (
