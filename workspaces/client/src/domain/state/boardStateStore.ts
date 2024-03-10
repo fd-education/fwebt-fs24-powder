@@ -15,6 +15,7 @@ interface BoardState {
   isSettling: boolean;
   nextBlocks: BlockName[];
   nextBlockShapes: BoardType[];
+  initializeBoard: () => void;
   dropBlock: () => void;
   moveBlockLeft: () => void;
   moveBlockRight: () => void;
@@ -99,158 +100,159 @@ const getPreviewBlocks = (next: BlockName[]): BoardType[] => {
   return boards.reverse();
 };
 
-export const useBoardStateStore = create<BoardState>((set) => {
-  const firstBlock = getRandomBlock();
-  const nextBlocks = [getRandomBlock(), getRandomBlock(), getRandomBlock()];
+export const useBoardStateStore = create<BoardState>((set) => ({
+  board: [],
+  renderedBoard: [],
+  shapeRow: -1,
+  shapeCol: 3,
+  block: BlockName.I,
+  shape: blockShapes[BlockName.I].shape,
+  nextBlocks: [],
+  nextBlockShapes: [],
+  hasCollision: false,
+  isSettling: false,
+  initializeBoard: () => {
+    const firstBlock = getRandomBlock();
+    const nextBlocks = [getRandomBlock(), getRandomBlock(), getRandomBlock()];
 
-  return {
-    board: getEmptyBoard(),
-    renderedBoard: addShapeToBoard(
-      getEmptyBoard(),
-      firstBlock,
-      blockShapes[firstBlock].shape,
-      0,
-      3
-    ),
-    shapeRow: -1,
-    shapeCol: 3,
-    block: firstBlock,
-    shape: blockShapes[firstBlock].shape,
-    nextBlocks,
-    nextBlockShapes: getPreviewBlocks(nextBlocks),
-    hasCollision: false,
-    isSettling: false,
-    dropBlock: () => {
-      set(state => {
-        const updatedRow = state.shapeRow + 1;
-        if (checkCollisions(state.board, state.shape, updatedRow, state.shapeCol)) {
-          return {
-            hasCollision: true,
-          };
-        }
-
-        const updatedBoard = addShapeToBoard(
-          state.board,
-          state.block,
-          state.shape,
-          updatedRow,
-          state.shapeCol
-        );
-
+    set({
+      board: getEmptyBoard(),
+      renderedBoard: addShapeToBoard(
+        getEmptyBoard(),
+        firstBlock,
+        blockShapes[firstBlock].shape,
+        0,
+        3
+      ),
+      shapeRow: -1,
+      shapeCol: 3,
+      block: firstBlock,
+      shape: blockShapes[firstBlock].shape,
+      nextBlocks,
+      nextBlockShapes: getPreviewBlocks(nextBlocks),
+      hasCollision: false,
+      isSettling: false,
+    })
+  },
+  dropBlock: () => {
+    set(state => {
+      const updatedRow = state.shapeRow + 1;
+      if (checkCollisions(state.board, state.shape, updatedRow, state.shapeCol)) {
         return {
-          renderedBoard: updatedBoard,
-          shapeRow: updatedRow,
+          hasCollision: true,
         };
-      })
-    },
-    moveBlockLeft: () => {
-      set((state) => {
-        const willCollide = checkCollisions(
-          state.board,
-          state.shape,
-          state.shapeRow,
-          state.shapeCol - 1
-        );
-        const updatedCol = willCollide ? state.shapeCol : state.shapeCol - 1;
-        const updatedBoard = addShapeToBoard(
-          state.board,
-          state.block,
-          state.shape,
-          state.shapeRow,
-          updatedCol
-        );
+      }
+
+      const updatedBoard = addShapeToBoard(
+        state.board,
+        state.block,
+        state.shape,
+        updatedRow,
+        state.shapeCol
+      );
+
+      return {
+        renderedBoard: updatedBoard,
+        shapeRow: updatedRow,
+      };
+    })
+  },
+  moveBlockLeft: () => {
+    set((state) => {
+      const willCollide = checkCollisions(
+        state.board,
+        state.shape,
+        state.shapeRow,
+        state.shapeCol - 1
+      );
+      const updatedCol = willCollide ? state.shapeCol : state.shapeCol - 1;
+      const updatedBoard = addShapeToBoard(
+        state.board,
+        state.block,
+        state.shape,
+        state.shapeRow,
+        updatedCol
+      );
+
+      return {
+        renderedBoard: updatedBoard,
+        shapeCol: updatedCol,
+      };
+    });
+  },
+  moveBlockRight: () => {
+    set((state) => {
+      const willCollide = checkCollisions(
+        state.board,
+        state.shape,
+        state.shapeRow,
+        state.shapeCol + 1
+      );
+      const updatedCol = willCollide ? state.shapeCol : state.shapeCol + 1;
+      const updatedBoard = addShapeToBoard(
+        state.board,
+        state.block,
+        state.shape,
+        state.shapeRow,
+        updatedCol
+      );
+
+      return {
+        renderedBoard: updatedBoard,
+        shapeCol: updatedCol,
+      };
+    });
+  },
+  rotateBlock: () => {
+    set((state) => {
+      const rotatedShape = rotateBlockShape(state.shape);
+      const willCollide = checkCollisions(
+        state.board,
+        rotatedShape,
+        state.shapeRow,
+        state.shapeCol
+      );
+      const updatedShape = willCollide ? state.shape : rotatedShape;
+      const updatedBoard = addShapeToBoard(
+        state.board,
+        state.block,
+        updatedShape,
+        state.shapeRow,
+        state.shapeCol
+      );
+
+      return {
+        renderedBoard: updatedBoard,
+        shape: updatedShape,
+      };
+    });
+  },
+  setIsSettling: (value: boolean) => {
+    set(() => ({ isSettling: value }));
+  },
+  settleBlock: () => {
+    set((state) => {
+      return {
+        board: state.renderedBoard,
+        isSettling: false,
+        hasCollision: false,
+      };
+    });
+  },
+  nextRound: (removedLines: number, newBoard: BoardType): boolean => {
+    let hasLost = false;
+    // TODO to comply with requirement FA-009, block must desintegrate upon settling
+    set((state) => {
+      const updatedBoard = [...getEmptyBoard(removedLines), ...newBoard];
+      const updatedBlock = state.nextBlocks.shift();
+      const updatedShape = blockShapes[updatedBlock].shape;
+      const updatedNextBlocks = [...state.nextBlocks, getRandomBlock()];
+
+      if (checkCollisions(updatedBoard, updatedShape, 0, 3)) {
+        hasLost = true;
 
         return {
-          renderedBoard: updatedBoard,
-          shapeCol: updatedCol,
-        };
-      });
-    },
-    moveBlockRight: () => {
-      set((state) => {
-        const willCollide = checkCollisions(
-          state.board,
-          state.shape,
-          state.shapeRow,
-          state.shapeCol + 1
-        );
-        const updatedCol = willCollide ? state.shapeCol : state.shapeCol + 1;
-        const updatedBoard = addShapeToBoard(
-          state.board,
-          state.block,
-          state.shape,
-          state.shapeRow,
-          updatedCol
-        );
-
-        return {
-          renderedBoard: updatedBoard,
-          shapeCol: updatedCol,
-        };
-      });
-    },
-    rotateBlock: () => {
-      set((state) => {
-        const rotatedShape = rotateBlockShape(state.shape);
-        const willCollide = checkCollisions(
-          state.board,
-          rotatedShape,
-          state.shapeRow,
-          state.shapeCol
-        );
-        const updatedShape = willCollide ? state.shape : rotatedShape;
-        const updatedBoard = addShapeToBoard(
-          state.board,
-          state.block,
-          updatedShape,
-          state.shapeRow,
-          state.shapeCol
-        );
-
-        return {
-          renderedBoard: updatedBoard,
-          shape: updatedShape,
-        };
-      });
-    },
-    setIsSettling: (value: boolean) => {
-      set(() => ({ isSettling: value }));
-    },
-    settleBlock: () => {
-      set((state) => {
-        return {
-          board: state.renderedBoard,
-          isSettling: false,
-          hasCollision: false,
-        };
-      });
-    },
-    nextRound: (removedLines: number, newBoard: BoardType): boolean => {
-      let hasLost = false;
-      // TODO to comply with requirement FA-009, block must desintegrate upon settling
-      set((state) => {
-        const updatedBoard = [...getEmptyBoard(removedLines), ...newBoard];
-        const updatedBlock = state.nextBlocks.shift();
-        const updatedShape = blockShapes[updatedBlock].shape;
-        const updatedNextBlocks = [...state.nextBlocks, getRandomBlock()];
-
-        if (checkCollisions(updatedBoard, updatedShape, 0, 3)) {
-          hasLost = true;
-
-          return {
-            hasCollision: true,
-            board: updatedBoard,
-            renderedBoard: updatedBoard,
-            shapeRow: -1,
-            shapeCol: 3,
-            block: updatedBlock,
-            shape: updatedShape,
-            nextBlocks: updatedNextBlocks,
-            nextBlockShapes: getPreviewBlocks(updatedNextBlocks),
-          };
-        }
-
-        return {
+          hasCollision: true,
           board: updatedBoard,
           renderedBoard: updatedBoard,
           shapeRow: -1,
@@ -260,9 +262,21 @@ export const useBoardStateStore = create<BoardState>((set) => {
           nextBlocks: updatedNextBlocks,
           nextBlockShapes: getPreviewBlocks(updatedNextBlocks),
         };
-      });
+      }
 
-      return hasLost;
-    },
-  }
-});
+      return {
+        board: updatedBoard,
+        renderedBoard: updatedBoard,
+        shapeRow: -1,
+        shapeCol: 3,
+        block: updatedBlock,
+        shape: updatedShape,
+        nextBlocks: updatedNextBlocks,
+        nextBlockShapes: getPreviewBlocks(updatedNextBlocks),
+      };
+    });
+
+    return hasLost;
+  },
+}
+));

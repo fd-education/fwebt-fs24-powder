@@ -24,6 +24,7 @@ export const useGame = () => {
     hasCollision,
     dropBlock,
     isSettling,
+    initializeBoard,
     setIsSettling,
     moveBlockLeft,
     moveBlockRight,
@@ -37,6 +38,7 @@ export const useGame = () => {
 
   const startGame = useCallback(() => {
     setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+    initializeBoard();
     start();
   }, [start]);
 
