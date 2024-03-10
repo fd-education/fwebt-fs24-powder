@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { usePlayerNameStore } from '../domain/state/playerNameStore';
 import { useScreenModeStore } from '../domain/state/screenModeStore';
-import { ScreenMode } from '../domain/enums/ScreenMode.enum';
+import { ScreenMode } from '../domain/enums/ScreenMode';
 
 export const RootPage = () => {
   const { playerName } = usePlayerNameStore();

@@ -1,4 +1,4 @@
-import { ScreenMode } from '../enums/ScreenMode.enum';
+import { ScreenMode } from '../enums/ScreenMode';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
