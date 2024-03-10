@@ -2,7 +2,7 @@ import React from 'react';
 import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
 import { PowderButton } from '../util/PowderButton';
-import { useGameStateStore } from '../../domain/state/gameState';
+import { useGameStateStore } from '../../domain/state/gameStateStore';
 
 export const Pause = () => {
   const { continueGame } = useGameStateStore();

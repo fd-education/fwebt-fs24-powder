@@ -4,7 +4,7 @@ import { PanelHeading } from '../../util/PanelHeading';
 import { PowderButton } from '../../util/PowderButton';
 import { NumberDisplay } from './NumberDisplay';
 import { useScoreStore } from '../../../domain/state/scoreStore';
-import { useGameStateStore } from '../../../domain/state/gameState';
+import { useGameStateStore } from '../../../domain/state/gameStateStore';
 
 export const Score = () => {
   const { playerScore, playerLines } = useScoreStore();

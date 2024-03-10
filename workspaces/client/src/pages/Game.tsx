@@ -4,7 +4,7 @@ import { Score } from '../components/game/score/Score';
 import { Preview } from '../components/game/preview/Preview';
 import { SettingsGroup } from '../components/settings/SettingsGroup';
 import { useGame } from '../hooks/useGame';
-import { useGameStateStore } from '../domain/state/gameState';
+import { useGameStateStore } from '../domain/state/gameStateStore';
 import { Pause } from '../components/game/Pause';
 import { Lost } from '../components/game/Lost';
 import { End } from '../components/game/End';

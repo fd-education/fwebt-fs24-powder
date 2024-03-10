@@ -1,7 +1,7 @@
 import React from 'react';
 import { Panel } from '../../util/Panel';
 import { Cell } from './Cell';
-import { useGameStateStore } from '../../../domain/state/gameState';
+import { useGameStateStore } from '../../../domain/state/gameStateStore';
 
 export const Board = () => {
   const { renderedBoard, paused } = useGameStateStore();

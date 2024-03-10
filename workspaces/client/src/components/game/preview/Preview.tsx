@@ -2,7 +2,7 @@ import React from 'react';
 import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
 import { PreviewCell } from './PreviewCell';
-import { useGameStateStore } from '../../../domain/state/gameState';
+import { useGameStateStore } from '../../../domain/state/gameStateStore';
 
 export const Preview = () => {
   const { nextBlockShapes, paused } = useGameStateStore();

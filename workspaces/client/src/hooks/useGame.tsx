@@ -3,7 +3,7 @@ import { useInterval } from './useInterval';
 import { PowderConfig } from '../domain/config/PowderConfig';
 import { BoardType, VoidCell } from '../domain/enums/BlockName';
 import { useScoreStore } from '../domain/state/scoreStore';
-import { isColliding, useGameStateStore } from '../domain/state/gameState';
+import { isColliding, useGameStateStore } from '../domain/state/gameStateStore';
 
 export const useGame = () => {
   const { incPlayerScore, incPlayerLines } = useScoreStore();
