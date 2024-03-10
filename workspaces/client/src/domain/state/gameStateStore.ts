@@ -3,6 +3,7 @@ import { BoardType, VoidCell } from '../enums/BlockName';
 import { BlockName } from '../enums/BlockName';
 import { BlockShape, blockShapes } from '../game/Powdromino.shapes';
 import { PowderConfig } from '../config/PowderConfig';
+import { useGamePhysics } from '../../hooks/useGamePhysics';
 
 interface GameStateVariables {
   board: BoardType;
@@ -48,36 +49,7 @@ const getRandomBlock = (): BlockName => {
   ] as BlockName;
 };
 
-export const isColliding = (
-  board: BoardType,
-  shape: BlockShape,
-  shapeRow: number,
-  shapeCol: number
-): boolean => {
-  let collided = false;
-
-  shape
-    .filter((row: boolean[]) => row.some((hasBlock) => hasBlock))
-    .forEach((row: boolean[], ri: number) => {
-      row.forEach((hasBlock: boolean, ci: number) => {
-        if (
-          hasBlock &&
-          // bottom collision
-          (shapeRow + ri >= board.length ||
-            // right collision
-            shapeCol + ci >= board[0].length ||
-            // left collision
-            shapeCol + ci < 0 ||
-            // block collision
-            board[shapeRow + ri][shapeCol + ci] !== VoidCell.VOID)
-        ) {
-          collided = true;
-        }
-      });
-    });
-
-  return collided;
-};
+const {checkCollisions} = useGamePhysics();
 
 const rotateBlockShape = (shape: BlockShape): BlockShape => {
   const shapeRows = shape.length;
@@ -207,7 +179,7 @@ export const useGameStateStore = create<GameState>()((set) => ({
       if (!state.started) return {};
 
       const updatedRow = state.shapeRow + 1;
-      if (isColliding(state.board, state.shape, updatedRow, state.shapeCol)) {
+      if (checkCollisions(state.board, state.shape, updatedRow, state.shapeCol)) {
         return {
           hasCollision: true,
         };
@@ -229,7 +201,7 @@ export const useGameStateStore = create<GameState>()((set) => ({
   },
   moveBlockLeft: () => {
     set((state) => {
-      const willCollide = isColliding(
+      const willCollide = checkCollisions(
         state.board,
         state.shape,
         state.shapeRow,
@@ -252,7 +224,7 @@ export const useGameStateStore = create<GameState>()((set) => ({
   },
   moveBlockRight: () => {
     set((state) => {
-      const willCollide = isColliding(
+      const willCollide = checkCollisions(
         state.board,
         state.shape,
         state.shapeRow,
@@ -276,7 +248,7 @@ export const useGameStateStore = create<GameState>()((set) => ({
   rotateBlock: () => {
     set((state) => {
       const rotatedShape = rotateBlockShape(state.shape);
-      const willCollide = isColliding(
+      const willCollide = checkCollisions(
         state.board,
         rotatedShape,
         state.shapeRow,
@@ -317,7 +289,7 @@ export const useGameStateStore = create<GameState>()((set) => ({
       const updatedShape = blockShapes[updatedBlock].shape;
       const updatedNextBlocks = [...state.nextBlocks, getRandomBlock()];
 
-      if (isColliding(updatedBoard, updatedShape, 0, 3)) {
+      if (checkCollisions(updatedBoard, updatedShape, 0, 3)) {
         return {
           started: false,
           ended: true,

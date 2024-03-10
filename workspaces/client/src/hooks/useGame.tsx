@@ -3,7 +3,8 @@ import { useInterval } from './useInterval';
 import { PowderConfig } from '../domain/config/PowderConfig';
 import { BoardType, VoidCell } from '../domain/enums/BlockName';
 import { useScoreStore } from '../domain/state/scoreStore';
-import { isColliding, useGameStateStore } from '../domain/state/gameStateStore';
+import { useGameStateStore } from '../domain/state/gameStateStore';
+import { useGamePhysics } from './useGamePhysics';
 
 export const useGame = () => {
   const { incPlayerScore, incPlayerLines } = useScoreStore();
@@ -27,6 +28,7 @@ export const useGame = () => {
     moveBlockRight,
   } = useGameStateStore();
 
+  const {checkCollisions} = useGamePhysics();
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
 
   const startGame = useCallback(() => {
@@ -51,7 +53,7 @@ export const useGame = () => {
 
   const gameLoop = useCallback(() => {
     if (isSettling) {
-      if (!isColliding(renderedBoard, shape, shapeRow + 1, shapeCol)) {
+      if (!checkCollisions(renderedBoard, shape, shapeRow + 1, shapeCol)) {
         setIsSettling(false);
         setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
         return;
@@ -125,7 +127,7 @@ export const useGame = () => {
     ended,
     renderedBoard,
     loopSpeed,
-    isColliding,
+    checkCollisions,
     isSettling,
   ]);
 
