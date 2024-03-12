@@ -129,7 +129,7 @@ export const useBoardStateStore = create<BoardState>((set) => ({
         -1 * DESINTEGRATION,
         3 * DESINTEGRATION
       ),
-      shapeRow: -1 * DESINTEGRATION,
+      shapeRow: 0 * DESINTEGRATION,
       shapeCol: 3 * DESINTEGRATION,
       block: firstBlock,
       shape: scaleBlockShape(blockShapes[firstBlock].shape, DESINTEGRATION),
@@ -141,7 +141,7 @@ export const useBoardStateStore = create<BoardState>((set) => ({
   },
   dropBlock: () => {
     set((state) => {
-      const updatedRow = state.shapeRow + 1 * DESINTEGRATION;
+      const updatedRow = state.shapeRow + 1;
       if (
         checkCollisions(state.board, state.shape, updatedRow, state.shapeCol)
       ) {
@@ -278,7 +278,7 @@ export const useBoardStateStore = create<BoardState>((set) => ({
           hasCollision: true,
           board: updatedBoard,
           renderedBoard: updatedBoard,
-          shapeRow: -1 * DESINTEGRATION,
+          shapeRow: -1,
           shapeCol: 3 * DESINTEGRATION,
           block: updatedBlock,
           shape: updatedShape,
@@ -290,7 +290,7 @@ export const useBoardStateStore = create<BoardState>((set) => ({
       return {
         board: updatedBoard,
         renderedBoard: updatedBoard,
-        shapeRow: -1 * DESINTEGRATION,
+        shapeRow: -1,
         shapeCol: 3 * DESINTEGRATION,
         block: updatedBlock,
         shape: updatedShape,

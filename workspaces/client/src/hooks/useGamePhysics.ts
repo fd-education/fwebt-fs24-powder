@@ -9,7 +9,6 @@ export const useGamePhysics = () => {
     shapeCol: number
   ): boolean => {
     let hasCollision = false;
-
     shape
       .filter((row: boolean[]) => row.some((hasBlock) => hasBlock))
       .forEach((row: boolean[], ri: number) => {
