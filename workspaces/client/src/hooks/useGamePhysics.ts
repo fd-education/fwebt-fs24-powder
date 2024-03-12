@@ -59,26 +59,30 @@ export const useGamePhysics = () => {
       RIGHT,
     }
 
-    const isEmpty = (e: BlockType) => {
-      return e === undefined || e === VoidCell.VOID;
+    const isBlocked = (e: BlockType) => {
+      return e === undefined || e !== VoidCell.VOID;
     };
+
+    const isVoid = (e: BlockType) => {
+      return e === VoidCell.VOID;
+    }
 
     const clone = dropHangingBlocks(board);
     for (let c = 0; c < clone[0].length; c++) {
       for (let r = 0; r < clone.length - 2; r++) {
         if (
-          isEmpty(clone[r][c]) || // current is empty
-          (!isEmpty(clone[r][c - 1]) && !isEmpty(clone[r][c + 1])) || // neighbours are empty
-          (!isEmpty(clone[r + 1][c - 1]) && !isEmpty(clone[r + 1][c - 1])) // bottom row neighbours are empty
+          isVoid(clone[r][c]) || // current is empty
+          (isBlocked(clone[r][c - 1]) && isBlocked(clone[r][c + 1])) || // neighbours are empty
+          (isBlocked(clone[r + 1][c - 1]) && isBlocked(clone[r + 1][c - 1])) // bottom row neighbours are empty
         )
           continue;
 
-        let leftHeight = 1;
-        let rightHeight = 1;
-        let i = 2;
+        let leftHeight = 0;
+        let rightHeight = 0;
+        let i = 1;
         do {
-          leftHeight += isEmpty(clone[r + i][c - 1]) ? 1 : 0;
-          rightHeight += isEmpty(clone[r + i][c + 1]) ? 1 : 0;
+          leftHeight += isVoid(clone[r + i][c - 1]) ? 1 : 0;
+          rightHeight += isVoid(clone[r + i][c + 1]) ? 1 : 0;
           i++;
         } while (i + r < board.length);
 
@@ -86,8 +90,8 @@ export const useGamePhysics = () => {
         clone[r][c] = VoidCell.VOID;
         if (
           leftHeight === rightHeight &&
-          !(c === clone[0].length - 1) &&
-          !(c === 0)
+          c !== clone[0].length - 1 &&
+          c !== 1
         ) {
           if (Math.floor(Math.random() * 2) === sides.LEFT) {
             clone[r + leftHeight][c - 1] = current;
