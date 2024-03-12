@@ -42,11 +42,10 @@ export const useGameStateStore = create<GameState>()((set) => ({
       return invalidState
         ? {}
         : {
-          started: false,
-          ended: true,
-          lost: hasLost
-        };
+            started: false,
+            ended: true,
+            lost: hasLost,
+          };
     });
-  }
-})
-);
+  },
+}));

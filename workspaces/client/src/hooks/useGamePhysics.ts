@@ -1,4 +1,4 @@
-import { BlockName, BlockType, BoardType, VoidCell } from '../domain/blocks/BlockName';
+import { BlockType, BoardType, VoidCell } from '../domain/blocks/BlockName';
 import { BlockShape } from '../domain/blocks/BlockShapes';
 
 export const useGamePhysics = () => {
@@ -56,26 +56,28 @@ export const useGamePhysics = () => {
     }
 
     return clone;
-  }
+  };
 
   const desintegrateBlocks = (board: BoardType) => {
     const clone = dropHangingBlocks(board);
 
     enum sides {
       LEFT,
-      RIGHT
-    };
+      RIGHT,
+    }
 
     const isEmpty = (e: BlockType) => {
-      return (e === undefined || e === VoidCell.VOID);
-    }
+      return e === undefined || e === VoidCell.VOID;
+    };
 
     for (let c = 0; c < clone[0].length; c++) {
       for (let r = 0; r < clone.length - 2; r++) {
-        if (isEmpty(clone[r][c]) // current is empty
-          || (!isEmpty(clone[r][c - 1]) && !isEmpty(clone[r][c + 1])) // neighbours are empty
-          || (!isEmpty(clone[r + 1][c - 1]) && !isEmpty(clone[r + 1][c - 1])) // bottom row neighbours are empty
-        ) continue;
+        if (
+          isEmpty(clone[r][c]) || // current is empty
+          (!isEmpty(clone[r][c - 1]) && !isEmpty(clone[r][c + 1])) || // neighbours are empty
+          (!isEmpty(clone[r + 1][c - 1]) && !isEmpty(clone[r + 1][c - 1])) // bottom row neighbours are empty
+        )
+          continue;
 
         let leftHeight = 1;
         let rightHeight = 1;
@@ -84,8 +86,8 @@ export const useGamePhysics = () => {
           leftHeight += isEmpty(clone[r + i][c - 1]) ? 1 : 0;
           rightHeight += isEmpty(clone[r + i][c + 1]) ? 1 : 0;
           i++;
-        } while ((i + r) < board.length)
-        
+        } while (i + r < board.length);
+
         const current = clone[r][c];
         clone[r][c] = VoidCell.VOID;
         if (leftHeight === rightHeight) {
@@ -99,8 +101,8 @@ export const useGamePhysics = () => {
         } else if (leftHeight < rightHeight) {
           clone[r + rightHeight][c + 1] = current;
         }
-      };
-    };
+      }
+    }
 
     return clone;
   };
@@ -108,6 +110,6 @@ export const useGamePhysics = () => {
   return {
     checkCollisions,
     dropHangingBlocks,
-    desintegrateBlocks
-  }
-}
+    desintegrateBlocks,
+  };
+};

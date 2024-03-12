@@ -14,16 +14,15 @@ export const scaleBlockShape = (shape: BlockShape, factor: number) => {
   const scaled: BlockShape = [];
 
   for (const row of shape) {
-    let x: [] = [];
+    const x: [] = [];
 
-    for (const item of row)
-      x.push.apply(x, Array(factor).fill(item));
+    for (const item of row) x.push.apply(x, Array(factor).fill(item));
 
     scaled.push.apply(scaled, Array(factor).fill(x));
   }
 
   return scaled;
-}
+};
 
 export const blockShapes: BlockShapeObject = {
   I: {

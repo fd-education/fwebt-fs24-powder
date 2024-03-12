@@ -6,7 +6,6 @@ import { useScoreStore } from '../domain/state/scoreStore';
 import { useGamePhysics } from './useGamePhysics';
 import { useGameStateStore } from '../domain/state/gameStateStore';
 import { useBoardStateStore } from '../domain/state/boardStateStore';
-import { render } from 'react-dom';
 
 export const useGame = () => {
   const { incPlayerScore, incPlayerLines } = useScoreStore();

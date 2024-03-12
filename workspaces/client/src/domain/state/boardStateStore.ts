@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 import { BlockName, BoardType, VoidCell } from '../blocks/BlockName';
-import { BlockShape, blockShapes, scaleBlockShape } from '../blocks/BlockShapes';
+import {
+  BlockShape,
+  blockShapes,
+  scaleBlockShape,
+} from '../blocks/BlockShapes';
 import { powderConfig } from '../config/PowderConfig';
 import { useGamePhysics } from '../../hooks/useGamePhysics';
 
@@ -25,8 +29,8 @@ interface BoardState {
   nextRound: (removedLines: number, newBoard: BoardType) => boolean;
 }
 
-const { checkCollisions, desintegrateBlocks, dropHangingBlocks } = useGamePhysics();
-const { BOARD_ROWS, BOARD_COLS, DESINTEGRATION} = powderConfig;
+const { checkCollisions, desintegrateBlocks } = useGamePhysics();
+const { BOARD_ROWS, BOARD_COLS, DESINTEGRATION } = powderConfig;
 
 const getEmptyBoard = (height = BOARD_ROWS * DESINTEGRATION): BoardType => {
   return Array(height)
@@ -133,12 +137,14 @@ export const useBoardStateStore = create<BoardState>((set) => ({
       nextBlockShapes: getPreviewBlocks(nextBlocks),
       hasCollision: false,
       isSettling: false,
-    })
+    });
   },
   dropBlock: () => {
-    set(state => {
+    set((state) => {
       const updatedRow = state.shapeRow + 1 * DESINTEGRATION;
-      if (checkCollisions(state.board, state.shape, updatedRow, state.shapeCol)) {
+      if (
+        checkCollisions(state.board, state.shape, updatedRow, state.shapeCol)
+      ) {
         return {
           hasCollision: true,
         };
@@ -156,7 +162,7 @@ export const useBoardStateStore = create<BoardState>((set) => ({
         renderedBoard: updatedBoard,
         shapeRow: updatedRow,
       };
-    })
+    });
   },
   moveBlockLeft: () => {
     set((state) => {
@@ -166,7 +172,9 @@ export const useBoardStateStore = create<BoardState>((set) => ({
         state.shapeRow,
         state.shapeCol - 1 * DESINTEGRATION
       );
-      const updatedCol = willCollide ? state.shapeCol : state.shapeCol - 1 * DESINTEGRATION;
+      const updatedCol = willCollide
+        ? state.shapeCol
+        : state.shapeCol - 1 * DESINTEGRATION;
       const updatedBoard = addShapeToBoard(
         state.board,
         state.block,
@@ -189,7 +197,9 @@ export const useBoardStateStore = create<BoardState>((set) => ({
         state.shapeRow,
         state.shapeCol + 1 * DESINTEGRATION
       );
-      const updatedCol = willCollide ? state.shapeCol : state.shapeCol + 1 * DESINTEGRATION;
+      const updatedCol = willCollide
+        ? state.shapeCol
+        : state.shapeCol + 1 * DESINTEGRATION;
       const updatedBoard = addShapeToBoard(
         state.board,
         state.block,
@@ -244,15 +254,13 @@ export const useBoardStateStore = create<BoardState>((set) => ({
   },
   nextRound: (): boolean => {
     let hasLost = false;
-    // TODO to comply with requirement FA-009, block must desintegrate upon settling
     set((state) => {
-      // console.log('boardState.nextRound:\n', newBoard);
-
       const updatedBoard = desintegrateBlocks(state.renderedBoard);
-
-      // const updatedBoard = desintegrateBlocks([...getEmptyBoard(removedLines), ...newBoard]);
       const updatedBlock = state.nextBlocks.shift();
-      const updatedShape = scaleBlockShape(blockShapes[updatedBlock].shape, DESINTEGRATION);
+      const updatedShape = scaleBlockShape(
+        blockShapes[updatedBlock].shape,
+        DESINTEGRATION
+      );
       const updatedNextBlocks = [...state.nextBlocks, getRandomBlock()];
 
       if (checkCollisions(updatedBoard, updatedShape, 0, 3 * DESINTEGRATION)) {
@@ -285,5 +293,4 @@ export const useBoardStateStore = create<BoardState>((set) => ({
 
     return hasLost;
   },
-}
-));
+}));

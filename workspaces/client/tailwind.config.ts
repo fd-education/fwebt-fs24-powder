@@ -16,7 +16,7 @@ const config: Config = {
       'primary-dark-trans8': 'rgba(44, 39, 39, .8)',
       'primary-dark-trans7': 'rgba(44, 39, 39, .7)',
       white: 'rgba(255, 255, 255, 1)',
-     'white-transparent': 'rgba(255, 255, 255, .8)',
+      'white-transparent': 'rgba(255, 255, 255, .8)',
       black: 'rgba(0, 0, 0, 1)',
       'black-transparent': 'rgba(0, 0, 0, .3)',
       'chat-bubble-received': '303C33',
