@@ -73,7 +73,7 @@ export const useGamePhysics = () => {
         if (
           isVoid(clone[r][c]) || // current is empty
           (isBlocked(clone[r][c - 1]) && isBlocked(clone[r][c + 1])) || // neighbours are empty
-          (isBlocked(clone[r + 1][c - 1]) && isBlocked(clone[r + 1][c - 1])) // bottom row neighbours are empty
+          (isBlocked(clone[r + 1][c - 1]) && isBlocked(clone[r + 1][c + 1])) // bottom row neighbours are empty
         )
           continue;
 
