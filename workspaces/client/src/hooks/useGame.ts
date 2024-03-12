@@ -34,10 +34,10 @@ export const useGame = () => {
 
   const { checkCollisions } = useGamePhysics();
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
-  const { DESINTEGRATION } = powderConfig;
+  const { DESINTEGRATION, BASE_STANDARD_LOOP_SPEED, BASE_COLLISION_LOOP_SPEED, BASE_FASTDROP_LOOP_SPEED } = powderConfig;
 
   const startGame = useCallback(() => {
-    setLoopSpeed(powderConfig.STANDARD_LOOP_SPEED);
+    setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
     initializeBoard();
     start();
   }, [start]);
@@ -53,7 +53,7 @@ export const useGame = () => {
         )
       ) {
         setIsSettling(false);
-        setLoopSpeed(powderConfig.STANDARD_LOOP_SPEED);
+        setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
         return;
       }
 
@@ -65,11 +65,11 @@ export const useGame = () => {
       const hasLost = nextRound(0, renderedBoard);
       if (hasLost) endGame(true);
 
-      setLoopSpeed(powderConfig.STANDARD_LOOP_SPEED);
+      setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
       setIsSettling(false);
     } else if (hasCollision) {
       setIsSettling(true);
-      setLoopSpeed(powderConfig.COLLISION_LOOP_SPEED);
+      setLoopSpeed(BASE_COLLISION_LOOP_SPEED / DESINTEGRATION);
     } else {
       dropBlock();
     }
@@ -88,7 +88,7 @@ export const useGame = () => {
 
       switch (e.key) {
         case 'ArrowDown':
-          setLoopSpeed(powderConfig.FASTDROP_LOOP_SPEED);
+          setLoopSpeed(BASE_FASTDROP_LOOP_SPEED / DESINTEGRATION);
           break;
         case 'ArrowUp':
           rotateBlock();
@@ -107,7 +107,7 @@ export const useGame = () => {
 
       switch (e.key) {
         case 'ArrowDown':
-          setLoopSpeed(powderConfig.STANDARD_LOOP_SPEED);
+          setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
           break;
       }
     };
