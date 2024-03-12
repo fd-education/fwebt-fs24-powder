@@ -111,7 +111,7 @@ export const useBoardStateStore = create<BoardState>((set) => ({
   shapeRow: -1 * DESINTEGRATION,
   shapeCol: 3 * DESINTEGRATION,
   block: BlockName.I,
-  shape: blockShapes[BlockName.I].shape,
+  shape: scaleBlockShape(blockShapes[BlockName.I].shape, DESINTEGRATION),
   nextBlocks: [],
   nextBlockShapes: [],
   hasCollision: false,
@@ -125,9 +125,9 @@ export const useBoardStateStore = create<BoardState>((set) => ({
       renderedBoard: addShapeToBoard(
         getEmptyBoard(),
         firstBlock,
-        blockShapes[firstBlock].shape,
-        0,
-        3
+        scaleBlockShape(blockShapes[firstBlock].shape, DESINTEGRATION),
+        -1 * DESINTEGRATION,
+        3 * DESINTEGRATION
       ),
       shapeRow: -1 * DESINTEGRATION,
       shapeCol: 3 * DESINTEGRATION,

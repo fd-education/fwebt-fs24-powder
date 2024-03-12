@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from './useInterval';
 import { powderConfig } from '../domain/config/PowderConfig';
-import { BoardType, VoidCell } from '../domain/blocks/BlockName';
 import { useScoreStore } from '../domain/state/scoreStore';
 import { useGamePhysics } from './useGamePhysics';
 import { useGameStateStore } from '../domain/state/gameStateStore';
