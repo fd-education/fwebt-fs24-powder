@@ -41,8 +41,6 @@ export const useGamePhysics = () => {
 
       for (let j = clone.length - 1; j >= 0; j--) {
         const current = clone[j][i];
-        console.log(current);
-        console.log(i);
         if (current === VoidCell.VOID && j > lowestVoid) {
           lowestVoid = j;
         } else if (current !== VoidCell.VOID && lowestVoid !== -1) {
@@ -51,25 +49,22 @@ export const useGamePhysics = () => {
           lowestVoid--;
         }
       }
-
-      console.log(lowestVoid);
     }
 
     return clone;
   };
 
   const desintegrateBlocks = (board: BoardType) => {
-    const clone = dropHangingBlocks(board);
-
     enum sides {
       LEFT,
       RIGHT,
     }
-
+    
     const isEmpty = (e: BlockType) => {
       return e === undefined || e === VoidCell.VOID;
     };
-
+    
+    const clone = dropHangingBlocks(board);
     for (let c = 0; c < clone[0].length; c++) {
       for (let r = 0; r < clone.length - 2; r++) {
         if (
@@ -90,15 +85,15 @@ export const useGamePhysics = () => {
 
         const current = clone[r][c];
         clone[r][c] = VoidCell.VOID;
-        if (leftHeight === rightHeight) {
+        if (leftHeight === rightHeight && !(c === clone[0].length - 1) && !(c === 0)) {
           if (Math.floor(Math.random() * 2) === sides.LEFT) {
             clone[r + leftHeight][c - 1] = current;
           } else {
             clone[r + rightHeight][c + 1] = current;
           }
-        } else if (leftHeight > rightHeight) {
+        } else if (c === clone[0].length - 1 || leftHeight > rightHeight) {
           clone[r + leftHeight][c - 1] = current;
-        } else if (leftHeight < rightHeight) {
+        } else if (c === 0 || leftHeight < rightHeight) {
           clone[r + rightHeight][c + 1] = current;
         }
       }
@@ -107,9 +102,95 @@ export const useGamePhysics = () => {
     return clone;
   };
 
+  type Coordinates = {
+    row: number,
+    col: number,
+  };
+
+  const getFullLines = (board: BoardType) => {
+    const c = structuredClone(board)
+
+    const rows = c.length;
+    const cols = c[0].length;
+
+    let startRow = board.length - 1;
+    let startCol = 0;
+
+    const trace = new Array(rows).fill(false).map(() => new Array(cols).fill(false));
+    const fullLines = [];
+
+    while (startRow >= 0) {
+      if (c[startRow][startCol] === undefined || c[startRow][startCol] === VoidCell.VOID) break;
+      if (trace[startRow][startCol]) {
+        startRow -= 1;
+        continue;
+      };
+
+      let hasLeftEdge = false;
+      let hasRightEdge = false;
+
+      const current = c[startRow][startCol];
+
+      const depthSearch = (row: number, col: number, line: Array<Coordinates>) => {
+        if (row < 0 || row >= rows || col < 0 || col >= cols || trace[row][col]) return;
+
+        if (col === 0) hasLeftEdge = true;
+        if (col === c[0].length - 1) hasRightEdge = true;
+
+        if (c[row][col] === current) {
+          trace[row][col] = true;
+          line.push({ row, col });
+
+          depthSearch(row - 1, col, line);
+          depthSearch(row + 1, col, line);
+          depthSearch(row, col - 1, line);
+          depthSearch(row, col + 1, line);
+        }
+      }
+
+      const line = new Array<Coordinates>();
+      depthSearch(startRow, startCol, line);
+
+      if (hasLeftEdge && hasRightEdge) {
+        fullLines.push(line);
+      }
+
+      hasLeftEdge = false;
+      hasRightEdge = false;
+
+      startRow -= 1;
+    }
+
+    return fullLines;
+  }
+
+  const removeFullPaths = (board: BoardType, paths: Array<Coordinates[]>) => {
+    const clone = structuredClone(board);
+    for (let path of paths) {
+      for (let node of path) {
+        clone[node.row][node.col] = VoidCell.VOID;
+      }
+    }
+
+    return clone;
+  }
+
+  const checkPowdris = (board: BoardType): [BoardType, number[]] => {
+    const clone = structuredClone(board);
+
+    const lines = getFullLines(clone);
+    const boardWithoutPaths = removeFullPaths(clone, lines);
+    const boardWithDroppedBlocks = dropHangingBlocks(boardWithoutPaths);
+
+    const lengths = lines.map(l => (l.length))
+
+    return [boardWithDroppedBlocks, lengths];
+  };
+
   return {
     checkCollisions,
     dropHangingBlocks,
     desintegrateBlocks,
+    checkPowdris
   };
 };

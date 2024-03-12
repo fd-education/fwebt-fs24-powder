@@ -1,5 +1,6 @@
 import React from 'react';
 import { BlockName, VoidCell } from '../../../domain/blocks/BlockName';
+import { powderConfig } from '../../../domain/config/PowderConfig';
 
 interface CellProps {
   cellType: BlockName | VoidCell;
@@ -7,10 +8,36 @@ interface CellProps {
 }
 
 export const Cell = ({ cellType, display }: CellProps) => {
+  const { DESINTEGRATION } = powderConfig;
+
+  const getHeight = () => {
+    switch (DESINTEGRATION) {
+      case 1:
+        return 'h-[2rem]';
+      case 3:
+        return 'h-[calc(2rem/3)]';
+      case 5:
+        return 'h-[calc(2rem/5)]';
+      case 10:
+        return 'h-[calc(2rem/10)]';
+    }
+  };
+
+  const getWidth = () => {
+    switch (DESINTEGRATION) {
+      case 1:
+        return 'w-[2rem]';
+      case 3:
+        return 'w-[calc(2rem/3)]';
+      case 5:
+        return 'w-[calc(2rem/5)]';
+      case 10:
+        return 'w-[calc(2rem/10)]';
+    }
+  };
+
   return (
-    <div
-      className={`h-[calc(2rem/3)] w-[calc(2rem/3)] ${!display && 'invisible'}`}
-    >
+    <div className={`${getHeight()} ${getWidth()} ${!display && 'invisible'}`}>
       {cellType === VoidCell.VOID && <div className={`h-full w-full`}></div>}
       {cellType === BlockName.I && (
         <div className={`h-full w-full bg-powdromino-purple`}></div>

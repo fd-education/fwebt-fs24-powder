@@ -25,11 +25,11 @@ interface BoardState {
   moveBlockRight: () => void;
   rotateBlock: () => void;
   setIsSettling: (isSettling: boolean) => void;
-  settleBlock: () => void;
+  settleBlock: () => number[];
   nextRound: (removedLines: number, newBoard: BoardType) => boolean;
 }
 
-const { checkCollisions, desintegrateBlocks } = useGamePhysics();
+const { checkCollisions, desintegrateBlocks, checkPowdris } = useGamePhysics();
 const { BOARD_ROWS, BOARD_COLS, DESINTEGRATION } = powderConfig;
 
 const getEmptyBoard = (height = BOARD_ROWS * DESINTEGRATION): BoardType => {
@@ -241,21 +241,29 @@ export const useBoardStateStore = create<BoardState>((set) => ({
   setIsSettling: (value: boolean) => {
     set(() => ({ isSettling: value }));
   },
-  settleBlock: () => {
+  settleBlock: (): number[] => {
+    const removedPowders = new Array<number>();
+    
     set((state) => {
       const desBlocks = desintegrateBlocks(state.renderedBoard);
 
+      const [newBoard, removed] = checkPowdris(desBlocks);
+      removedPowders.push(...(removed as number[]));
+
       return {
-        board: desBlocks,
+        board: newBoard as BoardType,
+        renderedBoard: newBoard as BoardType,
         isSettling: false,
         hasCollision: false,
       };
     });
+
+    return removedPowders;
   },
   nextRound: (): boolean => {
     let hasLost = false;
     set((state) => {
-      const updatedBoard = desintegrateBlocks(state.renderedBoard);
+      const updatedBoard = state.renderedBoard;
       const updatedBlock = state.nextBlocks.shift();
       const updatedShape = scaleBlockShape(
         blockShapes[updatedBlock].shape,

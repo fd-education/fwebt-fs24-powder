@@ -43,21 +43,6 @@ export const useGame = () => {
     start();
   }, [start]);
 
-  const removeFullLines = useCallback(
-    (board: BoardType): [number, BoardType] => {
-      let removedLines = 0;
-      const boardClone = structuredClone(board) as BoardType;
-      for (let r = powderConfig.BOARD_ROWS - 1; r >= 0; r--) {
-        if (boardClone[r].every((cell) => cell !== VoidCell.VOID)) {
-          removedLines += 1;
-          boardClone.splice(r, 1);
-        }
-      }
-      return [removedLines, boardClone];
-    },
-    []
-  );
-
   const gameLoop = useCallback(() => {
     if (isSettling) {
       if (
@@ -73,7 +58,11 @@ export const useGame = () => {
         return;
       }
 
-      settleBlock();
+      const removed = settleBlock();
+      const reward = removed.reduce((a, b) => a + calculateReward(b), 0);
+      incPlayerScore(reward);
+      incPlayerLines(removed.length);
+
       const hasLost = nextRound(0, renderedBoard);
       if (hasLost) endGame(true);
 
@@ -138,7 +127,6 @@ export const useGame = () => {
     renderedBoard,
     loopSpeed,
     checkCollisions,
-
     isSettling,
   ]);
 
@@ -147,19 +135,17 @@ export const useGame = () => {
   };
 };
 
-const calculateReward = (fullLines: number): number => {
-  switch (fullLines) {
-    case 0:
-      return 0;
-    case 1:
-      return 10;
-    case 2:
-      return 30;
-    case 3:
-      return 60;
-    case 4:
-      return 100;
-    default:
-      throw new Error(`Unhandled number of full lines: ${fullLines}`);
+const calculateReward = (removed: number): number => {
+  const { DESINTEGRATION, BOARD_COLS } = powderConfig;
+  const lineEquivalent = Math.pow(DESINTEGRATION, 2) * BOARD_COLS;
+
+  if (removed >= lineEquivalent * 4) {
+    return 4 * removed;
+  } else if (removed >= lineEquivalent * 3) {
+    return 2.5 * removed;
+  } else if (removed >= lineEquivalent * 2) {
+    return 1.5 * removed;
+  } else {
+    return removed;
   }
 };

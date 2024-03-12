@@ -13,5 +13,7 @@ export const powderConfig: Config = {
   STANDARD_LOOP_SPEED: 300,
   COLLISION_LOOP_SPEED: 200,
   FASTDROP_LOOP_SPEED: 50,
-  DESINTEGRATION: 5,
+  // Currently supports 1, 3, 5, 10
+  // Add more options to switch statements in workspace/client/src/components/game/board/Cell.tsx
+  DESINTEGRATION: 3,
 };
