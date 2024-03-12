@@ -16,12 +16,12 @@ export const scaleBlockShape = (shape: BlockShape, factor: number) => {
   for (const row of shape) {
     const scaledRow: boolean[] = [];
 
-    for (const item of row){
+    for (const item of row) {
       scaledRow.push(...Array(factor).fill(item));
-    };
+    }
 
     scaledShape.push(...Array(factor).fill(scaledRow));
-  };
+  }
 
   return scaledShape;
 };

@@ -65,7 +65,7 @@ export const useGamePhysics = () => {
 
     const isVoid = (e: BlockType) => {
       return e === VoidCell.VOID;
-    }
+    };
 
     const clone = dropHangingBlocks(board);
     for (let c = 0; c < clone[0].length; c++) {
@@ -128,10 +128,7 @@ export const useGamePhysics = () => {
     const fullLines = [];
 
     while (startRow >= 0) {
-      if (
-        c[startRow][0] === undefined ||
-        c[startRow][0] === VoidCell.VOID
-      )
+      if (c[startRow][0] === undefined || c[startRow][0] === VoidCell.VOID)
         break;
       if (trace[startRow][0]) {
         startRow -= 1;
