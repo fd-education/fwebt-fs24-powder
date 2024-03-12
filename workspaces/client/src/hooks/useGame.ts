@@ -34,7 +34,12 @@ export const useGame = () => {
 
   const { checkCollisions } = useGamePhysics();
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
-  const { DESINTEGRATION, BASE_STANDARD_LOOP_SPEED, BASE_COLLISION_LOOP_SPEED, BASE_FASTDROP_LOOP_SPEED } = powderConfig;
+  const {
+    DESINTEGRATION,
+    BASE_STANDARD_LOOP_SPEED,
+    BASE_COLLISION_LOOP_SPEED,
+    BASE_FASTDROP_LOOP_SPEED,
+  } = powderConfig;
 
   const startGame = useCallback(() => {
     setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);

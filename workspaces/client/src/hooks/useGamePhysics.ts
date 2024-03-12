@@ -58,11 +58,11 @@ export const useGamePhysics = () => {
       LEFT,
       RIGHT,
     }
-    
+
     const isEmpty = (e: BlockType) => {
       return e === undefined || e === VoidCell.VOID;
     };
-    
+
     const clone = dropHangingBlocks(board);
     for (let c = 0; c < clone[0].length; c++) {
       for (let r = 0; r < clone.length - 2; r++) {
@@ -84,7 +84,11 @@ export const useGamePhysics = () => {
 
         const current = clone[r][c];
         clone[r][c] = VoidCell.VOID;
-        if (leftHeight === rightHeight && !(c === clone[0].length - 1) && !(c === 0)) {
+        if (
+          leftHeight === rightHeight &&
+          !(c === clone[0].length - 1) &&
+          !(c === 0)
+        ) {
           if (Math.floor(Math.random() * 2) === sides.LEFT) {
             clone[r + leftHeight][c - 1] = current;
           } else {
@@ -102,36 +106,46 @@ export const useGamePhysics = () => {
   };
 
   type Coordinates = {
-    row: number,
-    col: number,
+    row: number;
+    col: number;
   };
 
   const getFullLines = (board: BoardType) => {
-    const c = structuredClone(board)
+    const c = structuredClone(board);
 
     const rows = c.length;
     const cols = c[0].length;
 
     let startRow = board.length - 1;
-    let startCol = 0;
 
-    const trace = new Array(rows).fill(false).map(() => new Array(cols).fill(false));
+    const trace = new Array(rows)
+      .fill(false)
+      .map(() => new Array(cols).fill(false));
     const fullLines = [];
 
     while (startRow >= 0) {
-      if (c[startRow][startCol] === undefined || c[startRow][startCol] === VoidCell.VOID) break;
-      if (trace[startRow][startCol]) {
+      if (
+        c[startRow][0] === undefined ||
+        c[startRow][0] === VoidCell.VOID
+      )
+        break;
+      if (trace[startRow][0]) {
         startRow -= 1;
         continue;
-      };
+      }
 
       let hasLeftEdge = false;
       let hasRightEdge = false;
 
-      const current = c[startRow][startCol];
+      const current = c[startRow][0];
 
-      const depthSearch = (row: number, col: number, line: Array<Coordinates>) => {
-        if (row < 0 || row >= rows || col < 0 || col >= cols || trace[row][col]) return;
+      const depthSearch = (
+        row: number,
+        col: number,
+        line: Array<Coordinates>
+      ) => {
+        if (row < 0 || row >= rows || col < 0 || col >= cols || trace[row][col])
+          return;
 
         if (col === 0) hasLeftEdge = true;
         if (col === c[0].length - 1) hasRightEdge = true;
@@ -145,10 +159,10 @@ export const useGamePhysics = () => {
           depthSearch(row, col - 1, line);
           depthSearch(row, col + 1, line);
         }
-      }
+      };
 
       const line = new Array<Coordinates>();
-      depthSearch(startRow, startCol, line);
+      depthSearch(startRow, 0, line);
 
       if (hasLeftEdge && hasRightEdge) {
         fullLines.push(line);
@@ -161,18 +175,18 @@ export const useGamePhysics = () => {
     }
 
     return fullLines;
-  }
+  };
 
   const removeFullPaths = (board: BoardType, paths: Array<Coordinates[]>) => {
     const clone = structuredClone(board);
-    for (let path of paths) {
-      for (let node of path) {
+    for (const path of paths) {
+      for (const node of path) {
         clone[node.row][node.col] = VoidCell.VOID;
       }
     }
 
     return clone;
-  }
+  };
 
   const checkPowdris = (board: BoardType): [BoardType, number[]] => {
     const clone = structuredClone(board);
@@ -181,7 +195,7 @@ export const useGamePhysics = () => {
     const boardWithoutPaths = removeFullPaths(clone, lines);
     const boardWithDroppedBlocks = dropHangingBlocks(boardWithoutPaths);
 
-    const lengths = lines.map(l => (l.length))
+    const lengths = lines.map((l) => l.length);
 
     return [boardWithDroppedBlocks, lengths];
   };
@@ -190,6 +204,6 @@ export const useGamePhysics = () => {
     checkCollisions,
     dropHangingBlocks,
     desintegrateBlocks,
-    checkPowdris
+    checkPowdris,
   };
 };

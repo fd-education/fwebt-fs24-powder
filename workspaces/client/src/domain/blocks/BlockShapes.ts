@@ -11,17 +11,19 @@ export interface BlockShapeObject {
 }
 
 export const scaleBlockShape = (shape: BlockShape, factor: number) => {
-  const scaled: BlockShape = [];
+  const scaledShape: BlockShape = [];
 
   for (const row of shape) {
-    const x: [] = [];
+    const scaledRow: boolean[] = [];
 
-    for (const item of row) x.push.apply(x, Array(factor).fill(item));
+    for (const item of row){
+      scaledRow.push(...Array(factor).fill(item));
+    };
 
-    scaled.push.apply(scaled, Array(factor).fill(x));
-  }
+    scaledShape.push(...Array(factor).fill(scaledRow));
+  };
 
-  return scaled;
+  return scaledShape;
 };
 
 export const blockShapes: BlockShapeObject = {

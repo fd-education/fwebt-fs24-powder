@@ -243,7 +243,7 @@ export const useBoardStateStore = create<BoardState>((set) => ({
   },
   settleBlock: (): number[] => {
     const removedPowders = new Array<number>();
-    
+
     set((state) => {
       const desBlocks = desintegrateBlocks(state.renderedBoard);
 
