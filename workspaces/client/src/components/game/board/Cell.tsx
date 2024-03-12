@@ -1,5 +1,5 @@
 import React from 'react';
-import { BlockName, VoidCell } from '../../../domain/enums/BlockName';
+import { BlockName, VoidCell } from '../../../domain/blocks/BlockName';
 
 interface CellProps {
   cellType: BlockName | VoidCell;
@@ -8,10 +8,10 @@ interface CellProps {
 
 export const Cell = ({ cellType, display }: CellProps) => {
   return (
-    <div className={`h-8 w-8 border-2 dark:border-black-transparent border-white-transparent border-collapse ${!display && 'invisible'}`}>
-      {cellType === VoidCell.VOID && (
-        <div className={`h-full w-full`}></div>
-      )}
+    <div
+      className={`h-[calc(2rem/3)] w-[calc(2rem/3)] ${!display && 'invisible'}`}
+    >
+      {cellType === VoidCell.VOID && <div className={`h-full w-full`}></div>}
       {cellType === BlockName.I && (
         <div className={`h-full w-full bg-powdromino-purple`}></div>
       )}

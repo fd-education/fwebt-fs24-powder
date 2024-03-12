@@ -1,5 +1,5 @@
-export type BoardType = (BlockName | VoidCell)[][];
-
+export type BoardType = BlockType[][];
+export type BlockType = BlockName | VoidCell;
 export enum BlockName {
   I = 'I',
   J = 'J',

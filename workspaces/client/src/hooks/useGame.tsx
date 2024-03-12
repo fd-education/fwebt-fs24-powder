@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from './useInterval';
-import { PowderConfig } from '../domain/config/PowderConfig';
-import { BoardType, VoidCell } from '../domain/enums/BlockName';
+import { powderConfig } from '../domain/config/PowderConfig';
+import { BoardType, VoidCell } from '../domain/blocks/BlockName';
 import { useScoreStore } from '../domain/state/scoreStore';
 import { useGamePhysics } from './useGamePhysics';
 import { useGameStateStore } from '../domain/state/gameStateStore';
 import { useBoardStateStore } from '../domain/state/boardStateStore';
+import { render } from 'react-dom';
 
 export const useGame = () => {
   const { incPlayerScore, incPlayerLines } = useScoreStore();
@@ -35,9 +36,10 @@ export const useGame = () => {
 
   const { checkCollisions } = useGamePhysics();
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
+  const { DESINTEGRATION } = powderConfig;
 
   const startGame = useCallback(() => {
-    setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+    setLoopSpeed(powderConfig.STANDARD_LOOP_SPEED);
     initializeBoard();
     start();
   }, [start]);
@@ -46,7 +48,7 @@ export const useGame = () => {
     (board: BoardType): [number, BoardType] => {
       let removedLines = 0;
       const boardClone = structuredClone(board) as BoardType;
-      for (let r = PowderConfig.BOARD_ROWS - 1; r >= 0; r--) {
+      for (let r = powderConfig.BOARD_ROWS - 1; r >= 0; r--) {
         if (boardClone[r].every((cell) => cell !== VoidCell.VOID)) {
           removedLines += 1;
           boardClone.splice(r, 1);
@@ -59,27 +61,28 @@ export const useGame = () => {
 
   const gameLoop = useCallback(() => {
     if (isSettling) {
-      if (!checkCollisions(renderedBoard, shape, shapeRow + 1, shapeCol)) {
+      if (
+        !checkCollisions(
+          renderedBoard,
+          shape,
+          shapeRow + 1 * DESINTEGRATION,
+          shapeCol
+        )
+      ) {
         setIsSettling(false);
-        setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+        setLoopSpeed(powderConfig.STANDARD_LOOP_SPEED);
         return;
       }
 
-      const fixedBoard = structuredClone(renderedBoard) as BoardType;
-      const [removedLines, updatedBoard] = removeFullLines(fixedBoard);
-
-      incPlayerScore(calculateReward(removedLines));
-      incPlayerLines(removedLines);
-
       settleBlock();
-      setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
-      const hasLost = nextRound(removedLines, updatedBoard);
-
+      const hasLost = nextRound(0, renderedBoard);
       if (hasLost) endGame(true);
+
+      setLoopSpeed(powderConfig.STANDARD_LOOP_SPEED);
       setIsSettling(false);
     } else if (hasCollision) {
       setIsSettling(true);
-      setLoopSpeed(PowderConfig.COLLISION_LOOP_SPEED);
+      setLoopSpeed(powderConfig.COLLISION_LOOP_SPEED);
     } else {
       dropBlock();
     }
@@ -98,7 +101,7 @@ export const useGame = () => {
 
       switch (e.key) {
         case 'ArrowDown':
-          setLoopSpeed(PowderConfig.FASTDROP_LOOP_SPEED);
+          setLoopSpeed(powderConfig.FASTDROP_LOOP_SPEED);
           break;
         case 'ArrowUp':
           rotateBlock();
@@ -117,7 +120,7 @@ export const useGame = () => {
 
       switch (e.key) {
         case 'ArrowDown':
-          setLoopSpeed(PowderConfig.STANDARD_LOOP_SPEED);
+          setLoopSpeed(powderConfig.STANDARD_LOOP_SPEED);
           break;
       }
     };
@@ -136,6 +139,7 @@ export const useGame = () => {
     renderedBoard,
     loopSpeed,
     checkCollisions,
+
     isSettling,
   ]);
 

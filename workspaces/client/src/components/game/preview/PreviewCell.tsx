@@ -1,5 +1,5 @@
 import React from 'react';
-import { BlockName, VoidCell } from '../../../domain/enums/BlockName';
+import { BlockName, VoidCell } from '../../../domain/blocks/BlockName';
 
 interface PreviewCellProps {
   cellType: BlockName | VoidCell;
@@ -7,7 +7,8 @@ interface PreviewCellProps {
 }
 
 export const PreviewCell = ({ cellType, display }: PreviewCellProps) => {
-  const borderStyle = 'border dark:border-black-transparent border-white-transparent';
+  const borderStyle =
+    'border dark:border-black-transparent border-white-transparent';
 
   return (
     <div className={`h-6 w-6 ${!display && 'invisible'}`}>

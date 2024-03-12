@@ -4,12 +4,14 @@ type Config = {
   STANDARD_LOOP_SPEED: number;
   COLLISION_LOOP_SPEED: number;
   FASTDROP_LOOP_SPEED: number;
+  DESINTEGRATION: number;
 };
 
-export const PowderConfig: Config = {
+export const powderConfig: Config = {
   BOARD_COLS: 10,
   BOARD_ROWS: 20,
   STANDARD_LOOP_SPEED: 300,
   COLLISION_LOOP_SPEED: 200,
   FASTDROP_LOOP_SPEED: 50,
+  DESINTEGRATION: 3,
 };
