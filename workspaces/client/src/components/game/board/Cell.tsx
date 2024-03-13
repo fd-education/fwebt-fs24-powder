@@ -1,13 +1,15 @@
 import React from 'react';
 import { BlockName, VoidCell } from '../../../domain/blocks/BlockName';
 import { powderConfig } from '../../../domain/config/PowderConfig';
+import { BlockInfo, SlimBlockInfo } from '../../../domain/blocks/BlockShapes';
+import { BlockColor } from '../../../domain/blocks/BlockColor';
 
 interface CellProps {
-  cellType: BlockName | VoidCell;
+  type: BlockColor | VoidCell;
   display: boolean;
 }
 
-export const Cell = ({ cellType, display }: CellProps) => {
+export const Cell = ({ type, display }: CellProps) => {
   const { DESINTEGRATION } = powderConfig;
 
   const getHeight = () => {
@@ -38,26 +40,26 @@ export const Cell = ({ cellType, display }: CellProps) => {
 
   return (
     <div className={`${getHeight()} ${getWidth()} ${!display && 'invisible'}`}>
-      {cellType === VoidCell.VOID && <div className={`h-full w-full`}></div>}
-      {cellType === BlockName.I && (
+      {type === VoidCell.VOID && <div className={`h-full w-full`}></div>}
+      {type === BlockColor.PURPLE && (
         <div className={`h-full w-full bg-powdromino-purple`}></div>
       )}
-      {cellType === BlockName.J && (
+      {type === BlockColor.GREEN && (
         <div className={`h-full w-full bg-powdromino-green`}></div>
       )}
-      {cellType === BlockName.L && (
+      {type === BlockColor.RED && (
         <div className={`h-full w-full bg-powdromino-red`}></div>
       )}
-      {cellType === BlockName.Z && (
+      {type === BlockColor.SKY && (
         <div className={`h-full w-full bg-powdromino-sky`}></div>
       )}
-      {cellType === BlockName.S && (
+      {type === BlockColor.BLUE && (
         <div className={`h-full w-full bg-powdromino-blue`}></div>
       )}
-      {cellType === BlockName.O && (
+      {type === BlockColor.ORANGE && (
         <div className={`h-full w-full bg-powdromino-orange`}></div>
       )}
-      {cellType === BlockName.T && (
+      {type === BlockColor.YELLOW && (
         <div className={`h-full w-full bg-powdromino-yellow`}></div>
       )}
     </div>

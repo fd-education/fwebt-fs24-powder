@@ -14,7 +14,7 @@ export const Board = () => {
         {renderedBoard.map((row, ri) => (
           <div key={ri} className='flex'>
             {row.map((cell, ci) => (
-              <Cell key={`${ri}-${ci}`} cellType={cell} display={!paused} />
+              <Cell key={`${ri}-${ci}`} type={cell} display={!paused} />
             ))}
           </div>
         ))}

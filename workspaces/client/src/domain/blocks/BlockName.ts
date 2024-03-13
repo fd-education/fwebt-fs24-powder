@@ -1,5 +1,8 @@
+import { BlockColor } from './BlockColor';
+import { SlimBlockInfo } from './BlockShapes';
+
 export type BoardType = BlockType[][];
-export type BlockType = BlockName | VoidCell;
+export type BlockType = BlockColor | VoidCell;
 export enum BlockName {
   I = 'I',
   J = 'J',

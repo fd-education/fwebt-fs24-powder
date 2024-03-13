@@ -21,7 +21,7 @@ export const Preview = () => {
                   {row.map((cell, ci) => (
                     <PreviewCell
                       key={`${ri}-${ci}`}
-                      cellType={cell}
+                      type={cell}
                       display={!paused}
                     />
                   ))}

@@ -1,23 +1,26 @@
 import { create } from 'zustand';
 import { BlockName, BoardType, VoidCell } from '../blocks/BlockName';
 import {
+  BlockInfo,
   BlockShape,
-  blockShapes,
+  BlockShapeObject,
+  blocks,
   scaleBlockShape,
 } from '../blocks/BlockShapes';
 import { powderConfig } from '../config/PowderConfig';
 import { useGamePhysics } from '../../hooks/useGamePhysics';
+import { BlockColor } from '../blocks/BlockColor';
 
 interface BoardState {
   board: BoardType;
   renderedBoard: BoardType;
   shapeRow: number;
   shapeCol: number;
-  block: BlockName;
+  block: BlockInfo;
   shape: BlockShape;
   hasCollision: boolean;
   isSettling: boolean;
-  nextBlocks: BlockName[];
+  nextBlocks: BlockInfo[];
   nextBlockShapes: BoardType[];
   initializeBoard: () => void;
   dropBlock: () => void;
@@ -38,16 +41,26 @@ const getEmptyBoard = (height = BOARD_ROWS * DESINTEGRATION): BoardType => {
     .map(() => Array(BOARD_COLS * DESINTEGRATION).fill(VoidCell.VOID));
 };
 
-const getRandomBlock = (): BlockName => {
-  const powdrominos = Object.values(BlockName);
-  return powdrominos[
-    Math.floor(Math.random() * powdrominos.length)
+const getRandomBlock = (): BlockInfo => {
+  const blockNames = Object.values(BlockName);
+  const name = blockNames[
+    Math.floor(Math.random() * blockNames.length)
   ] as BlockName;
+  const blockColors = Object.values(BlockColor);
+  const color = blockColors[
+    Math.floor(Math.random() * blockColors.length)
+  ] as BlockColor;
+
+  return {
+    name,
+    color,
+    shape: blocks[name].shape
+  }
 };
 
 const addShapeToBoard = (
   board: BoardType,
-  block: BlockName,
+  block: BlockInfo,
   shape: BlockShape,
   shapeRow: number,
   shapeCol: number
@@ -59,7 +72,7 @@ const addShapeToBoard = (
     .forEach((row: boolean[], ri: number) => {
       row.forEach((hasBlock: boolean, ci: number) => {
         if (hasBlock && shapeRow + ri >= 0) {
-          boardClone[shapeRow + ri][shapeCol + ci] = block;
+          boardClone[shapeRow + ri][shapeCol + ci] = block.color
         }
       });
     });
@@ -84,13 +97,13 @@ const rotateBlockShape = (shape: BlockShape): BlockShape => {
   return rotatedPowdromino;
 };
 
-const getPreviewBlocks = (next: BlockName[]): BoardType[] => {
+const getPreviewBlocks = (next: BlockInfo[]): BoardType[] => {
   if (!next) return;
 
   const boards: BoardType[] = [];
 
   next.forEach((block) => {
-    const shape = blockShapes[block].shape.filter((row: boolean[]) =>
+    const shape = block.shape.filter((row: boolean[]) =>
       row.some((hasBlock) => hasBlock)
     );
 
@@ -110,8 +123,8 @@ export const useBoardStateStore = create<BoardState>((set) => ({
   renderedBoard: [],
   shapeRow: -1 * DESINTEGRATION,
   shapeCol: 3 * DESINTEGRATION,
-  block: BlockName.I,
-  shape: scaleBlockShape(blockShapes[BlockName.I].shape, DESINTEGRATION),
+  block: getRandomBlock(),
+  shape: scaleBlockShape(blocks[BlockName.I].shape, DESINTEGRATION),
   nextBlocks: [],
   nextBlockShapes: [],
   hasCollision: false,
@@ -125,14 +138,14 @@ export const useBoardStateStore = create<BoardState>((set) => ({
       renderedBoard: addShapeToBoard(
         getEmptyBoard(),
         firstBlock,
-        scaleBlockShape(blockShapes[firstBlock].shape, DESINTEGRATION),
+        scaleBlockShape(firstBlock.shape, DESINTEGRATION),
         -1 * DESINTEGRATION,
         3 * DESINTEGRATION
       ),
       shapeRow: 0 * DESINTEGRATION,
       shapeCol: 3 * DESINTEGRATION,
       block: firstBlock,
-      shape: scaleBlockShape(blockShapes[firstBlock].shape, DESINTEGRATION),
+      shape: scaleBlockShape(firstBlock.shape, DESINTEGRATION),
       nextBlocks,
       nextBlockShapes: getPreviewBlocks(nextBlocks),
       hasCollision: false,
@@ -266,7 +279,7 @@ export const useBoardStateStore = create<BoardState>((set) => ({
       const updatedBoard = state.renderedBoard;
       const updatedBlock = state.nextBlocks.shift();
       const updatedShape = scaleBlockShape(
-        blockShapes[updatedBlock].shape,
+        updatedBlock.shape,
         DESINTEGRATION
       );
       const updatedNextBlocks = [...state.nextBlocks, getRandomBlock()];
