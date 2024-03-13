@@ -14,3 +14,9 @@ export type ScoreRequest = {
 export type ScoreboardResponse = {
   ranking: ScoreResponse[]
 };
+
+export enum Stage{
+  PROD = 'prod',
+  TEST = 'test',
+  DEV = 'dev'
+}
