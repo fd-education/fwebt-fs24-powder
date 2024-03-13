@@ -4,7 +4,7 @@ import { PanelHeading } from '../../util/PanelHeading';
 import { PowderButton } from '../../util/PowderButton';
 import { NumberDisplay } from './NumberDisplay';
 import { useScoreStore } from '../../../domain/state/scoreStore';
-import { useGameStateStore } from '../../../domain/state/gameState';
+import { useGameStateStore } from '../../../domain/state/gameStateStore';
 
 export const Score = () => {
   const { playerScore, playerLines } = useScoreStore();
@@ -22,7 +22,7 @@ export const Score = () => {
           <NumberDisplay number={playerLines} />
         </div>
         <PowderButton text='pause' clickHandler={() => pauseGame()} />
-        <PowderButton text='end' clickHandler={() => endGame()} />
+        <PowderButton text='end' clickHandler={() => endGame(false)} />
       </div>
     </Panel>
   );

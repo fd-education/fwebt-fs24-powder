@@ -1,82 +1,82 @@
 import { create } from 'zustand';
-import { BoardType, VoidCell } from '../enums/BlockName';
-import { BlockName } from '../enums/BlockName';
-import { BlockShape, blockShapes } from '../game/Powdromino.shapes';
-import { PowderConfig } from '../config/PowderConfig';
+import { BlockName, BoardType, VoidCell } from '../blocks/BlockName';
+import {
+  BlockInfo,
+  BlockShape,
+  blocks,
+  scaleBlockShape,
+} from '../blocks/BlockShapes';
+import { powderConfig } from '../config/PowderConfig';
+import { useGamePhysics } from '../../hooks/useGamePhysics';
+import { BlockColor } from '../blocks/BlockColor';
 
-interface GameStateVariables {
+interface BoardState {
   board: BoardType;
   renderedBoard: BoardType;
   shapeRow: number;
   shapeCol: number;
-  block: BlockName;
+  block: BlockInfo;
   shape: BlockShape;
-  nextBlocks: BlockName[];
-  nextBlockShapes: BoardType[];
-  started: boolean;
-  paused: boolean;
-  ended: boolean;
-  lost: boolean;
   hasCollision: boolean;
   isSettling: boolean;
-}
-
-interface GameState extends GameStateVariables {
-  setIsSettling: (value: boolean) => void;
-  startGame: () => void;
-  continueGame: () => void;
-  pauseGame: () => void;
-  endGame: () => void;
-  nextTick: () => void;
+  nextBlocks: BlockInfo[];
+  nextBlockShapes: BoardType[];
+  initializeBoard: () => void;
+  dropBlock: () => void;
   moveBlockLeft: () => void;
   moveBlockRight: () => void;
   rotateBlock: () => void;
-  settleBlock: () => void;
-  nextRound: (removedLines: number, updatedBoard: BoardType) => void;
+  setIsSettling: (isSettling: boolean) => void;
+  settleBlock: () => number[];
+  nextRound: (removedLines: number, newBoard: BoardType) => boolean;
 }
 
-const getEmptyBoard = (height = PowderConfig.BOARD_ROWS): BoardType => {
+const { checkCollisions, desintegrateBlocks, checkPowdris } = useGamePhysics();
+const { BOARD_ROWS, BOARD_COLS, DESINTEGRATION } = powderConfig;
+
+const getEmptyBoard = (height = BOARD_ROWS * DESINTEGRATION): BoardType => {
   return Array(height)
     .fill(null)
-    .map(() => Array(PowderConfig.BOARD_COLS).fill(VoidCell.VOID));
+    .map(() => Array(BOARD_COLS * DESINTEGRATION).fill(VoidCell.VOID));
 };
 
-const getRandomBlock = (): BlockName => {
-  const powdrominos = Object.values(BlockName);
-  return powdrominos[
-    Math.floor(Math.random() * powdrominos.length)
+const getRandomBlock = (): BlockInfo => {
+  const blockNames = Object.values(BlockName);
+  const name = blockNames[
+    Math.floor(Math.random() * blockNames.length)
   ] as BlockName;
+  const blockColors = Object.values(BlockColor);
+  const color = blockColors[
+    Math.floor(Math.random() * blockColors.length)
+  ] as BlockColor;
+
+  return {
+    name,
+    color,
+    shape: blocks[name].shape,
+  };
 };
 
-export const isColliding = (
+const addShapeToBoard = (
   board: BoardType,
+  block: BlockInfo,
   shape: BlockShape,
   shapeRow: number,
   shapeCol: number
-): boolean => {
-  let collided = false;
+): BoardType => {
+  const boardClone = structuredClone(board) as BoardType;
 
   shape
-    .filter((row: boolean[]) => row.some((hasBlock) => hasBlock))
+    .filter((row) => row.some((hasBlock) => hasBlock))
     .forEach((row: boolean[], ri: number) => {
       row.forEach((hasBlock: boolean, ci: number) => {
-        if (
-          hasBlock &&
-          // bottom collision
-          (shapeRow + ri >= board.length ||
-            // right collision
-            shapeCol + ci >= board[0].length ||
-            // left collision
-            shapeCol + ci < 0 ||
-            // block collision
-            board[shapeRow + ri][shapeCol + ci] !== VoidCell.VOID)
-        ) {
-          collided = true;
+        if (hasBlock && shapeRow + ri >= 0) {
+          boardClone[shapeRow + ri][shapeCol + ci] = block.color;
         }
       });
     });
 
-  return collided;
+  return boardClone;
 };
 
 const rotateBlockShape = (shape: BlockShape): BlockShape => {
@@ -96,35 +96,13 @@ const rotateBlockShape = (shape: BlockShape): BlockShape => {
   return rotatedPowdromino;
 };
 
-export const addShapeToBoard = (
-  board: BoardType,
-  block: BlockName,
-  shape: BlockShape,
-  shapeRow: number,
-  shapeCol: number
-): BoardType => {
-  const boardClone = structuredClone(board) as BoardType;
-
-  shape
-    .filter((row) => row.some((hasBlock) => hasBlock))
-    .forEach((row: boolean[], ri: number) => {
-      row.forEach((hasBlock: boolean, ci: number) => {
-        if (hasBlock && shapeRow + ri >= 0) {
-          boardClone[shapeRow + ri][shapeCol + ci] = block;
-        }
-      });
-    });
-
-  return boardClone;
-};
-
-export const getPreviewBlocks = (next: BlockName[]): BoardType[] => {
+const getPreviewBlocks = (next: BlockInfo[]): BoardType[] => {
   if (!next) return;
 
   const boards: BoardType[] = [];
 
   next.forEach((block) => {
-    const shape = blockShapes[block].shape.filter((row: boolean[]) =>
+    const shape = block.shape.filter((row: boolean[]) =>
       row.some((hasBlock) => hasBlock)
     );
 
@@ -139,22 +117,18 @@ export const getPreviewBlocks = (next: BlockName[]): BoardType[] => {
   return boards.reverse();
 };
 
-export const useGameStateStore = create<GameState>()((set) => ({
+export const useBoardStateStore = create<BoardState>((set) => ({
   board: [],
   renderedBoard: [],
-  shapeRow: 0,
-  shapeCol: 0,
-  hasCollision: false,
-  isSettling: false,
-  block: BlockName.I,
-  shape: blockShapes[BlockName.I].shape,
+  shapeRow: -1 * DESINTEGRATION,
+  shapeCol: 3 * DESINTEGRATION,
+  block: getRandomBlock(),
+  shape: scaleBlockShape(blocks[BlockName.I].shape, DESINTEGRATION),
   nextBlocks: [],
   nextBlockShapes: [],
-  started: false,
-  paused: false,
-  ended: false,
-  lost: false,
-  startGame: () => {
+  hasCollision: false,
+  isSettling: false,
+  initializeBoard: () => {
     const firstBlock = getRandomBlock();
     const nextBlocks = [getRandomBlock(), getRandomBlock(), getRandomBlock()];
 
@@ -163,51 +137,26 @@ export const useGameStateStore = create<GameState>()((set) => ({
       renderedBoard: addShapeToBoard(
         getEmptyBoard(),
         firstBlock,
-        blockShapes[firstBlock].shape,
-        0,
-        3
+        scaleBlockShape(firstBlock.shape, DESINTEGRATION),
+        -1 * DESINTEGRATION,
+        3 * DESINTEGRATION
       ),
-      shapeRow: -1,
-      shapeCol: 3,
+      shapeRow: 0 * DESINTEGRATION,
+      shapeCol: 3 * DESINTEGRATION,
       block: firstBlock,
-      shape: blockShapes[firstBlock].shape,
+      shape: scaleBlockShape(firstBlock.shape, DESINTEGRATION),
       nextBlocks,
       nextBlockShapes: getPreviewBlocks(nextBlocks),
-      started: true,
-      ended: false,
-      lost: false,
-      paused: false,
+      hasCollision: false,
+      isSettling: false,
     });
   },
-  pauseGame: () => {
+  dropBlock: () => {
     set((state) => {
-      const invalidState = state.paused || !state.started || state.ended;
-      return invalidState ? {} : { paused: true };
-    });
-  },
-  continueGame: () => {
-    set((state) => {
-      const invalidState = !state.paused || !state.started || state.ended;
-      return invalidState ? {} : { paused: false };
-    });
-  },
-  endGame: () => {
-    set((state) => {
-      const invalidState = !state.started || state.paused || state.ended;
-      return invalidState
-        ? {}
-        : {
-            started: false,
-            ended: true,
-          };
-    });
-  },
-  nextTick: () => {
-    set((state) => {
-      if (!state.started) return {};
-
       const updatedRow = state.shapeRow + 1;
-      if (isColliding(state.board, state.shape, updatedRow, state.shapeCol)) {
+      if (
+        checkCollisions(state.board, state.shape, updatedRow, state.shapeCol)
+      ) {
         return {
           hasCollision: true,
         };
@@ -229,13 +178,15 @@ export const useGameStateStore = create<GameState>()((set) => ({
   },
   moveBlockLeft: () => {
     set((state) => {
-      const willCollide = isColliding(
+      const willCollide = checkCollisions(
         state.board,
         state.shape,
         state.shapeRow,
-        state.shapeCol - 1
+        state.shapeCol - 1 * DESINTEGRATION
       );
-      const updatedCol = willCollide ? state.shapeCol : state.shapeCol - 1;
+      const updatedCol = willCollide
+        ? state.shapeCol
+        : state.shapeCol - 1 * DESINTEGRATION;
       const updatedBoard = addShapeToBoard(
         state.board,
         state.block,
@@ -252,13 +203,15 @@ export const useGameStateStore = create<GameState>()((set) => ({
   },
   moveBlockRight: () => {
     set((state) => {
-      const willCollide = isColliding(
+      const willCollide = checkCollisions(
         state.board,
         state.shape,
         state.shapeRow,
-        state.shapeCol + 1
+        state.shapeCol + 1 * DESINTEGRATION
       );
-      const updatedCol = willCollide ? state.shapeCol : state.shapeCol + 1;
+      const updatedCol = willCollide
+        ? state.shapeCol
+        : state.shapeCol + 1 * DESINTEGRATION;
       const updatedBoard = addShapeToBoard(
         state.board,
         state.block,
@@ -276,7 +229,7 @@ export const useGameStateStore = create<GameState>()((set) => ({
   rotateBlock: () => {
     set((state) => {
       const rotatedShape = rotateBlockShape(state.shape);
-      const willCollide = isColliding(
+      const willCollide = checkCollisions(
         state.board,
         rotatedShape,
         state.shapeRow,
@@ -300,32 +253,42 @@ export const useGameStateStore = create<GameState>()((set) => ({
   setIsSettling: (value: boolean) => {
     set(() => ({ isSettling: value }));
   },
-  settleBlock: () => {
+  settleBlock: (): number[] => {
+    const removedPowders = new Array<number>();
+
     set((state) => {
+      const desBlocks = desintegrateBlocks(state.renderedBoard);
+
+      const [newBoard, removed] = checkPowdris(desBlocks);
+      removedPowders.push(...(removed as number[]));
+
       return {
-        board: state.renderedBoard,
+        board: newBoard as BoardType,
+        renderedBoard: newBoard as BoardType,
         isSettling: false,
         hasCollision: false,
       };
     });
+
+    return removedPowders;
   },
-  nextRound: (removedLines: number, newBoard: BoardType) => {
-    // TODO to comply with requirement FA-009, block must desintegrate upon settling
+  nextRound: (): boolean => {
+    let hasLost = false;
     set((state) => {
-      const updatedBoard = [...getEmptyBoard(removedLines), ...newBoard];
+      const updatedBoard = state.renderedBoard;
       const updatedBlock = state.nextBlocks.shift();
-      const updatedShape = blockShapes[updatedBlock].shape;
+      const updatedShape = scaleBlockShape(updatedBlock.shape, DESINTEGRATION);
       const updatedNextBlocks = [...state.nextBlocks, getRandomBlock()];
 
-      if (isColliding(updatedBoard, updatedShape, 0, 3)) {
+      if (checkCollisions(updatedBoard, updatedShape, 0, 3 * DESINTEGRATION)) {
+        hasLost = true;
+
         return {
-          started: false,
-          ended: true,
-          lost: true,
+          hasCollision: true,
           board: updatedBoard,
           renderedBoard: updatedBoard,
           shapeRow: -1,
-          shapeCol: 3,
+          shapeCol: 3 * DESINTEGRATION,
           block: updatedBlock,
           shape: updatedShape,
           nextBlocks: updatedNextBlocks,
@@ -337,12 +300,14 @@ export const useGameStateStore = create<GameState>()((set) => ({
         board: updatedBoard,
         renderedBoard: updatedBoard,
         shapeRow: -1,
-        shapeCol: 3,
+        shapeCol: 3 * DESINTEGRATION,
         block: updatedBlock,
         shape: updatedShape,
         nextBlocks: updatedNextBlocks,
         nextBlockShapes: getPreviewBlocks(updatedNextBlocks),
       };
     });
+
+    return hasLost;
   },
 }));

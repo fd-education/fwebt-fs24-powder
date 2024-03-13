@@ -1,46 +1,48 @@
 import React from 'react';
-import { BlockName, VoidCell } from '../../../domain/enums/BlockName';
+import { VoidCell } from '../../../domain/blocks/BlockName';
+import { BlockColor } from '../../../domain/blocks/BlockColor';
 
 interface PreviewCellProps {
-  cellType: BlockName | VoidCell;
+  type: BlockColor | VoidCell;
   display: boolean;
 }
 
-export const PreviewCell = ({ cellType, display }: PreviewCellProps) => {
-  const borderStyle = 'border dark:border-black-transparent border-white-transparent';
+export const PreviewCell = ({ type, display }: PreviewCellProps) => {
+  const borderStyle =
+    'border dark:border-black-transparent border-white-transparent';
 
   return (
     <div className={`h-6 w-6 ${!display && 'invisible'}`}>
-      {cellType === VoidCell.VOID && (
+      {type === VoidCell.VOID && (
         <div className={`h-full w-full invisible`}></div>
       )}
-      {cellType === BlockName.I && (
+      {type === BlockColor.PURPLE && (
         <div
           className={`h-full w-full bg-powdromino-purple ${borderStyle}`}
         ></div>
       )}
-      {cellType === BlockName.J && (
+      {type === BlockColor.GREEN && (
         <div
           className={`h-full w-full bg-powdromino-green ${borderStyle}`}
         ></div>
       )}
-      {cellType === BlockName.L && (
+      {type === BlockColor.RED && (
         <div className={`h-full w-full bg-powdromino-red ${borderStyle}`}></div>
       )}
-      {cellType === BlockName.Z && (
+      {type === BlockColor.SKY && (
         <div className={`h-full w-full bg-powdromino-sky ${borderStyle}`}></div>
       )}
-      {cellType === BlockName.S && (
+      {type === BlockColor.BLUE && (
         <div
           className={`h-full w-full bg-powdromino-blue ${borderStyle}`}
         ></div>
       )}
-      {cellType === BlockName.O && (
+      {type === BlockColor.ORANGE && (
         <div
           className={`h-full w-full bg-powdromino-orange ${borderStyle}`}
         ></div>
       )}
-      {cellType === BlockName.T && (
+      {type === BlockColor.YELLOW && (
         <div
           className={`h-full w-full bg-powdromino-yellow ${borderStyle}`}
         ></div>

@@ -1,5 +1,7 @@
-export type BoardType = (BlockName | VoidCell)[][];
+import { BlockColor } from './BlockColor';
 
+export type BoardType = BlockType[][];
+export type BlockType = BlockColor | VoidCell;
 export enum BlockName {
   I = 'I',
   J = 'J',

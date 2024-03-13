@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScreenMode } from '../../domain/enums/ScreenMode.enum';
+import { ScreenMode } from '../../domain/enums/ScreenMode';
 import { useScreenModeStore } from '../../domain/state/screenModeStore';
 import { MoonIcon } from '../icons/MoonIcon';
 import { SunIcon } from '../icons/SunIcon';
