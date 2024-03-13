@@ -25,10 +25,10 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
-    "@powder/common": "file:../common",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
+    "@powder/common": "file:../common",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
