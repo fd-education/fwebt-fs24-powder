@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ScoreController } from './api/score/score.controller';
 import { ScoreboardModule } from './api/scoreboard/scoreboard.module';
 import { ScoreModule } from './api/score/score.module';
+import { ConfigModule } from './common/config/config.module';
 
 @Module({
-  imports: [ScoreModule, ScoreboardModule],
-  controllers: [ScoreController],
-  providers: [],
+  imports: [ConfigModule, ScoreModule, ScoreboardModule],
 })
 export class AppModule {}
