@@ -1432,13 +1432,15 @@ HTTP 200 - OK
     {
       "id": "<resource-id>",
       "name": "<anyplayername>",
-      "score": "<score>"
+      "score": "<score>",
+      "timestamp": "<timestamp>"
     },
     ...,
     {
       "id": "<resource-id>",
       "name": "<playername>",
-      "score": "<score>"
+      "score": "<score>",
+      "timestamp": "<timestamp>"
     }
   ]
 }
