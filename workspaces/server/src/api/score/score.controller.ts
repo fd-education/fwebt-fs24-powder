@@ -5,6 +5,11 @@ import { ScoreResponse } from '@powder/common';
 export class ScoreController {
   @Post()
   createScore(): ScoreResponse {
-    return {} as ScoreResponse;
+    return {
+      id: '1',
+      name: 'johndoe',
+      score: '1000',
+      timestamp: Date.now().toLocaleString(),
+    };
   }
 }
