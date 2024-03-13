@@ -1,6 +1,5 @@
 import React from 'react';
-import { BlockName, VoidCell } from '../../../domain/blocks/BlockName';
-import { BlockInfo, SlimBlockInfo } from '../../../domain/blocks/BlockShapes';
+import { VoidCell } from '../../../domain/blocks/BlockName';
 import { BlockColor } from '../../../domain/blocks/BlockColor';
 
 interface PreviewCellProps {

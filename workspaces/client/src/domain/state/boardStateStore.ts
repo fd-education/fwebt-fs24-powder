@@ -3,7 +3,6 @@ import { BlockName, BoardType, VoidCell } from '../blocks/BlockName';
 import {
   BlockInfo,
   BlockShape,
-  BlockShapeObject,
   blocks,
   scaleBlockShape,
 } from '../blocks/BlockShapes';
@@ -54,8 +53,8 @@ const getRandomBlock = (): BlockInfo => {
   return {
     name,
     color,
-    shape: blocks[name].shape
-  }
+    shape: blocks[name].shape,
+  };
 };
 
 const addShapeToBoard = (
@@ -72,7 +71,7 @@ const addShapeToBoard = (
     .forEach((row: boolean[], ri: number) => {
       row.forEach((hasBlock: boolean, ci: number) => {
         if (hasBlock && shapeRow + ri >= 0) {
-          boardClone[shapeRow + ri][shapeCol + ci] = block.color
+          boardClone[shapeRow + ri][shapeCol + ci] = block.color;
         }
       });
     });
@@ -278,10 +277,7 @@ export const useBoardStateStore = create<BoardState>((set) => ({
     set((state) => {
       const updatedBoard = state.renderedBoard;
       const updatedBlock = state.nextBlocks.shift();
-      const updatedShape = scaleBlockShape(
-        updatedBlock.shape,
-        DESINTEGRATION
-      );
+      const updatedShape = scaleBlockShape(updatedBlock.shape, DESINTEGRATION);
       const updatedNextBlocks = [...state.nextBlocks, getRandomBlock()];
 
       if (checkCollisions(updatedBoard, updatedShape, 0, 3 * DESINTEGRATION)) {

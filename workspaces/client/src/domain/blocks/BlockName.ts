@@ -1,5 +1,4 @@
 import { BlockColor } from './BlockColor';
-import { SlimBlockInfo } from './BlockShapes';
 
 export type BoardType = BlockType[][];
 export type BlockType = BlockColor | VoidCell;

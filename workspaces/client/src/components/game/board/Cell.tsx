@@ -1,7 +1,6 @@
 import React from 'react';
-import { BlockName, VoidCell } from '../../../domain/blocks/BlockName';
+import { VoidCell } from '../../../domain/blocks/BlockName';
 import { powderConfig } from '../../../domain/config/PowderConfig';
-import { BlockInfo, SlimBlockInfo } from '../../../domain/blocks/BlockShapes';
 import { BlockColor } from '../../../domain/blocks/BlockColor';
 
 interface CellProps {

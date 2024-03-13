@@ -4,13 +4,13 @@ import { BlockName } from './BlockName';
 export type BlockShape = boolean[][];
 
 export type SlimBlockInfo = {
-  name: BlockName,
-  color: BlockColor
-}
+  name: BlockName;
+  color: BlockColor;
+};
 
 export type BlockInfo = SlimBlockInfo & {
-  shape: BlockShape
-}
+  shape: BlockShape;
+};
 
 export interface BlockShapeObject {
   I: BlockInfo;
@@ -47,7 +47,7 @@ export const blocks: BlockShapeObject = {
       [false, true, false, false],
       [false, true, false, false],
     ],
-    color: BlockColor.RED
+    color: BlockColor.RED,
   },
   J: {
     name: BlockName.J,
@@ -56,7 +56,7 @@ export const blocks: BlockShapeObject = {
       [false, false, true],
       [false, true, true],
     ],
-    color: BlockColor.RED
+    color: BlockColor.RED,
   },
   L: {
     name: BlockName.L,
@@ -65,7 +65,7 @@ export const blocks: BlockShapeObject = {
       [true, false, false],
       [true, true, false],
     ],
-    color: BlockColor.RED
+    color: BlockColor.RED,
   },
   Z: {
     name: BlockName.Z,
@@ -74,7 +74,7 @@ export const blocks: BlockShapeObject = {
       [false, true, true],
       [false, false, false],
     ],
-    color: BlockColor.RED
+    color: BlockColor.RED,
   },
   S: {
     name: BlockName.S,
@@ -83,7 +83,7 @@ export const blocks: BlockShapeObject = {
       [true, true, false],
       [false, false, false],
     ],
-    color: BlockColor.RED
+    color: BlockColor.RED,
   },
   O: {
     name: BlockName.O,
@@ -91,7 +91,7 @@ export const blocks: BlockShapeObject = {
       [true, true],
       [true, true],
     ],
-    color: BlockColor.RED
+    color: BlockColor.RED,
   },
   T: {
     name: BlockName.T,
@@ -100,6 +100,6 @@ export const blocks: BlockShapeObject = {
       [true, true, true],
       [false, false, false],
     ],
-    color: BlockColor.RED
+    color: BlockColor.RED,
   },
 };
