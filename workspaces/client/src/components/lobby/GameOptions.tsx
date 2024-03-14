@@ -8,7 +8,6 @@ export const GameOptions = () => {
   const navigate = useNavigate();
 
   const playSinglePlayer = () => {
-    console.warn('Singleplayer to be implemented');
     navigate('/game');
   };
 
