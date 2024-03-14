@@ -10,6 +10,6 @@ export class ScoreboardController {
   async getScoreboard(
     @Query('name') name: string,
   ): Promise<ScoreboardResponse> {
-    return await this.scoreboardApiService.getScoreboard(name);
+    return await this.scoreboardApiService.getScoreboard({ name });
   }
 }

@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { ScoreRequest, ScoreResponse } from '@powder/common';
 import { ScoresDataService } from 'src/data/scores/scores.service';
+import { RetrieveScoreDao } from 'src/domain/dao/RetrieveScoreDao';
+import { CreateScoreDto } from 'src/domain/dto/CreateScoreDto';
 
 @Injectable()
 export class ScoreApiService {
   constructor(private scoresDataService: ScoresDataService) {}
 
-  async persistScore(scoreReq: ScoreRequest): Promise<ScoreResponse> {
+  async persistScore(scoreReq: CreateScoreDto): Promise<RetrieveScoreDao> {
     const response = await this.scoresDataService.create(scoreReq);
 
     const { id, name, score, timestamp } = response;
@@ -15,7 +16,7 @@ export class ScoreApiService {
       id,
       name,
       score,
-      timestamp: timestamp.toString(),
+      timestamp: new Date(timestamp.toString()),
     };
   }
 }
