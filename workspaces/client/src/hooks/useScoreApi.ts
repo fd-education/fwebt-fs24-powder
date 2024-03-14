@@ -16,7 +16,7 @@ export const useScoreApi = () => {
       score: playerScore,
       timestamp: new Date().toISOString(),
     }
-    const url = `${SERVER_URL}/${SCORE_ENDPOINT}`
+    const url = `${SERVER_URL}/${SCORE_ENDPOINT}`;
 
     postRequest<ScoreRequest, ScoreResponse>(url, payload);
   }

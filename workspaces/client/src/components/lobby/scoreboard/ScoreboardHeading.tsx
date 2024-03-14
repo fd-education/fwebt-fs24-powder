@@ -6,7 +6,7 @@ interface ScoreboardHeadingProps {
 
 export const ScoreboardHeading = ({ text }: ScoreboardHeadingProps) => {
   return (
-    <th className='font-blocked text-2xl dark:text-primary-light text-primary-dark px-8 py-2'>
+    <th className='font-blocked text-2xl dark:text-primary-light text-primary-dark px-4 py-2'>
       {text}
     </th>
   );

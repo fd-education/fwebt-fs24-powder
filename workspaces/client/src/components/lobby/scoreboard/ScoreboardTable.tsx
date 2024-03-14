@@ -9,7 +9,7 @@ interface ScoreboardTableProps {
 
 export const ScoreboardTable = ({ scoreboard }: ScoreboardTableProps) => {
   return (
-    <table className='my-16'>
+    <table className='table-fixed my-16'>
       <thead>
         <tr>
           <ScoreboardHeading text='Rank' />
