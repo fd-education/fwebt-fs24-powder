@@ -1,15 +1,13 @@
-import { Controller, Post } from '@nestjs/common';
-import { ScoreResponse } from '@powder/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ScoreRequest, ScoreResponse } from '@powder/common';
+import { ScoreApiService } from './score.service';
 
 @Controller('score')
 export class ScoreController {
+  constructor(private readonly scoreApiService: ScoreApiService) {}
+
   @Post()
-  createScore(): ScoreResponse {
-    return {
-      id: '1',
-      name: 'johndoe',
-      score: '1000',
-      timestamp: Date.now().toLocaleString(),
-    };
+  async createScore(@Body() score: ScoreRequest): Promise<ScoreResponse> {
+    return await this.scoreApiService.persistScore(score);
   }
 }

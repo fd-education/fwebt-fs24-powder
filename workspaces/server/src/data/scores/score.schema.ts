@@ -29,6 +29,7 @@ export class Score {
   @Prop({
     required: true,
     immutable: true,
+    type: Date,
   })
   timestamp: Date;
 }

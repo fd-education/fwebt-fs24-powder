@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ScoreboardService } from './scoreboard.service';
+import { ScoreboardApiService } from './scoreboard.service';
 import { ScoreboardController } from './scoreboard.controller';
+import { ScoresModule } from 'src/data/scores/scores.module';
 
 @Module({
-  providers: [ScoreboardService],
+  imports: [ScoresModule],
+  providers: [ScoreboardApiService],
   controllers: [ScoreboardController],
 })
 export class ScoreboardModule {}

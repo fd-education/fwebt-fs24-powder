@@ -1,14 +1,14 @@
 export type ScoreResponse = {
   id: string,
   name: string,
-  score: string,
+  score: number,
   timestamp: string
 };
 
 export type ScoreRequest = {
   name: string,
   score: number,
-  timestamp: string
+  timestamp: Date
 };
 
 export type ScoreboardResponse = {
