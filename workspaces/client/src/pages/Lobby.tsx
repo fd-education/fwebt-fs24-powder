@@ -1,6 +1,6 @@
 import React from 'react';
 import { SettingsGroup } from '../components/settings/SettingsGroup';
-import { Scoreboard } from '../components/lobby/Scoreboard';
+import { Scoreboard } from '../components/lobby/scoreboard/Scoreboard';
 import { LobbyChat } from '../components/lobby/LobbyChat';
 import { GameOptions } from '../components/lobby/GameOptions';
 import { Title, TitleSize } from '../components/util/Title';
