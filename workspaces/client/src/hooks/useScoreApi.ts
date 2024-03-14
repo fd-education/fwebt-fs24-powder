@@ -4,7 +4,7 @@ import { useScoreStore } from '../domain/state/scoreStore';
 import { powderConfig } from '../domain/config/PowderConfig';
 
 export const useScoreApi = () => {
-  const {playerName} = usePlayerNameStore();
+  const { playerName } = usePlayerNameStore();
   const { playerScore } = useScoreStore();
   const { SERVER_URL, SCORE_ENDPOINT } = powderConfig;
 
@@ -14,9 +14,8 @@ export const useScoreApi = () => {
     const payload: ScoreRequest = {
       name: playerName,
       score: playerScore,
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
     }
-
     const url = `${SERVER_URL}/${SCORE_ENDPOINT}`
 
     postRequest<ScoreRequest, ScoreResponse>(url, payload);
@@ -26,7 +25,10 @@ export const useScoreApi = () => {
     try{
       const response = await fetch(url, {
         method: 'POST',
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
 
       console.log(response);

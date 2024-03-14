@@ -19,5 +19,5 @@ export class CreateScoreDto implements ScoreRequest {
 
   @IsNotEmpty()
   @IsDateString()
-  timestamp: Date;
+  timestamp: string;
 }

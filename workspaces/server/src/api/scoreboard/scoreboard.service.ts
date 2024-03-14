@@ -19,10 +19,7 @@ export class ScoreboardApiService {
     }
 
     return {
-      ranking: scores.map((s) => ({
-        ...s,
-        timestamp: new Date(s.timestamp.toString()),
-      })),
+      ranking: scores,
     };
   }
 }

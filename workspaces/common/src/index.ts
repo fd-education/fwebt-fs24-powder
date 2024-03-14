@@ -1,7 +1,7 @@
 export type ScoreRequest = {
   name: string,
   score: number,
-  timestamp: Date
+  timestamp: string
 };
 
 export type ScoreResponse = {

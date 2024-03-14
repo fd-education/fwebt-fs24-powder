@@ -16,7 +16,7 @@ export class ScoreApiService {
       id,
       name,
       score,
-      timestamp: new Date(timestamp.toString()),
+      timestamp,
     };
   }
 }
