@@ -6,11 +6,12 @@ FS 2024, Fortgeschrittene Web Technologien, Fabian Diemand <br>
 Dozent: Christian Klauenbösch <br>
 Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fwebt/fs24/infp-w-af004-fwebt_pibs-be-1-pva/studs/fwebt-fs24-powder)
 
---- 
+---
 
 ## Inhalt
 
 <!-- TOC -->
+
 - [Dokumentation: Powder](#dokumentation-powder)
   - [Inhalt](#inhalt)
   - [1 Projektidee und Geschäftsregeln](#1-projektidee-und-geschäftsregeln)
@@ -66,7 +67,9 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
     - [5.2 Architekturentscheidungen](#52-architekturentscheidungen)
       - [5.2.1 Architektur Global](#521-architektur-global)
       - [5.2.2 Architektur Frontend](#522-architektur-frontend)
-<!-- TOC -->
+      - [5.2.3 Protokolle](#523-protokolle)
+        - [5.2.3.1 Score-API](#5231-score-api)
+        - [5.2.3.2 Scoreboard-API](#5232-scoreboard-api)
 
 ---
 
@@ -103,11 +106,9 @@ Von Tetris übernommen werden ausserdem die Blockformen und Blockfarben.
 <img src="img/powdrominos/color-blocks.png" alt="Powdromino Farben" width="50%"/>
 <img src="img/powdrominos/powdrominos.png" alt="Powdromino Formen" width="50%"/>
 
-
 Powdrominos sind **nicht** entsprechend ihrer Form gefärbt. Jede Form kann jede Farbe haben.
 
 <img src="img/powdrominos/different-color-powdrominos.png" alt="Powdromino verschiedene Farben" width="50%"/>
-
 
 Die Blöcke, aus denen Powdrominos gebaut sind bestehen aus Substrukturen, die dreimal kleiner sind, als die Blöcke selbst.
 Beim Aufprall auf den Boden des Spielfelds oder auf andere Blöcke, zerfallen sie in diese Substrukturen.
@@ -176,7 +177,8 @@ Optik des Spiels mit überschaubarem Aufwand merklich aufgewertet werden.
 Für DaisyUI kommt die Version 4.6.2 eingesetzt.
 
 ### 2.4 i18next
-[i18next](https://www.i18next.com/) ist ein Framework für die Internationalisierung von Web-Anwendungen und integriert über ein dediziertes Modul ([i18next-react](https://github.com/i18next/react-i18next)) direkt mit React, 
+
+[i18next](https://www.i18next.com/) ist ein Framework für die Internationalisierung von Web-Anwendungen und integriert über ein dediziertes Modul ([i18next-react](https://github.com/i18next/react-i18next)) direkt mit React,
 wodurch Übersetzungen aus den entsprechenden JSON-Files direkt über einen Hook zugänglich werden.
 
 ### 2.5 MongoDB
@@ -246,6 +248,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 ### 3.1 MUSS-Anforderungen
 
 #### 3.1.1 FA-001 Spielername
+
 <table>
   <tr>
     <th>ID</th>
@@ -298,6 +301,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.2 FA-002 Spiel-Start
+
 <table>
   <tr>
     <th>ID</th>
@@ -350,6 +354,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.3 FA-003 Spiel-Pause
+
 <table>
   <tr>
     <th>ID</th>
@@ -402,6 +407,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.4 FA-004 Spiel-Abbruch
+
 <table>
   <tr>
     <th>ID</th>
@@ -454,6 +460,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.5 FA-005 Powdromino Vorschau
+
 <table>
   <tr>
     <th>ID</th>
@@ -506,6 +513,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.6 FA-006 Powdromino bewegen
+
 <table>
   <tr>
     <th>ID</th>
@@ -558,6 +566,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.7 FA-007 Powdromino drehen
+
 <table>
   <tr>
     <th>ID</th>
@@ -610,6 +619,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.8 FA-009 Powdromino Zerfall
+
 <table>
   <tr>
     <th>ID</th>
@@ -662,6 +672,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.9 FA-011 Reihe entfernen
+
 <table>
   <tr>
     <th>ID</th>
@@ -714,6 +725,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.10 FA-012 Niederlage
+
 <table>
     <tr>
         <th>ID</th>
@@ -767,6 +779,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.11 FA-013 Score zählen einfach
+
 <table>
   <tr>
     <th>ID</th>
@@ -819,6 +832,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.12 FA-014 Score zählen mit Multiplikator
+
 <table>
   <tr>
     <th>ID</th>
@@ -871,6 +885,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.1.13 FA-015 Scoreboard
+
 <table>
   <tr>
     <th>ID</th>
@@ -925,6 +940,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 ### 3.2 KANN-Anforderungen
 
 #### 3.2.1 FA-016 Lokaler Multiplayer-Modus
+
 <table>
   <tr>
     <th>ID</th>
@@ -977,6 +993,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.2.2 FA-017 Lobby-Chat
+
 <table>
   <tr>
     <th>ID</th>
@@ -1029,6 +1046,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.2.3 FA-018 Remote Multiplayer-Modus
+
 <table>
   <tr>
     <th>ID</th>
@@ -1081,6 +1099,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.2.4 FA-008 Powdromino beschleunigen
+
 <table>
   <tr>
     <th>ID</th>
@@ -1133,6 +1152,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 3.2.5 FA-010 Schwierigkeitsgrade
+
 <table>
   <tr>
     <th>ID</th>
@@ -1184,12 +1204,12 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
 </table>
 
-
 ## 4 Nicht-Funktionale Anforderungen
 
 ### 4.1 MUSS-Anforderungen
 
 #### 4.1.1 NFA-001 Client-Server
+
 <table>
     <tr>
         <th>ID</th>
@@ -1214,6 +1234,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 #### 4.1.2 NFA-002 Persistenz
+
 <table>
     <tr>
         <th>ID</th>
@@ -1238,7 +1259,9 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 ### 4.2 KANN-Anforderungen
+
 #### 4.2.1 NFA-003 Internationalisierung
+
 <table>
     <tr>
         <th>ID</th>
@@ -1263,6 +1286,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 </table>
 
 ### 4.2.2 NFA-004 Light-/ Dark-Mode
+
 <table>
     <tr>
         <th>ID</th>
@@ -1291,31 +1315,38 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 ### 5.1 Prototypen
 
 #### 5.1.1 Landing Page
+
 <img src="./img/prototypes/landing-page-light.png" alt="Light Screen Landing Page" width="50%">
 <img src="./img/prototypes/landing-page-dark.png" alt="Dark Screen Landing Page" width="50%">
 
 #### 5.1.2 Menü Page
+
 <img src="./img/prototypes/menu-page-light.png" alt="Light Screen Menu Page" width="50%">
 <img src="./img/prototypes/menu-page-dark.png" alt="Dark Screen Menu Page" width="50%">
 
 #### 5.1.3 Game Page: Singleplayer Einfach
+
 <img src="./img/prototypes/game-page-light-easy.png" alt="Light Screen Easy Game Page" width="50%">
 <img src="./img/prototypes/game-page-dark-easy.png" alt="Dark Screen Easy Game Page" width="50%">
 
 #### 5.1.4 Game Page: Singleplayer Schwer
+
 <img src="./img/prototypes/game-page-light-hard.png" alt="Light Screen Hard Game Page" width="50%">
 <img src="./img/prototypes/game-page-dark-hard.png" alt="Dark Screen Hard Game Page" width="50%">
 
 #### 5.1.5 Game Page: Multiplayer
+
 <img src="./img/prototypes/game-page-multiplayer-light.png" alt="Light Screen Multiplayer Game Page" width="50%">
 <img src="./img/prototypes/game-page-multiplayer-dark.png" alt="Dark Screen Multiplayer Game Page" width="50%">
 
 ### 5.2 Architekturentscheidungen
+
 Die Semesterarbeit wird als Client-Server-Anwendung mit Persistenz implementiert.
 
 <img src="./img/architecture/client-server.jpg" alt="Client-Server Architektur" width="20%">
 
 #### 5.2.1 Architektur Global
+
 Die globale Architektur zeigt das Zusammenspiel von Frontend, Backend und Persistenz zur Erreichung der in [Abschnitt 3](#3-funktionale-anforderungen) dokumentierten
 funktionalen Anforderungen. Dabei werden das Backend und die Persistenz nur Oberflächlich betrachtet. <br/>
 Die Architektur berücksichtigt zu den MUSS- auch die KANN-Anforderungen, um ein umfassendes Bild der beteiligten Komponenten zu zeigen.
@@ -1323,12 +1354,114 @@ Die Architektur berücksichtigt zu den MUSS- auch die KANN-Anforderungen, um ein
 <img src="./img/architecture/global-architecture.png" alt="Globale Architektur des Spiels" width="50%">
 
 #### 5.2.2 Architektur Frontend
-Das Frontend ist modularisiert und entsprechend in Pages und Components eingeteilt. Pages setzen sich aus mehreren Components und weiterem JSX für deren Positionierung zusammen. 
-Components dienen der Auslagerung von Darstellung und Logik, damit der Deduplizierung von Code und einer verbesserten Wartbarkeit der Code Base. 
+
+Das Frontend ist modularisiert und entsprechend in Pages und Components eingeteilt. Pages setzen sich aus mehreren Components und weiterem JSX für deren Positionierung zusammen.
+Components dienen der Auslagerung von Darstellung und Logik, damit der Deduplizierung von Code und einer verbesserten Wartbarkeit der Code Base.
 Sie sind bestmöglich nach dem Single Responsibility Prinzip aufgebaut. <br/>
-Sämtliche Pages sind in eine Root Page eingebettet, welche das Parent-Element des Routing Trees darstellt. 
+Sämtliche Pages sind in eine Root Page eingebettet, welche das Parent-Element des Routing Trees darstellt.
 Neben den drei Hauptpages (Landing, Lobby, Game) gibt es eine Error Page, welche genutzt wird, um ein nutzerfreundliches Error-Handling zu erlauben.
 
 <img src="./img/architecture/components.png" alt="Frontend Architektur des Spiels" width="50%">
 
+#### 5.2.3 Protokolle
 
+##### 5.2.3.1 Score-API
+
+Die Schnittstelle für die Score bzw. Scoreboard-Daten unterstützt einen POST-Request für die Ablage von Scores aus abgeschlossenen Spielen und einen GET-Request für die Abfrage der Top-10-Scores vergangener Spiele. Dabei müssen folgende Protokolle eingehalten werden.
+
+**Request:** <br>
+POST /score
+
+```json
+{
+  "name": "<playername>",
+  "score": "<score>",
+  "timestamp": "<timestamp>"
+}
+```
+
+<br>
+
+**Response:** <br>
+Erfolgsfall: <br>
+HTTP 201 - Created
+
+```json
+{
+  "id": "<resource-id>",
+  "name": "<playername>",
+  "score": "<score>",
+  "timestamp": "<timestamp>"
+}
+```
+
+Fehlerfall Client: <br>
+HTTP 400 - Bad Request
+
+```json
+{
+  "statusCode": 400,
+  "message": "Validation error: <error>"
+}
+```
+
+Fehlerfall Server: <br>
+HTTP 500 - Internal Server Error
+
+```json
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+
+##### 5.2.3.2 Scoreboard-API
+
+Die Schnittstelle für die Score bzw. Scoreboard-Daten unterstützt einen POST-Request für die Ablage von Scores aus abgeschlossenen Spielen und einen GET-Request für die Abfrage der Top-10-Scores vergangener Spiele. Dabei müssen folgende Protokolle eingehalten werden.
+
+**Request:**
+GET /scoreboard?name=&lt;playername&gt;
+
+**Response:**
+Erfolgsfall: <br>
+HTTP 200 - OK
+
+```json
+{
+  "ranking": [
+    {
+      "id": "<resource-id>",
+      "name": "<anyplayername>",
+      "score": "<score>",
+      "timestamp": "<timestamp>"
+    },
+    ...,
+    {
+      "id": "<resource-id>",
+      "name": "<playername>",
+      "score": "<score>",
+      "timestamp": "<timestamp>"
+    }
+  ]
+}
+```
+
+Fehlerfall Client: <br>
+HTTP 400 - Bad Request
+
+```json
+{
+  "statusCode": 400,
+  "message": "Validation error: <error>"
+}
+```
+
+Fehlerfall Server: <br>
+HTTP 500 - Internal Server Error
+
+```json
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```

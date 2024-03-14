@@ -1,13 +1,11 @@
 import React from 'react';
 import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
-import { PowderButton } from '../util/PowderButton';
-import { useNavigate } from 'react-router-dom';
 import { useScoreStore } from '../../domain/state/scoreStore';
 import { NumberDisplay } from './score/NumberDisplay';
+import { BackHomeButton } from './BackHomeButton';
 
 export const Lost = () => {
-  const navigate = useNavigate();
   const { playerScore, playerLines } = useScoreStore();
 
   return (
@@ -25,10 +23,7 @@ export const Lost = () => {
               <NumberDisplay number={playerLines} />
             </div>
           </div>
-          <PowderButton
-            text='back to home'
-            clickHandler={() => navigate('/lobby')}
-          />
+          <BackHomeButton />
         </div>
       </Panel>
     </div>

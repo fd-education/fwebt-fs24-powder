@@ -3,7 +3,7 @@ services:
   devcontainer:
     container_name: powder-devcontainer
     image: mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye
-    volumes: 
+    volumes:
       - ../:/app:cached
     network_mode: service:mongo
     command: sleep infinity
@@ -17,6 +17,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: powder
 
   mongo-express:
     container_name: powder-mongo-express
@@ -27,7 +28,7 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      ME_CONFIG_MONGODB_URL: mongodb://powder:powder@mongo:27017/
 
 volumes:
   mongo-data:

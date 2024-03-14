@@ -5,6 +5,9 @@ type Config = {
   BASE_COLLISION_LOOP_SPEED: number;
   BASE_FASTDROP_LOOP_SPEED: number;
   DESINTEGRATION: number;
+  SERVER_URL: string;
+  SCORE_ENDPOINT: string;
+  SCOREBOARD_ENDPOINT: string;
 };
 
 export const powderConfig: Config = {
@@ -16,4 +19,7 @@ export const powderConfig: Config = {
   // Currently supports 1, 3, 5, 10
   // Add more options to switch statements in workspace/client/src/components/game/board/Cell.tsx
   DESINTEGRATION: 3,
+  SERVER_URL: 'http://localhost:3000',
+  SCORE_ENDPOINT: 'score',
+  SCOREBOARD_ENDPOINT: 'scoreboard',
 };
