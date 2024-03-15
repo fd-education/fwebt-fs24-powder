@@ -27,20 +27,16 @@ export const ErrorPage = () => {
     }
   }, []);
 
-  const goBack = () => {
-    navigate(-1);
-  };
-
   return (
     <div className='h-full w-full flex items-center justify-center text-primary-light'>
       <Panel>
         <div className='flex flex-col items-center space-y-3'>
           <PanelHeading text='Oopsie!' />
-          <p>Sorry, an unexpected error has ocurred.</p>
+          <p>Sorry, an unexpected error has occurred.</p>
           <p>
             <i>{errorMessage}</i>
           </p>
-          <PowderButton text='go back' clickHandler={goBack} />
+          <PowderButton text='go back' clickHandler={() => navigate(-1)} />
         </div>
       </Panel>
     </div>
