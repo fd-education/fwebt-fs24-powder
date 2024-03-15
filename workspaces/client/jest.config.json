@@ -1,0 +1,7 @@
+{
+  "testEnvironment": "jsdom",
+  "verbose": true,
+  "silent": true,
+  "moduleFileExtensions": ["ts", "tsx", "js"],
+  "moduleDirectories": ["node_modules", "src"]
+}
