@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event';
 
 import '@jest/globals';
 import '@testing-library/react';
-import { ErrorPage } from '../../src/pages/Error';
+import { ErrorPage } from 'src/pages/Error';
 
 const mockedUseNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
