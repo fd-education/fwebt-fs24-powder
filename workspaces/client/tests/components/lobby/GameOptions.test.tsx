@@ -29,6 +29,10 @@ describe('GameOptions component: interface & behaviour', () => {
     });
   });
 
+  afterEach(() => {
+    mockedUseNavigate.mockReset();
+  });
+
   it('Should offer all game options', () => {
     render(<GameOptions />);
 

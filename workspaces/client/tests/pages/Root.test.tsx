@@ -31,6 +31,10 @@ describe('Root page: interface & behaviour', () => {
     });
   });
 
+  afterEach(() => {
+    mockedUseNavigate.mockReset();
+  });
+
   const renderRootPage = () => {
     render(<RouterProvider router={testRouter} />);
   };
