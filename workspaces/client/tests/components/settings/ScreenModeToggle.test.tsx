@@ -11,8 +11,8 @@ describe('ScreenModeToggle component: interface & behaviour', () => {
     useScreenModeStore.setState(
       {
         screenMode: ScreenMode.DARK,
-        setScreenMode: () =>
-          useScreenModeStore.setState({ screenMode: ScreenMode.LIGHT }),
+        setScreenMode: (screenMode) =>
+          useScreenModeStore.setState({ screenMode }),
       },
       true
     );
@@ -29,6 +29,9 @@ describe('ScreenModeToggle component: interface & behaviour', () => {
 
     await userEvent.click(await screen.findByTestId('light-mode'));
     expect(await screen.findByTestId('dark-mode')).toBeInTheDocument();
+
+    await userEvent.click(await screen.findByTestId('dark-mode'));
+    expect(await screen.findByTestId('light-mode')).toBeInTheDocument();
   });
 
   it('Should set the correct screenmode', async () => {
