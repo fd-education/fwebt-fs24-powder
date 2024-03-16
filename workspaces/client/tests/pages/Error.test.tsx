@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event';
 
 import '@jest/globals';
 import '@testing-library/react';
-import { ErrorPage } from 'src/pages/Error';
+import { ErrorPage } from '@/src/pages/Error';
 
 const mockedUseNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
@@ -34,6 +34,10 @@ describe('Error page: interface and behaviour', () => {
     });
   });
 
+  afterEach(() => {
+    mockedUseNavigate.mockRestore();
+  });
+
   it('Shoud load and display error page', async () => {
     render(<RouterProvider router={testRouter} />);
 
@@ -50,7 +54,5 @@ describe('Error page: interface and behaviour', () => {
 
     await userEvent.click(screen.getByText('go back'));
     expect(mockedUseNavigate).toHaveBeenCalledWith(-1);
-
-    mockedUseNavigate.mockRestore();
   });
 });
