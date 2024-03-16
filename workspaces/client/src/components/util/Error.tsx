@@ -6,7 +6,7 @@ interface ErrorProps {
 
 export const Error = ({ text }: ErrorProps) => {
   return (
-    <div role='alert' className='alert alert-error my-16'>
+    <div role='alert' className='alert alert-error my-16' data-testid='error'>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         className='stroke-current shrink-0 h-6 w-6'
