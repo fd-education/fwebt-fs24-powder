@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import '@jest/globals';
 import '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -13,3 +14,9 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: jest.fn(),
   }),
 });
+
+if (!global.structuredClone) {
+  global.structuredClone = (object: any) => {
+    return JSON.parse(JSON.stringify(object));
+  }
+}

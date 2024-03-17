@@ -40,7 +40,7 @@ const getEmptyBoard = (height = BOARD_ROWS * DESINTEGRATION): BoardType => {
     .map(() => Array(BOARD_COLS * DESINTEGRATION).fill(VoidCell.VOID));
 };
 
-const getRandomBlock = (): BlockInfo => {
+export const getRandomBlock = (): BlockInfo => {
   const blockNames = Object.values(BlockName);
   const name = blockNames[
     Math.floor(Math.random() * blockNames.length)
@@ -96,7 +96,7 @@ const rotateBlockShape = (shape: BlockShape): BlockShape => {
   return rotatedPowdromino;
 };
 
-const getPreviewBlocks = (next: BlockInfo[]): BoardType[] => {
+export const getPreviewBlocks = (next: BlockInfo[]): BoardType[] => {
   if (!next) return;
 
   const boards: BoardType[] = [];
