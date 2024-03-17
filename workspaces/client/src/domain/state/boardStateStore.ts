@@ -34,7 +34,7 @@ interface BoardState {
 const { checkCollisions, desintegrateBlocks, checkPowdris } = useGamePhysics();
 const { BOARD_ROWS, BOARD_COLS, DESINTEGRATION } = powderConfig;
 
-const getEmptyBoard = (height = BOARD_ROWS * DESINTEGRATION): BoardType => {
+export const getEmptyBoard = (height = BOARD_ROWS * DESINTEGRATION): BoardType => {
   return Array(height)
     .fill(null)
     .map(() => Array(BOARD_COLS * DESINTEGRATION).fill(VoidCell.VOID));
