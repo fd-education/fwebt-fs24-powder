@@ -1,6 +1,9 @@
 import React from 'react';
 import { VoidCell } from '../../../domain/blocks/BlockName';
-import { powderConfig } from '../../../domain/config/PowderConfig';
+import {
+  Desintegration,
+  powderConfig,
+} from '../../../domain/config/PowderConfig';
 import { BlockColor } from '../../../domain/blocks/BlockColor';
 
 interface CellProps {
@@ -9,36 +12,25 @@ interface CellProps {
 }
 
 export const Cell = ({ type, display }: CellProps) => {
-  const { DESINTEGRATION } = powderConfig;
+  const getDimension = (): [string, string] => {
+    const { DESINTEGRATION } = powderConfig;
 
-  const getHeight = () => {
     switch (DESINTEGRATION) {
-      case 1:
-        return 'h-[2rem]';
-      case 3:
-        return 'h-[calc(2rem/3)]';
-      case 5:
-        return 'h-[calc(2rem/5)]';
-      case 10:
-        return 'h-[calc(2rem/10)]';
+      case Desintegration.ONE:
+        return ['h-[2rem]', 'w-[2rem]'];
+      case Desintegration.THREE:
+        return ['h-[calc(2rem/3)]', 'w-[calc(2rem/3)]'];
+      case Desintegration.FIVE:
+        return ['h-[calc(2rem/5)]', 'w-[calc(2rem/5)]'];
+      case Desintegration.TEN:
+        return ['h-[calc(2rem/10)]', 'w-[calc(2rem/10)]'];
     }
   };
 
-  const getWidth = () => {
-    switch (DESINTEGRATION) {
-      case 1:
-        return 'w-[2rem]';
-      case 3:
-        return 'w-[calc(2rem/3)]';
-      case 5:
-        return 'w-[calc(2rem/5)]';
-      case 10:
-        return 'w-[calc(2rem/10)]';
-    }
-  };
+  const [height, width] = getDimension();
 
   return (
-    <div className={`${getHeight()} ${getWidth()} ${!display && 'invisible'}`}>
+    <div className={`${height} ${width} ${!display && 'invisible'}`}>
       {type === VoidCell.VOID && <div className={`h-full w-full`}></div>}
       {type === BlockColor.PURPLE && (
         <div className={`h-full w-full bg-powdromino-purple`}></div>

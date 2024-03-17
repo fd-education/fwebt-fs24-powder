@@ -4,11 +4,18 @@ type Config = {
   BASE_STANDARD_LOOP_SPEED: number;
   BASE_COLLISION_LOOP_SPEED: number;
   BASE_FASTDROP_LOOP_SPEED: number;
-  DESINTEGRATION: number;
+  DESINTEGRATION: Desintegration;
   SERVER_URL: string;
   SCORE_ENDPOINT: string;
   SCOREBOARD_ENDPOINT: string;
 };
+
+export enum Desintegration{
+  ONE = 1,
+  THREE = 3,
+  FIVE = 5,
+  TEN = 10
+}
 
 export const powderConfig: Config = {
   BOARD_COLS: 10,
@@ -16,9 +23,7 @@ export const powderConfig: Config = {
   BASE_STANDARD_LOOP_SPEED: 300,
   BASE_COLLISION_LOOP_SPEED: 200,
   BASE_FASTDROP_LOOP_SPEED: 50,
-  // Currently supports 1, 3, 5, 10
-  // Add more options to switch statements in workspace/client/src/components/game/board/Cell.tsx
-  DESINTEGRATION: 3,
+  DESINTEGRATION: Desintegration.THREE,
   SERVER_URL: 'http://localhost:3000',
   SCORE_ENDPOINT: 'score',
   SCOREBOARD_ENDPOINT: 'scoreboard',
