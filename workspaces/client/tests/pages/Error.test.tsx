@@ -35,7 +35,7 @@ describe('Error page: interface and behaviour', () => {
   });
 
   afterEach(() => {
-    mockedUseNavigate.mockRestore();
+    mockedUseNavigate.mockReset();
   });
 
   it('Shoud load and display error page', async () => {
