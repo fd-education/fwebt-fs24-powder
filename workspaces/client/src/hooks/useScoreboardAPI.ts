@@ -18,17 +18,17 @@ export const useScoreboardApi = () => {
       method: 'GET',
     })
       .then((response) => {
-        if(!response.ok){
+        if (!response.ok) {
           throw new Error(`${response.status} - ${response.statusText}`);
         }
 
-        return response.json()
+        return response.json();
       })
       .then((data) => {
         setData(data);
         setLoading(false);
       })
-      .catch(e => {
+      .catch((e) => {
         setHasError(true);
         setError(e);
       });
@@ -38,6 +38,6 @@ export const useScoreboardApi = () => {
     loading,
     data,
     hasError,
-    error
+    error,
   };
-}
+};

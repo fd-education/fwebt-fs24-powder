@@ -8,11 +8,17 @@ export const ScreenModeToggle = () => {
   const { screenMode, setScreenMode } = useScreenModeStore();
 
   return screenMode === ScreenMode.LIGHT ? (
-    <button onClick={() => setScreenMode(ScreenMode.DARK)}>
+    <button
+      data-testid='dark-mode'
+      onClick={() => setScreenMode(ScreenMode.DARK)}
+    >
       <MoonIcon />
     </button>
   ) : (
-    <button onClick={() => setScreenMode(ScreenMode.LIGHT)}>
+    <button
+      data-testid='light-mode'
+      onClick={() => setScreenMode(ScreenMode.LIGHT)}
+    >
       <SunIcon />
     </button>
   );

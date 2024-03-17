@@ -6,7 +6,10 @@ interface NumberDisplayProps {
 
 export const NumberDisplay = ({ number }: NumberDisplayProps) => {
   return (
-    <p className='text-primary-dark dark:text-primary-light text-3xl text-center'>
+    <p
+      data-testid='number-display'
+      className='text-primary-dark dark:text-primary-light text-3xl text-center'
+    >
       {number}
     </p>
   );

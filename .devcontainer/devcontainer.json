@@ -29,7 +29,8 @@
         "Gruntfuggly.todo-tree",
         "yzhang.markdown-all-in-one",
         "eamodio.gitlens",
-        "mongodb.mongodb-vscode"
+        "mongodb.mongodb-vscode",
+        "firsttris.vscode-jest-runner"
       ]
     }
   }

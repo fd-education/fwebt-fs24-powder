@@ -1,6 +1,9 @@
 import React from 'react';
 import { VoidCell } from '../../../domain/blocks/BlockName';
-import { powderConfig } from '../../../domain/config/PowderConfig';
+import {
+  Desintegration,
+  powderConfig,
+} from '../../../domain/config/PowderConfig';
 import { BlockColor } from '../../../domain/blocks/BlockColor';
 
 interface CellProps {
@@ -9,57 +12,79 @@ interface CellProps {
 }
 
 export const Cell = ({ type, display }: CellProps) => {
-  const { DESINTEGRATION } = powderConfig;
+  const getDimension = (): [string, string] => {
+    const { DESINTEGRATION } = powderConfig;
 
-  const getHeight = () => {
     switch (DESINTEGRATION) {
-      case 1:
-        return 'h-[2rem]';
-      case 3:
-        return 'h-[calc(2rem/3)]';
-      case 5:
-        return 'h-[calc(2rem/5)]';
-      case 10:
-        return 'h-[calc(2rem/10)]';
+      case Desintegration.ONE:
+        return ['h-[calc(2rem/1)]', 'w-[calc(2rem/1)]'];
+      case Desintegration.THREE:
+        return ['h-[calc(2rem/3)]', 'w-[calc(2rem/3)]'];
+      case Desintegration.FIVE:
+        return ['h-[calc(2rem/5)]', 'w-[calc(2rem/5)]'];
+      case Desintegration.TEN:
+        return ['h-[calc(2rem/10)]', 'w-[calc(2rem/10)]'];
+      default:
+        throw new Error(
+          `Unhandled desintegration factor: ${DESINTEGRATION} > ${Desintegration.ONE}`
+        );
     }
   };
 
-  const getWidth = () => {
-    switch (DESINTEGRATION) {
-      case 1:
-        return 'w-[2rem]';
-      case 3:
-        return 'w-[calc(2rem/3)]';
-      case 5:
-        return 'w-[calc(2rem/5)]';
-      case 10:
-        return 'w-[calc(2rem/10)]';
-    }
-  };
+  const [height, width] = getDimension();
 
   return (
-    <div className={`${getHeight()} ${getWidth()} ${!display && 'invisible'}`}>
-      {type === VoidCell.VOID && <div className={`h-full w-full`}></div>}
+    <div
+      data-testid='board-cell'
+      className={`${height} ${width} ${!display && 'invisible'}`}
+    >
+      {type === VoidCell.VOID && (
+        <div
+          data-testid='board-cell-fill'
+          className={`h-full w-full invisible`}
+        ></div>
+      )}
       {type === BlockColor.PURPLE && (
-        <div className={`h-full w-full bg-powdromino-purple`}></div>
+        <div
+          data-testid='board-cell-fill'
+          className={`h-full w-full bg-powdromino-purple`}
+        ></div>
       )}
       {type === BlockColor.GREEN && (
-        <div className={`h-full w-full bg-powdromino-green`}></div>
+        <div
+          data-testid='board-cell-fill'
+          className={`h-full w-full bg-powdromino-green`}
+        ></div>
       )}
       {type === BlockColor.RED && (
-        <div className={`h-full w-full bg-powdromino-red`}></div>
+        <div
+          data-testid='board-cell-fill'
+          className={`h-full w-full bg-powdromino-red`}
+        ></div>
       )}
       {type === BlockColor.SKY && (
-        <div className={`h-full w-full bg-powdromino-sky`}></div>
+        <div
+          data-testid='board-cell-fill'
+          className={`h-full w-full bg-powdromino-sky`}
+        ></div>
       )}
       {type === BlockColor.BLUE && (
-        <div className={`h-full w-full bg-powdromino-blue`}></div>
+        <div
+          data-testid='board-cell-fill'
+          className={`h-full w-full bg-powdromino-blue`}
+        ></div>
       )}
       {type === BlockColor.ORANGE && (
-        <div className={`h-full w-full bg-powdromino-orange`}></div>
+        <div
+          data-testid='board-cell-fill'
+          className={`h-full w-full bg-powdromino-orange`}
+        ></div>
       )}
       {type === BlockColor.YELLOW && (
-        <div className={`h-full w-full bg-powdromino-yellow`}></div>
+        <div
+          data-testid='board-cell-fill'
+          className={`h-full w-full bg-powdromino-yellow`}
+        ></div>
       )}
     </div>
   );

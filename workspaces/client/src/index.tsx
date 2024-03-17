@@ -9,34 +9,10 @@ import './fonts/RobotoMono/robotomono.woff2';
 
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { RootPage } from './pages/Root';
-import { ErrorPage } from './pages/Error';
-import { LandingPage } from './pages/Landing';
-import { LobbyPage } from './pages/Lobby';
-import { GamePage } from './pages/Game';
 import { Background } from './components/util/Background';
+import { routes } from './domain/routes/Routes';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <RootPage />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: 'landing',
-        element: <LandingPage />,
-      },
-      {
-        path: 'lobby',
-        element: <LobbyPage />,
-      },
-      {
-        path: 'game',
-        element: <GamePage />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(routes);
 
 createRoot(document.getElementById('root')).render(
   <Background>

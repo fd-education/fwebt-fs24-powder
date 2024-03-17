@@ -34,13 +34,13 @@ interface BoardState {
 const { checkCollisions, desintegrateBlocks, checkPowdris } = useGamePhysics();
 const { BOARD_ROWS, BOARD_COLS, DESINTEGRATION } = powderConfig;
 
-const getEmptyBoard = (height = BOARD_ROWS * DESINTEGRATION): BoardType => {
+export const getEmptyBoard = (height = BOARD_ROWS * DESINTEGRATION): BoardType => {
   return Array(height)
     .fill(null)
     .map(() => Array(BOARD_COLS * DESINTEGRATION).fill(VoidCell.VOID));
 };
 
-const getRandomBlock = (): BlockInfo => {
+export const getRandomBlock = (): BlockInfo => {
   const blockNames = Object.values(BlockName);
   const name = blockNames[
     Math.floor(Math.random() * blockNames.length)
@@ -96,7 +96,7 @@ const rotateBlockShape = (shape: BlockShape): BlockShape => {
   return rotatedPowdromino;
 };
 
-const getPreviewBlocks = (next: BlockInfo[]): BoardType[] => {
+export const getPreviewBlocks = (next: BlockInfo[]): BoardType[] => {
   if (!next) return;
 
   const boards: BoardType[] = [];
