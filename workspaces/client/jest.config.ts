@@ -7,9 +7,14 @@ const config: JestConfigWithTsJest = {
   moduleFileExtensions: ['ts', 'tsx', 'js'],
   moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/$1"
+    '^@/(.*)$': '<rootDir>/$1'
   },
   setupFilesAfterEnv: ['./tests/setup-jest.ts'],
+  coveragePathIgnorePatterns: [
+    'node_modules',
+    '.config.ts',
+    'fonts'
+  ]
 }
 
 export default config
