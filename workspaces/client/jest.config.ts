@@ -3,7 +3,7 @@ import type { JestConfigWithTsJest } from 'ts-jest'
 const config: JestConfigWithTsJest = {
   testEnvironment: 'jsdom',
   verbose: true,
-  silent: true,
+  silent: false,
   moduleFileExtensions: ['ts', 'tsx', 'js'],
   moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
@@ -11,9 +11,10 @@ const config: JestConfigWithTsJest = {
   },
   setupFilesAfterEnv: ['./tests/setup-jest.ts'],
   coveragePathIgnorePatterns: [
-    'node_modules',
+    './node_modules',
     '.config.ts',
-    'fonts'
+    './src/fonts/*',
+    './src/index.tsx'
   ]
 }
 
