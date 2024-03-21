@@ -2,6 +2,8 @@ import { BlockType, BoardType, VoidCell } from '../domain/blocks/BlockName';
 import { BlockShape } from '../domain/blocks/BlockShapes';
 
 export const useGamePhysics = () => {
+  // Ich hätte die Funktion ausserhalb des useGamePhysics-Hooks definiert und dann im Hook exportiert. Das erlaubt auch, die Funktionen zu testen.
+  // Solange du keine React-Funktionen im Hook verwendest, würde auch eine "normale" Funktion reichen.
   const checkCollisions = (
     board: BoardType,
     shape: BlockShape,

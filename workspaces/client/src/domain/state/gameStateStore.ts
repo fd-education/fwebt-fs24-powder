@@ -12,6 +12,11 @@ interface GameState {
 }
 
 export const useGameStateStore = create<GameState>()((set) => ({
+  // Für diese 4 Zustände wär ein Enum gut. Die Zustände sind exklusiv (es können nicht zwei Zustände gleichzeitig aktiv
+  // sein. z.B. Pause ist zwar abhängig von Gestartet, jedoch ist Pause nicht möglich, wenn nicht gestartet).
+  // Das Enum wurde eine "State machine" beschreiben. -> Initial, Started, Paused, Running, Ended, Lost, Won
+  // Da dies jedoch nach einer grösseren Anpassung aussieht, so belassen (von mir aus).
+  // -> siehe z.B. die Anwendung im useGame.ts
   started: false,
   paused: false,
   ended: false,

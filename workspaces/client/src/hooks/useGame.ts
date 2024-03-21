@@ -86,6 +86,7 @@ export const useGame = () => {
   }, loopSpeed);
 
   useEffect(() => {
+    // if (gameState > GameState.Paused) return; -> könnte zutreffen?
     if (!started || paused || ended) return;
 
     const handleKeyDownEvent = (e: KeyboardEvent) => {
