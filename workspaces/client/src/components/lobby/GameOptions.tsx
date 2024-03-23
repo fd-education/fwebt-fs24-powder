@@ -8,7 +8,7 @@ export const GameOptions = () => {
   const navigate = useNavigate();
 
   return (
-    <Panel>
+    <Panel width='w-fit'>
       <div className='space-y-8'>
         <div className='flex flex-col items-center space-y-2'>
           <PanelHeading text='Singleplayer' />
