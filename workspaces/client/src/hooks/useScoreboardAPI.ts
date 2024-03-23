@@ -28,9 +28,9 @@ export const useScoreboardApi = () => {
         setData(data);
         setLoading(false);
       })
-      .catch((e) => {
+      .catch((e: any) => {
         setHasError(true);
-        setError(e);
+        setError(e.message || 'Unexpected error.');
       });
   }, []);
 
