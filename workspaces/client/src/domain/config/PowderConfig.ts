@@ -10,11 +10,11 @@ type Config = {
   SCOREBOARD_ENDPOINT: string;
 };
 
-export enum Desintegration{
+export enum Desintegration {
   ONE = 1,
   THREE = 3,
   FIVE = 5,
-  TEN = 10
+  TEN = 10,
 }
 
 export const powderConfig: Config = {

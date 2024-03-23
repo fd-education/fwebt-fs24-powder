@@ -18,25 +18,25 @@ Object.defineProperty(window, 'matchMedia', {
 if (!global.structuredClone) {
   global.structuredClone = (object: any) => {
     return JSON.parse(JSON.stringify(object));
-  }
+  };
 }
 
 export const createMockResponse = (
   body: any,
   status: number,
   statusText: string
-): Response => ({
+): Response =>
+  ({
     ok: status >= 200 && status < 300,
     status,
     statusText,
     headers: {
       get: (headerName: string) => {
         if (headerName === 'content-type') {
-          return 'application/json'
+          return 'application/json';
         }
-        return null
+        return null;
       },
     },
     json: async () => body,
-  } as unknown as Response
-)
+  }) as unknown as Response;
