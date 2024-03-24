@@ -1,5 +1,10 @@
 import { create } from 'zustand';
-import { GameActions, GameProgress, GameProgressStates, getNextProgressStep } from '../game/gameProgress';
+import {
+  GameActions,
+  GameProgress,
+  GameProgressStates,
+  getNextProgressStep,
+} from '../game/gameProgress';
 
 interface GameState {
   progress: GameProgress;
@@ -29,8 +34,10 @@ export const useGameStateStore = create<GameState>()((set) => ({
   },
   endGame: (hasLost: boolean) => {
     set((state) => ({
-      progress: hasLost ? getNextProgressStep(state.progress, GameActions.lose_game) : getNextProgressStep(state.progress, GameActions.end_game),
+      progress: hasLost
+        ? getNextProgressStep(state.progress, GameActions.lose_game)
+        : getNextProgressStep(state.progress, GameActions.end_game),
     }));
   },
-  initialiseGame: () => set({progress: GameProgressStates.initial})
+  initialiseGame: () => set({ progress: GameProgressStates.initial }),
 }));

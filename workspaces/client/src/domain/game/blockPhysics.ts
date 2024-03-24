@@ -87,11 +87,7 @@ export const desintegrateBlocks = (board: BoardType): BoardType => {
 
       const current = clone[r][c];
       clone[r][c] = VoidCell.VOID;
-      if (
-        leftHeight === rightHeight &&
-        c !== clone[0].length - 1 &&
-        c !== 1
-      ) {
+      if (leftHeight === rightHeight && c !== clone[0].length - 1 && c !== 1) {
         if (Math.floor(Math.random() * 2) === sides.LEFT) {
           clone[r + leftHeight][c - 1] = current;
         } else {
@@ -107,4 +103,3 @@ export const desintegrateBlocks = (board: BoardType): BoardType => {
 
   return clone;
 };
-

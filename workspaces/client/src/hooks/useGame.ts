@@ -5,15 +5,11 @@ import { useScoreStore } from '../domain/state/scoreStore';
 import { useGameStateStore } from '../domain/state/gameStateStore';
 import { useBoardStateStore } from '../domain/state/boardStateStore';
 import { checkCollisions } from '../domain/game/blockPhysics';
-import { GameActions, GameProgressStates } from '../domain/game/gameProgress';
+import { GameProgressStates } from '../domain/game/gameProgress';
 
 export const useGame = () => {
   const { incPlayerScore, incPlayerLines } = useScoreStore();
-  const {
-    startGame: start,
-    progress,
-    endGame,
-  } = useGameStateStore();
+  const { startGame: start, progress, endGame } = useGameStateStore();
   const {
     renderedBoard,
     shape,
@@ -30,7 +26,7 @@ export const useGame = () => {
     settleBlock,
     nextRound,
   } = useBoardStateStore();
-  
+
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
   const {
     DESINTEGRATION,
@@ -122,13 +118,7 @@ export const useGame = () => {
       document.removeEventListener('keydown', handleKeyDownEvent);
       document.removeEventListener('keyup', handleKeyUpEvent);
     };
-  }, [
-    progress,
-    renderedBoard,
-    loopSpeed,
-    checkCollisions,
-    isSettling,
-  ]);
+  }, [progress, renderedBoard, loopSpeed, checkCollisions, isSettling]);
 
   return {
     startGame,

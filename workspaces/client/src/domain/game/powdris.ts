@@ -20,8 +20,7 @@ const getFullLines = (board: BoardType) => {
   const fullLines = [];
 
   while (startRow >= 0) {
-    if (c[startRow][0] === undefined || c[startRow][0] === VoidCell.VOID)
-      break;
+    if (c[startRow][0] === undefined || c[startRow][0] === VoidCell.VOID) break;
     if (trace[startRow][0]) {
       startRow -= 1;
       continue;
