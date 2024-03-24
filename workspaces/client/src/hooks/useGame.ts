@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from './useInterval';
 import { powderConfig } from '../domain/config/PowderConfig';
 import { useScoreStore } from '../domain/state/scoreStore';
-import { useGamePhysics } from './useGamePhysics';
 import { useGameStateStore } from '../domain/state/gameStateStore';
 import { useBoardStateStore } from '../domain/state/boardStateStore';
+import { checkCollisions } from '../domain/game/blockPhysics';
 
 export const useGame = () => {
   const { incPlayerScore, incPlayerLines } = useScoreStore();
@@ -31,8 +31,7 @@ export const useGame = () => {
     settleBlock,
     nextRound,
   } = useBoardStateStore();
-
-  const { checkCollisions } = useGamePhysics();
+  
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
   const {
     DESINTEGRATION,

@@ -7,8 +7,9 @@ import {
   scaleBlockShape,
 } from '../blocks/BlockShapes';
 import { powderConfig } from '../config/PowderConfig';
-import { useGamePhysics } from '../../hooks/useGamePhysics';
 import { BlockColor } from '../blocks/BlockColor';
+import { checkCollisions, desintegrateBlocks } from '../game/blockPhysics';
+import { checkPowdris } from '../game/powdris';
 
 interface BoardState {
   board: BoardType;
@@ -31,7 +32,6 @@ interface BoardState {
   nextRound: (removedLines: number, newBoard: BoardType) => boolean;
 }
 
-const { checkCollisions, desintegrateBlocks, checkPowdris } = useGamePhysics();
 const { BOARD_ROWS, BOARD_COLS, DESINTEGRATION } = powderConfig;
 
 export const getEmptyBoard = (
