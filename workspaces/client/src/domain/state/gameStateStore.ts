@@ -1,51 +1,43 @@
 import { create } from 'zustand';
+import {
+  GameActions,
+  GameProgress,
+  GameProgressStates,
+  getNextProgressStep,
+} from '../game/gameProgress';
 
 interface GameState {
-  started: boolean;
-  paused: boolean;
-  ended: boolean;
-  lost: boolean;
+  progress: GameProgress;
   startGame: () => void;
   continueGame: () => void;
   pauseGame: () => void;
   endGame: (hasLost: boolean) => void;
+  initialiseGame: () => void;
 }
 
 export const useGameStateStore = create<GameState>()((set) => ({
-  started: false,
-  paused: false,
-  ended: false,
-  lost: false,
+  progress: GameProgressStates.initial,
   startGame: () => {
-    set({
-      started: true,
-      ended: false,
-      lost: false,
-      paused: false,
-    });
+    set((state) => ({
+      progress: getNextProgressStep(state.progress, GameActions.start_game),
+    }));
   },
   pauseGame: () => {
-    set((state) => {
-      const invalidState = state.paused || !state.started || state.ended;
-      return invalidState ? {} : { paused: true };
-    });
+    set((state) => ({
+      progress: getNextProgressStep(state.progress, GameActions.pause_game),
+    }));
   },
   continueGame: () => {
-    set((state) => {
-      const invalidState = !state.paused || !state.started || state.ended;
-      return invalidState ? {} : { paused: false };
-    });
+    set((state) => ({
+      progress: getNextProgressStep(state.progress, GameActions.start_game),
+    }));
   },
   endGame: (hasLost: boolean) => {
-    set((state) => {
-      const invalidState = !state.started || state.paused || state.ended;
-      return invalidState
-        ? {}
-        : {
-            started: false,
-            ended: true,
-            lost: hasLost,
-          };
-    });
+    set((state) => ({
+      progress: hasLost
+        ? getNextProgressStep(state.progress, GameActions.lose_game)
+        : getNextProgressStep(state.progress, GameActions.end_game),
+    }));
   },
+  initialiseGame: () => set({ progress: GameProgressStates.initial }),
 }));

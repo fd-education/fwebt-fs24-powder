@@ -1,15 +1,14 @@
 import React from 'react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import '@jest/globals';
+import '@testing-library/react';
+import { ErrorPage } from '@/src/pages/Error';
 import {
   RouteObject,
   RouterProvider,
   createMemoryRouter,
 } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
-import '@jest/globals';
-import '@testing-library/react';
-import { ErrorPage } from '@/src/pages/Error';
 
 const mockedUseNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
@@ -18,6 +17,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Error page: interface and behaviour', () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let testRouter: any = null;
 
   beforeAll(() => {

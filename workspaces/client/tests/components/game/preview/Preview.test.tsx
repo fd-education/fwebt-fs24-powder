@@ -1,4 +1,5 @@
 import { Preview } from '@/src/components/game/preview/Preview';
+import { GameProgressStates } from '@/src/domain/game/gameProgress';
 import {
   getPreviewBlocks,
   getRandomBlock,
@@ -17,7 +18,7 @@ describe('Preview component: interface & behaviour', () => {
     });
 
     useGameStateStore.setState({
-      paused: false,
+      progress: GameProgressStates.started,
     });
   });
 
@@ -51,7 +52,7 @@ describe('Preview component: interface & behaviour', () => {
 
   it('Should hide preview during pause', () => {
     useGameStateStore.setState({
-      paused: true,
+      progress: GameProgressStates.paused,
     });
     render(<Preview />);
 

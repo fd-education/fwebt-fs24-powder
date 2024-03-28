@@ -10,9 +10,10 @@ import { Lost } from '../components/game/Lost';
 import { End } from '../components/game/End';
 import { Title, TitleSize } from '../components/util/Title';
 import { useScoreStore } from '../domain/state/scoreStore';
+import { GameProgressStates } from '../domain/game/gameProgress';
 export const GamePage = () => {
   const { startGame } = useGame();
-  const { paused, lost, ended } = useGameStateStore();
+  const { progress } = useGameStateStore();
   const { clearScores } = useScoreStore();
 
   useEffect(() => {
@@ -22,9 +23,9 @@ export const GamePage = () => {
 
   return (
     <div className='h-full w-full flex justify-center gap-16'>
-      {paused && <Pause />}
-      {ended && lost && <Lost />}
-      {ended && !lost && <End />}
+      {progress === GameProgressStates.paused && <Pause />}
+      {progress === GameProgressStates.lost && <Lost />}
+      {progress === GameProgressStates.ended && <End />}
       <div className='h-full flex flex-col justify-start content-center gap-48'>
         <Title size={TitleSize.SMALL} />
         <Score />

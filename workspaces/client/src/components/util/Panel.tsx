@@ -9,7 +9,7 @@ interface PanelProps extends BaseProps {
 
 export const Panel = ({
   height = 'h-fit',
-  width = 'h-fit',
+  width = 'w-full',
   transparent = true,
   children,
 }: PanelProps) => {

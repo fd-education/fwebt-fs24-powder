@@ -2,19 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from './useInterval';
 import { powderConfig } from '../domain/config/PowderConfig';
 import { useScoreStore } from '../domain/state/scoreStore';
-import { useGamePhysics } from './useGamePhysics';
 import { useGameStateStore } from '../domain/state/gameStateStore';
 import { useBoardStateStore } from '../domain/state/boardStateStore';
+import { checkCollisions } from '../domain/game/blockPhysics';
+import { GameProgressStates } from '../domain/game/gameProgress';
 
 export const useGame = () => {
   const { incPlayerScore, incPlayerLines } = useScoreStore();
-  const {
-    startGame: start,
-    endGame,
-    started,
-    paused,
-    ended,
-  } = useGameStateStore();
+  const { startGame: start, progress, endGame } = useGameStateStore();
   const {
     renderedBoard,
     shape,
@@ -32,7 +27,6 @@ export const useGame = () => {
     nextRound,
   } = useBoardStateStore();
 
-  const { checkCollisions } = useGamePhysics();
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
   const {
     DESINTEGRATION,
@@ -81,15 +75,15 @@ export const useGame = () => {
   }, [loopSpeed, isSettling, hasCollision]);
 
   useInterval(() => {
-    if (!started || paused || ended) return;
+    if (progress !== GameProgressStates.started) return;
     gameLoop();
   }, loopSpeed);
 
   useEffect(() => {
-    if (!started || paused || ended) return;
+    if (progress !== GameProgressStates.started) return;
 
     const handleKeyDownEvent = (e: KeyboardEvent) => {
-      if (!started || paused || ended || e.repeat) return;
+      if (progress !== GameProgressStates.started || e.repeat) return;
 
       switch (e.key) {
         case 'ArrowDown':
@@ -108,7 +102,7 @@ export const useGame = () => {
     };
 
     const handleKeyUpEvent = (e: KeyboardEvent) => {
-      if (!started || paused || ended || e.repeat) return;
+      if (progress !== GameProgressStates.started || e.repeat) return;
 
       switch (e.key) {
         case 'ArrowDown':
@@ -124,15 +118,7 @@ export const useGame = () => {
       document.removeEventListener('keydown', handleKeyDownEvent);
       document.removeEventListener('keyup', handleKeyUpEvent);
     };
-  }, [
-    started,
-    paused,
-    ended,
-    renderedBoard,
-    loopSpeed,
-    checkCollisions,
-    isSettling,
-  ]);
+  }, [progress, renderedBoard, loopSpeed, checkCollisions, isSettling]);
 
   return {
     startGame,

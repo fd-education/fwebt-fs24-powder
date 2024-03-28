@@ -29,7 +29,7 @@ export const ErrorPage = () => {
 
   return (
     <div className='h-full w-full flex items-center justify-center text-primary-light'>
-      <Panel>
+      <Panel width='w-fit'>
         <div className='flex flex-col items-center space-y-3'>
           <PanelHeading text='Oopsie!' />
           <p>Sorry, an unexpected error has occurred.</p>

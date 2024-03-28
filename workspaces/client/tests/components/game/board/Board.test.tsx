@@ -1,5 +1,6 @@
 import { Board } from '@/src/components/game/board/Board';
 import { powderConfig } from '@/src/domain/config/PowderConfig';
+import { GameProgressStates } from '@/src/domain/game/gameProgress';
 import {
   getEmptyBoard,
   useBoardStateStore,
@@ -25,7 +26,7 @@ describe('Board component: interface & behaviour', () => {
   });
 
   it('Should not display board if paused', () => {
-    useGameStateStore.setState({ paused: true });
+    useGameStateStore.setState({ progress: GameProgressStates.paused });
     render(<Board />);
 
     const boardCells = screen.getAllByTestId('board-cell');
@@ -33,7 +34,7 @@ describe('Board component: interface & behaviour', () => {
   });
 
   it('Should display board if not paused', () => {
-    useGameStateStore.setState({ paused: false });
+    useGameStateStore.setState({ progress: GameProgressStates.started });
     render(<Board />);
 
     const boardCells = screen.getAllByTestId('board-cell');

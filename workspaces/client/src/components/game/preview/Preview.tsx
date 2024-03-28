@@ -4,10 +4,11 @@ import { PanelHeading } from '../../util/PanelHeading';
 import { PreviewCell } from './PreviewCell';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
 import { useBoardStateStore } from '../../../domain/state/boardStateStore';
+import { GameProgressStates } from '../../../domain/game/gameProgress';
 
 export const Preview = () => {
   const { nextBlockShapes } = useBoardStateStore();
-  const { paused } = useGameStateStore();
+  const { progress } = useGameStateStore();
 
   return (
     <Panel height='min-h-[50%]'>
@@ -22,7 +23,7 @@ export const Preview = () => {
                     <PreviewCell
                       key={`${ri}-${ci}`}
                       type={cell}
-                      display={!paused}
+                      display={progress === GameProgressStates.started}
                     />
                   ))}
                 </div>

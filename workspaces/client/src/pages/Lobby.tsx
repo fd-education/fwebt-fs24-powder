@@ -7,18 +7,18 @@ import { Title, TitleSize } from '../components/util/Title';
 
 export const LobbyPage = () => {
   return (
-    <div className='h-full w-full flex justify-between'>
-      <div className='h-full flex flex-col justify-center'>
+    <div className='h-full w-full flex justify-around'>
+      <div className='w-[30%] h-full flex flex-col justify-center'>
         <LobbyChat />
       </div>
-      <div className='h-full flex flex-col justify-center items-center space-y-16'>
+      <div className='w-[30%] h-full flex flex-col justify-center items-center space-y-16'>
         <Title size={TitleSize.SMALL} />
-        <div className='flex flex-col items-center'>
+        <div className='w-full flex flex-col items-center'>
           <GameOptions />
           <SettingsGroup />
         </div>
       </div>
-      <div className='h-full flex flex-col justify-center'>
+      <div className='w-[30%] h-full flex flex-col justify-center'>
         <Scoreboard />
       </div>
     </div>
