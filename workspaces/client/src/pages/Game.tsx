@@ -11,14 +11,29 @@ import { End } from '../components/game/End';
 import { Title, TitleSize } from '../components/util/Title';
 import { useScoreStore } from '../domain/state/scoreStore';
 import { GameProgressStates } from '../domain/game/gameProgress';
+import { useSearchParams } from 'react-router-dom';
+import { GameMode } from '../domain/enums/GameMode';
 export const GamePage = () => {
   const { startGame } = useGame();
   const { progress } = useGameStateStore();
   const { clearScores } = useScoreStore();
+  const [searchParams, _] = useSearchParams();
 
   useEffect(() => {
     clearScores();
     startGame();
+
+    switch (searchParams.get('mode')) {
+      case GameMode.SINGLE:
+        console.log('Starting single player');
+        break;
+      case GameMode.LOCAL_MULTI:
+        console.warn('Local Multiplayer to be implemented');
+        break;
+      case GameMode.REMOTE_MULTI:
+        console.warn('Remote Multiplayer to be implemented.');
+        break;
+    }
   }, []);
 
   return (
