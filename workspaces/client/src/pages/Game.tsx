@@ -13,6 +13,7 @@ import { useScoreStore } from '../domain/state/scoreStore';
 import { GameProgressStates } from '../domain/game/gameProgress';
 import { useSearchParams } from 'react-router-dom';
 import { GameMode } from '../domain/enums/GameMode';
+
 export const GamePage = () => {
   const { startGame } = useGame();
   const { progress } = useGameStateStore();

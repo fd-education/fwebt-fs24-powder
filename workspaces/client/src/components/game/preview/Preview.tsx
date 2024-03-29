@@ -3,7 +3,7 @@ import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
 import { PreviewCell } from './PreviewCell';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
-import { useBoardStateStore } from '../../../domain/state/boardStateStore';
+import { useBoardStateStore } from '../../../domain/state/boardState/boardStateStore';
 import { GameProgressStates } from '../../../domain/game/gameProgress';
 
 export const Preview = () => {

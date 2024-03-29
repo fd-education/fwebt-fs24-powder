@@ -3,7 +3,7 @@ import { useInterval } from './useInterval';
 import { powderConfig } from '../domain/config/PowderConfig';
 import { useScoreStore } from '../domain/state/scoreStore';
 import { useGameStateStore } from '../domain/state/gameStateStore';
-import { useBoardStateStore } from '../domain/state/boardStateStore';
+import { useBoardStateStore } from '../domain/state/boardState/boardStateStore';
 import { checkCollisions } from '../domain/game/blockPhysics';
 import { GameProgressStates } from '../domain/game/gameProgress';
 
