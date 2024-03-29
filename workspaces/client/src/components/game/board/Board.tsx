@@ -2,12 +2,21 @@ import React from 'react';
 import { Panel } from '../../util/Panel';
 import { Cell } from './Cell';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
-import { useBoardStateStore } from '../../../domain/state/boardState/boardStateStore';
+import {
+  useBoardStateStore,
+  useOpponentBoardStateStore,
+} from '../../../domain/state/boardState/boardStateStore';
 import { GameProgressStates } from '../../../domain/game/gameProgress';
 
-export const Board = () => {
+interface BoardProps {
+  isOpponentBoard?: boolean;
+}
+
+export const Board = ({ isOpponentBoard = false }: BoardProps) => {
   const { progress } = useGameStateStore();
-  const { renderedBoard } = useBoardStateStore();
+  const { renderedBoard } = isOpponentBoard
+    ? useOpponentBoardStateStore()
+    : useBoardStateStore();
 
   return (
     <Panel>

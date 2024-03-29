@@ -1,14 +1,22 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from './useInterval';
 import { powderConfig } from '../domain/config/PowderConfig';
-import { usePlayerScoreStore } from '../domain/state/scoreStore';
+import { ScoreState, useOpponentScoreStore, usePlayerScoreStore } from '../domain/state/scoreStore';
 import { useGameStateStore } from '../domain/state/gameStateStore';
-import { useBoardStateStore } from '../domain/state/boardState/boardStateStore';
+import { BoardState, useBoardStateStore, useOpponentBoardStateStore } from '../domain/state/boardState/boardStateStore';
 import { checkCollisions } from '../domain/game/blockPhysics';
 import { GameProgressStates } from '../domain/game/gameProgress';
+import { KeyMap, opponentKeyMap, playerKeyMap } from '../domain/game/keyMaps';
 
-export const useGame = () => {
-  const { incScore, incLines } = usePlayerScoreStore();
+const {
+  DESINTEGRATION,
+  BASE_STANDARD_LOOP_SPEED,
+  BASE_COLLISION_LOOP_SPEED,
+  BASE_FASTDROP_LOOP_SPEED,
+} = powderConfig;
+
+const useGame = (boardStateStore: BoardState, scoreStore: ScoreState, keyMap: KeyMap) => {
+  const { incScore, incLines } = scoreStore;
   const { startGame: start, progress, endGame } = useGameStateStore();
   const {
     renderedBoard,
@@ -25,20 +33,16 @@ export const useGame = () => {
     rotateBlock,
     settleBlock,
     nextRound,
-  } = useBoardStateStore();
+  } = boardStateStore;
 
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
-  const {
-    DESINTEGRATION,
-    BASE_STANDARD_LOOP_SPEED,
-    BASE_COLLISION_LOOP_SPEED,
-    BASE_FASTDROP_LOOP_SPEED,
-  } = powderConfig;
 
   const startGame = useCallback(() => {
     setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
     initializeBoard();
+
     start();
+
   }, [start]);
 
   const gameLoop = useCallback(() => {
@@ -80,22 +84,24 @@ export const useGame = () => {
   }, loopSpeed);
 
   useEffect(() => {
+    console.log('Adding Event Listener ', keyMap.accelerate);
+
     if (progress !== GameProgressStates.started) return;
 
     const handleKeyDownEvent = (e: KeyboardEvent) => {
       if (progress !== GameProgressStates.started || e.repeat) return;
 
       switch (e.key) {
-        case 'ArrowDown':
+        case keyMap.accelerate:
           setLoopSpeed(BASE_FASTDROP_LOOP_SPEED / DESINTEGRATION);
           break;
-        case 'ArrowUp':
+        case keyMap.rotate:
           rotateBlock();
           break;
-        case 'ArrowRight':
+        case keyMap.moveRight:
           moveBlockRight();
           break;
-        case 'ArrowLeft':
+        case keyMap.moveLeft:
           moveBlockLeft();
           break;
       }
@@ -105,7 +111,7 @@ export const useGame = () => {
       if (progress !== GameProgressStates.started || e.repeat) return;
 
       switch (e.key) {
-        case 'ArrowDown':
+        case keyMap.accelerate:
           setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
           break;
       }
@@ -139,3 +145,6 @@ const calculateReward = (removed: number): number => {
     return removed;
   }
 };
+
+export const usePlayerGame = () => useGame(useBoardStateStore(), usePlayerScoreStore(), playerKeyMap);
+export const useOpponentGame = () => useGame(useOpponentBoardStateStore(), useOpponentScoreStore(), opponentKeyMap);

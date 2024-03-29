@@ -31,7 +31,6 @@ export const useScoreApi = () => {
         },
       });
 
-      console.log(response);
       return response as P;
     } catch (e) {
       console.error(e);

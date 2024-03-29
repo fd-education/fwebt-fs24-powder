@@ -4,7 +4,7 @@ interface ScoreStateVals {
   score: number,
   lines: number
 }
-interface ScoreState extends ScoreStateVals {
+export interface ScoreState extends ScoreStateVals {
   opponentScore: number;
   opponentLines: number;
   incScore: IncFunction;
