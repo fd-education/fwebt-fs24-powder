@@ -84,8 +84,6 @@ const useGame = (boardStateStore: BoardState, scoreStore: ScoreState, keyMap: Ke
   }, loopSpeed);
 
   useEffect(() => {
-    console.log('Adding Event Listener ', keyMap.accelerate);
-
     if (progress !== GameProgressStates.started) return;
 
     const handleKeyDownEvent = (e: KeyboardEvent) => {

@@ -22,9 +22,9 @@ export const GamePage = () => {
   const gameMode = searchParams.get('mode');
 
   const { startGame: startPlayerGame } = usePlayerGame();
-  // prevent event listeners for opponent controls from being added in single player mode
+  // prevent event listeners for opponent controls from being added in single player or remote multiplayer mode
   const { startGame: startOpponentGame } =
-    gameMode !== GameMode.SINGLE && useOpponentGame();
+    gameMode === GameMode.LOCAL_MULTI && useOpponentGame();
   const { progress } = useGameStateStore();
   const { clearScores: clearPlayerScores } = usePlayerScoreStore();
   const { clearScores: clearOpponentScores } = useOpponentScoreStore();
@@ -51,7 +51,6 @@ export const GamePage = () => {
         clearPlayerScores();
         clearOpponentScores();
         startPlayerGame();
-        startOpponentGame();
         break;
     }
   }, []);
@@ -61,13 +60,21 @@ export const GamePage = () => {
       {progress === GameProgressStates.paused && <Pause />}
       {progress === GameProgressStates.lost && <Lost />}
       {progress === GameProgressStates.ended && <End />}
+      {!isMultiplayerGame && <SinglePlayerGame />}
+      {isMultiplayerGame && <MultiplayerGame />}
+    </div>
+  );
+};
+
+export const SinglePlayerGame = () => {
+  return (
+    <>
       <div className='h-full flex flex-col justify-start content-center gap-48'>
         <Title size={TitleSize.SMALL} />
         <Score />
       </div>
       <div className='h-full flex flex-col justify-center items-center'>
         <div className='flex flex-row'>
-          {isMultiplayerGame && <Board isOpponentBoard={true} />}
           <Board />
         </div>
         <SettingsGroup />
@@ -75,6 +82,33 @@ export const GamePage = () => {
       <div className='h-full flex flex-col justify-center items-center'>
         <Preview />
       </div>
-    </div>
+    </>
+  );
+};
+
+export const MultiplayerGame = () => {
+  return (
+    <>
+      <div className='h-full flex flex-col justify-center items-center'>
+        <div className='flex flex-row space-x-16'>
+          <div className='flex flex-row space-x-2'>
+            <div className='flex flex-col justify-between'>
+              <Preview isOpponentPreview={true} />
+              <Score isOpponentScore={true} />
+            </div>
+            <Board isOpponentBoard={true} />
+          </div>
+          <div className='flex flex-row space-x-2'>
+            <Board />
+            <div className='flex flex-col justify-between'>
+              <Preview />
+              <Score />
+            </div>
+          </div>
+        </div>
+        <SettingsGroup />
+      </div>
+      {/* <div className='h-full flex flex-col justify-center items-center'></div> */}
+    </>
   );
 };

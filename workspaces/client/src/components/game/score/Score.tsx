@@ -3,15 +3,24 @@ import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
 import { PowderButton } from '../../util/PowderButton';
 import { NumberDisplay } from './NumberDisplay';
-import { usePlayerScoreStore } from '../../../domain/state/scoreStore';
+import {
+  useOpponentScoreStore,
+  usePlayerScoreStore,
+} from '../../../domain/state/scoreStore';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
 
-export const Score = () => {
-  const { score, lines } = usePlayerScoreStore();
+interface ScoreProps {
+  isOpponentScore?: boolean;
+}
+
+export const Score = ({ isOpponentScore = false }: ScoreProps) => {
+  const { score, lines } = isOpponentScore
+    ? useOpponentScoreStore()
+    : usePlayerScoreStore();
   const { pauseGame, endGame } = useGameStateStore();
 
   return (
-    <Panel>
+    <Panel paddingY='py-4'>
       <div className='flex flex-col justify-center space-y-4'>
         <div>
           <PanelHeading text='Score' />
@@ -21,8 +30,12 @@ export const Score = () => {
           <PanelHeading text='Lines' />
           <NumberDisplay number={lines} />
         </div>
-        <PowderButton text='pause' clickHandler={() => pauseGame()} />
-        <PowderButton text='end' clickHandler={() => endGame(false)} />
+        {!isOpponentScore && (
+          <PowderButton text='pause' clickHandler={() => pauseGame()} />
+        )}
+        {!isOpponentScore && (
+          <PowderButton text='end' clickHandler={() => endGame(false)} />
+        )}
       </div>
     </Panel>
   );

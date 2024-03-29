@@ -3,15 +3,24 @@ import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
 import { PreviewCell } from './PreviewCell';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
-import { useBoardStateStore } from '../../../domain/state/boardState/boardStateStore';
+import {
+  useBoardStateStore,
+  useOpponentBoardStateStore,
+} from '../../../domain/state/boardState/boardStateStore';
 import { GameProgressStates } from '../../../domain/game/gameProgress';
 
-export const Preview = () => {
-  const { nextBlockShapes } = useBoardStateStore();
+interface PreviewProps {
+  isOpponentPreview?: boolean;
+}
+
+export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
+  const { nextBlockShapes } = isOpponentPreview
+    ? useOpponentBoardStateStore()
+    : useBoardStateStore();
   const { progress } = useGameStateStore();
 
   return (
-    <Panel height='min-h-[50%]'>
+    <Panel height='min-h-[50%]' paddingX='px-4' paddingY='py-4'>
       <PanelHeading text='Up next' />
       <div className='h-full flex flex-col-reverse justify-around'>
         {nextBlockShapes &&
