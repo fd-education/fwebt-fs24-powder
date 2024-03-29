@@ -1,6 +1,6 @@
 import { Score } from '@/src/components/game/score/Score';
 import { useGameStateStore } from '@/src/domain/state/gameStateStore';
-import { useScoreStore } from '@/src/domain/state/scoreStore';
+import { usePlayerScoreStore } from '@/src/domain/state/scoreStore';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
@@ -10,9 +10,9 @@ const mockedEndGame = jest.fn();
 
 describe('Score component: interface & behaviour', () => {
   beforeAll(() => {
-    useScoreStore.setState({
-      playerLines: 777,
-      playerScore: 3333,
+    usePlayerScoreStore.setState({
+      lines: 777,
+      score: 3333,
     });
 
     useGameStateStore.setState({
@@ -40,10 +40,10 @@ describe('Score component: interface & behaviour', () => {
 
     expect(screen.getAllByTestId('number-display').length).toBe(2);
     expect(
-      screen.getByText(useScoreStore.getState().playerLines.toString())
+      screen.getByText(usePlayerScoreStore.getState().lines.toString())
     ).toBeInTheDocument();
     expect(
-      screen.getByText(useScoreStore.getState().playerScore.toString())
+      screen.getByText(usePlayerScoreStore.getState().score.toString())
     ).toBeInTheDocument();
   });
 

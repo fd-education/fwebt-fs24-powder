@@ -1,5 +1,5 @@
 import { End } from '@/src/components/game/End';
-import { useScoreStore } from '@/src/domain/state/scoreStore';
+import { usePlayerScoreStore } from '@/src/domain/state/scoreStore';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
@@ -9,9 +9,9 @@ jest.mock('@/src/components/game/BackHomeButton.tsx', () => ({
 
 describe('End component: interface', () => {
   beforeAll(() => {
-    useScoreStore.setState({
-      playerLines: 888,
-      playerScore: 2222,
+    usePlayerScoreStore.setState({
+      lines: 888,
+      score: 2222,
     });
   });
 
@@ -28,10 +28,10 @@ describe('End component: interface', () => {
 
     expect(screen.getAllByTestId('number-display').length).toBe(2);
     expect(
-      screen.getByText(useScoreStore.getState().playerLines.toString())
+      screen.getByText(usePlayerScoreStore.getState().lines.toString())
     ).toBeInTheDocument();
     expect(
-      screen.getByText(useScoreStore.getState().playerScore.toString())
+      screen.getByText(usePlayerScoreStore.getState().score.toString())
     ).toBeInTheDocument();
   });
 });

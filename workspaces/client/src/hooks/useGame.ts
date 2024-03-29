@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from './useInterval';
 import { powderConfig } from '../domain/config/PowderConfig';
-import { useScoreStore } from '../domain/state/scoreStore';
+import { usePlayerScoreStore } from '../domain/state/scoreStore';
 import { useGameStateStore } from '../domain/state/gameStateStore';
 import { useBoardStateStore } from '../domain/state/boardState/boardStateStore';
 import { checkCollisions } from '../domain/game/blockPhysics';
 import { GameProgressStates } from '../domain/game/gameProgress';
 
 export const useGame = () => {
-  const { incPlayerScore, incPlayerLines } = useScoreStore();
+  const { incScore, incLines } = usePlayerScoreStore();
   const { startGame: start, progress, endGame } = useGameStateStore();
   const {
     renderedBoard,
@@ -58,8 +58,8 @@ export const useGame = () => {
 
       const removed = settleBlock();
       const reward = removed.reduce((a, b) => a + calculateReward(b), 0);
-      incPlayerScore(reward);
-      incPlayerLines(removed.length);
+      incScore(reward);
+      incLines(removed.length);
 
       const hasLost = nextRound(0, renderedBoard);
       if (hasLost) endGame(true);

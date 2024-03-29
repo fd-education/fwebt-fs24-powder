@@ -1,42 +1,38 @@
 import { create } from 'zustand';
 
-interface ScoreState {
-  playerScore: number;
-  playerLines: number;
+interface ScoreStateVals {
+  score: number,
+  lines: number
+}
+interface ScoreState extends ScoreStateVals {
   opponentScore: number;
   opponentLines: number;
-  incPlayerScore: IncFunction;
-  incPlayerLines: IncFunction;
-  incOpponentScore: IncFunction;
-  incOpponentLines: IncFunction;
+  incScore: IncFunction;
+  incLines: IncFunction;
   clearScores: () => void;
 }
 
 type IncFunction = (inc: number) => void;
 
-export const useScoreStore = create<ScoreState>()((set) => ({
-  playerScore: 0,
-  playerLines: 0,
-  opponentScore: 0,
-  opponentLines: 0,
-  incPlayerScore: (inc) => {
-    set((state) => ({ playerScore: state.playerScore + inc }));
+const initialState: ScoreStateVals = {
+  score: 0,
+  lines: 0
+}
+
+const scoreStoreDefinition = (
+  set: (partial: ScoreState | Partial<ScoreState> | ((state: ScoreState) => ScoreState | Partial<ScoreState>), replace?: boolean | undefined) => void
+) => ({
+  ...initialState,
+  incScore: (inc) => {
+    set((state) => ({ score: state.score + inc }));
   },
-  incPlayerLines: (inc) => {
-    set((state) => ({ playerLines: state.playerLines + inc }));
-  },
-  incOpponentScore: (inc) => {
-    set((state) => ({ opponentScore: state.opponentScore + inc }));
-  },
-  incOpponentLines: (inc) => {
-    set((state) => ({ opponentLines: state.opponentLines + inc }));
+  incLines: (inc) => {
+    set((state) => ({ lines: state.lines + inc }));
   },
   clearScores: () => {
-    set(() => ({
-      playerScore: 0,
-      playerLines: 0,
-      opponentScore: 0,
-      opponentLines: 0,
-    }));
+    set(() => (initialState));
   },
-}));
+} as ScoreState);
+
+export const usePlayerScoreStore = create<ScoreState>(scoreStoreDefinition);
+export const useOpponentScoreStore = create<ScoreState>(scoreStoreDefinition);

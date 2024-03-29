@@ -3,11 +3,11 @@ import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
 import { PowderButton } from '../../util/PowderButton';
 import { NumberDisplay } from './NumberDisplay';
-import { useScoreStore } from '../../../domain/state/scoreStore';
+import { usePlayerScoreStore } from '../../../domain/state/scoreStore';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
 
 export const Score = () => {
-  const { playerScore, playerLines } = useScoreStore();
+  const { score, lines } = usePlayerScoreStore();
   const { pauseGame, endGame } = useGameStateStore();
 
   return (
@@ -15,11 +15,11 @@ export const Score = () => {
       <div className='flex flex-col justify-center space-y-4'>
         <div>
           <PanelHeading text='Score' />
-          <NumberDisplay number={playerScore} />
+          <NumberDisplay number={score} />
         </div>
         <div>
           <PanelHeading text='Lines' />
-          <NumberDisplay number={playerLines} />
+          <NumberDisplay number={lines} />
         </div>
         <PowderButton text='pause' clickHandler={() => pauseGame()} />
         <PowderButton text='end' clickHandler={() => endGame(false)} />

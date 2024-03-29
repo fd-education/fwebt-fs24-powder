@@ -9,7 +9,7 @@ import { Pause } from '../components/game/Pause';
 import { Lost } from '../components/game/Lost';
 import { End } from '../components/game/End';
 import { Title, TitleSize } from '../components/util/Title';
-import { useScoreStore } from '../domain/state/scoreStore';
+import { usePlayerScoreStore } from '../domain/state/scoreStore';
 import { GameProgressStates } from '../domain/game/gameProgress';
 import { useSearchParams } from 'react-router-dom';
 import { GameMode } from '../domain/enums/GameMode';
@@ -17,7 +17,7 @@ import { GameMode } from '../domain/enums/GameMode';
 export const GamePage = () => {
   const { startGame } = useGame();
   const { progress } = useGameStateStore();
-  const { clearScores } = useScoreStore();
+  const { clearScores } = usePlayerScoreStore();
   const [searchParams, _] = useSearchParams();
 
   useEffect(() => {
