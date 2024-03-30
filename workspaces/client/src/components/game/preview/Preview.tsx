@@ -2,7 +2,10 @@ import React from 'react';
 import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
 import { PreviewCell } from './PreviewCell';
-import { useGameStateStore } from '../../../domain/state/gameStateStore';
+import {
+  useGameStateStore,
+  useOpponentGameStateStore,
+} from '../../../domain/state/gameStateStore';
 import {
   useBoardStateStore,
   useOpponentBoardStateStore,
@@ -17,7 +20,9 @@ export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
   const { nextBlockShapes } = isOpponentPreview
     ? useOpponentBoardStateStore()
     : useBoardStateStore();
-  const { progress } = useGameStateStore();
+  const { progress } = isOpponentPreview
+    ? useOpponentGameStateStore()
+    : useGameStateStore();
 
   return (
     <Panel height='min-h-[50%]' paddingX='px-4' paddingY='py-4'>

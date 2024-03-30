@@ -17,15 +17,19 @@ describe('Pause component: interface', () => {
     mockedContinueGame.mockReset();
   });
 
+  const renderPause = () => {
+    render(<Pause isOpponent={false} />);
+  };
+
   it('Should render the pause game popup', () => {
-    render(<Pause />);
+    renderPause();
 
     expect(screen.getByText('paused')).toBeInTheDocument();
     expect(screen.getByText('continue')).toBeInTheDocument();
   });
 
   it('Should continue the game', async () => {
-    render(<Pause />);
+    renderPause();
 
     await userEvent.click(await screen.findByText('continue'));
     expect(mockedContinueGame).toHaveBeenCalled();

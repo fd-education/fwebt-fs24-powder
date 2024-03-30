@@ -7,7 +7,10 @@ import {
   useOpponentScoreStore,
   usePlayerScoreStore,
 } from '../../../domain/state/scoreStore';
-import { useGameStateStore } from '../../../domain/state/gameStateStore';
+import {
+  useGameStateStore,
+  useOpponentGameStateStore,
+} from '../../../domain/state/gameStateStore';
 
 interface ScoreProps {
   isOpponentScore?: boolean;
@@ -17,7 +20,9 @@ export const Score = ({ isOpponentScore = false }: ScoreProps) => {
   const { score, lines } = isOpponentScore
     ? useOpponentScoreStore()
     : usePlayerScoreStore();
-  const { pauseGame, endGame } = useGameStateStore();
+  const { pauseGame, endGame } = isOpponentScore
+    ? useOpponentGameStateStore()
+    : useGameStateStore();
 
   return (
     <Panel paddingY='py-4'>
@@ -30,12 +35,8 @@ export const Score = ({ isOpponentScore = false }: ScoreProps) => {
           <PanelHeading text='Lines' />
           <NumberDisplay number={lines} />
         </div>
-        {!isOpponentScore && (
-          <PowderButton text='pause' clickHandler={() => pauseGame()} />
-        )}
-        {!isOpponentScore && (
-          <PowderButton text='end' clickHandler={() => endGame(false)} />
-        )}
+        <PowderButton text='pause' clickHandler={() => pauseGame()} />
+        <PowderButton text='end' clickHandler={() => endGame(false)} />
       </div>
     </Panel>
   );

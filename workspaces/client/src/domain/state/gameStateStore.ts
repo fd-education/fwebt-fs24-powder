@@ -6,7 +6,7 @@ import {
   getNextProgressStep,
 } from '../game/gameProgress';
 
-interface GameState {
+export interface GameState {
   progress: GameProgress;
   startGame: () => void;
   continueGame: () => void;
@@ -15,7 +15,9 @@ interface GameState {
   initialiseGame: () => void;
 }
 
-export const useGameStateStore = create<GameState>()((set) => ({
+const gameStateStoreDefinition = (
+  set: (partial: GameState | Partial<GameState> | ((state: GameState) => GameState | Partial<GameState>), replace?: boolean | undefined) => void
+) => ({
   progress: GameProgressStates.initial,
   startGame: () => {
     set((state) => ({
@@ -40,4 +42,7 @@ export const useGameStateStore = create<GameState>()((set) => ({
     }));
   },
   initialiseGame: () => set({ progress: GameProgressStates.initial }),
-}));
+} as GameState);
+
+export const useGameStateStore = create<GameState>(gameStateStoreDefinition);
+export const useOpponentGameStateStore = create<GameState>(gameStateStoreDefinition);

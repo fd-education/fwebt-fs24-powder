@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from './useInterval';
 import { powderConfig } from '../domain/config/PowderConfig';
 import { ScoreState, useOpponentScoreStore, usePlayerScoreStore } from '../domain/state/scoreStore';
-import { useGameStateStore } from '../domain/state/gameStateStore';
+import { GameState, useGameStateStore, useOpponentGameStateStore } from '../domain/state/gameStateStore';
 import { BoardState, useBoardStateStore, useOpponentBoardStateStore } from '../domain/state/boardState/boardStateStore';
 import { checkCollisions } from '../domain/game/blockPhysics';
 import { GameProgressStates } from '../domain/game/gameProgress';
@@ -15,9 +15,9 @@ const {
   BASE_FASTDROP_LOOP_SPEED,
 } = powderConfig;
 
-const useGame = (boardStateStore: BoardState, scoreStore: ScoreState, keyMap: KeyMap) => {
+const useGame = (boardStateStore: BoardState, scoreStore: ScoreState, gameStateStore: GameState, keyMap: KeyMap) => {
   const { incScore, incLines } = scoreStore;
-  const { startGame: start, progress, endGame } = useGameStateStore();
+  const { startGame: start, progress, endGame } = gameStateStore;
   const {
     renderedBoard,
     shape,
@@ -144,5 +144,5 @@ const calculateReward = (removed: number): number => {
   }
 };
 
-export const usePlayerGame = () => useGame(useBoardStateStore(), usePlayerScoreStore(), playerKeyMap);
-export const useOpponentGame = () => useGame(useOpponentBoardStateStore(), useOpponentScoreStore(), opponentKeyMap);
+export const usePlayerGame = () => useGame(useBoardStateStore(), usePlayerScoreStore(), useGameStateStore(), playerKeyMap);
+export const useOpponentGame = () => useGame(useOpponentBoardStateStore(), useOpponentScoreStore(), useOpponentGameStateStore(), opponentKeyMap);
