@@ -4,7 +4,13 @@ import { powderConfig } from '../../config/PowderConfig';
 import { checkCollisions, desintegrateBlocks } from '../../game/blockPhysics';
 import { checkPowdris } from '../../game/powdris';
 import { BoardState } from './boardStateStore';
-import { getRandomBlock, getEmptyBoard, addShapeToBoard, getPreviewBlocks, rotateBlockShape } from './boardStateUtils';
+import {
+  getRandomBlock,
+  getEmptyBoard,
+  addShapeToBoard,
+  getPreviewBlocks,
+  rotateBlockShape,
+} from './boardStateUtils';
 
 const { DESINTEGRATION } = powderConfig;
 
@@ -34,9 +40,7 @@ export const getStartingState = (): Partial<BoardState> => {
 
 export const getDropState = (state: BoardState): Partial<BoardState> => {
   const updatedRow = state.shapeRow + 1;
-  if (
-    checkCollisions(state.board, state.shape, updatedRow, state.shapeCol)
-  ) {
+  if (checkCollisions(state.board, state.shape, updatedRow, state.shapeCol)) {
     return {
       hasCollision: true,
     };
@@ -102,7 +106,7 @@ export const getMoveRightState = (state: BoardState): Partial<BoardState> => {
     renderedBoard: updatedBoard,
     shapeCol: updatedCol,
   };
-}
+};
 
 export const getRotateState = (state: BoardState): Partial<BoardState> => {
   const rotatedShape = rotateBlockShape(state.shape);
@@ -127,21 +131,26 @@ export const getRotateState = (state: BoardState): Partial<BoardState> => {
   };
 };
 
-export const getSettleState = (state: BoardState): [Partial<BoardState>, number[]] => {
+export const getSettleState = (
+  state: BoardState
+): [Partial<BoardState>, number[]] => {
   const removedPowders = new Array<number>();
 
   const desBlocks = desintegrateBlocks(state.renderedBoard);
-  
+
   const [newBoard, removed] = checkPowdris(desBlocks);
   removedPowders.push(...(removed as number[]));
 
-  return [{
-    board: newBoard as BoardType,
-    renderedBoard: newBoard as BoardType,
-    isSettling: false,
-    hasCollision: false,
-  }, removedPowders];
-}
+  return [
+    {
+      board: newBoard as BoardType,
+      renderedBoard: newBoard as BoardType,
+      isSettling: false,
+      hasCollision: false,
+    },
+    removedPowders,
+  ];
+};
 
 export const getNextRoundState = (state: BoardState): Partial<BoardState> => {
   {
@@ -149,7 +158,12 @@ export const getNextRoundState = (state: BoardState): Partial<BoardState> => {
     const updatedBlock = state.nextBlocks.shift();
     const updatedShape = scaleBlockShape(updatedBlock.shape, DESINTEGRATION);
     const updatedNextBlocks = [...state.nextBlocks, getRandomBlock()];
-    const hasCollision = checkCollisions(updatedBoard, updatedShape, 0, 3 * DESINTEGRATION)
+    const hasCollision = checkCollisions(
+      updatedBoard,
+      updatedShape,
+      0,
+      3 * DESINTEGRATION
+    );
 
     return {
       hasCollision,
@@ -163,4 +177,4 @@ export const getNextRoundState = (state: BoardState): Partial<BoardState> => {
       nextBlockShapes: getPreviewBlocks(updatedNextBlocks),
     };
   }
-}
+};

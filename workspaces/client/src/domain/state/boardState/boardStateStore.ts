@@ -8,7 +8,15 @@ import {
 } from '../../blocks/BlockShapes';
 import { powderConfig } from '../../config/PowderConfig';
 import { getRandomBlock } from './boardStateUtils';
-import { getDropState, getMoveLeftState, getMoveRightState, getNextRoundState, getRotateState, getSettleState, getStartingState } from './boardStateGetters';
+import {
+  getDropState,
+  getMoveLeftState,
+  getMoveRightState,
+  getNextRoundState,
+  getRotateState,
+  getSettleState,
+  getStartingState,
+} from './boardStateGetters';
 
 interface BoardStateVars {
   board: BoardType;
@@ -47,55 +55,63 @@ const initialState: BoardStateVars = {
   nextBlockShapes: [],
   hasCollision: false,
   isSettling: false,
-}
+};
 
 const boardStoreDefinition = (
-  set: (partial: BoardState | Partial<BoardState> | ((state: BoardState) => BoardState | Partial<BoardState>), replace?: boolean | undefined) => void
-) => ({
-  ...initialState,
-  initializeBoard: () => {
-    set(getStartingState());
-  },
-  dropBlock: () => {
-    set((state) => getDropState(state));
-  },
-  moveBlockLeft: () => {
-    set((state) => getMoveLeftState(state));
-  },
-  moveBlockRight: () => {
-    set((state) => getMoveRightState(state));
-  },
-  rotateBlock: () => {
-    set((state) => getRotateState(state));
-  },
-  setIsSettling: (value: boolean) => {
-    set(() => ({ isSettling: value }));
-  },
-  settleBlock: (): number[] => {
-    const removedPowders = new Array<number>();
+  set: (
+    partial:
+      | BoardState
+      | Partial<BoardState>
+      | ((state: BoardState) => BoardState | Partial<BoardState>),
+    replace?: boolean | undefined
+  ) => void
+) =>
+  ({
+    ...initialState,
+    initializeBoard: () => {
+      set(getStartingState());
+    },
+    dropBlock: () => {
+      set((state) => getDropState(state));
+    },
+    moveBlockLeft: () => {
+      set((state) => getMoveLeftState(state));
+    },
+    moveBlockRight: () => {
+      set((state) => getMoveRightState(state));
+    },
+    rotateBlock: () => {
+      set((state) => getRotateState(state));
+    },
+    setIsSettling: (value: boolean) => {
+      set(() => ({ isSettling: value }));
+    },
+    settleBlock: (): number[] => {
+      const removedPowders = new Array<number>();
 
-    set((state) => {
-      const [stateUpdate, removed] = getSettleState(state);
-      removedPowders.push(...removed);
+      set((state) => {
+        const [stateUpdate, removed] = getSettleState(state);
+        removedPowders.push(...removed);
 
-      return stateUpdate;
-    });
+        return stateUpdate;
+      });
 
-    return removedPowders;
-  },
-  nextRound: (): boolean => {
-    let hasLost = false;
+      return removedPowders;
+    },
+    nextRound: (): boolean => {
+      let hasLost = false;
 
-    set((state) => {
-      const updatedState = getNextRoundState(state);
-      hasLost = updatedState.hasCollision;
+      set((state) => {
+        const updatedState = getNextRoundState(state);
+        hasLost = updatedState.hasCollision;
 
-      return updatedState;
-    });
+        return updatedState;
+      });
 
-    return hasLost;
-  },
-} as BoardState);
+      return hasLost;
+    },
+  }) as BoardState;
 
 export const useBoardStateStore = create<BoardState>(boardStoreDefinition);
-export const useOpponentBoardStateStore = create<BoardState>(boardStoreDefinition);
+export const useOpponentBoardStateStore =
+  create<BoardState>(boardStoreDefinition);

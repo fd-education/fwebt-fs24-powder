@@ -12,12 +12,12 @@ export const playerKeyMap: KeyMap = {
   moveLeft: 'ArrowLeft',
   moveRight: 'ArrowRight',
   rotate: 'ArrowUp',
-  accelerate: 'ArrowDown'
-}
+  accelerate: 'ArrowDown',
+};
 
 export const opponentKeyMap: KeyMap = {
   moveLeft: 'a',
   moveRight: 'd',
   rotate: 'w',
-  accelerate: 's'
-}
+  accelerate: 's',
+};

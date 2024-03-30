@@ -10,7 +10,7 @@ import { MultiplayerGame } from '../components/game/MultiplayerGame';
 import { SinglePlayerGame } from '../components/game/SinglePlayerGame';
 
 export const GamePage = () => {
-  const [searchParams, _] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const gameMode = searchParams.get('mode');
 
   const { startGame: startPlayerGame } = usePlayerGame();
