@@ -19,3 +19,15 @@ export enum Stage{
 }
 
 export const PowderNamespace = 'powder';
+
+export enum MultiplayerEvents{
+  CHALLENGE = 'challenge',
+  START = 'start',
+  UPDATE = 'update',
+  DISCONNECT = 'disconnect',
+}
+
+export enum ChatEvents{
+  RECEIVE = 'receive',
+  SEND = 'send'
+}
