@@ -18,7 +18,7 @@ import {
   getStartingState,
 } from './boardStateGetters';
 
-interface BoardStateVars {
+export interface BoardStateVars {
   board: BoardType;
   renderedBoard: BoardType;
   shapeRow: number;
@@ -40,6 +40,7 @@ export interface BoardState extends BoardStateVars {
   setIsSettling: (isSettling: boolean) => void;
   settleBlock: () => number[];
   nextRound: (removedLines: number, newBoard: BoardType) => boolean;
+  applyState: (state: Partial<BoardStateVars>) => void;
 }
 
 const { DESINTEGRATION } = powderConfig;
@@ -109,6 +110,11 @@ const boardStoreDefinition = (
       });
 
       return hasLost;
+    },
+    applyState: (state: Partial<BoardStateVars>) => {
+      set(() => {
+        return state;
+      })
     },
   }) as BoardState;
 
