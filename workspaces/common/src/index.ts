@@ -17,3 +17,5 @@ export enum Stage{
   TEST = 'test',
   DEV = 'dev'
 }
+
+export const PowderNamespace = 'powder';

@@ -4,6 +4,7 @@ import { ScoreModule } from './api/score/score.module';
 import { ConfigModule } from './common/config/config.module';
 import { DatabaseModule } from './data/database/database.module';
 import { ScoresModule } from './data/scores/scores.module';
+import { WebsocketModule } from './websocket/websocket.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { ScoresModule } from './data/scores/scores.module';
     ConfigModule,
     ScoreModule,
     ScoreboardModule,
+    WebsocketModule,
   ],
 })
 export class AppModule {}
