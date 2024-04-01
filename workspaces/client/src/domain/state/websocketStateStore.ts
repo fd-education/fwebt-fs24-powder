@@ -67,7 +67,7 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
   emitBoardState: (state: Partial<BoardStateVars>) => {
     if (!get().isConnected) return;
 
-    get().socket.emit(MultiplayerEvents.SEND_UPDATE, state);
+    get().socket.emit(MultiplayerEvents.UPDATE, state);
   },
   registerChatHandler: (handler: (text: string) => void) => {
     if (!get().isConnected) return;
@@ -82,7 +82,7 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
   registerGameStateHandler: (handler: (state: Partial<BoardStateVars>) => void) => {
     if (!get().isConnected) return;
 
-    get().socket.on(MultiplayerEvents.RECEIVE_UPDATE, (state: Partial<BoardStateVars>) => handler(state));
+    get().socket.on(MultiplayerEvents.UPDATE, (state: Partial<BoardStateVars>) => handler(state));
   },
   registerGameDisconnectHandler: (handler: () => void) => {
     if (!get().isConnected) return;
@@ -93,7 +93,7 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
     if (!get().isConnected) return;
 
     get().socket.removeAllListeners(MultiplayerEvents.START);
-    get().socket.removeAllListeners(MultiplayerEvents.RECEIVE_UPDATE);
+    get().socket.removeAllListeners(MultiplayerEvents.UPDATE);
     get().socket.removeAllListeners(MultiplayerEvents.DISCONNECT);
   },
   removeChatHandler: () => {
