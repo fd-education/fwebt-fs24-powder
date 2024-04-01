@@ -73,7 +73,7 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
   }
 
-  @SubscribeMessage(MultiplayerEvents.UPDATE)
+  @SubscribeMessage(MultiplayerEvents.SEND_UPDATE)
   async handleMultiplayerUpdate(
     @ConnectedSocket() client: Socket,
     @MessageBody() state: any,
@@ -83,6 +83,6 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     this.connectedPlayers
       .get(opponentId)
-      .socket.emit(MultiplayerEvents.UPDATE, state);
+      .socket.emit(MultiplayerEvents.RECEIVE_UPDATE, state);
   }
 }

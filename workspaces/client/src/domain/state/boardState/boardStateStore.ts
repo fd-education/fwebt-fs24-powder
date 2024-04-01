@@ -96,10 +96,11 @@ const boardStoreDefinition = (
       const removedPowders = new Array<number>();
 
       set((state) => {
-        const [stateUpdate, removed] = getSettleState(state);
+        const [updatedState, removed] = getSettleState(state);
         removedPowders.push(...removed);
+        useWebsocketStore.getState().emitBoardState(updatedState);
 
-        return stateUpdate;
+        return updatedState;
       });
 
       return removedPowders;
@@ -109,6 +110,8 @@ const boardStoreDefinition = (
 
       set((state) => {
         const updatedState = getNextRoundState(state);
+        useWebsocketStore.getState().emitBoardState(updatedState);
+
         hasLost = updatedState.hasCollision;
 
         return updatedState;

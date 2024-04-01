@@ -28,7 +28,7 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
   const { progress: opponentProgress } = useOpponentGameStateStore();
   const { playerName } = usePlayerNameStore();
   const { startGame: startPlayerGame } = usePlayerGame();
-  const { startGame: startOpponentGame } = useOpponentGame();
+  const { startGame: startRemoteOpponentGame } = useOpponentGame();
   // const [_, setOpponentName] = useState('');
   const [opponentDisconnected, setOpponentDisconnected] = useState(false);
 
@@ -53,7 +53,7 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
 
       // setOpponentName(opponentName);
       startPlayerGame();
-      startOpponentGame();
+      startRemoteOpponentGame();
     });
 
     registerGameStateHandler((state: Partial<BoardStateVars>) => {

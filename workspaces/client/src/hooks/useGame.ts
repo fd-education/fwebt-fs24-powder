@@ -28,6 +28,7 @@ const {
 } = powderConfig;
 
 const useGame = (
+  isRemoteOpponent: boolean,
   boardStateStore: BoardState,
   scoreStore: ScoreState,
   gameStateStore: GameState,
@@ -53,15 +54,20 @@ const useGame = (
   } = boardStateStore;
 
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
+  const [isRemote, setIsRemote] = useState(false);
 
-  const startGame = useCallback(() => {
+  const startGame = useCallback((isRemote?: boolean) => {
     setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
-    initializeBoard();
 
-    start();
+    setIsRemote(true);
+
+    !isRemote && initializeBoard();
+    !isRemote && start();
   }, [start]);
 
   const gameLoop = useCallback(() => {
+    if (isRemoteOpponent) return;
+
     if (isSettling) {
       if (
         !checkCollisions(
@@ -162,6 +168,7 @@ const calculateReward = (removed: number): number => {
 
 export const usePlayerGame = () =>
   useGame(
+    false,
     useBoardStateStore(),
     usePlayerScoreStore(),
     useGameStateStore(),
@@ -169,6 +176,7 @@ export const usePlayerGame = () =>
   );
 export const useOpponentGame = () =>
   useGame(
+    true,
     useOpponentBoardStateStore(),
     useOpponentScoreStore(),
     useOpponentGameStateStore(),

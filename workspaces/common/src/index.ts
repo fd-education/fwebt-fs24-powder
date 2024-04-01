@@ -23,7 +23,8 @@ export const PowderNamespace = 'powder';
 export enum MultiplayerEvents{
   CHALLENGE = 'game_challenge',
   START = 'game_start',
-  UPDATE = 'game_update',
+  SEND_UPDATE = 'send_game_update',
+  RECEIVE_UPDATE = 'receive_game_update',
   DISCONNECT = 'game_disconnect',
 }
 

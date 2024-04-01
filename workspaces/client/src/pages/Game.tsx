@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useOpponentGame, usePlayerGame } from '../hooks/useGame';
+import { usePlayerGame, useOpponentGame } from '../hooks/useGame';
 import {
   useOpponentScoreStore,
   usePlayerScoreStore,
@@ -35,7 +35,6 @@ export const GamePage = () => {
         startOpponentGame();
         break;
       case GameMode.REMOTE_MULTI:
-        console.warn('Remote Multiplayer to be implemented.');
         setIsMultiplayerGame(true);
         clearPlayerScores();
         clearOpponentScores();
