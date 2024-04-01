@@ -19,6 +19,7 @@ import {
 import { checkCollisions } from '../domain/game/blockPhysics';
 import { GameProgressStates } from '../domain/game/gameProgress';
 import { KeyMap, opponentKeyMap, playerKeyMap } from '../domain/game/keyMaps';
+import { useWebsocketStore } from '../domain/state/websocketStateStore';
 
 const {
   DESINTEGRATION,
@@ -51,7 +52,9 @@ const useGame = (
     rotateBlock,
     settleBlock,
     nextRound,
+    getState
   } = boardStateStore;
+  const {emitBoardState} = useWebsocketStore();
 
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
 
@@ -87,6 +90,8 @@ const useGame = (
       incLines(removed.length);
 
       const hasLost = nextRound(0, renderedBoard);
+      emitBoardState(getState());
+
       if (hasLost) endGame(true);
 
       setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
@@ -96,6 +101,7 @@ const useGame = (
       setLoopSpeed(BASE_COLLISION_LOOP_SPEED / DESINTEGRATION);
     } else {
       dropBlock();
+      emitBoardState(getState());
     }
   }, [loopSpeed, isSettling, hasCollision]);
 

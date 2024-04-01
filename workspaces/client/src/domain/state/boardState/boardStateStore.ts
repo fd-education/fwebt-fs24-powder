@@ -17,7 +17,6 @@ import {
   getSettleState,
   getStartingState,
 } from './boardStateGetters';
-import { useWebsocketStore } from '../websocketStateStore';
 
 export interface BoardStateVars {
   board: BoardType;
@@ -41,6 +40,7 @@ export interface BoardState extends BoardStateVars {
   setIsSettling: (isSettling: boolean) => void;
   settleBlock: () => number[];
   nextRound: (removedLines: number, newBoard: BoardType) => boolean;
+  getState: () => BoardState;
   applyState: (state: Partial<BoardStateVars>) => void;
 }
 
@@ -66,7 +66,8 @@ const boardStoreDefinition = (
       | Partial<BoardState>
       | ((state: BoardState) => BoardState | Partial<BoardState>),
     replace?: boolean | undefined
-  ) => void
+  ) => void,
+  get: () => BoardState
 ) =>
   ({
     ...initialState,
@@ -76,7 +77,6 @@ const boardStoreDefinition = (
     dropBlock: () => {
       set((state) => {
         const update = getDropState(state)
-        useWebsocketStore.getState().emitBoardState(update);
         return update;
       });
     },
@@ -98,7 +98,6 @@ const boardStoreDefinition = (
       set((state) => {
         const [updatedState, removed] = getSettleState(state);
         removedPowders.push(...removed);
-        useWebsocketStore.getState().emitBoardState(updatedState);
 
         return updatedState;
       });
@@ -110,7 +109,6 @@ const boardStoreDefinition = (
 
       set((state) => {
         const updatedState = getNextRoundState(state);
-        useWebsocketStore.getState().emitBoardState(updatedState);
 
         hasLost = updatedState.hasCollision;
 
@@ -119,6 +117,7 @@ const boardStoreDefinition = (
 
       return hasLost;
     },
+    getState: () => get(),
     applyState: (state: Partial<BoardStateVars>) => {
       console.log(state);
       set(() => {
