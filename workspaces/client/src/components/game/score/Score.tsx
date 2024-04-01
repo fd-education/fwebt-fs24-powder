@@ -11,18 +11,35 @@ import {
   useGameStateStore,
   useOpponentGameStateStore,
 } from '../../../domain/state/gameStateStore';
+import { useWebsocketStore } from '../../../domain/state/websocketStateStore';
+import { GameProgressStates } from '../../../domain/game/gameProgress';
 
 interface ScoreProps {
   isOpponentScore?: boolean;
+  isRemote?: boolean;
 }
 
-export const Score = ({ isOpponentScore = false }: ScoreProps) => {
+export const Score = ({
+  isOpponentScore = false,
+  isRemote = false,
+}: ScoreProps) => {
   const { score, lines } = isOpponentScore
     ? useOpponentScoreStore()
     : usePlayerScoreStore();
-  const { pauseGame, endGame } = isOpponentScore
+  const { pauseGame: pause, endGame: end } = isOpponentScore
     ? useOpponentGameStateStore()
     : useGameStateStore();
+  const { emitGameProgress } = useWebsocketStore();
+
+  const pauseGame = () => {
+    pause();
+    if (isRemote) emitGameProgress(GameProgressStates.paused);
+  };
+
+  const endGame = () => {
+    end(false);
+    if (isRemote) emitGameProgress(GameProgressStates.ended);
+  };
 
   return (
     <Panel paddingY='py-4'>
@@ -35,8 +52,12 @@ export const Score = ({ isOpponentScore = false }: ScoreProps) => {
           <PanelHeading text='Lines' />
           <NumberDisplay number={lines} />
         </div>
-        <PowderButton text='pause' clickHandler={() => pauseGame()} />
-        <PowderButton text='end' clickHandler={() => endGame(false)} />
+        {!(isOpponentScore && isRemote) && (
+          <PowderButton text='pause' clickHandler={() => pauseGame()} />
+        )}
+        {!(isOpponentScore && isRemote) && (
+          <PowderButton text='end' clickHandler={() => endGame()} />
+        )}
       </div>
     </Panel>
   );

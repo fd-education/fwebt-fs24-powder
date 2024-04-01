@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { BoardStateVars } from './boardState/boardStateStore';
 import { ChatEvents, MultiplayerEvents } from '@powder/common';
 import { ScoreState } from './scoreStore';
+import { GameProgress } from '../game/gameProgress';
 
 interface WebsocketState {
   isConnected: boolean;
@@ -14,10 +15,12 @@ interface WebsocketState {
   emitGameChallenge: (playername: string) => void,
   emitBoardState: (state: Partial<BoardStateVars>) => void;
   emitGameScore: (score: Partial<ScoreState>) => void;
+  emitGameProgress: (progress: Partial<GameProgress>) => void;
   registerGameStartHandler: (handler: (playerName: string) => void) => void;
   registerGameStateHandler: (handler: (state: Partial<BoardStateVars>) => void) => void;
   registerGameDisconnectHandler: (handler: () => void) => void;
   registerGameScoreHandler: (handler: (score: Partial<ScoreState>) => void) => void;
+  registerGameProgressHandler: (handler: (progress: GameProgress) => void) => void;
   removeGameHandlers: () => void;
   removeChatHandler: () => void;
 }
@@ -77,6 +80,11 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
 
     get().socket.emit(MultiplayerEvents.SCORE, score);
   },
+  emitGameProgress: (progress: Partial<GameProgress>) => {
+    if (!get().isConnected) return;
+
+    get().socket.emit(MultiplayerEvents.PROGRESS, progress);
+  },
   registerChatHandler: (handler: (text: string) => void) => {
     if (!get().isConnected) return;
 
@@ -102,11 +110,18 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
 
     get().socket.on(MultiplayerEvents.SCORE, (score: Partial<ScoreState>) => handler(score));
   },
+  registerGameProgressHandler: (handler: (progress: GameProgress) => void) => {
+    if (!get().isConnected) return;
+
+    get().socket.on(MultiplayerEvents.PROGRESS, (progress: GameProgress) => handler(progress));
+  },
   removeGameHandlers: () => {
     if (!get().isConnected) return;
 
     get().socket.removeAllListeners(MultiplayerEvents.START);
     get().socket.removeAllListeners(MultiplayerEvents.UPDATE);
+    get().socket.removeAllListeners(MultiplayerEvents.SCORE);
+    get().socket.removeAllListeners(MultiplayerEvents.PROGRESS);
     get().socket.removeAllListeners(MultiplayerEvents.DISCONNECT);
   },
   removeChatHandler: () => {

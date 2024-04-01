@@ -119,7 +119,6 @@ const boardStoreDefinition = (
     },
     getState: () => get(),
     applyState: (state: Partial<BoardStateVars>) => {
-      console.log(state);
       set(() => {
         return state;
       })

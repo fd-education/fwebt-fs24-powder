@@ -25,8 +25,8 @@ export enum MultiplayerEvents{
   START = 'game_start',
   UPDATE = 'game_update',
   SCORE = 'game_score',
+  PROGRESS = 'game_progress',
   DISCONNECT = 'game_disconnect',
-  
 }
 
 export enum ChatEvents{

@@ -1,4 +1,4 @@
-import { GameProgressStates } from '../../domain/game/gameProgress';
+import { GameProgress, GameProgressStates } from '../../domain/game/gameProgress';
 import {
   useGameStateStore,
   useOpponentGameStateStore,
@@ -24,7 +24,7 @@ import {
 } from '../../domain/state/scoreStore';
 
 interface MultiplayerGameProps {
-  isRemote?: boolean;
+  isRemote: boolean;
 }
 
 export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
@@ -43,10 +43,12 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
     registerGameStateHandler,
     registerGameDisconnectHandler,
     registerGameScoreHandler,
+    registerGameProgressHandler,
     removeGameHandlers,
   } = useWebsocketStore();
   const { applyState } = useOpponentBoardStateStore();
   const { applyScore } = useOpponentScoreStore();
+  const { applyGameProgress } = useOpponentGameStateStore();
 
   useEffect(() => {
     if (!isRemote || !isConnected) return;
@@ -63,7 +65,6 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
     });
 
     registerGameStateHandler((state: Partial<BoardStateVars>) => {
-      console.log('Applying game state');
       applyState(state);
     });
 
@@ -73,9 +74,13 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
     });
 
     registerGameScoreHandler((score: Partial<ScoreState>) => {
-      console.log('Applying game score');
-      applyScore(score)
-    })
+      applyScore(score);
+    });
+
+    registerGameProgressHandler((progress: GameProgress) => {
+      console.log('Applying game progress');
+      applyGameProgress(progress);
+    });
 
     return () => {
       removeGameHandlers();
@@ -89,14 +94,14 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
           <div className='relative flex flex-row space-x-2'>
             <div className='flex flex-col justify-between'>
               <Preview isOpponentPreview={true} />
-              <Score isOpponentScore={true} />
+              <Score isOpponentScore={true} isRemote={isRemote} />
             </div>
             <Board isOpponentBoard={true} />
             {opponentProgress === GameProgressStates.lost && (
               <PlayerLost isOpponent={true} />
             )}
             {opponentProgress === GameProgressStates.paused && (
-              <Pause isOpponent={true} />
+              <Pause isOpponent={true} isRemote={isRemote} />
             )}
             {(opponentDisconnected ||
               opponentProgress === GameProgressStates.ended) && (
@@ -106,11 +111,13 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
           <div className='relative flex flex-row space-x-2'>
             <Board />
             {progress === GameProgressStates.lost && <PlayerLost />}
-            {progress === GameProgressStates.paused && <Pause />}
+            {progress === GameProgressStates.paused && (
+              <Pause isRemote={isRemote} />
+            )}
             {progress === GameProgressStates.ended && <End />}
             <div className='flex flex-col justify-between'>
               <Preview />
-              <Score />
+              <Score isRemote={isRemote} />
             </div>
           </div>
         </div>

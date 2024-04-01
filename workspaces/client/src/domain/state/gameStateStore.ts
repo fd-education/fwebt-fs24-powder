@@ -13,6 +13,7 @@ export interface GameState {
   pauseGame: () => void;
   endGame: (hasLost: boolean) => void;
   initialiseGame: () => void;
+  applyGameProgress: (state: GameProgress) => void;
 }
 
 const gameStateStoreDefinition = (
@@ -48,7 +49,8 @@ const gameStateStoreDefinition = (
           : getNextProgressStep(state.progress, GameActions.end_game),
       }));
     },
-    initialiseGame: () => set({ progress: GameProgressStates.initial })
+    initialiseGame: () => set({ progress: GameProgressStates.initial }),
+    applyGameProgress: (progress: GameProgress) => set({progress})
   }) as GameState;
 
 export const useGameStateStore = create<GameState>(gameStateStoreDefinition);
