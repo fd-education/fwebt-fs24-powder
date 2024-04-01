@@ -1,4 +1,7 @@
-import { GameProgress, GameProgressStates } from '../../domain/game/gameProgress';
+import {
+  GameProgress,
+  GameProgressStates,
+} from '../../domain/game/gameProgress';
 import {
   useGameStateStore,
   useOpponentGameStateStore,
@@ -56,9 +59,7 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
     emitGameChallenge(playerName);
 
     registerGameStartHandler((opponentName: string) => {
-      console.log('Starting!');
       console.log(opponentName);
-
       // setOpponentName(opponentName);
       startPlayerGame(true);
       startRemoteOpponentGame(true);
@@ -69,7 +70,6 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
     });
 
     registerGameDisconnectHandler(() => {
-      console.log('Opponent disconnected');
       setOpponentDisconnected(true);
     });
 
@@ -78,7 +78,6 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
     });
 
     registerGameProgressHandler((progress: GameProgress) => {
-      console.log('Applying game progress');
       applyGameProgress(progress);
     });
 

@@ -12,15 +12,21 @@ interface WebsocketState {
   close: () => void;
   emitChatMessage: (text: string) => void;
   registerChatHandler: (handler: (text: string) => void) => void;
-  emitGameChallenge: (playername: string) => void,
+  emitGameChallenge: (playername: string) => void;
   emitBoardState: (state: Partial<BoardStateVars>) => void;
   emitGameScore: (score: Partial<ScoreState>) => void;
   emitGameProgress: (progress: Partial<GameProgress>) => void;
   registerGameStartHandler: (handler: (playerName: string) => void) => void;
-  registerGameStateHandler: (handler: (state: Partial<BoardStateVars>) => void) => void;
+  registerGameStateHandler: (
+    handler: (state: Partial<BoardStateVars>) => void
+  ) => void;
   registerGameDisconnectHandler: (handler: () => void) => void;
-  registerGameScoreHandler: (handler: (score: Partial<ScoreState>) => void) => void;
-  registerGameProgressHandler: (handler: (progress: GameProgress) => void) => void;
+  registerGameScoreHandler: (
+    handler: (score: Partial<ScoreState>) => void
+  ) => void;
+  registerGameProgressHandler: (
+    handler: (progress: GameProgress) => void
+  ) => void;
   removeGameHandlers: () => void;
   removeChatHandler: () => void;
 }
@@ -39,14 +45,14 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
     socket.on('connect', () => {
       set({
         isConnected: true,
-        socket
+        socket,
       });
     });
 
     socket.on('disconnect', () => {
       set({
         isConnected: false,
-        socket: null
+        socket: null,
       });
     });
 
@@ -58,7 +64,7 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
 
       state.socket.close();
       return {};
-    })
+    });
   },
   emitChatMessage: (text) => {
     if (!get().isConnected) return;
@@ -76,7 +82,7 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
     get().socket.emit(MultiplayerEvents.UPDATE, state);
   },
   emitGameScore: (score: Partial<ScoreState>) => {
-    if(!get().isConnected) return;
+    if (!get().isConnected) return;
 
     get().socket.emit(MultiplayerEvents.SCORE, score);
   },
@@ -93,12 +99,19 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
   registerGameStartHandler: (handler: (playerName: string) => void) => {
     if (!get().isConnected) return;
 
-    get().socket.on(MultiplayerEvents.START, (playerName: string) => handler(playerName))
+    get().socket.on(MultiplayerEvents.START, (playerName: string) =>
+      handler(playerName)
+    );
   },
-  registerGameStateHandler: (handler: (state: Partial<BoardStateVars>) => void) => {
+  registerGameStateHandler: (
+    handler: (state: Partial<BoardStateVars>) => void
+  ) => {
     if (!get().isConnected) return;
 
-    get().socket.on(MultiplayerEvents.UPDATE, (state: Partial<BoardStateVars>) => handler(state));
+    get().socket.on(
+      MultiplayerEvents.UPDATE,
+      (state: Partial<BoardStateVars>) => handler(state)
+    );
   },
   registerGameDisconnectHandler: (handler: () => void) => {
     if (!get().isConnected) return;
@@ -108,12 +121,16 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
   registerGameScoreHandler: (handler: (score: Partial<ScoreState>) => void) => {
     if (!get().isConnected) return;
 
-    get().socket.on(MultiplayerEvents.SCORE, (score: Partial<ScoreState>) => handler(score));
+    get().socket.on(MultiplayerEvents.SCORE, (score: Partial<ScoreState>) =>
+      handler(score)
+    );
   },
   registerGameProgressHandler: (handler: (progress: GameProgress) => void) => {
     if (!get().isConnected) return;
 
-    get().socket.on(MultiplayerEvents.PROGRESS, (progress: GameProgress) => handler(progress));
+    get().socket.on(MultiplayerEvents.PROGRESS, (progress: GameProgress) =>
+      handler(progress)
+    );
   },
   removeGameHandlers: () => {
     if (!get().isConnected) return;
@@ -126,6 +143,5 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
   },
   removeChatHandler: () => {
     get().socket.removeAllListeners(ChatEvents.RECEIVE);
-  }
-}
-));
+  },
+}));

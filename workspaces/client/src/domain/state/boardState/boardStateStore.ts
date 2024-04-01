@@ -76,7 +76,7 @@ const boardStoreDefinition = (
     },
     dropBlock: () => {
       set((state) => {
-        const update = getDropState(state)
+        const update = getDropState(state);
         return update;
       });
     },
@@ -121,7 +121,7 @@ const boardStoreDefinition = (
     applyState: (state: Partial<BoardStateVars>) => {
       set(() => {
         return state;
-      })
+      });
     },
   }) as BoardState;
 

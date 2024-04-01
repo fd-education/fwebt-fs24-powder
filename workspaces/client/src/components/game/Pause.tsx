@@ -14,14 +14,13 @@ interface PauseProps {
   isRemote?: boolean;
 }
 
-export const Pause = ({ isOpponent= false, isRemote = false }: PauseProps) => {
+export const Pause = ({ isOpponent = false, isRemote = false }: PauseProps) => {
   const { continueGame: cont } = isOpponent
     ? useOpponentGameStateStore()
     : useGameStateStore();
   const { emitGameProgress } = useWebsocketStore();
 
   const continueGame = () => {
-    console.log('Continue game - ', isRemote);
     cont();
     if (isRemote) emitGameProgress(GameProgressStates.started);
   };

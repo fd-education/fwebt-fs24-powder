@@ -52,23 +52,27 @@ const useGame = (
     rotateBlock,
     settleBlock,
     nextRound,
-    getState
+    getState,
   } = boardStateStore;
-  const { emitBoardState, emitGameScore, emitGameProgress } = useWebsocketStore();
+  const { emitBoardState, emitGameScore, emitGameProgress } =
+    useWebsocketStore();
 
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
   const [isRemote, setIsRemote] = useState(false);
 
-  const startGame = useCallback((isRemote?: boolean) => {
-    setIsRemote(isRemote);
+  const startGame = useCallback(
+    (isRemote?: boolean) => {
+      setIsRemote(isRemote);
 
-    if (!isRemoteOpponent) {
-      setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
-      initializeBoard();
-    };
+      if (!isRemoteOpponent) {
+        setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
+        initializeBoard();
+      }
 
-    start();
-  }, [start]);
+      start();
+    },
+    [start]
+  );
 
   const gameLoop = useCallback(() => {
     if (isRemoteOpponent) return;

@@ -16,5 +16,11 @@
         "jest": true,
       },
     },
+    {
+      "files": ["src/**/*"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
   ],
 }

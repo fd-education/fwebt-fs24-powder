@@ -31,7 +31,10 @@ const scoreStoreDefinition = (
   ({
     ...initialState,
     incScore: (incLines: number, incScore: number) => {
-      set((state) => ({ lines: state.lines + incLines, score: state.score + incScore }));
+      set((state) => ({
+        lines: state.lines + incLines,
+        score: state.score + incScore,
+      }));
     },
     clearScores: () => {
       set(() => initialState);
