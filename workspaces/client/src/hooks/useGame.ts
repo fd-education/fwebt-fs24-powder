@@ -57,14 +57,17 @@ const useGame = (
   const {emitBoardState} = useWebsocketStore();
 
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
+  const [isRemote, setIsRemote] = useState(false);
 
   const startGame = useCallback((isRemote?: boolean) => {
-    setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
-
-    if(!isRemote){
+    setIsRemote(isRemote);
+    
+    if(!isRemoteOpponent){
+      setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
       initializeBoard();
-      start();
-    }
+    };
+    
+    start();
   }, [start]);
 
   const gameLoop = useCallback(() => {
@@ -90,7 +93,7 @@ const useGame = (
       incLines(removed.length);
 
       const hasLost = nextRound(0, renderedBoard);
-      emitBoardState(getState());
+      if(isRemote) emitBoardState(getState());
 
       if (hasLost) endGame(true);
 
@@ -101,7 +104,7 @@ const useGame = (
       setLoopSpeed(BASE_COLLISION_LOOP_SPEED / DESINTEGRATION);
     } else {
       dropBlock();
-      emitBoardState(getState());
+      if(isRemote) emitBoardState(getState());
     }
   }, [loopSpeed, isSettling, hasCollision]);
 

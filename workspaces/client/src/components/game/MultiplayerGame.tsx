@@ -52,8 +52,8 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
       console.log(opponentName);
 
       // setOpponentName(opponentName);
-      startPlayerGame();
-      startRemoteOpponentGame();
+      startPlayerGame(true);
+      startRemoteOpponentGame(true);
     });
 
     registerGameStateHandler((state: Partial<BoardStateVars>) => {
