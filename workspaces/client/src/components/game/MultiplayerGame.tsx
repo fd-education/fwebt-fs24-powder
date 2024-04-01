@@ -17,7 +17,7 @@ import {
   useOpponentBoardStateStore,
 } from '../../domain/state/boardState/boardStateStore';
 import { usePlayerNameStore } from '../../domain/state/playerNameStore';
-import { useOpponentGame, usePlayerGame } from '../../hooks/useGame';
+import { usePlayerGame, useRemoteOpponentGame } from '../../hooks/useGame';
 
 interface MultiplayerGameProps {
   isRemote?: boolean;
@@ -28,7 +28,7 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
   const { progress: opponentProgress } = useOpponentGameStateStore();
   const { playerName } = usePlayerNameStore();
   const { startGame: startPlayerGame } = usePlayerGame();
-  const { startGame: startRemoteOpponentGame } = useOpponentGame();
+  const { startGame: startRemoteOpponentGame } = useRemoteOpponentGame();
   // const [_, setOpponentName] = useState('');
   const [opponentDisconnected, setOpponentDisconnected] = useState(false);
 

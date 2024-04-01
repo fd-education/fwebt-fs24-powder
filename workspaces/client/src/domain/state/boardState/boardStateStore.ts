@@ -7,7 +7,7 @@ import {
   scaleBlockShape,
 } from '../../blocks/BlockShapes';
 import { powderConfig } from '../../config/PowderConfig';
-import { getRandomBlock } from './boardStateUtils';
+import { getEmptyBoard, getRandomBlock } from './boardStateUtils';
 import {
   getDropState,
   getMoveLeftState,
@@ -47,8 +47,8 @@ export interface BoardState extends BoardStateVars {
 const { DESINTEGRATION } = powderConfig;
 
 const initialState: BoardStateVars = {
-  board: [],
-  renderedBoard: [],
+  board: getEmptyBoard(),
+  renderedBoard: getEmptyBoard(),
   shapeRow: -1 * DESINTEGRATION,
   shapeCol: 3 * DESINTEGRATION,
   block: getRandomBlock(),

@@ -54,15 +54,14 @@ const useGame = (
   } = boardStateStore;
 
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
-  const [isRemote, setIsRemote] = useState(false);
 
   const startGame = useCallback((isRemote?: boolean) => {
     setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
 
-    setIsRemote(true);
-
-    !isRemote && initializeBoard();
-    !isRemote && start();
+    if(!isRemote){
+      initializeBoard();
+      start();
+    }
   }, [start]);
 
   const gameLoop = useCallback(() => {
@@ -174,7 +173,17 @@ export const usePlayerGame = () =>
     useGameStateStore(),
     playerKeyMap
   );
-export const useOpponentGame = () =>
+
+export const useLocalOpponentGame = () =>
+  useGame(
+    false,
+    useOpponentBoardStateStore(),
+    useOpponentScoreStore(),
+    useOpponentGameStateStore(),
+    opponentKeyMap
+  );
+
+export const useRemoteOpponentGame = () =>
   useGame(
     true,
     useOpponentBoardStateStore(),

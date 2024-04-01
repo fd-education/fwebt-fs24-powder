@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { usePlayerGame, useOpponentGame } from '../hooks/useGame';
+import { usePlayerGame, useLocalOpponentGame } from '../hooks/useGame';
 import {
   useOpponentScoreStore,
   usePlayerScoreStore,
@@ -16,7 +16,7 @@ export const GamePage = () => {
   const { startGame: startPlayerGame } = usePlayerGame();
   // prevent event listeners for opponent controls from being added in single player or remote multiplayer mode
   const { startGame: startOpponentGame } =
-    gameMode === GameMode.LOCAL_MULTI && useOpponentGame();
+    gameMode === GameMode.LOCAL_MULTI && useLocalOpponentGame();
   const { clearScores: clearPlayerScores } = usePlayerScoreStore();
   const { clearScores: clearOpponentScores } = useOpponentScoreStore();
   const [isMultiplayerGame, setIsMultiplayerGame] = useState(false);
