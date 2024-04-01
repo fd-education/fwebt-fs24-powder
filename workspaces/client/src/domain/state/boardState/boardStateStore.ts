@@ -17,6 +17,7 @@ import {
   getSettleState,
   getStartingState,
 } from './boardStateGetters';
+import { useWebsocketStore } from '../websocketStateStore';
 
 export interface BoardStateVars {
   board: BoardType;
@@ -73,7 +74,11 @@ const boardStoreDefinition = (
       set(getStartingState());
     },
     dropBlock: () => {
-      set((state) => getDropState(state));
+      set((state) => {
+        const update = getDropState(state)
+        useWebsocketStore.getState().emitBoardState(update);
+        return update;
+      });
     },
     moveBlockLeft: () => {
       set((state) => getMoveLeftState(state));
@@ -112,6 +117,7 @@ const boardStoreDefinition = (
       return hasLost;
     },
     applyState: (state: Partial<BoardStateVars>) => {
+      console.log(state);
       set(() => {
         return state;
       })

@@ -3,7 +3,7 @@ import {
   useGameStateStore,
   useOpponentGameStateStore,
 } from '../../domain/state/gameStateStore';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SettingsGroup } from '../settings/SettingsGroup';
 import { End } from './End';
 import { Pause } from './Pause';
@@ -11,10 +11,65 @@ import { PlayerLost } from './PlayerLost';
 import { Board } from './board/Board';
 import { Preview } from './preview/Preview';
 import { Score } from './score/Score';
+import { useWebsocketStore } from '../../domain/state/websocketStateStore';
+import {
+  BoardStateVars,
+  useOpponentBoardStateStore,
+} from '../../domain/state/boardState/boardStateStore';
+import { usePlayerNameStore } from '../../domain/state/playerNameStore';
+import { useOpponentGame, usePlayerGame } from '../../hooks/useGame';
 
-export const MultiplayerGame = () => {
+interface MultiplayerGameProps {
+  isRemote?: boolean;
+}
+
+export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
   const { progress } = useGameStateStore();
   const { progress: opponentProgress } = useOpponentGameStateStore();
+  const { playerName } = usePlayerNameStore();
+  const { startGame: startPlayerGame } = usePlayerGame();
+  const { startGame: startOpponentGame } = useOpponentGame();
+  // const [_, setOpponentName] = useState('');
+  const [opponentDisconnected, setOpponentDisconnected] = useState(false);
+
+  const {
+    isConnected,
+    emitGameChallenge,
+    registerGameStartHandler,
+    registerGameStateHandler,
+    registerGameDisconnectHandler,
+    removeGameHandlers,
+  } = useWebsocketStore();
+  const { applyState } = useOpponentBoardStateStore();
+
+  useEffect(() => {
+    if (!isRemote || !isConnected) return;
+
+    emitGameChallenge(playerName);
+
+    registerGameStartHandler((opponentName: string) => {
+      console.log('Starting!');
+      console.log(opponentName);
+
+      // setOpponentName(opponentName);
+      startPlayerGame();
+      startOpponentGame();
+    });
+
+    registerGameStateHandler((state: Partial<BoardStateVars>) => {
+      console.log('Applying state');
+      applyState(state);
+    });
+
+    registerGameDisconnectHandler(() => {
+      console.log('Opponent disconnected');
+      setOpponentDisconnected(true);
+    });
+
+    return () => {
+      removeGameHandlers();
+    };
+  }, []);
 
   return (
     <>
@@ -32,7 +87,8 @@ export const MultiplayerGame = () => {
             {opponentProgress === GameProgressStates.paused && (
               <Pause isOpponent={true} />
             )}
-            {opponentProgress === GameProgressStates.ended && (
+            {(opponentDisconnected ||
+              opponentProgress === GameProgressStates.ended) && (
               <End isOpponent={true} />
             )}
           </div>

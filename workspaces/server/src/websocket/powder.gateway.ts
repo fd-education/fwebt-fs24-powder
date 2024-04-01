@@ -19,7 +19,7 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   connectedPlayers = new Map<string, Player>();
   playerPairs = new Map<string, string>();
-  waiting = new Array<string>();
+  waiting: Player = null;
 
   async handleConnection(client: Socket): Promise<any> {
     console.log(
@@ -40,6 +40,10 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
       this.playerPairs.delete(opponentId);
     }
 
+    if (this.waiting && this.waiting.socket.id === client.id) {
+      this.waiting === null;
+    }
+
     if (this.connectedPlayers.has(opponentId)) {
       this.connectedPlayers
         .get(opponentId)
@@ -52,18 +56,20 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @ConnectedSocket() client: Socket,
     @MessageBody() playerName: string,
   ) {
+    console.log(`Challenge from ${client.id}`);
     const player = this.connectedPlayers.get(client.id);
     player.name = playerName;
     this.connectedPlayers.set(client.id, player);
 
-    if (this.waiting.length === 0) {
-      this.waiting.push(client.id);
+    if (!this.waiting) {
+      this.waiting = new Player(client);
     } else {
-      const opponentId = this.waiting.pop();
-      const opponent = this.connectedPlayers.get(opponentId);
+      this.playerPairs.set(this.waiting.socket.id, client.id);
+      this.playerPairs.set(client.id, this.waiting.socket.id);
 
-      opponent.socket.emit(MultiplayerEvents.START, playerName);
-      client.emit(MultiplayerEvents.START, opponent.name);
+      this.waiting.socket.emit(MultiplayerEvents.START, playerName);
+      client.emit(MultiplayerEvents.START, this.waiting.name);
+      this.waiting = null;
     }
   }
 

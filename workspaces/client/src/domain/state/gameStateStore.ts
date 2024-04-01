@@ -48,7 +48,7 @@ const gameStateStoreDefinition = (
           : getNextProgressStep(state.progress, GameActions.end_game),
       }));
     },
-    initialiseGame: () => set({ progress: GameProgressStates.initial }),
+    initialiseGame: () => set({ progress: GameProgressStates.initial })
   }) as GameState;
 
 export const useGameStateStore = create<GameState>(gameStateStoreDefinition);

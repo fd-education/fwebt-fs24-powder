@@ -39,7 +39,6 @@ export const GamePage = () => {
         setIsMultiplayerGame(true);
         clearPlayerScores();
         clearOpponentScores();
-        startPlayerGame();
         break;
     }
   }, []);
@@ -47,7 +46,9 @@ export const GamePage = () => {
   return (
     <div className='relative h-full w-full flex justify-center gap-16'>
       {!isMultiplayerGame && <SinglePlayerGame />}
-      {isMultiplayerGame && <MultiplayerGame />}
+      {isMultiplayerGame && (
+        <MultiplayerGame isRemote={gameMode === GameMode.REMOTE_MULTI} />
+      )}
     </div>
   );
 };
