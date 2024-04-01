@@ -35,7 +35,7 @@ const useGame = (
   gameStateStore: GameState,
   keyMap: KeyMap
 ) => {
-  const { incScore } = scoreStore;
+  const { incScore, getScore } = scoreStore;
   const { startGame: start, progress, endGame } = gameStateStore;
   const {
     renderedBoard,
@@ -54,7 +54,7 @@ const useGame = (
     nextRound,
     getState
   } = boardStateStore;
-  const {emitBoardState} = useWebsocketStore();
+  const {emitBoardState, emitGameScore} = useWebsocketStore();
 
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
   const [isRemote, setIsRemote] = useState(false);
@@ -90,6 +90,7 @@ const useGame = (
       const removed = settleBlock();
       const reward = removed.reduce((a, b) => a + calculateReward(b), 0);
       incScore(removed.length, reward);
+      emitGameScore(getScore());
 
       const hasLost = nextRound(0, renderedBoard);
       if(isRemote) emitBoardState(getState());

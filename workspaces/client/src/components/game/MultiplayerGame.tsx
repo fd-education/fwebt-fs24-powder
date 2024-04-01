@@ -18,6 +18,10 @@ import {
 } from '../../domain/state/boardState/boardStateStore';
 import { usePlayerNameStore } from '../../domain/state/playerNameStore';
 import { usePlayerGame, useRemoteOpponentGame } from '../../hooks/useGame';
+import {
+  ScoreState,
+  useOpponentScoreStore,
+} from '../../domain/state/scoreStore';
 
 interface MultiplayerGameProps {
   isRemote?: boolean;
@@ -38,9 +42,11 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
     registerGameStartHandler,
     registerGameStateHandler,
     registerGameDisconnectHandler,
+    registerGameScoreHandler,
     removeGameHandlers,
   } = useWebsocketStore();
   const { applyState } = useOpponentBoardStateStore();
+  const { applyScore } = useOpponentScoreStore();
 
   useEffect(() => {
     if (!isRemote || !isConnected) return;
@@ -57,7 +63,7 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
     });
 
     registerGameStateHandler((state: Partial<BoardStateVars>) => {
-      console.log('Applying state');
+      console.log('Applying game state');
       applyState(state);
     });
 
@@ -65,6 +71,11 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
       console.log('Opponent disconnected');
       setOpponentDisconnected(true);
     });
+
+    registerGameScoreHandler((score: Partial<ScoreState>) => {
+      console.log('Applying game score');
+      applyScore(score)
+    })
 
     return () => {
       removeGameHandlers();

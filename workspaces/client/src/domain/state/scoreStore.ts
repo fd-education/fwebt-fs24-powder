@@ -9,6 +9,8 @@ export interface ScoreState extends ScoreStateVals {
   opponentLines: number;
   incScore: (lines: number, score: number) => void;
   clearScores: () => void;
+  getScore: () => ScoreState;
+  applyScore: (score: Partial<ScoreState>) => void;
 }
 
 const initialState: ScoreStateVals = {
@@ -23,7 +25,8 @@ const scoreStoreDefinition = (
       | Partial<ScoreState>
       | ((state: ScoreState) => ScoreState | Partial<ScoreState>),
     replace?: boolean | undefined
-  ) => void
+  ) => void,
+  get: () => ScoreState
 ) =>
   ({
     ...initialState,
@@ -32,6 +35,10 @@ const scoreStoreDefinition = (
     },
     clearScores: () => {
       set(() => initialState);
+    },
+    getScore: () => get(),
+    applyScore: (score: Partial<ScoreState>) => {
+      set(() => score);
     },
   }) as ScoreState;
 

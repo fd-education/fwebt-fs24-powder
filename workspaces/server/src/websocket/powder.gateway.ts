@@ -85,4 +85,17 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
       .get(opponentId)
       .socket.emit(MultiplayerEvents.UPDATE, state);
   }
+
+  @SubscribeMessage(MultiplayerEvents.SCORE)
+  async handleMultiplayerScoreUpdate(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() score: any,
+  ) {
+    const opponentId = this.playerPairs.get(client.id);
+    if (!opponentId) return;
+
+    this.connectedPlayers
+      .get(opponentId)
+      .socket.emit(MultiplayerEvents.SCORE, score);
+  }
 }

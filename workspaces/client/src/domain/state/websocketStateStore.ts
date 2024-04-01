@@ -2,6 +2,7 @@ import { Socket, io } from 'socket.io-client';
 import { create } from 'zustand';
 import { BoardStateVars } from './boardState/boardStateStore';
 import { ChatEvents, MultiplayerEvents } from '@powder/common';
+import { ScoreState } from './scoreStore';
 
 interface WebsocketState {
   isConnected: boolean;
@@ -9,12 +10,14 @@ interface WebsocketState {
   open: () => void;
   close: () => void;
   emitChatMessage: (text: string) => void;
+  registerChatHandler: (handler: (text: string) => void) => void;
   emitGameChallenge: (playername: string) => void,
   emitBoardState: (state: Partial<BoardStateVars>) => void;
-  registerChatHandler: (handler: (text: string) => void) => void;
+  emitGameScore: (score: Partial<ScoreState>) => void;
   registerGameStartHandler: (handler: (playerName: string) => void) => void;
   registerGameStateHandler: (handler: (state: Partial<BoardStateVars>) => void) => void;
   registerGameDisconnectHandler: (handler: () => void) => void;
+  registerGameScoreHandler: (handler: (score: Partial<ScoreState>) => void) => void;
   removeGameHandlers: () => void;
   removeChatHandler: () => void;
 }
@@ -69,6 +72,11 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
 
     get().socket.emit(MultiplayerEvents.UPDATE, state);
   },
+  emitGameScore: (score: Partial<ScoreState>) => {
+    if(!get().isConnected) return;
+
+    get().socket.emit(MultiplayerEvents.SCORE, score);
+  },
   registerChatHandler: (handler: (text: string) => void) => {
     if (!get().isConnected) return;
 
@@ -88,6 +96,11 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
     if (!get().isConnected) return;
 
     get().socket.on(MultiplayerEvents.DISCONNECT, () => handler());
+  },
+  registerGameScoreHandler: (handler: (score: Partial<ScoreState>) => void) => {
+    if (!get().isConnected) return;
+
+    get().socket.on(MultiplayerEvents.SCORE, (score: Partial<ScoreState>) => handler(score));
   },
   removeGameHandlers: () => {
     if (!get().isConnected) return;
