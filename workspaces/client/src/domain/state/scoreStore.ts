@@ -7,12 +7,9 @@ interface ScoreStateVals {
 export interface ScoreState extends ScoreStateVals {
   opponentScore: number;
   opponentLines: number;
-  incScore: IncFunction;
-  incLines: IncFunction;
+  incScore: (lines: number, score: number) => void;
   clearScores: () => void;
 }
-
-type IncFunction = (inc: number) => void;
 
 const initialState: ScoreStateVals = {
   score: 0,
@@ -30,11 +27,8 @@ const scoreStoreDefinition = (
 ) =>
   ({
     ...initialState,
-    incScore: (inc) => {
-      set((state) => ({ score: state.score + inc }));
-    },
-    incLines: (inc) => {
-      set((state) => ({ lines: state.lines + inc }));
+    incScore: (incLines: number, incScore: number) => {
+      set((state) => ({ lines: state.lines + incLines, score: state.score + incScore }));
     },
     clearScores: () => {
       set(() => initialState);

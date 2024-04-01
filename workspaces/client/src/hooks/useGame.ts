@@ -35,7 +35,7 @@ const useGame = (
   gameStateStore: GameState,
   keyMap: KeyMap
 ) => {
-  const { incScore, incLines } = scoreStore;
+  const { incScore } = scoreStore;
   const { startGame: start, progress, endGame } = gameStateStore;
   const {
     renderedBoard,
@@ -66,7 +66,7 @@ const useGame = (
       setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
       initializeBoard();
     };
-    
+
     start();
   }, [start]);
 
@@ -89,8 +89,7 @@ const useGame = (
 
       const removed = settleBlock();
       const reward = removed.reduce((a, b) => a + calculateReward(b), 0);
-      incScore(reward);
-      incLines(removed.length);
+      incScore(removed.length, reward);
 
       const hasLost = nextRound(0, renderedBoard);
       if(isRemote) emitBoardState(getState());
