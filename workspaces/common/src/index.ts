@@ -12,6 +12,13 @@ export type ScoreboardResponse = {
   ranking: ScoreResponse[]
 };
 
+export type ChatMessage = {
+  session: string;
+  name: string;
+  timestamp: string;
+  text: string;
+}
+
 export enum Stage{
   PROD = 'prod',
   TEST = 'test',
@@ -30,6 +37,6 @@ export enum MultiplayerEvents{
 }
 
 export enum ChatEvents{
-  RECEIVE = 'chat_receive',
-  SEND = 'chat_send'
+  CHAT_MESSAGE = 'chat_message',
 }
+
