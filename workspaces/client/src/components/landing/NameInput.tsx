@@ -3,9 +3,10 @@ import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
 import { useNavigate } from 'react-router-dom';
 import { usePlayerStore } from '../../domain/state/playerNameStore';
+import { v4 as uuidv4 } from 'uuid';
 
 export const NameInput = () => {
-  const { setPlayerName } = usePlayerStore();
+  const { setPlayerName, setSessionId } = usePlayerStore();
   const [name, setName] = useState<string>('');
 
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const NameInput = () => {
       return;
     }
 
+    setSessionId(uuidv4());
     setPlayerName(name);
     navigate('/lobby');
   };
