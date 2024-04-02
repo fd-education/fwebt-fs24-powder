@@ -1,10 +1,8 @@
 import { Board } from '@/src/components/game/board/Board';
 import { powderConfig } from '@/src/domain/config/PowderConfig';
 import { GameProgressStates } from '@/src/domain/game/gameProgress';
-import {
-  getEmptyBoard,
-  useBoardStateStore,
-} from '@/src/domain/state/boardStateStore';
+import { useBoardStateStore } from '@/src/domain/state/boardState/boardStateStore';
+import { getEmptyBoard } from '@/src/domain/state/boardState/boardStateUtils';
 import { useGameStateStore } from '@/src/domain/state/gameStateStore';
 import { render, screen } from '@testing-library/react';
 import React from 'react';

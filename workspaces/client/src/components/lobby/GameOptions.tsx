@@ -3,6 +3,7 @@ import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
 import { PowderButton } from '../util/PowderButton';
 import { useNavigate } from 'react-router-dom';
+import { GameMode } from '../../domain/enums/GameMode';
 
 export const GameOptions = () => {
   const navigate = useNavigate();
@@ -12,7 +13,10 @@ export const GameOptions = () => {
       <div className='space-y-8'>
         <div className='flex flex-col items-center space-y-2'>
           <PanelHeading text='Singleplayer' />
-          <PowderButton text='play' clickHandler={() => navigate('/game')} />
+          <PowderButton
+            text='play'
+            clickHandler={() => navigate(`/game?mode=${GameMode.SINGLE}`)}
+          />
         </div>
         <div className='flex flex-col items-center space-y-2'>
           <PanelHeading text='Multiplayer' />
@@ -20,13 +24,13 @@ export const GameOptions = () => {
             <PowderButton
               text='local'
               clickHandler={() =>
-                console.warn('Local multiplayer to be implemented')
+                navigate(`/game?mode=${GameMode.LOCAL_MULTI}`)
               }
             />
             <PowderButton
               text='remote'
               clickHandler={() =>
-                console.warn('Remote multiplayer to be implemented')
+                navigate(`/game?mode=${GameMode.REMOTE_MULTI}`)
               }
             />
           </div>

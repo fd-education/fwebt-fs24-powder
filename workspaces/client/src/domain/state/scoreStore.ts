@@ -1,42 +1,49 @@
 import { create } from 'zustand';
 
-interface ScoreState {
-  playerScore: number;
-  playerLines: number;
+interface ScoreStateVals {
+  score: number;
+  lines: number;
+}
+export interface ScoreState extends ScoreStateVals {
   opponentScore: number;
   opponentLines: number;
-  incPlayerScore: IncFunction;
-  incPlayerLines: IncFunction;
-  incOpponentScore: IncFunction;
-  incOpponentLines: IncFunction;
+  incScore: (lines: number, score: number) => void;
   clearScores: () => void;
+  getScore: () => ScoreState;
+  applyScore: (score: Partial<ScoreState>) => void;
 }
 
-type IncFunction = (inc: number) => void;
+const initialState: ScoreStateVals = {
+  score: 0,
+  lines: 0,
+};
 
-export const useScoreStore = create<ScoreState>()((set) => ({
-  playerScore: 0,
-  playerLines: 0,
-  opponentScore: 0,
-  opponentLines: 0,
-  incPlayerScore: (inc) => {
-    set((state) => ({ playerScore: state.playerScore + inc }));
-  },
-  incPlayerLines: (inc) => {
-    set((state) => ({ playerLines: state.playerLines + inc }));
-  },
-  incOpponentScore: (inc) => {
-    set((state) => ({ opponentScore: state.opponentScore + inc }));
-  },
-  incOpponentLines: (inc) => {
-    set((state) => ({ opponentLines: state.opponentLines + inc }));
-  },
-  clearScores: () => {
-    set(() => ({
-      playerScore: 0,
-      playerLines: 0,
-      opponentScore: 0,
-      opponentLines: 0,
-    }));
-  },
-}));
+const scoreStoreDefinition = (
+  set: (
+    partial:
+      | ScoreState
+      | Partial<ScoreState>
+      | ((state: ScoreState) => ScoreState | Partial<ScoreState>),
+    replace?: boolean | undefined
+  ) => void,
+  get: () => ScoreState
+) =>
+  ({
+    ...initialState,
+    incScore: (incLines: number, incScore: number) => {
+      set((state) => ({
+        lines: state.lines + incLines,
+        score: state.score + incScore,
+      }));
+    },
+    clearScores: () => {
+      set(() => initialState);
+    },
+    getScore: () => get(),
+    applyScore: (score: Partial<ScoreState>) => {
+      set(() => score);
+    },
+  }) as ScoreState;
+
+export const usePlayerScoreStore = create<ScoreState>(scoreStoreDefinition);
+export const useOpponentScoreStore = create<ScoreState>(scoreStoreDefinition);

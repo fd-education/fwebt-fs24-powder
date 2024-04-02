@@ -1,26 +1,26 @@
 import React from 'react';
 import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
-import { useScoreStore } from '../../domain/state/scoreStore';
+import { usePlayerScoreStore } from '../../domain/state/scoreStore';
 import { NumberDisplay } from './score/NumberDisplay';
 import { BackHomeButton } from './BackHomeButton';
 
 export const Lost = () => {
-  const { playerScore, playerLines } = useScoreStore();
+  const { score, lines } = usePlayerScoreStore();
 
   return (
-    <div className='h-full w-full fixed top-0 left-0  bg-primary-light-trans7 dark:bg-primary-dark-trans7 flex items-center justify-center'>
+    <div className='h-fit w-fit absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-20'>
       <Panel transparent={false} width='w-fit'>
         <div className='flex flex-col items-center space-y-8'>
           <PanelHeading text='you lost! :(' />
           <div className='flex space-x-12'>
             <div>
               <PanelHeading text='Score' />
-              <NumberDisplay number={playerScore} />
+              <NumberDisplay number={score} />
             </div>
             <div>
               <PanelHeading text='Lines' />
-              <NumberDisplay number={playerLines} />
+              <NumberDisplay number={lines} />
             </div>
           </div>
           <BackHomeButton />

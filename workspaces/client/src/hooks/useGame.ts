@@ -1,15 +1,42 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from './useInterval';
 import { powderConfig } from '../domain/config/PowderConfig';
-import { useScoreStore } from '../domain/state/scoreStore';
-import { useGameStateStore } from '../domain/state/gameStateStore';
-import { useBoardStateStore } from '../domain/state/boardStateStore';
+import {
+  ScoreState,
+  useOpponentScoreStore,
+  usePlayerScoreStore,
+} from '../domain/state/scoreStore';
+import {
+  GameState,
+  useGameStateStore,
+  useOpponentGameStateStore,
+} from '../domain/state/gameStateStore';
+import {
+  BoardState,
+  useBoardStateStore,
+  useOpponentBoardStateStore,
+} from '../domain/state/boardState/boardStateStore';
 import { checkCollisions } from '../domain/game/blockPhysics';
 import { GameProgressStates } from '../domain/game/gameProgress';
+import { KeyMap, opponentKeyMap, playerKeyMap } from '../domain/game/keyMaps';
+import { useWebsocketStore } from '../domain/state/websocketStateStore';
 
-export const useGame = () => {
-  const { incPlayerScore, incPlayerLines } = useScoreStore();
-  const { startGame: start, progress, endGame } = useGameStateStore();
+const {
+  DESINTEGRATION,
+  BASE_STANDARD_LOOP_SPEED,
+  BASE_COLLISION_LOOP_SPEED,
+  BASE_FASTDROP_LOOP_SPEED,
+} = powderConfig;
+
+const useGame = (
+  isRemoteOpponent: boolean,
+  boardStateStore: BoardState,
+  scoreStore: ScoreState,
+  gameStateStore: GameState,
+  keyMap: KeyMap
+) => {
+  const { incScore, getScore } = scoreStore;
+  const { startGame: start, progress, endGame } = gameStateStore;
   const {
     renderedBoard,
     shape,
@@ -25,23 +52,31 @@ export const useGame = () => {
     rotateBlock,
     settleBlock,
     nextRound,
-  } = useBoardStateStore();
+    getState,
+  } = boardStateStore;
+  const { emitBoardState, emitGameScore, emitGameProgress } =
+    useWebsocketStore();
 
   const [loopSpeed, setLoopSpeed] = useState<number | null>(null);
-  const {
-    DESINTEGRATION,
-    BASE_STANDARD_LOOP_SPEED,
-    BASE_COLLISION_LOOP_SPEED,
-    BASE_FASTDROP_LOOP_SPEED,
-  } = powderConfig;
+  const [isRemote, setIsRemote] = useState(false);
 
-  const startGame = useCallback(() => {
-    setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
-    initializeBoard();
-    start();
-  }, [start]);
+  const startGame = useCallback(
+    (isRemote?: boolean) => {
+      setIsRemote(isRemote);
+
+      if (!isRemoteOpponent) {
+        setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
+        initializeBoard();
+      }
+
+      start();
+    },
+    [start]
+  );
 
   const gameLoop = useCallback(() => {
+    if (isRemoteOpponent) return;
+
     if (isSettling) {
       if (
         !checkCollisions(
@@ -58,11 +93,16 @@ export const useGame = () => {
 
       const removed = settleBlock();
       const reward = removed.reduce((a, b) => a + calculateReward(b), 0);
-      incPlayerScore(reward);
-      incPlayerLines(removed.length);
+      incScore(removed.length, reward);
+      emitGameScore(getScore());
 
       const hasLost = nextRound(0, renderedBoard);
-      if (hasLost) endGame(true);
+      if (isRemote) emitBoardState(getState());
+
+      if (hasLost) {
+        if (isRemote) emitGameProgress(GameProgressStates.lost);
+        endGame(true);
+      }
 
       setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
       setIsSettling(false);
@@ -71,6 +111,7 @@ export const useGame = () => {
       setLoopSpeed(BASE_COLLISION_LOOP_SPEED / DESINTEGRATION);
     } else {
       dropBlock();
+      if (isRemote) emitBoardState(getState());
     }
   }, [loopSpeed, isSettling, hasCollision]);
 
@@ -86,16 +127,16 @@ export const useGame = () => {
       if (progress !== GameProgressStates.started || e.repeat) return;
 
       switch (e.key) {
-        case 'ArrowDown':
+        case keyMap.accelerate:
           setLoopSpeed(BASE_FASTDROP_LOOP_SPEED / DESINTEGRATION);
           break;
-        case 'ArrowUp':
+        case keyMap.rotate:
           rotateBlock();
           break;
-        case 'ArrowRight':
+        case keyMap.moveRight:
           moveBlockRight();
           break;
-        case 'ArrowLeft':
+        case keyMap.moveLeft:
           moveBlockLeft();
           break;
       }
@@ -105,7 +146,7 @@ export const useGame = () => {
       if (progress !== GameProgressStates.started || e.repeat) return;
 
       switch (e.key) {
-        case 'ArrowDown':
+        case keyMap.accelerate:
           setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
           break;
       }
@@ -139,3 +180,30 @@ const calculateReward = (removed: number): number => {
     return removed;
   }
 };
+
+export const usePlayerGame = () =>
+  useGame(
+    false,
+    useBoardStateStore(),
+    usePlayerScoreStore(),
+    useGameStateStore(),
+    playerKeyMap
+  );
+
+export const useLocalOpponentGame = () =>
+  useGame(
+    false,
+    useOpponentBoardStateStore(),
+    useOpponentScoreStore(),
+    useOpponentGameStateStore(),
+    opponentKeyMap
+  );
+
+export const useRemoteOpponentGame = () =>
+  useGame(
+    true,
+    useOpponentBoardStateStore(),
+    useOpponentScoreStore(),
+    useOpponentGameStateStore(),
+    opponentKeyMap
+  );

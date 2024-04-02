@@ -33,7 +33,8 @@
         "firsttris.vscode-jest-runner"
       ]
     }
-  }
+  },
+  "forwardPorts": [3000]
   // Uncomment to connect as root instead.
   // "remoteUser": "root"
 }

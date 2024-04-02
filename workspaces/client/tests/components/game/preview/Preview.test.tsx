@@ -1,10 +1,10 @@
 import { Preview } from '@/src/components/game/preview/Preview';
 import { GameProgressStates } from '@/src/domain/game/gameProgress';
+import { useBoardStateStore } from '@/src/domain/state/boardState/boardStateStore';
 import {
   getPreviewBlocks,
   getRandomBlock,
-  useBoardStateStore,
-} from '@/src/domain/state/boardStateStore';
+} from '@/src/domain/state/boardState/boardStateUtils';
 import { useGameStateStore } from '@/src/domain/state/gameStateStore';
 import { render, screen } from '@testing-library/react';
 import React from 'react';

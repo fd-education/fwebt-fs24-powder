@@ -3,10 +3,12 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { usePlayerNameStore } from '../domain/state/playerNameStore';
 import { useScreenModeStore } from '../domain/state/screenModeStore';
 import { ScreenMode } from '../domain/enums/ScreenMode';
+import { useWebsocketStore } from '../domain/state/websocketStateStore';
 
 export const RootPage = () => {
   const { playerName } = usePlayerNameStore();
   const { screenMode } = useScreenModeStore();
+  const { open, close, isConnected } = useWebsocketStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,11 +18,19 @@ export const RootPage = () => {
       document.documentElement.classList.remove('dark');
     }
 
+    if (!isConnected) {
+      open();
+    }
+
     if (playerName) {
       navigate('/lobby');
     } else {
       navigate('/landing');
     }
+
+    return () => {
+      close();
+    };
   }, []);
 
   return (
