@@ -47,6 +47,6 @@ describe('GameOptions component: interface & behaviour', () => {
     render(<RouterProvider router={testRouter} />);
 
     await userEvent.click(await screen.findByText('play'));
-    expect(mockedUseNavigate).toHaveBeenCalledWith('/game');
+    expect(mockedUseNavigate).toHaveBeenCalledWith('/game?mode=singleplayer');
   });
 });
