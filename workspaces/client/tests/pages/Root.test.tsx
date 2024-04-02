@@ -9,12 +9,19 @@ import {
 import { ScreenMode } from '@/src/domain/enums/ScreenMode';
 import { useScreenModeStore } from '@/src/domain/state/screenModeStore';
 import { usePlayerNameStore } from '@/src/domain/state/playerNameStore';
+import { useWebsocketStore } from '@/src/domain/state/websocketStateStore';
 
 const mockedUseNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUseNavigate,
 }));
+
+useWebsocketStore.setState({
+  open: jest.fn(),
+  close: jest.fn(),
+  isConnected: true,
+});
 
 describe('Root page: interface & behaviour', () => {
   let testRouter: any = null;
