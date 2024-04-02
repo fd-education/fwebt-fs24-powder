@@ -1,4 +1,4 @@
-import { usePlayerNameStore } from '../../domain/state/playerNameStore';
+import { usePlayerStore } from '../../domain/state/playerNameStore';
 import {
   useOpponentScoreStore,
   usePlayerScoreStore,
@@ -17,7 +17,7 @@ export const PlayerLost = ({ isOpponent = false }: PlayerLostProps) => {
   const { score, lines } = isOpponent
     ? useOpponentScoreStore()
     : usePlayerScoreStore();
-  const { playerName } = usePlayerNameStore();
+  const { playerName } = usePlayerStore();
 
   return (
     <div className='w-fit h-fit absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex items-center justify-center z-20'>

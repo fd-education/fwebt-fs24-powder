@@ -15,7 +15,7 @@ export type ScoreboardResponse = {
 export type ChatMessage = {
   session: string;
   name: string;
-  timestamp: string;
+  timestamp: number;
   text: string;
 }
 

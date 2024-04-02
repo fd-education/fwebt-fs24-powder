@@ -7,7 +7,12 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { MultiplayerEvents, PowderNamespace } from '@powder/common';
+import {
+  ChatEvents,
+  ChatMessage,
+  MultiplayerEvents,
+  PowderNamespace,
+} from '@powder/common';
 import { Server, Socket } from 'socket.io';
 import { Player } from 'src/domain/player/player';
 
@@ -110,5 +115,12 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.connectedPlayers
       .get(opponentId)
       .socket.emit(MultiplayerEvents.PROGRESS, progress);
+  }
+
+  @SubscribeMessage(ChatEvents.CHAT_MESSAGE)
+  async handleChatMessage(@MessageBody() message: ChatMessage) {
+    console.log('Received Message: ', message);
+
+    this.server.emit(ChatEvents.CHAT_MESSAGE, message);
   }
 }

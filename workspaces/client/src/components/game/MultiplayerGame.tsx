@@ -19,7 +19,7 @@ import {
   BoardStateVars,
   useOpponentBoardStateStore,
 } from '../../domain/state/boardState/boardStateStore';
-import { usePlayerNameStore } from '../../domain/state/playerNameStore';
+import { usePlayerStore } from '../../domain/state/playerNameStore';
 import { usePlayerGame, useRemoteOpponentGame } from '../../hooks/useGame';
 import {
   ScoreState,
@@ -33,7 +33,7 @@ interface MultiplayerGameProps {
 export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
   const { progress } = useGameStateStore();
   const { progress: opponentProgress } = useOpponentGameStateStore();
-  const { playerName } = usePlayerNameStore();
+  const { playerName } = usePlayerStore();
   const { startGame: startPlayerGame } = usePlayerGame();
   const { startGame: startRemoteOpponentGame } = useRemoteOpponentGame();
   // const [_, setOpponentName] = useState('');

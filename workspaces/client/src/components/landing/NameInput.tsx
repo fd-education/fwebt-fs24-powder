@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
 import { useNavigate } from 'react-router-dom';
-import { usePlayerNameStore } from '../../domain/state/playerNameStore';
+import { usePlayerStore } from '../../domain/state/playerNameStore';
 
 export const NameInput = () => {
-  const { setPlayerName } = usePlayerNameStore();
+  const { setPlayerName } = usePlayerStore();
   const [name, setName] = useState<string>('');
 
   const navigate = useNavigate();
