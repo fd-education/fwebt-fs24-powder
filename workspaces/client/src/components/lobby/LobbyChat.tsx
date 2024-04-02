@@ -15,18 +15,14 @@ export const LobbyChat = () => {
   const [messages, setMessages] = useState<Array<ChatMessage>>([]);
 
   useEffect(() => {
-    registerChatHandler((message: ChatMessage) => {
-      console.log('Got Message: ', message)
-
-      messages ?
-      setMessages([message, ...messages])
-      : setMessages([message]);
+    registerChatHandler((msg: ChatMessage) => {
+      messages?.length > 0 ? setMessages([msg, ...messages]) : setMessages([msg]);
     })
 
     return () => {
       removeChatHandler();
     };
-  }, [isConnected]);
+  }, [isConnected, messages]);
 
   const sendMessage = () => {
     if (message === '') return;
@@ -37,6 +33,8 @@ export const LobbyChat = () => {
       text: message,
       timestamp: Date.now(),
     });
+
+    setMessage('');
   };
 
   const handleKeypress = (event: KeyboardEvent) => {
