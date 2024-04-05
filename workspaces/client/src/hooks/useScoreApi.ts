@@ -18,7 +18,9 @@ export const useScoreApi = () => {
     };
     const url = `${SERVER_URL}/${SCORE_ENDPOINT}`;
 
-    postRequest<ScoreRequest, ScoreResponse>(url, payload);
+    // mit dem "void"-Operator kannst du das Promise explizit "ignorieren"
+    // -> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void#description
+    void postRequest<ScoreRequest, ScoreResponse>(url, payload);
   };
 
   const postRequest = async <T, P>(url: string, payload: T): Promise<P> => {
@@ -38,6 +40,7 @@ export const useScoreApi = () => {
   };
 
   return {
+    // Das Promise (ursprünglich von postRequest) ignorierst du hier -> Fehlerbehandlung?
     saveScore,
   };
 };

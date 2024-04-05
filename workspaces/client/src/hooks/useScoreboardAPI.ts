@@ -1,3 +1,4 @@
+// Achtung mit Dateinamen: Mac ist da etwas sensitiv und "API" != "Api"
 import { useEffect, useState } from 'react';
 import { powderConfig } from '../domain/config/PowderConfig';
 import { usePlayerNameStore } from '../domain/state/playerNameStore';

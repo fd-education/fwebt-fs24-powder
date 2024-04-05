@@ -1,5 +1,9 @@
 import React from 'react';
-import { SettingsGroup } from '../components/settings/SettingsGroup';
+// Tipp: in der tsconfig.json ist ein "paths"-Eintrag vorhanden, damit du Imports mit '@' beginnen kannst.
+// Dabei beginnt der Import in dem in tsconfig.json konfigurierten Ordner (hier "./src/")
+// -> viel weniger relative Pfade.
+// -> WebStorm kann dies mit Alt+Enter und "Change to '@...'" korrigieren
+import { SettingsGroup } from '@/src/components/settings/SettingsGroup';
 import { Scoreboard } from '../components/lobby/scoreboard/Scoreboard';
 import { LobbyChat } from '../components/lobby/LobbyChat';
 import { GameOptions } from '../components/lobby/GameOptions';
