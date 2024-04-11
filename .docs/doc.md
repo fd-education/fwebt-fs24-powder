@@ -56,7 +56,7 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
       - [4.1.2 NFA-002 Persistenz](#412-nfa-002-persistenz)
     - [4.2 KANN-Anforderungen](#42-kann-anforderungen)
       - [4.2.1 NFA-003 Internationalisierung](#421-nfa-003-internationalisierung)
-    - [4.2.2 NFA-004 Light-/ Dark-Mode](#422-nfa-004-light--dark-mode)
+      - [4.2.2 NFA-004 Light-/ Dark-Mode](#422-nfa-004-light--dark-mode)
   - [5 Planung](#5-planung)
     - [5.1 Prototypen](#51-prototypen)
       - [5.1.1 Landing Page](#511-landing-page)
@@ -70,6 +70,8 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
       - [5.2.3 Protokolle](#523-protokolle)
         - [5.2.3.1 Score-API](#5231-score-api)
         - [5.2.3.2 Scoreboard-API](#5232-scoreboard-api)
+        - [5.2.3.3 Multiplayer Events](#5233-multiplayer-events)
+        - [5.2.3.4 Chat Events](#5234-chat-events)
 
 ---
 
@@ -1285,7 +1287,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     </tr>
 </table>
 
-### 4.2.2 NFA-004 Light-/ Dark-Mode
+#### 4.2.2 NFA-004 Light-/ Dark-Mode
 
 <table>
     <tr>
@@ -1465,3 +1467,90 @@ HTTP 500 - Internal Server Error
   "message": "Internal Server Error"
 }
 ```
+
+##### 5.2.3.3 Multiplayer Events
+
+**CHALLENGE**
+
+Event: CHALLENGE <br>
+Nachricht: < Name des Spielers > <br>
+
+Event für den Server, dass ein Spieler an einem Multiplayer-Spiel interessiert wäre. Die Nachricht besteht lediglich aus dem Namen des Spielers. Der Server verwendet den Namen und die ID des Websocket Clients, um entweder den Spieler in eine Warteschlange einzureihen oder direkt ein Multiplayer Spiel zu starten, falls bereits ein Spieler wartet.
+
+**START**
+
+Event: START <br>
+Nachricht: < leer >
+
+Event wird vom Server an Spieler versendet, welche ein Multiplayer Spiel starten wollen, damit die Spiele bei den Spielern gestartet werden. Der Inhalt der Nachricht ist leer.
+
+**UPDATE**
+
+Event: UPDATE <br>
+Nachricht: < Teil des Spielzustands der verändert wurde >
+
+Event wird zu jedem Spiel-Tick verschickt, um den Zustand des eigenen Spielfelds mit dem des Gegners zu synchronisieren. Der Inhalt der Nachricht besteht dabei lediglich aus den Veränderungen, damit nicht ständig der komplette Zustand ausgetauscht werden muss.
+
+**SCORE**
+
+Event: SCORE <br>
+Nachricht: < Score des Spielers >
+
+Event wird immer dann ausgelöst, wenn ein Stein auf dem Spielfeld fixiert wurde (wenn die Change auf ein Powdris besteht). Die Nachricht besteht aus dem aktuellen Punktestand und der Anzahl entfernter Segmente.
+
+**PROGRESS**
+
+Event: PROGRESS <br>
+Nachricht: < Fortschritt des Spiels >
+
+Event wird immer dann ausgelöst, wenn es zu einer Veränderung des Fortschritts des Spiels kommt, damit diese beim Gegner entsprechend gehandhabt werden kann. Die Nachricht besteht aus dem aktuellen Fortschritt.
+
+**DISCONNECT**
+
+Event: DISCONNECT <br>
+Nachricht: < leer >
+
+Event wird ausgelöst, wenn die Websocket-Verbindung eines Spielers aufgelöst wird, damit der Vorfall beim Gegenspieler entsprechend gehandhabt werden kann. Die Nachricht selbst ist leer.
+
+##### 5.2.3.4 Chat Events
+
+**CHAT_MESSAGE**
+
+Event: CHAT_MESSAGE <br>
+Nachricht: 
+```json
+{
+  "session": "< Uuid der aktuellen Sitzung >",
+  "name": "< Name des Absenders >",
+  "timestamp": "< Sendezeitpunkt der Nachricht >",
+  "text": "< Inhalt der Nachricht >"
+}
+```
+
+Event wird ausgelöst, wenn ein Spieler eine Nachricht verschickt. Der Websocket Server broadcastet alle Nachrichten. Nachrichten werden vom Server persistiert. Beim Besuch der Lobby Seite werden jeweils die letzten 150 Nachrichten angezeigt.
+
+Das session-Attribut der Nachricht dient einer besseren Unterscheidung von Clients, da der Spielername für sich nur unzureichende Einzigartigkeit garantiert.
+
+**CHAT_HISTORY**
+
+Event: CHAT_HISTORY <br>
+Nachricht:
+```json
+[
+  {
+    "session": "< Uuid der aktuellen Sitzung >",
+    "name": "< Name des Absenders >",
+    "timestamp": "< Sendezeitpunkt der Nachricht >",
+    "text": "< Inhalt der Nachricht >"
+  }, 
+  ...
+  ,{
+    "session": "< Uuid der aktuellen Sitzung >",
+    "name": "< Name des Absenders >",
+    "timestamp": "< Sendezeitpunkt der Nachricht >",
+    "text": "< Inhalt der Nachricht >"
+  }
+]
+```
+
+Nachricht wird ausgelöst, wenn sich ein Spieler neu mit dem Chat verbindet, damit die letzten 150 Nachrichten geladen werden können. So hat ein neuer Spieler einen Kontext der bisher ausgetauschten Nachrichten.
