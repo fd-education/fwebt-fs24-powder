@@ -8,17 +8,28 @@ import { usePlayerStore } from '../../domain/state/playerNameStore';
 import { SendIcon } from './chat/SendIcon';
 
 export const LobbyChat = () => {
-  const { isConnected, registerChatHandler, emitChatMessage, removeChatHandler } =
+  const { isConnected, registerChatHistoryHandler, registerChatHandler, emitChatHistory, emitChatMessage, removeChatHandler } =
     useWebsocketStore();
   const { sessionId, playerName } = usePlayerStore();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<ChatMessage>>([]);
 
   useEffect(() => {
+    registerChatHistoryHandler((msgs: ChatMessage[]) => {
+      msgs?.length > 0 ? setMessages(msgs) : setMessages([]);
+    });
+
+    return () => {
+      removeChatHandler();
+    };
+  }, [isConnected]);
+
+  useEffect(() => {
     registerChatHandler((msg: ChatMessage) => {
       messages?.length > 0 ? setMessages([msg, ...messages]) : setMessages([msg]);
-    })
+    });
 
+    emitChatHistory();
     return () => {
       removeChatHandler();
     };

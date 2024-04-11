@@ -14,6 +14,7 @@ import {
   PowderNamespace,
 } from '@powder/common';
 import { Server, Socket } from 'socket.io';
+import { ChatsService } from 'src/data/chats/chats.service';
 import { Player } from 'src/domain/player/player';
 
 @WebSocketGateway({
@@ -25,6 +26,8 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
   connectedPlayers = new Map<string, Player>();
   playerPairs = new Map<string, string>();
   waiting: Player = null;
+
+  constructor(private chatsService: ChatsService) {}
 
   async handleConnection(client: Socket): Promise<any> {
     console.log(
@@ -116,8 +119,16 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
       .socket.emit(MultiplayerEvents.PROGRESS, progress);
   }
 
+  @SubscribeMessage(ChatEvents.CHAT_HISTORY)
+  async handleChatHistory(@ConnectedSocket() client: Socket): Promise<void> {
+    const chatHistory = await this.chatsService.findAll();
+    client.emit(ChatEvents.CHAT_HISTORY, chatHistory);
+  }
+
   @SubscribeMessage(ChatEvents.CHAT_MESSAGE)
   async handleChatMessage(@MessageBody() message: ChatMessage) {
     this.server.emit(ChatEvents.CHAT_MESSAGE, message);
+
+    await this.chatsService.create(message);
   }
 }

@@ -38,5 +38,5 @@ export enum MultiplayerEvents{
 
 export enum ChatEvents{
   CHAT_MESSAGE = 'chat_message',
+  CHAT_HISTORY = 'chat_history'
 }
-

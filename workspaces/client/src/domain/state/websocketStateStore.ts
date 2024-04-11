@@ -10,7 +10,9 @@ interface WebsocketState {
   socket: Socket;
   open: () => void;
   close: () => void;
+  emitChatHistory: () => void;
   emitChatMessage: (message: ChatMessage) => void;
+  registerChatHistoryHandler: (handler: (messages: ChatMessage[]) => void) => void;
   registerChatHandler: (handler: (message: ChatMessage) => void) => void;
   emitGameChallenge: (playername: string) => void;
   emitBoardState: (state: Partial<BoardStateVars>) => void;
@@ -66,6 +68,11 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
       return {};
     });
   },
+  emitChatHistory: () => {
+    if (!get().isConnected) return;
+
+    get().socket.emit(ChatEvents.CHAT_HISTORY);
+  },
   emitChatMessage: (message: ChatMessage) => {
     if (!get().isConnected) return;
 
@@ -90,6 +97,11 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
     if (!get().isConnected) return;
 
     get().socket.emit(MultiplayerEvents.PROGRESS, progress);
+  },
+  registerChatHistoryHandler: (handler: (messages: ChatMessage[]) => void) => {
+    if (!get().isConnected) return;
+
+    get().socket.on(ChatEvents.CHAT_HISTORY, (messages: ChatMessage[]) => handler(messages));
   },
   registerChatHandler: (handler: (message: ChatMessage) => void) => {
     if (!get().isConnected) return;
@@ -143,5 +155,6 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
   },
   removeChatHandler: () => {
     get().socket.removeAllListeners(ChatEvents.CHAT_MESSAGE);
+    get().socket.removeAllListeners(ChatEvents.CHAT_HISTORY);
   },
 }));
