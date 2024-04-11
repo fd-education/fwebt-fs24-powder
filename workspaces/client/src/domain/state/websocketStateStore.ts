@@ -94,8 +94,6 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
   registerChatHandler: (handler: (message: ChatMessage) => void) => {
     if (!get().isConnected) return;
 
-    console.log('Register Chat Handler');
-
     get().socket.on(ChatEvents.CHAT_MESSAGE, (message: ChatMessage) => handler(message));
   },
   registerGameStartHandler: (handler: (playerName: string) => void) => {
