@@ -7,8 +7,14 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { MultiplayerEvents, PowderNamespace } from '@powder/common';
+import {
+  ChatEvents,
+  ChatMessage,
+  MultiplayerEvents,
+  PowderNamespace,
+} from '@powder/common';
 import { Server, Socket } from 'socket.io';
+import { ChatsService } from 'src/data/chats/chats.service';
 import { Player } from 'src/domain/player/player';
 
 @WebSocketGateway({
@@ -20,6 +26,8 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
   connectedPlayers = new Map<string, Player>();
   playerPairs = new Map<string, string>();
   waiting: Player = null;
+
+  constructor(private chatsService: ChatsService) {}
 
   async handleConnection(client: Socket): Promise<any> {
     console.log(
@@ -56,7 +64,6 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @ConnectedSocket() client: Socket,
     @MessageBody() playerName: string,
   ) {
-    console.log(`Challenge from ${client.id}`);
     const player = this.connectedPlayers.get(client.id);
     player.name = playerName;
     this.connectedPlayers.set(client.id, player);
@@ -110,5 +117,18 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.connectedPlayers
       .get(opponentId)
       .socket.emit(MultiplayerEvents.PROGRESS, progress);
+  }
+
+  @SubscribeMessage(ChatEvents.CHAT_HISTORY)
+  async handleChatHistory(@ConnectedSocket() client: Socket): Promise<void> {
+    const chatHistory = await this.chatsService.findAll();
+    client.emit(ChatEvents.CHAT_HISTORY, chatHistory);
+  }
+
+  @SubscribeMessage(ChatEvents.CHAT_MESSAGE)
+  async handleChatMessage(@MessageBody() message: ChatMessage) {
+    this.server.emit(ChatEvents.CHAT_MESSAGE, message);
+
+    await this.chatsService.create(message);
   }
 }

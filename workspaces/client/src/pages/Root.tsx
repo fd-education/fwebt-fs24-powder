@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { usePlayerNameStore } from '../domain/state/playerNameStore';
+import { usePlayerStore } from '../domain/state/playerNameStore';
 import { useScreenModeStore } from '../domain/state/screenModeStore';
 import { ScreenMode } from '../domain/enums/ScreenMode';
 import { useWebsocketStore } from '../domain/state/websocketStateStore';
 
 export const RootPage = () => {
-  const { playerName } = usePlayerNameStore();
+  const { playerName } = usePlayerStore();
   const { screenMode } = useScreenModeStore();
   const { open, close, isConnected } = useWebsocketStore();
   const navigate = useNavigate();

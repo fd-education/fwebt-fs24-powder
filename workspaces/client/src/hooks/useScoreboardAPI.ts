@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { powderConfig } from '../domain/config/PowderConfig';
-import { usePlayerNameStore } from '../domain/state/playerNameStore';
+import { usePlayerStore } from '../domain/state/playerNameStore';
 import { ScoreboardResponse } from '@powder/common';
 
 export const useScoreboardApi = () => {
@@ -9,7 +9,7 @@ export const useScoreboardApi = () => {
   const [error, setError] = useState('');
   const [data, setData] = useState<ScoreboardResponse>();
 
-  const { playerName } = usePlayerNameStore();
+  const { playerName } = usePlayerStore();
   const { SERVER_URL, SCOREBOARD_ENDPOINT } = powderConfig;
 
   useEffect(() => {

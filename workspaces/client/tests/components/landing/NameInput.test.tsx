@@ -1,5 +1,5 @@
 import { NameInput } from '@/src/components/landing/NameInput';
-import { usePlayerNameStore } from '@/src/domain/state/playerNameStore';
+import { usePlayerStore } from '@/src/domain/state/playerNameStore';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
@@ -33,7 +33,7 @@ describe('NameInput component: interface & behaviour', () => {
   });
 
   beforeEach(() => {
-    usePlayerNameStore.setState({
+    usePlayerStore.setState({
       playerName: '',
       setPlayerName: (playername: string) => mockedSetPlayerName(playername),
     });

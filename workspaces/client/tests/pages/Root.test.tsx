@@ -8,13 +8,20 @@ import {
 } from 'react-router-dom';
 import { ScreenMode } from '@/src/domain/enums/ScreenMode';
 import { useScreenModeStore } from '@/src/domain/state/screenModeStore';
-import { usePlayerNameStore } from '@/src/domain/state/playerNameStore';
+import { usePlayerStore } from '@/src/domain/state/playerNameStore';
+import { useWebsocketStore } from '@/src/domain/state/websocketStateStore';
 
 const mockedUseNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUseNavigate,
 }));
+
+useWebsocketStore.setState({
+  open: jest.fn(),
+  close: jest.fn(),
+  isConnected: true,
+});
 
 describe('Root page: interface & behaviour', () => {
   let testRouter: any = null;
@@ -52,13 +59,13 @@ describe('Root page: interface & behaviour', () => {
   });
 
   it('Should direct to landing based on username absence', () => {
-    usePlayerNameStore.setState({ playerName: '' });
+    usePlayerStore.setState({ playerName: '' });
     renderRootPage();
     expect(mockedUseNavigate).toHaveBeenCalledWith('/landing');
   });
 
   it('Should direct to lobby based on username existance', () => {
-    usePlayerNameStore.setState({ playerName: 'test' });
+    usePlayerStore.setState({ playerName: 'test' });
     renderRootPage();
     expect(mockedUseNavigate).toHaveBeenCalledWith('/lobby');
   });
