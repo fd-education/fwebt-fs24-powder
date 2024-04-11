@@ -61,7 +61,6 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @ConnectedSocket() client: Socket,
     @MessageBody() playerName: string,
   ) {
-    console.log(`Challenge from ${client.id}`);
     const player = this.connectedPlayers.get(client.id);
     player.name = playerName;
     this.connectedPlayers.set(client.id, player);
@@ -119,8 +118,6 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @SubscribeMessage(ChatEvents.CHAT_MESSAGE)
   async handleChatMessage(@MessageBody() message: ChatMessage) {
-    console.log('Received Message: ', message);
-
     this.server.emit(ChatEvents.CHAT_MESSAGE, message);
   }
 }
