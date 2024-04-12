@@ -82,23 +82,23 @@ const boardStoreDefinition = (
     },
     moveBlockLeft: () => {
       set((state) => {
-        if(state.shapeRow < 0) return {};
+        if (state.shapeRow < 0) return {};
 
-        return getMoveLeftState(state)
+        return getMoveLeftState(state);
       });
     },
     moveBlockRight: () => {
       set((state) => {
-        if(state.shapeRow < 0) return {};
-        
-        return getMoveRightState(state)
+        if (state.shapeRow < 0) return {};
+
+        return getMoveRightState(state);
       });
     },
     rotateBlock: () => {
       set((state) => {
-        if(state.shapeRow < 0) return {};
+        if (state.shapeRow < 0) return {};
 
-        return getRotateState(state)
+        return getRotateState(state);
       });
     },
     setIsSettling: (value: boolean) => {

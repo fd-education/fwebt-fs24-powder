@@ -8,8 +8,14 @@ import { usePlayerStore } from '../../domain/state/playerNameStore';
 import { SendIcon } from './chat/SendIcon';
 
 export const LobbyChat = () => {
-  const { isConnected, registerChatHistoryHandler, registerChatHandler, emitChatHistory, emitChatMessage, removeChatHandler } =
-    useWebsocketStore();
+  const {
+    isConnected,
+    registerChatHistoryHandler,
+    registerChatHandler,
+    emitChatHistory,
+    emitChatMessage,
+    removeChatHandler,
+  } = useWebsocketStore();
   const { sessionId, playerName } = usePlayerStore();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<ChatMessage>>([]);
@@ -26,7 +32,9 @@ export const LobbyChat = () => {
 
   useEffect(() => {
     registerChatHandler((msg: ChatMessage) => {
-      messages?.length > 0 ? setMessages([msg, ...messages]) : setMessages([msg]);
+      messages?.length > 0
+        ? setMessages([msg, ...messages])
+        : setMessages([msg]);
     });
 
     emitChatHistory();
@@ -60,22 +68,23 @@ export const LobbyChat = () => {
     <Panel height='h-full' paddingX='px-6'>
       <PanelHeading text='Lobby Chat' />
       <div className='last:border-b-0 w-full h-full overflow-y-auto pr-3 flex flex-col-reverse'>
-        {messages && messages.map((msg, index) => {
-          return msg.session === sessionId ? (
-            <ChatBubbleSent
-              key={index}
-              text={msg.text}
-              timestamp={msg.timestamp}
-            />
-          ) : (
-            <ChatBubbleReceived
-              key={index}
-              text={msg.text}
-              timestamp={msg.timestamp}
-              name={msg.name}
-            />
-          );
-        })}
+        {messages &&
+          messages.map((msg, index) => {
+            return msg.session === sessionId ? (
+              <ChatBubbleSent
+                key={index}
+                text={msg.text}
+                timestamp={msg.timestamp}
+              />
+            ) : (
+              <ChatBubbleReceived
+                key={index}
+                text={msg.text}
+                timestamp={msg.timestamp}
+                name={msg.name}
+              />
+            );
+          })}
       </div>
       <div className='divider w-full dark:before:bg-the_game_gray dark:after:bg-the_game_gray' />
       <div className='flex space-x-3 w-full'>

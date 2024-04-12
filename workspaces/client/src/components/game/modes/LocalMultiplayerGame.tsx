@@ -19,9 +19,5 @@ export const LocalMultiplayerGame = () => {
     startOpponentGame();
   }, []);
 
-  return (
-    <MultiplayerBoard
-      isRemote={false}
-    />
-  );
+  return <MultiplayerBoard isRemote={false} />;
 };

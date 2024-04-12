@@ -16,13 +16,13 @@ import { usePlayerScoreStore } from '../../../domain/state/scoreStore';
 export const SinglePlayerGame = () => {
   const { progress } = useGameStateStore();
 
-    const { startGame: startPlayerGame } = usePlayerGame();
-    const { clearScores: clearPlayerScores } = usePlayerScoreStore();
+  const { startGame: startPlayerGame } = usePlayerGame();
+  const { clearScores: clearPlayerScores } = usePlayerScoreStore();
 
-    useEffect(() => {
-      clearPlayerScores();
-      startPlayerGame();
-    }, []);
+  useEffect(() => {
+    clearPlayerScores();
+    startPlayerGame();
+  }, []);
 
   return (
     <>

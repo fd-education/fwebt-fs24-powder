@@ -1,9 +1,5 @@
-import {
-  GameProgress,
-} from '../../../domain/game/gameProgress';
-import {
-  useOpponentGameStateStore,
-} from '../../../domain/state/gameStateStore';
+import { GameProgress } from '../../../domain/game/gameProgress';
+import { useOpponentGameStateStore } from '../../../domain/state/gameStateStore';
 import React, { useEffect, useState } from 'react';
 import { useWebsocketStore } from '../../../domain/state/websocketStateStore';
 import {
@@ -42,7 +38,7 @@ export const RemoteMultiplayerGame = () => {
   const { clearScores: clearPlayerScores } = usePlayerScoreStore();
   const { clearScores: clearOpponentScores } = useOpponentScoreStore();
 
-  useEffect(() => {    
+  useEffect(() => {
     clearPlayerScores();
     clearOpponentScores();
 
@@ -85,4 +81,3 @@ export const RemoteMultiplayerGame = () => {
     />
   );
 };
-
