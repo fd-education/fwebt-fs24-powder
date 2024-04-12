@@ -11,25 +11,17 @@ type ObjectSize = {
 }
 
 export function getObjectSize(
-  contains: boolean,
   containerWidth: number,
   containerHeight: number,
   width: number,
   height: number
 ): ObjectSize {
-  const doRatio = width / height;
-  const cRatio = containerWidth / containerHeight;
+  const ratio = width / height;
   let targetWidth = 0;
   let targetHeight = 0;
-  const test = contains ? doRatio > cRatio : doRatio < cRatio;
 
-  if (test) {
-    targetWidth = containerWidth;
-    targetHeight = targetWidth / doRatio;
-  } else {
-    targetHeight = containerHeight;
-    targetWidth = targetHeight * doRatio;
-  }
+  targetWidth = containerWidth;
+  targetHeight = targetWidth / ratio;
 
   return {
     width: targetWidth,

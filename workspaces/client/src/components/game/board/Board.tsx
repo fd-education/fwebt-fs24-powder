@@ -34,16 +34,14 @@ export const Board = ({ isOpponentBoard = false }: BoardProps) => {
     const canvas: HTMLCanvasElement = canvasRef.current;
 
     const dimensions = getObjectSize(
-      false,
       canvas.clientWidth,
       canvas.clientHeight,
       canvas.width,
       canvas.height
     );
-    const dpr = window.devicePixelRatio || 1;
 
-    canvas.height = dimensions.height * dpr;
-    canvas.width = (canvas.height / BOARD_ROWS) * BOARD_COLS * dpr;
+    canvas.height = dimensions.height;
+    canvas.width = (canvas.height / BOARD_ROWS) * BOARD_COLS;
 
     const ctx = canvas.getContext('2d');
 
@@ -57,8 +55,8 @@ export const Board = ({ isOpponentBoard = false }: BoardProps) => {
   }, [canvasRef, renderedBoard, progress]);
 
   return (
-    <Panel height='h-full' width='w-fit'>
-      <canvas ref={canvasRef} className='h-full object-contain' />
+    <Panel height='h-full'>
+      <canvas ref={canvasRef} height='' width='' className='h-full block'/>
     </Panel>
   );
 };
