@@ -22,7 +22,7 @@ export const SinglePlayerGame = () => {
         <Score />
       </div>
       <div className='relative h-full flex flex-col justify-center items-center'>
-        <div className='flex flex-row'>
+        <div className='h-full flex flex-row'>
           <Board />
         </div>
         <SettingsGroup />
