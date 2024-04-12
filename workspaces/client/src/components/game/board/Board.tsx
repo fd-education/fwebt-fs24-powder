@@ -56,6 +56,7 @@ export const Board = ({ isOpponentBoard = false }: BoardProps) => {
     <Panel height='h-full'>
         <canvas
           ref={canvasRef}
+          data-testid={'board-canvas'}
           className={`h-full block ${progress !== GameProgressStates.started ? 'invisible' : 'visible'}`}
         />
     </Panel>

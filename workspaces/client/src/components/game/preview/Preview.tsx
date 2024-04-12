@@ -53,6 +53,7 @@ export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
       <PanelHeading text='Up next' />
       <canvas
         ref={canvasRef}
+        data-testid={'preview-canvas'}
         className={`h-full block my-8 ${progress !== GameProgressStates.started ? 'invisible' : 'visible'}`}
       />
     </Panel>
