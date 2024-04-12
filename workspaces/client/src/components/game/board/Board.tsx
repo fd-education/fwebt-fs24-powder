@@ -48,15 +48,16 @@ export const Board = ({ isOpponentBoard = false }: BoardProps) => {
     const blockSize = canvas.height / BOARD_ROWS;
     const blockSizeDes = blockSize / DESINTEGRATION;
 
-    canvas.hidden = progress !== GameProgressStates.started;
-
     renderGrid(ctx, blockSize, screenMode);
     renderBoard(ctx, renderedBoard, blockSizeDes);
   }, [canvasRef, renderedBoard, progress]);
 
   return (
     <Panel height='h-full'>
-      <canvas ref={canvasRef} className='h-full block'/>
+        <canvas
+          ref={canvasRef}
+          className={`h-full block ${progress !== GameProgressStates.started ? 'invisible' : 'visible'}`}
+        />
     </Panel>
   );
 };
