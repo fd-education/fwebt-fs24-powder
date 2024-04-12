@@ -1,7 +1,7 @@
 import React from 'react';
 import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
-import { useScoreboardApi } from '../../../hooks/useScoreboardAPI';
+import { useScoreboardApi } from '../../../hooks/useScoreboardApi';
 import { Loading } from '../../util/Loading';
 import { Error } from '../../util/Error';
 import { ScoreboardTable } from './ScoreboardTable';

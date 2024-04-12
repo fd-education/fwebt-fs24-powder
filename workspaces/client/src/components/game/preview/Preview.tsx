@@ -51,9 +51,11 @@ export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
   return (
     <Panel height='min-h-[50%]' paddingX='px-4' paddingY='py-4'>
       <PanelHeading text='Up next' />
-      <div className='h-full my-8'>
-        <canvas ref={canvasRef} className='h-full block' />
-      </div>
+      <canvas
+        ref={canvasRef}
+        data-testid={'preview-canvas'}
+        className={`h-full block my-8 ${progress !== GameProgressStates.started ? 'invisible' : 'visible'}`}
+      />
     </Panel>
   );
 };

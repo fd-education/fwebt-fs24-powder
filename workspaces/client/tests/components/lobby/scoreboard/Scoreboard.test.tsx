@@ -1,10 +1,10 @@
 import { Scoreboard } from '@/src/components/lobby/scoreboard/Scoreboard';
-import { useScoreboardApi } from '@/src/hooks/useScoreboardAPI';
+import { useScoreboardApi } from '@/src/hooks/useScoreboardApi';
 import { ScoreResponse } from '@powder/common';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-jest.mock('@/src/hooks/useScoreboardAPI');
+jest.mock('@/src/hooks/useScoreboardApi');
 const mockUseScoreboardAPI = jest.mocked(useScoreboardApi);
 
 describe('Scoreboard component: interface & behaviour', () => {

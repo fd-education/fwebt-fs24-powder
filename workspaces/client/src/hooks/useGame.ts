@@ -122,6 +122,7 @@ const useGame = (
 
   useEffect(() => {
     if (progress !== GameProgressStates.started) return;
+    if (isRemoteOpponent) return;
 
     const handleKeyDownEvent = (e: KeyboardEvent) => {
       if (progress !== GameProgressStates.started || e.repeat) return;

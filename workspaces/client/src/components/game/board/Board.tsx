@@ -10,7 +10,11 @@ import {
 } from '../../../domain/state/boardState/boardStateStore';
 import { GameProgressStates } from '../../../domain/game/gameProgress';
 import { powderConfig } from '../../../domain/config/PowderConfig';
-import { getObjectSize, renderBoard, renderGrid } from '../../../domain/canvas/canvas';
+import {
+  getObjectSize,
+  renderBoard,
+  renderGrid,
+} from '../../../domain/canvas/canvas';
 import { useScreenModeStore } from '../../../domain/state/screenModeStore';
 
 interface BoardProps {
@@ -48,15 +52,17 @@ export const Board = ({ isOpponentBoard = false }: BoardProps) => {
     const blockSize = canvas.height / BOARD_ROWS;
     const blockSizeDes = blockSize / DESINTEGRATION;
 
-    canvas.hidden = progress !== GameProgressStates.started;
-
     renderGrid(ctx, blockSize, screenMode);
     renderBoard(ctx, renderedBoard, blockSizeDes);
   }, [canvasRef, renderedBoard, progress]);
 
   return (
     <Panel height='h-full'>
-      <canvas ref={canvasRef} className='h-full block'/>
+      <canvas
+        ref={canvasRef}
+        data-testid={'board-canvas'}
+        className={`h-full block ${progress !== GameProgressStates.started ? 'invisible' : 'visible'}`}
+      />
     </Panel>
   );
 };

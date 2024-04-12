@@ -17,8 +17,8 @@ export const usePlayerStore = create<PlayerNameState>()(
         set({ playerName });
       },
       setSessionId: (sessionId: string) => {
-        set({ sessionId: sessionId})
-      }
+        set({ sessionId: sessionId });
+      },
     }),
     {
       name: 'player',

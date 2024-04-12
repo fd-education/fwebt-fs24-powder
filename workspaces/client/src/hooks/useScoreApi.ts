@@ -18,7 +18,7 @@ export const useScoreApi = () => {
     };
     const url = `${SERVER_URL}/${SCORE_ENDPOINT}`;
 
-    postRequest<ScoreRequest, ScoreResponse>(url, payload);
+    void postRequest<ScoreRequest, ScoreResponse>(url, payload);
   };
 
   const postRequest = async <T, P>(url: string, payload: T): Promise<P> => {

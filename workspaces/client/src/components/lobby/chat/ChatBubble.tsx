@@ -23,7 +23,11 @@ export const ChatBubbleSent = ({ timestamp, text }: OwnChatMessage) => {
   );
 };
 
-export const ChatBubbleReceived = ({ text, name, timestamp }: ForeignChatMessage) => {
+export const ChatBubbleReceived = ({
+  text,
+  name,
+  timestamp,
+}: ForeignChatMessage) => {
   return (
     <div className='chat chat-start'>
       <div className='chat-bubble bg-chat-bubble-received text-white break-words safe-break-word'>
