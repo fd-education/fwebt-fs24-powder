@@ -81,13 +81,25 @@ const boardStoreDefinition = (
       });
     },
     moveBlockLeft: () => {
-      set((state) => getMoveLeftState(state));
+      set((state) => {
+        if(state.shapeRow < 0) return {};
+
+        return getMoveLeftState(state)
+      });
     },
     moveBlockRight: () => {
-      set((state) => getMoveRightState(state));
+      set((state) => {
+        if(state.shapeRow < 0) return {};
+        
+        return getMoveRightState(state)
+      });
     },
     rotateBlock: () => {
-      set((state) => getRotateState(state));
+      set((state) => {
+        if(state.shapeRow < 0) return {};
+
+        return getRotateState(state)
+      });
     },
     setIsSettling: (value: boolean) => {
       set(() => ({ isSettling: value }));
