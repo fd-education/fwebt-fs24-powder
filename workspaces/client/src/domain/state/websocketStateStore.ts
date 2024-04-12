@@ -154,6 +154,8 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
     get().socket.removeAllListeners(MultiplayerEvents.DISCONNECT);
   },
   removeChatHandler: () => {
+    if (!get().isConnected) return;
+    
     get().socket.removeAllListeners(ChatEvents.CHAT_MESSAGE);
     get().socket.removeAllListeners(ChatEvents.CHAT_HISTORY);
   },

@@ -89,7 +89,7 @@ export const MultiplayerGame = ({ isRemote = false }: MultiplayerGameProps) => {
   return (
     <>
       <div className='h-full flex flex-col justify-center items-center'>
-        <div className='flex flex-row space-x-16'>
+        <div className='h-full flex flex-row space-x-16'>
           <div className='relative flex flex-row space-x-2'>
             <div className='flex flex-col justify-between'>
               <Preview isOpponentPreview={true} />

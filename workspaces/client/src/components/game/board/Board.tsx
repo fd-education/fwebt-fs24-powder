@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Panel } from '../../util/Panel';
-import { Cell } from './Cell';
 import {
   useGameStateStore,
   useOpponentGameStateStore,
@@ -10,6 +9,9 @@ import {
   useOpponentBoardStateStore,
 } from '../../../domain/state/boardState/boardStateStore';
 import { GameProgressStates } from '../../../domain/game/gameProgress';
+import { powderConfig } from '../../../domain/config/PowderConfig';
+import { getObjectSize, renderBoard, renderGrid } from '../../../domain/canvas/canvas';
+import { useScreenModeStore } from '../../../domain/state/screenModeStore';
 
 interface BoardProps {
   isOpponentBoard?: boolean;
@@ -23,21 +25,38 @@ export const Board = ({ isOpponentBoard = false }: BoardProps) => {
     ? useOpponentBoardStateStore()
     : useBoardStateStore();
 
+  const { BOARD_ROWS, BOARD_COLS, DESINTEGRATION } = powderConfig;
+  const { screenMode } = useScreenModeStore();
+
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas: HTMLCanvasElement = canvasRef.current;
+
+    const dimensions = getObjectSize(
+      canvas.clientWidth,
+      canvas.clientHeight,
+      canvas.width,
+      canvas.height
+    );
+
+    canvas.height = dimensions.height;
+    canvas.width = (canvas.height / BOARD_ROWS) * BOARD_COLS;
+
+    const ctx = canvas.getContext('2d');
+
+    const blockSize = canvas.height / BOARD_ROWS;
+    const blockSizeDes = blockSize / DESINTEGRATION;
+
+    canvas.hidden = progress !== GameProgressStates.started;
+
+    renderGrid(ctx, blockSize, screenMode);
+    renderBoard(ctx, renderedBoard, blockSizeDes);
+  }, [canvasRef, renderedBoard, progress]);
+
   return (
-    <Panel>
-      <div className='border-2 border-white-transparent dark:border-black-transparent'>
-        {renderedBoard.map((row, ri) => (
-          <div key={ri} className='flex'>
-            {row.map((cell, ci) => (
-              <Cell
-                key={`${ri}-${ci}`}
-                type={cell}
-                display={progress === GameProgressStates.started}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
+    <Panel height='h-full'>
+      <canvas ref={canvasRef} className='h-full block'/>
     </Panel>
   );
 };
