@@ -61,11 +61,34 @@ export const renderBoard = (ctx: CanvasRenderingContext2D, renderedBoard: BoardT
   renderedBoard.map((row, ri) => {
     row.map((cell, ci) => {
       if (cell !== VoidCell.VOID) {
-        const color = tailwind.theme.colors[cell];
-
-        ctx.fillStyle = color;
+        ctx.fillStyle = tailwind.theme.colors[cell];;
         ctx.fillRect(blockSize * ci, blockSize * ri, blockSize, blockSize);
       }
     });
   });
+}
+
+export const renderPreview = (ctx: CanvasRenderingContext2D, nextBlocks: BoardType[]) => {
+  const tailwind = resolveConfig(tailwindConfig);
+  let blockOffset = 0;
+
+  const rows = nextBlocks.reduce((a, b) => (a + b.length), 0) + (nextBlocks.length - 1);
+  const cols = nextBlocks.reduce((a, b) => (Math.max(a, b[0].length)), 0);
+
+  const size = Math.min(ctx.canvas.width / cols, ctx.canvas.height / rows);
+
+  nextBlocks && nextBlocks.reverse().map((block) => {    
+    block.map((row, ri) => {
+      const colOffset = (ctx.canvas.width - (size * row.length)) / 2;
+
+      row.map((cell, ci) => {
+        if (cell !== VoidCell.VOID) {
+          ctx.fillStyle = tailwind.theme.colors[cell];;
+          ctx.fillRect(colOffset + (size * ci), blockOffset + (size * ri), size, size);
+        }
+      })
+    })
+    
+    blockOffset += (block.length + 1) * size;
+  })
 }

@@ -56,7 +56,7 @@ export const Board = ({ isOpponentBoard = false }: BoardProps) => {
 
   return (
     <Panel height='h-full'>
-      <canvas ref={canvasRef} height='' width='' className='h-full block'/>
+      <canvas ref={canvasRef} className='h-full block'/>
     </Panel>
   );
 };
