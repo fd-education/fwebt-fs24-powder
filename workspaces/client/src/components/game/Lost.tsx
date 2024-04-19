@@ -5,6 +5,8 @@ import { usePlayerScoreStore } from '../../domain/state/scoreStore';
 import { NumberDisplay } from './score/NumberDisplay';
 import { BackHomeButton } from './BackHomeButton';
 
+// Diese Komponente liesse sich mit der PlayerLost zusammenführen.
+// Aber: 1x schreiben, beim 2. duplizieren und ab dem 3. mal wiederverwenden -> kann auch so belassen werden :)
 export const Lost = () => {
   const { score, lines } = usePlayerScoreStore();
 

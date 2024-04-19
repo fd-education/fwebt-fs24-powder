@@ -14,6 +14,8 @@ interface PlayerLostProps {
 }
 
 export const PlayerLost = ({ isOpponent = false }: PlayerLostProps) => {
+  // Eine Möglichkeit wäre, dem useScoreState den Parameter isOpponent zu übergeben und die Funktion useScoreState entscheiden zu lassen, was zurückgegeben wird.
+  // Damit hättest du dieses if/else nur noch an 1 Stelle (anstelle wie jetzt an zig stellen)
   const { score, lines } = isOpponent
     ? useOpponentScoreStore()
     : usePlayerScoreStore();

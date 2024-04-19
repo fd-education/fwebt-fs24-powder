@@ -88,8 +88,8 @@ export const renderPreview = (
 
   const size = Math.min(ctx.canvas.width / cols, ctx.canvas.height / rows);
 
-  nextBlocks &&
-    nextBlocks.reverse().map((block) => {
+  // Optional expression funktioniert hier auch (in einer bool'schen Operation Logik auszuführen ist zwar schlank, wird jedoch schnell übersehen)
+    nextBlocks?.reverse().map((block) => {
       block.map((row, ri) => {
         const colOffset = (ctx.canvas.width - size * row.length) / 2;
 

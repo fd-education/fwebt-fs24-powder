@@ -22,6 +22,8 @@ export const ErrorPage = () => {
     } else if (typeof error === 'string') {
       setErrorMessage(error);
     } else {
+      // Tipp: Ich brauche auch manchmal console.log / console.error im Code. Diese gehen jedoch schnell mal vergessen, und haben im produktiven Code grundsätzlich nichts zu suchen.
+      // Es gibt ein Bable Plugin, der alle console.* entfernt während des Transpilieren -> https://babeljs.io/docs/babel-plugin-transform-remove-console
       console.error(error);
       setErrorMessage('Unknown error');
     }

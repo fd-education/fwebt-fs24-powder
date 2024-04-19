@@ -25,6 +25,7 @@ export const MultiplayerBoard = ({
 
   return (
     <>
+      // Da nur 1 Root-Element ist das leere Fragement <></> überflüssig
       <div className='h-full flex flex-col justify-center items-center'>
         <div className='h-full flex flex-row space-x-16'>
           <div className='relative flex flex-row space-x-2'>
