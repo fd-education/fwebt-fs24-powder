@@ -4,8 +4,7 @@ import { PanelHeading } from '../../util/PanelHeading';
 import { PowderButton } from '../../util/PowderButton';
 import { NumberDisplay } from './NumberDisplay';
 import {
-  useOpponentScoreStore,
-  usePlayerScoreStore,
+  useScoreStore
 } from '../../../domain/state/scoreStore';
 import {
   useGameStateStore,
@@ -24,9 +23,7 @@ export const Score = ({
   isOpponentScore = false,
   isRemote = false,
 }: ScoreProps) => {
-  const { score, lines } = isOpponentScore
-    ? useOpponentScoreStore()
-    : usePlayerScoreStore();
+  const { score, lines } = useScoreStore(isOpponentScore);
   const { pauseGame: pause, endGame: end } = isOpponentScore
     ? useOpponentGameStateStore()
     : useGameStateStore();

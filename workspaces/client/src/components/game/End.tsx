@@ -2,8 +2,7 @@ import React from 'react';
 import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
 import {
-  useOpponentScoreStore,
-  usePlayerScoreStore,
+  useScoreStore
 } from '../../domain/state/scoreStore';
 import { NumberDisplay } from './score/NumberDisplay';
 import { BackHomeButton } from './BackHomeButton';
@@ -15,10 +14,7 @@ interface EndProps {
 
 export const End = ({ isOpponent }: EndProps) => {
   const {t} = useTranslation();
-
-  const { score, lines } = isOpponent
-    ? useOpponentScoreStore()
-    : usePlayerScoreStore();
+  const { score, lines } = useScoreStore(isOpponent);
 
   return (
     <div className='h-fit w-fit absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-20'>

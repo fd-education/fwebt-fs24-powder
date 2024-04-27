@@ -70,8 +70,7 @@ export const LobbyChat = () => {
     <Panel height='h-full' paddingX='px-6'>
       <PanelHeading text={t('lobby.chat_title')} />
       <div className='last:border-b-0 w-full h-full overflow-y-auto pr-3 flex flex-col-reverse'>
-        {messages &&
-          messages.map((msg, index) => {
+        {messages?.map((msg, index) => {
             return msg.session === sessionId ? (
               <ChatBubbleSent
                 key={index}

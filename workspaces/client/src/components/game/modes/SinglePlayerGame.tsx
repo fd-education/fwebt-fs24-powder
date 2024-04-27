@@ -11,13 +11,13 @@ import { Board } from '../board/Board';
 import { Preview } from '../preview/Preview';
 import { Score } from '../score/Score';
 import { usePlayerGame } from '../../../hooks/useGame';
-import { usePlayerScoreStore } from '../../../domain/state/scoreStore';
+import { useScoreStore } from '../../../domain/state/scoreStore';
 
 export const SinglePlayerGame = () => {
   const { progress } = useGameStateStore();
 
   const { startGame: startPlayerGame } = usePlayerGame();
-  const { clearScores: clearPlayerScores } = usePlayerScoreStore();
+  const { clearScores: clearPlayerScores } = useScoreStore(false);
 
   useEffect(() => {
     clearPlayerScores();

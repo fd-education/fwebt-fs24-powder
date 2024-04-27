@@ -1,7 +1,6 @@
 import { usePlayerStore } from '../../domain/state/playerNameStore';
 import {
-  useOpponentScoreStore,
-  usePlayerScoreStore,
+  useScoreStore
 } from '../../domain/state/scoreStore';
 import React from 'react';
 import { Panel } from '../util/Panel';
@@ -15,9 +14,7 @@ interface PlayerLostProps {
 }
 
 export const PlayerLost = ({ isOpponent = false }: PlayerLostProps) => {
-  const { score, lines } = isOpponent
-    ? useOpponentScoreStore()
-    : usePlayerScoreStore();
+  const { score, lines } = useScoreStore(isOpponent);
   const { playerName } = usePlayerStore();
   const {t} = useTranslation();
 

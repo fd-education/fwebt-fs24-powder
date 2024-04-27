@@ -1,13 +1,13 @@
 import React from 'react';
 import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
-import { usePlayerScoreStore } from '../../domain/state/scoreStore';
+import { useScoreStore } from '../../domain/state/scoreStore';
 import { NumberDisplay } from './score/NumberDisplay';
 import { BackHomeButton } from './BackHomeButton';
 import { useTranslation } from 'react-i18next';
 
 export const Lost = () => {
-  const { score, lines } = usePlayerScoreStore();
+  const { score, lines } = useScoreStore(false);
   const {t} = useTranslation();
 
   return (
