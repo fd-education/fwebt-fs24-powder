@@ -41,9 +41,7 @@ export const RemoteMultiplayerGame = () => {
 
     emitGameChallenge(playerName);
 
-    registerGameStartHandler((opponentName: string) => {
-      console.log(opponentName);
-      // setOpponentName(opponentName);
+    registerGameStartHandler(() => {
       startPlayerGame(true);
       startRemoteOpponentGame(true);
     });

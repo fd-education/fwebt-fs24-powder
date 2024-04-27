@@ -2,6 +2,8 @@
 import '@jest/globals';
 import '@testing-library/react';
 import '@testing-library/jest-dom';
+// import de from '@/src/../public/translations/de.json';
+// import en from '@/src/../public/translations/de.json';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

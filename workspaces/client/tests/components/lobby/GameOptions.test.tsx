@@ -14,6 +14,29 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockedUseNavigate,
 }));
 
+import { useTranslation } from 'react-i18next';
+
+jest.mock('react-i18next', () => ({
+  useTranslation: jest.fn(),
+}));
+
+const tSpy = jest.fn((str) => str);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const changeLanguageSpy = jest.fn((lng: string) => new Promise(() => {}));
+const useTranslationSpy = useTranslation as jest.Mock;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+
+  useTranslationSpy.mockReturnValue({
+    t: tSpy,
+    i18n: {
+      changeLanguage: changeLanguageSpy,
+      language: 'en',
+    },
+  });
+});
+
 describe('GameOptions component: interface & behaviour', () => {
   let testRouter: any = null;
   beforeAll(() => {
@@ -36,17 +59,17 @@ describe('GameOptions component: interface & behaviour', () => {
   it('Should offer all game options', () => {
     render(<GameOptions />);
 
-    expect(screen.getByText('Singleplayer')).toBeInTheDocument();
-    expect(screen.getByText('play')).toBeInTheDocument();
-    expect(screen.getByText('Multiplayer')).toBeInTheDocument();
-    expect(screen.getByText('local')).toBeInTheDocument();
-    expect(screen.getByText('remote')).toBeInTheDocument();
+    expect(tSpy).toHaveBeenCalledWith('lobby.single_player');
+    expect(tSpy).toHaveBeenCalledWith('lobby.play');
+    expect(tSpy).toHaveBeenCalledWith('lobby.multi_player');
+    expect(tSpy).toHaveBeenCalledWith('lobby.local');
+    expect(tSpy).toHaveBeenCalledWith('lobby.remote');
   });
 
   it('Should start singleplayer mode', async () => {
     render(<RouterProvider router={testRouter} />);
 
-    await userEvent.click(await screen.findByText('play'));
+    await userEvent.click(await screen.findByText('lobby.play'));
     expect(mockedUseNavigate).toHaveBeenCalledWith('/game?mode=singleplayer');
   });
 });

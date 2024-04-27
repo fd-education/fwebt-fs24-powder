@@ -9,6 +9,30 @@ import { useGameStateStore } from '@/src/domain/state/gameStateStore';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
+
+jest.mock('react-i18next', () => ({
+  useTranslation: jest.fn(),
+}));
+
+const tSpy = jest.fn((str) => str);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const changeLanguageSpy = jest.fn((lng: string) => new Promise(() => {}));
+const useTranslationSpy = useTranslation as jest.Mock;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+
+  useTranslationSpy.mockReturnValue({
+    t: tSpy,
+    i18n: {
+      changeLanguage: changeLanguageSpy,
+      language: 'en',
+    },
+  });
+});
+
+
 describe('Preview component: interface & behaviour', () => {
   const previewBlocks = [getRandomBlock()];
 
@@ -24,7 +48,7 @@ describe('Preview component: interface & behaviour', () => {
 
   it('Should render title', () => {
     render(<Preview />);
-    expect(screen.getByText('Up next')).toBeInTheDocument();
+    expect(tSpy).toHaveBeenCalledWith('game.up_next');
   });
 
   it('Should show preview if not paused', () => {

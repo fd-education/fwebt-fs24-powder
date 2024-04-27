@@ -27,7 +27,7 @@ export const useLanguageStore = create<LanguageState>()(
       language: getLanguage(),
       setLanguage: (language: Languages) => {
         changeLanguage(language);
-        console.log(language);
+        
         set(() => {
           return {
             language,
