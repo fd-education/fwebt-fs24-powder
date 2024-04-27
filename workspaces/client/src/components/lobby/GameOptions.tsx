@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 export const GameOptions = () => {
   const navigate = useNavigate();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Panel width='w-fit'>

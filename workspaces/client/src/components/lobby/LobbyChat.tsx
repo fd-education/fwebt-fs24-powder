@@ -20,7 +20,7 @@ export const LobbyChat = () => {
   const { sessionId, playerName } = usePlayerStore();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<ChatMessage>>([]);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     registerChatHistoryHandler((msgs: ChatMessage[]) => {
@@ -71,21 +71,21 @@ export const LobbyChat = () => {
       <PanelHeading text={t('lobby.chat_title')} />
       <div className='last:border-b-0 w-full h-full overflow-y-auto pr-3 flex flex-col-reverse'>
         {messages?.map((msg, index) => {
-            return msg.session === sessionId ? (
-              <ChatBubbleSent
-                key={index}
-                text={msg.text}
-                timestamp={msg.timestamp}
-              />
-            ) : (
-              <ChatBubbleReceived
-                key={index}
-                text={msg.text}
-                timestamp={msg.timestamp}
-                name={msg.name}
-              />
-            );
-          })}
+          return msg.session === sessionId ? (
+            <ChatBubbleSent
+              key={index}
+              text={msg.text}
+              timestamp={msg.timestamp}
+            />
+          ) : (
+            <ChatBubbleReceived
+              key={index}
+              text={msg.text}
+              timestamp={msg.timestamp}
+              name={msg.name}
+            />
+          );
+        })}
       </div>
       <div className='divider w-full dark:before:bg-the_game_gray dark:after:bg-the_game_gray' />
       <div className='flex space-x-3 w-full'>

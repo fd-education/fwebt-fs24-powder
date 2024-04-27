@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 export const Scoreboard = () => {
   const { data, loading, hasError, error } = useScoreboardApi();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Panel>

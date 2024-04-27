@@ -26,7 +26,7 @@ export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
     ? useOpponentGameStateStore()
     : useGameStateStore();
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const canvasRef = useRef(null);
   const { BOARD_ROWS, BOARD_COLS } = powderConfig;

@@ -1,7 +1,5 @@
 import { usePlayerStore } from '../../domain/state/playerNameStore';
-import {
-  useScoreStore
-} from '../../domain/state/scoreStore';
+import { useScoreStore } from '../../domain/state/scoreStore';
 import React from 'react';
 import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
@@ -14,10 +12,13 @@ interface PlayerLostProps {
   isOpponent?: boolean;
 }
 
-export const Lost = ({ isMultiplayer = false, isOpponent = false }: PlayerLostProps) => {
+export const Lost = ({
+  isMultiplayer = false,
+  isOpponent = false,
+}: PlayerLostProps) => {
   const { score, lines } = useScoreStore(isOpponent);
   const { playerName } = usePlayerStore();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className='w-fit h-fit absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex items-center justify-center z-20'>

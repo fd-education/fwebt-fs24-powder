@@ -9,7 +9,7 @@ interface ScoreboardTableProps {
 }
 
 export const ScoreboardTable = ({ scoreboard }: ScoreboardTableProps) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <table data-testid='scoreboard-table' className='table-fixed my-16'>

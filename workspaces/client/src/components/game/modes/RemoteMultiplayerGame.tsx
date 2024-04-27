@@ -8,10 +8,7 @@ import {
 } from '../../../domain/state/boardState/boardStateStore';
 import { usePlayerStore } from '../../../domain/state/playerNameStore';
 import { usePlayerGame, useRemoteOpponentGame } from '../../../hooks/useGame';
-import {
-  ScoreState,
-  useScoreStore
-} from '../../../domain/state/scoreStore';
+import { ScoreState, useScoreStore } from '../../../domain/state/scoreStore';
 import { MultiplayerBoard } from './MultiplayerBoard';
 
 export const RemoteMultiplayerGame = () => {

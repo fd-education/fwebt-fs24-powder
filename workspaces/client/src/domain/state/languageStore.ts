@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware';
 
 export enum Languages {
   ENG = 'en-US',
-  GER = 'de-CH'
+  GER = 'de-CH',
 }
 
 interface LanguageState {
@@ -14,11 +14,11 @@ interface LanguageState {
 
 const getLanguage = (): Languages => {
   const isEng =
-    ('language' in localStorage &&
-      JSON.parse(localStorage.language).state.language === Languages.ENG);
+    'language' in localStorage &&
+    JSON.parse(localStorage.language).state.language === Languages.ENG;
 
   const lang = isEng ? Languages.ENG : Languages.GER;
-  return lang
+  return lang;
 };
 
 export const useLanguageStore = create<LanguageState>()(

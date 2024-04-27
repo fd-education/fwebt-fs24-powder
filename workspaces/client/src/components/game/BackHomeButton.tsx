@@ -13,7 +13,7 @@ export const BackHomeButton = () => {
   const { saveScore } = useScoreApi();
   const { initialiseGame } = useGameStateStore();
   const { initialiseGame: initialiseOppGame } = useOpponentGameStateStore();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const handleBackHome = () => {
     saveScore();

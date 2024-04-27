@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 export const NameInput = () => {
   const { setPlayerName, setSessionId } = usePlayerStore();
   const [name, setName] = useState<string>('');
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 

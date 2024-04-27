@@ -45,13 +45,13 @@ const scoreStoreDefinition = (
     },
   }) as ScoreState;
 
-  export const usePlayerScoreStore = create<ScoreState>(scoreStoreDefinition);
-  export const useOpponentScoreStore = create<ScoreState>(scoreStoreDefinition);
-  
-  export const useScoreStore = (isOpponent: boolean) => {
-    if(isOpponent){
-      return useOpponentScoreStore();
-    } else {
-      return usePlayerScoreStore();
-    }
+export const usePlayerScoreStore = create<ScoreState>(scoreStoreDefinition);
+export const useOpponentScoreStore = create<ScoreState>(scoreStoreDefinition);
+
+export const useScoreStore = (isOpponent: boolean) => {
+  if (isOpponent) {
+    return useOpponentScoreStore();
+  } else {
+    return usePlayerScoreStore();
   }
+};

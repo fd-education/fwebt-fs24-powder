@@ -3,9 +3,7 @@ import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
 import { PowderButton } from '../../util/PowderButton';
 import { NumberDisplay } from './NumberDisplay';
-import {
-  useScoreStore
-} from '../../../domain/state/scoreStore';
+import { useScoreStore } from '../../../domain/state/scoreStore';
 import {
   useGameStateStore,
   useOpponentGameStateStore,
@@ -28,7 +26,7 @@ export const Score = ({
     ? useOpponentGameStateStore()
     : useGameStateStore();
   const { emitGameProgress } = useWebsocketStore();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const pauseGame = () => {
     pause();

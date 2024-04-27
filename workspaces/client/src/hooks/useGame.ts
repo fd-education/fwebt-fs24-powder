@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from './useInterval';
 import { powderConfig } from '../domain/config/PowderConfig';
-import {
-  ScoreState, useScoreStore
-} from '../domain/state/scoreStore';
+import { ScoreState, useScoreStore } from '../domain/state/scoreStore';
 import {
   GameState,
   useGameStateStore,

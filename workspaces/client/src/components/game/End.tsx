@@ -1,9 +1,7 @@
 import React from 'react';
 import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
-import {
-  useScoreStore
-} from '../../domain/state/scoreStore';
+import { useScoreStore } from '../../domain/state/scoreStore';
 import { NumberDisplay } from './score/NumberDisplay';
 import { BackHomeButton } from './BackHomeButton';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +11,7 @@ interface EndProps {
 }
 
 export const End = ({ isOpponent }: EndProps) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const { score, lines } = useScoreStore(isOpponent);
 
   return (

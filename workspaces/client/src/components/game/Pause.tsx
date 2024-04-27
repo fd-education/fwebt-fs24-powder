@@ -20,7 +20,7 @@ export const Pause = ({ isOpponent = false, isRemote = false }: PauseProps) => {
     ? useOpponentGameStateStore()
     : useGameStateStore();
   const { emitGameProgress } = useWebsocketStore();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const continueGame = () => {
     cont();
@@ -33,7 +33,10 @@ export const Pause = ({ isOpponent = false, isRemote = false }: PauseProps) => {
         <div className='flex flex-col items-center space-y-8'>
           <PanelHeading text={t('game.paused')} />
           {!isOpponent && (
-            <PowderButton text={t('game.continue')} clickHandler={() => continueGame()} />
+            <PowderButton
+              text={t('game.continue')}
+              clickHandler={() => continueGame()}
+            />
           )}
         </div>
       </Panel>

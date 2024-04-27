@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLocalOpponentGame, usePlayerGame } from '../../../hooks/useGame';
-import {
-  useScoreStore
-} from '../../../domain/state/scoreStore';
+import { useScoreStore } from '../../../domain/state/scoreStore';
 import { MultiplayerBoard } from './MultiplayerBoard';
 
 export const LocalMultiplayerGame = () => {
