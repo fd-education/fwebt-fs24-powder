@@ -4,20 +4,20 @@ import React, { useEffect } from 'react';
 import { SettingsGroup } from '../../settings/SettingsGroup';
 import { Title, TitleSize } from '../../util/Title';
 import { End } from '../End';
-import { Lost } from '../Lost';
 import { Pause } from '../Pause';
 import { PopupUnderlay } from '../PopupUnderlay';
 import { Board } from '../board/Board';
 import { Preview } from '../preview/Preview';
 import { Score } from '../score/Score';
 import { usePlayerGame } from '../../../hooks/useGame';
-import { usePlayerScoreStore } from '../../../domain/state/scoreStore';
+import { useScoreStore } from '../../../domain/state/scoreStore';
+import { Lost } from '../Lost';
 
 export const SinglePlayerGame = () => {
   const { progress } = useGameStateStore();
 
   const { startGame: startPlayerGame } = usePlayerGame();
-  const { clearScores: clearPlayerScores } = usePlayerScoreStore();
+  const { clearScores: clearPlayerScores } = useScoreStore(false);
 
   useEffect(() => {
     clearPlayerScores();

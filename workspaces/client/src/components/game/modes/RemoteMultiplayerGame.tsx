@@ -8,11 +8,7 @@ import {
 } from '../../../domain/state/boardState/boardStateStore';
 import { usePlayerStore } from '../../../domain/state/playerNameStore';
 import { usePlayerGame, useRemoteOpponentGame } from '../../../hooks/useGame';
-import {
-  ScoreState,
-  useOpponentScoreStore,
-  usePlayerScoreStore,
-} from '../../../domain/state/scoreStore';
+import { ScoreState, useScoreStore } from '../../../domain/state/scoreStore';
 import { MultiplayerBoard } from './MultiplayerBoard';
 
 export const RemoteMultiplayerGame = () => {
@@ -33,10 +29,9 @@ export const RemoteMultiplayerGame = () => {
     removeGameHandlers,
   } = useWebsocketStore();
   const { applyState } = useOpponentBoardStateStore();
-  const { applyScore } = useOpponentScoreStore();
   const { applyGameProgress } = useOpponentGameStateStore();
-  const { clearScores: clearPlayerScores } = usePlayerScoreStore();
-  const { clearScores: clearOpponentScores } = useOpponentScoreStore();
+  const { clearScores: clearPlayerScores } = useScoreStore(false);
+  const { clearScores: clearOpponentScores, applyScore } = useScoreStore(true);
 
   useEffect(() => {
     clearPlayerScores();
@@ -46,9 +41,7 @@ export const RemoteMultiplayerGame = () => {
 
     emitGameChallenge(playerName);
 
-    registerGameStartHandler((opponentName: string) => {
-      console.log(opponentName);
-      // setOpponentName(opponentName);
+    registerGameStartHandler(() => {
       startPlayerGame(true);
       startRemoteOpponentGame(true);
     });

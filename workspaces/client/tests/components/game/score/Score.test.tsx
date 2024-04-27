@@ -4,9 +4,31 @@ import { usePlayerScoreStore } from '@/src/domain/state/scoreStore';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const mockedPauseGame = jest.fn();
 const mockedEndGame = jest.fn();
+
+jest.mock('react-i18next', () => ({
+  useTranslation: jest.fn(),
+}));
+
+const tSpy = jest.fn((str) => str);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const changeLanguageSpy = jest.fn((lng: string) => new Promise(() => {}));
+const useTranslationSpy = useTranslation as jest.Mock;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+
+  useTranslationSpy.mockReturnValue({
+    t: tSpy,
+    i18n: {
+      changeLanguage: changeLanguageSpy,
+      language: 'en',
+    },
+  });
+});
 
 describe('Score component: interface & behaviour', () => {
   beforeAll(() => {
@@ -29,10 +51,10 @@ describe('Score component: interface & behaviour', () => {
   it('Should render score panel', () => {
     render(<Score />);
 
-    expect(screen.getByText('Score')).toBeInTheDocument();
-    expect(screen.getByText('Lines')).toBeInTheDocument();
-    expect(screen.getByText('pause')).toBeInTheDocument();
-    expect(screen.getByText('end')).toBeInTheDocument();
+    expect(tSpy).toHaveBeenCalledWith('game.score');
+    expect(tSpy).toHaveBeenCalledWith('game.lines');
+    expect(tSpy).toHaveBeenCalledWith('game.pause');
+    expect(tSpy).toHaveBeenCalledWith('game.end');
   });
 
   it('Should display players score and lines', () => {
@@ -50,14 +72,14 @@ describe('Score component: interface & behaviour', () => {
   it('Should pause the game on pause click', async () => {
     render(<Score />);
 
-    await userEvent.click(await screen.findByText('pause'));
+    await userEvent.click(await screen.findByText('game.pause'));
     expect(mockedPauseGame).toHaveBeenCalled();
   });
 
   it('Should end the game on end click', async () => {
     render(<Score />);
 
-    await userEvent.click(await screen.findByText('end'));
+    await userEvent.click(await screen.findByText('game.end'));
     expect(mockedEndGame).toHaveBeenCalled();
   });
 });

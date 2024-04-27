@@ -30,7 +30,8 @@
         "yzhang.markdown-all-in-one",
         "eamodio.gitlens",
         "mongodb.mongodb-vscode",
-        "firsttris.vscode-jest-runner"
+        "firsttris.vscode-jest-runner",
+        "lokalise.i18n-ally"
       ]
     }
   },

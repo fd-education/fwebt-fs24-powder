@@ -1,11 +1,11 @@
 import { ScoreRequest, ScoreResponse } from '@powder/common';
 import { usePlayerStore } from '../domain/state/playerNameStore';
-import { usePlayerScoreStore } from '../domain/state/scoreStore';
+import { useScoreStore } from '../domain/state/scoreStore';
 import { powderConfig } from '../domain/config/PowderConfig';
 
 export const useScoreApi = () => {
   const { playerName } = usePlayerStore();
-  const { score } = usePlayerScoreStore();
+  const { score } = useScoreStore(true);
   const { SERVER_URL, SCORE_ENDPOINT } = powderConfig;
 
   const saveScore = () => {

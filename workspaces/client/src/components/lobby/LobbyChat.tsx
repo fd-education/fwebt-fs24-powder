@@ -6,6 +6,7 @@ import { ChatMessage } from '@powder/common';
 import { ChatBubbleSent, ChatBubbleReceived } from './chat/ChatBubble';
 import { usePlayerStore } from '../../domain/state/playerNameStore';
 import { SendIcon } from './chat/SendIcon';
+import { useTranslation } from 'react-i18next';
 
 export const LobbyChat = () => {
   const {
@@ -19,6 +20,7 @@ export const LobbyChat = () => {
   const { sessionId, playerName } = usePlayerStore();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<ChatMessage>>([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     registerChatHistoryHandler((msgs: ChatMessage[]) => {
@@ -66,25 +68,24 @@ export const LobbyChat = () => {
 
   return (
     <Panel height='h-full' paddingX='px-6'>
-      <PanelHeading text='Lobby Chat' />
+      <PanelHeading text={t('lobby.chat_title')} />
       <div className='last:border-b-0 w-full h-full overflow-y-auto pr-3 flex flex-col-reverse'>
-        {messages &&
-          messages.map((msg, index) => {
-            return msg.session === sessionId ? (
-              <ChatBubbleSent
-                key={index}
-                text={msg.text}
-                timestamp={msg.timestamp}
-              />
-            ) : (
-              <ChatBubbleReceived
-                key={index}
-                text={msg.text}
-                timestamp={msg.timestamp}
-                name={msg.name}
-              />
-            );
-          })}
+        {messages?.map((msg, index) => {
+          return msg.session === sessionId ? (
+            <ChatBubbleSent
+              key={index}
+              text={msg.text}
+              timestamp={msg.timestamp}
+            />
+          ) : (
+            <ChatBubbleReceived
+              key={index}
+              text={msg.text}
+              timestamp={msg.timestamp}
+              name={msg.name}
+            />
+          );
+        })}
       </div>
       <div className='divider w-full dark:before:bg-the_game_gray dark:after:bg-the_game_gray' />
       <div className='flex space-x-3 w-full'>
@@ -92,7 +93,7 @@ export const LobbyChat = () => {
           id='chat-input'
           type='text'
           value={message}
-          placeholder={'Write here...'}
+          placeholder={t('lobby.write_here')}
           className='input w-full flex-1 h-10 rounded-none bg-white'
           onChange={(e) => setMessage(e.target.value)}
           onKeyUp={(e) => handleKeypress(e as unknown as KeyboardEvent)}

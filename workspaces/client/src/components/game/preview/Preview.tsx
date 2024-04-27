@@ -12,6 +12,7 @@ import {
 import { GameProgressStates } from '../../../domain/game/gameProgress';
 import { getObjectSize, renderPreview } from '../../../domain/canvas/canvas';
 import { powderConfig } from '../../../domain/config/PowderConfig';
+import { useTranslation } from 'react-i18next';
 
 interface PreviewProps {
   isOpponentPreview?: boolean;
@@ -24,6 +25,8 @@ export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
   const { progress } = isOpponentPreview
     ? useOpponentGameStateStore()
     : useGameStateStore();
+
+  const { t } = useTranslation();
 
   const canvasRef = useRef(null);
   const { BOARD_ROWS, BOARD_COLS } = powderConfig;
@@ -50,7 +53,7 @@ export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
 
   return (
     <Panel height='min-h-[50%]' paddingX='px-4' paddingY='py-4'>
-      <PanelHeading text='Up next' />
+      <PanelHeading text={t('game.up_next')} />
       <canvas
         ref={canvasRef}
         data-testid={'preview-canvas'}

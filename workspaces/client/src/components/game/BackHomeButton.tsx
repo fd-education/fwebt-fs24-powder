@@ -6,12 +6,14 @@ import {
   useGameStateStore,
   useOpponentGameStateStore,
 } from '../../domain/state/gameStateStore';
+import { useTranslation } from 'react-i18next';
 
 export const BackHomeButton = () => {
   const navigate = useNavigate();
   const { saveScore } = useScoreApi();
   const { initialiseGame } = useGameStateStore();
   const { initialiseGame: initialiseOppGame } = useOpponentGameStateStore();
+  const { t } = useTranslation();
 
   const handleBackHome = () => {
     saveScore();
@@ -21,6 +23,9 @@ export const BackHomeButton = () => {
   };
 
   return (
-    <PowderButton text='back to home' clickHandler={() => handleBackHome()} />
+    <PowderButton
+      text={t('game.back_home')}
+      clickHandler={() => handleBackHome()}
+    />
   );
 };

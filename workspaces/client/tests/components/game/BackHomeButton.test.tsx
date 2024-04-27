@@ -45,7 +45,7 @@ describe('BackHomeButton component: interface & behaviour', () => {
   it('Should save current score and go home', async () => {
     render(<RouterProvider router={testRouter} />);
 
-    await userEvent.click(await screen.findByText('back to home'));
+    await userEvent.click(await screen.findByText('game.back_home'));
 
     expect(mockedSaveScore).toHaveBeenCalled();
     expect(mockedUseNavigate).toHaveBeenCalledWith('/lobby');

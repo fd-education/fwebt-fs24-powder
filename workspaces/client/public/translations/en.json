@@ -1,0 +1,44 @@
+{
+  "translation": {
+    "settings": {
+      "lang_en": "ENG",
+      "lang_de": "GER"
+    },
+    "game_title": {
+      "title": "Powder",
+      "subtitle": "Tetris, but cooler..."
+    },
+    "name_input": {
+      "title": "What's your name?",
+      "input": "enter your name",
+      "continue": "continue"
+    },
+    "lobby": {
+      "chat_title": "Lobby Chat",
+      "write_here": "write here ...",
+      "single_player": "Singleplayer",
+      "play": "play",
+      "multi_player": "Multiplayer",
+      "local": "local",
+      "remote": "remote",
+      "scoreboard": "Scoreboard",
+      "name": "name",
+      "score": "score",
+      "rank": "rank"
+    },
+    "game": {
+      "score": "score",
+      "lines": "lines",
+      "pause": "pause",
+      "paused": "paused",
+      "end": "end",
+      "continue": "continue",
+      "up_next": "up next",
+      "give_up": "you gave up?! :(",
+      "back_home": "back to lobby",
+      "lost": "you lost! :(",
+      "opponent": "opponent",
+      "has_lost": "has lost! :("
+    }
+  }
+}

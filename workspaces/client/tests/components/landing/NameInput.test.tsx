@@ -8,12 +8,34 @@ import {
   RouterProvider,
   createMemoryRouter,
 } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const mockedUseNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUseNavigate,
 }));
+
+jest.mock('react-i18next', () => ({
+  useTranslation: jest.fn(),
+}));
+
+const tSpy = jest.fn((str) => str);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const changeLanguageSpy = jest.fn((lng: string) => new Promise(() => {}));
+const useTranslationSpy = useTranslation as jest.Mock;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+
+  useTranslationSpy.mockReturnValue({
+    t: tSpy,
+    i18n: {
+      changeLanguage: changeLanguageSpy,
+      language: 'en',
+    },
+  });
+});
 
 describe('NameInput component: interface & behaviour', () => {
   const mockedSetPlayerName = jest.fn();
@@ -47,9 +69,9 @@ describe('NameInput component: interface & behaviour', () => {
   it('Should render ui components', () => {
     render(<NameInput />);
 
-    expect(screen.getByText("What's your name?")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('enter your name')).toBeInTheDocument();
-    expect(screen.getByText('continue')).toBeInTheDocument();
+    expect(tSpy).toHaveBeenCalledWith('name_input.title');
+    expect(tSpy).toHaveBeenCalledWith('name_input.input');
+    expect(tSpy).toHaveBeenCalledWith('name_input.continue');
   });
 
   it('Should take player name as input', async () => {
@@ -57,7 +79,7 @@ describe('NameInput component: interface & behaviour', () => {
 
     const input = 'testPlayer';
     await userEvent.type(
-      await screen.findByPlaceholderText('enter your name'),
+      await screen.findByPlaceholderText('name_input.input'),
       input
     );
   });
@@ -67,10 +89,10 @@ describe('NameInput component: interface & behaviour', () => {
 
     const input = 'testPlayer';
     await userEvent.type(
-      await screen.findByPlaceholderText('enter your name'),
+      await screen.findByPlaceholderText('name_input.input'),
       input
     );
-    await userEvent.click(await screen.findByText('continue'));
+    await userEvent.click(await screen.findByText('name_input.continue'));
     expect(mockedSetPlayerName).toHaveBeenCalledWith(input);
     expect(mockedUseNavigate).toHaveBeenCalledWith('/lobby');
   });
@@ -78,7 +100,7 @@ describe('NameInput component: interface & behaviour', () => {
   it('Should not set empty empty playername in store', async () => {
     render(<NameInput />);
 
-    await userEvent.click(await screen.findByText('continue'));
+    await userEvent.click(await screen.findByText('name_input.continue'));
     expect(mockedSetPlayerName).not.toHaveBeenCalled();
     expect(mockedUseNavigate).not.toHaveBeenCalled();
   });
