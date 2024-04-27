@@ -16,7 +16,6 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockedUseNavigate,
 }));
 
-
 jest.mock('react-i18next', () => ({
   useTranslation: jest.fn(),
 }));

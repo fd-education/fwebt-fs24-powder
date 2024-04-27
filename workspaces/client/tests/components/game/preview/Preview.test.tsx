@@ -32,7 +32,6 @@ beforeEach(() => {
   });
 });
 
-
 describe('Preview component: interface & behaviour', () => {
   const previewBlocks = [getRandomBlock()];
 
