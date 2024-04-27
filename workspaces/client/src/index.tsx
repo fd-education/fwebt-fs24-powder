@@ -11,6 +11,7 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Background } from './components/util/Background';
 import { routes } from './domain/routes/Routes';
+import './i18n';
 
 const router = createBrowserRouter(routes);
 

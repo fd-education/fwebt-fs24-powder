@@ -1,9 +1,10 @@
+import { changeLanguage } from 'i18next';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 export enum Languages {
-  ENG,
-  GER
+  ENG = 'en-US',
+  GER = 'de-CH'
 }
 
 interface LanguageState {
@@ -16,7 +17,8 @@ const getLanguage = (): Languages => {
     ('language' in localStorage &&
       JSON.parse(localStorage.language).state.language === Languages.ENG);
 
-  return isEng ? Languages.ENG : Languages.GER;
+  const lang = isEng ? Languages.ENG : Languages.GER;
+  return lang
 };
 
 export const useLanguageStore = create<LanguageState>()(
@@ -24,6 +26,8 @@ export const useLanguageStore = create<LanguageState>()(
     (set) => ({
       language: getLanguage(),
       setLanguage: (language: Languages) => {
+        changeLanguage(language);
+        console.log(language);
         set(() => {
           return {
             language,

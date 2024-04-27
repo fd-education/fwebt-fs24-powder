@@ -46,7 +46,7 @@ const config: webpack.Configuration = {
         {
           from: './public',
           to: './public',
-        },
+        }
       ],
     }),
   ],
