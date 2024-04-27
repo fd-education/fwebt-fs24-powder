@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { LanguageIcon } from '../icons/LanguageIcon';
 import { Languages, useLanguageStore } from '../../domain/state/languageStore';
+import { useTranslation } from 'react-i18next';
 
 export const LanguageSelector = () => {
   const { language, setLanguage } = useLanguageStore();
+  const {t} = useTranslation();
 
   useEffect(() => {
     setLanguage(language);
@@ -18,7 +20,7 @@ export const LanguageSelector = () => {
       >
         <LanguageIcon />
         <p className='dark:text-white text-black'>
-          {language === Languages.ENG ? 'ENG' : 'GER'}
+          {language === Languages.ENG ? t('settings.lang_en') : t('settings.lang_de')}
         </p>
       </div>
       <ul
@@ -26,10 +28,10 @@ export const LanguageSelector = () => {
         className='dropdown-content bg-none z-[1] menu p-2 rounded-box w-52'
       >
         {language !== Languages.ENG && (
-          <LanguageOption text='ENG' handler={() => setLanguage(Languages.ENG)} />
+          <LanguageOption text={t('settings.lang_en')} handler={() => setLanguage(Languages.ENG)} />
         )}
         {language !== Languages.GER && (
-          <LanguageOption text='GER' handler={() => setLanguage(Languages.GER)}/>
+          <LanguageOption text={t('settings.lang_de')} handler={() => setLanguage(Languages.GER)}/>
         )}
       </ul>
     </div>

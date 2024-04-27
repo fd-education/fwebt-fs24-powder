@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export enum TitleSize {
   BIG = 'big',
@@ -10,17 +11,19 @@ interface TitleProps {
 }
 
 export const Title = ({ size }: TitleProps) => {
+  const {t} = useTranslation();
+
   return (
     <div>
       <h1
         className={`font-blocked ${size === TitleSize.BIG ? 'text-[10rem] mb-20' : 'text-7xl mb-8'} text-primary-dark dark:text-primary-light leading-3 mt-32`}
       >
-        POWDER
+        {t("game_title.title")}
       </h1>
       <h2
         className={`font-blocked ${size === TitleSize.BIG ? 'text-3xl' : 'text-2xl'} text-primary-dark dark:text-primary-light`}
       >
-        TETRIS, BUT COOLER ...
+        {t("game_title.subtitle")}
       </h2>
     </div>
   );
