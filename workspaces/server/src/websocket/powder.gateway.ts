@@ -103,15 +103,6 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
   }
 
-  startGame(client: Socket, challenge: ChallengeRequest, waiting: Player) {
-    this.playerPairs.set(waiting.socket.id, client.id);
-    this.playerPairs.set(client.id, waiting.socket.id);
-
-    waiting.socket.emit(MultiplayerEvents.START, challenge.name);
-    client.emit(MultiplayerEvents.START, waiting.name);
-    waiting = null;
-  }
-
   @SubscribeMessage(MultiplayerEvents.UPDATE)
   async handleMultiplayerUpdate(
     @ConnectedSocket() client: Socket,
