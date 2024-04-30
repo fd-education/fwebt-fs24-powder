@@ -12,6 +12,7 @@ import { ScoreState, useScoreStore } from '../../../domain/state/scoreStore';
 import { MultiplayerBoard } from './MultiplayerBoard';
 import { GameProps } from '../../../pages/Game';
 import { Waiting } from '../Waiting';
+import { GameProgressStates } from '@powder/common';
 
 export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
   const { playerName } = usePlayerStore();
@@ -23,6 +24,7 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
   const {
     isConnected,
     emitGameChallenge,
+    emitGameProgress,
     registerGameStartHandler,
     registerGameStateHandler,
     registerGameDisconnectHandler,
@@ -75,9 +77,13 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
     };
   }, []);
 
+  const stopWaiting = () => {
+    emitGameProgress(GameProgressStates.ended);
+  }
+
   return (
     <>
-      {waiting && <Waiting />}
+      {waiting && <Waiting stopHandler={stopWaiting}/>}
       <MultiplayerBoard
         isRemote={true}
         opponentDisconnected={opponentDisconnected}
