@@ -2,9 +2,9 @@ import { create } from 'zustand';
 import {
   GameActions,
   GameProgress,
-  GameProgressStates,
   getNextProgressStep,
 } from '../game/gameProgress';
+import { GameProgressStates } from '@powder/common';
 
 export interface GameState {
   progress: GameProgress;

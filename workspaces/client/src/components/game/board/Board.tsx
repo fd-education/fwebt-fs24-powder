@@ -5,7 +5,6 @@ import {
   useBoardStateStore,
   useOpponentBoardStateStore,
 } from '../../../domain/state/boardState/boardStateStore';
-import { GameProgressStates } from '../../../domain/game/gameProgress';
 import { powderConfig } from '../../../domain/config/PowderConfig';
 import {
   getObjectSize,
@@ -13,6 +12,7 @@ import {
   renderGrid,
 } from '../../../domain/canvas/canvas';
 import { useScreenModeStore } from '../../../domain/state/screenModeStore';
+import { GameProgressStates } from '@powder/common';
 
 interface BoardProps {
   isOpponentBoard?: boolean;

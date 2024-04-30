@@ -4,8 +4,8 @@ import { PanelHeading } from '../util/PanelHeading';
 import { PowderButton } from '../util/PowderButton';
 import { useGameStateStore } from '../../domain/state/gameStateStore';
 import { useWebsocketStore } from '../../domain/state/websocketStateStore';
-import { GameProgressStates } from '../../domain/game/gameProgress';
 import { useTranslation } from 'react-i18next';
+import { GameProgressStates } from '@powder/common';
 
 interface PauseProps {
   isOpponent?: boolean;

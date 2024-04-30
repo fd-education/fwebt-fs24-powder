@@ -6,10 +6,10 @@ import {
   useBoardStateStore,
   useOpponentBoardStateStore,
 } from '../../../domain/state/boardState/boardStateStore';
-import { GameProgressStates } from '../../../domain/game/gameProgress';
 import { getObjectSize, renderPreview } from '../../../domain/canvas/canvas';
 import { powderConfig } from '../../../domain/config/PowderConfig';
 import { useTranslation } from 'react-i18next';
+import { GameProgressStates } from '@powder/common';
 
 interface PreviewProps {
   isOpponentPreview?: boolean;

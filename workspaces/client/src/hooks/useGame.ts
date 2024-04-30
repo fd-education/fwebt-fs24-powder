@@ -9,9 +9,9 @@ import {
   useOpponentBoardStateStore,
 } from '../domain/state/boardState/boardStateStore';
 import { checkCollisions } from '../domain/game/blockPhysics';
-import { GameProgressStates } from '../domain/game/gameProgress';
 import { KeyMap, opponentKeyMap, playerKeyMap } from '../domain/game/keyMaps';
 import { useWebsocketStore } from '../domain/state/websocketStateStore';
+import { GameProgressStates } from '@powder/common';
 
 const {
   DESINTEGRATION,

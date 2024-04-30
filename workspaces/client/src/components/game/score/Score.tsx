@@ -6,8 +6,8 @@ import { NumberDisplay } from './NumberDisplay';
 import { useScoreStore } from '../../../domain/state/scoreStore';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
 import { useWebsocketStore } from '../../../domain/state/websocketStateStore';
-import { GameProgressStates } from '../../../domain/game/gameProgress';
 import { useTranslation } from 'react-i18next';
+import { GameProgressStates } from '@powder/common';
 
 interface ScoreProps {
   isOpponentScore?: boolean;

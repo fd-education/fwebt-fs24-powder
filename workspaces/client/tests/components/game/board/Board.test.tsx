@@ -1,6 +1,6 @@
 import { Board } from '@/src/components/game/board/Board';
-import { GameProgressStates } from '@/src/domain/game/gameProgress';
 import { usePlayerGameStateStore } from '@/src/domain/state/gameStateStore';
+import { GameProgressStates } from '@powder/common';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 

@@ -12,6 +12,7 @@ import {
   ChatEvents,
   ChatMessage,
   Difficulty,
+  GameProgressStates,
   MultiplayerEvents,
   PowderNamespace,
 } from '@powder/common';
@@ -134,6 +135,14 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @ConnectedSocket() client: Socket,
     @MessageBody() progress: any,
   ) {
+    if(progress === GameProgressStates.ended) {    
+      this.queues.forEach((player, diff) => {
+        if (player.socket.id === client.id) {
+          this.queues.delete(diff);
+        }
+      });
+    }
+    
     const opponentId = this.playerPairs.get(client.id);
     if (!opponentId) return;
 

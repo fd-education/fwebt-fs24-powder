@@ -1,4 +1,3 @@
-import { GameProgressStates } from '../../../domain/game/gameProgress';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
 import React from 'react';
 import { SettingsGroup } from '../../settings/SettingsGroup';
@@ -8,6 +7,7 @@ import { Lost } from '../Lost';
 import { Board } from '../board/Board';
 import { Preview } from '../preview/Preview';
 import { Score } from '../score/Score';
+import { GameProgressStates } from '@powder/common';
 
 interface MultiplayerBoardProps {
   isRemote: boolean;
