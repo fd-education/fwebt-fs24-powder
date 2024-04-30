@@ -91,5 +91,5 @@ export const getPreviewBlocks = (next: BlockInfo[]): BoardType[] => {
     boards.push(previewBoard);
   });
 
-  return boards.reverse();
+  return boards;
 };

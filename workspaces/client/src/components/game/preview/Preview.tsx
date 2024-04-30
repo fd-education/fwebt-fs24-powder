@@ -42,7 +42,11 @@ export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
 
     canvas.hidden = progress !== GameProgressStates.started;
 
-    renderPreview(ctx, nextBlockShapes);
+    if (isOpponentPreview) {
+      renderPreview(ctx, nextBlockShapes);
+    } else {
+      renderPreview(ctx, nextBlockShapes);
+    }
   }, [canvasRef, nextBlockShapes, progress]);
 
   return (
