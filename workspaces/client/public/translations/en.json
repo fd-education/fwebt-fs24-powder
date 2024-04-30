@@ -32,6 +32,8 @@
     "game": {
       "score": "score",
       "lines": "lines",
+      "patient": "be patient!",
+      "waiting": "waiting for a remote opponent ...",
       "pause": "pause",
       "paused": "paused",
       "end": "end",

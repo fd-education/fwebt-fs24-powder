@@ -11,6 +11,7 @@ import { usePlayerGame, useRemoteOpponentGame } from '../../../hooks/useGame';
 import { ScoreState, useScoreStore } from '../../../domain/state/scoreStore';
 import { MultiplayerBoard } from './MultiplayerBoard';
 import { GameProps } from '../../../pages/Game';
+import { Waiting } from '../Waiting';
 
 export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
   const { playerName } = usePlayerStore();
@@ -34,6 +35,8 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
   const { clearScores: clearPlayerScores } = useScoreStore(false);
   const { clearScores: clearOpponentScores, applyScore } = useScoreStore(true);
 
+  const [waiting, setIsWaiting] = useState(true);
+
   useEffect(() => {
     clearPlayerScores();
     clearOpponentScores();
@@ -46,6 +49,7 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
     });
 
     registerGameStartHandler(() => {
+      setIsWaiting(false);
       startPlayerGame(true);
       startRemoteOpponentGame(true);
     });
@@ -72,9 +76,12 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
   }, []);
 
   return (
-    <MultiplayerBoard
-      isRemote={true}
-      opponentDisconnected={opponentDisconnected}
-    />
+    <>
+      {waiting && <Waiting />}
+      <MultiplayerBoard
+        isRemote={true}
+        opponentDisconnected={opponentDisconnected}
+      />
+    </>
   );
 };

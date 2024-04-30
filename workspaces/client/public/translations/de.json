@@ -32,6 +32,8 @@
     "game": {
       "score": "punkte",
       "lines": "linien",
+      "patient": "geduld!",
+      "waiting": "warte auf gegner ...",
       "pause": "pause",
       "paused": "pausiert",
       "end": "beenden",
