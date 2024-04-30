@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useWebsocketStore } from '../../../domain/state/websocketStateStore';
 import {
   BoardStateVars,
-  useOpponentBoardStateStore,
+  useBoardStateStore,
 } from '../../../domain/state/boardState/boardStateStore';
 import { usePlayerStore } from '../../../domain/state/playerNameStore';
 import { usePlayerGame, useRemoteOpponentGame } from '../../../hooks/useGame';
@@ -29,7 +29,7 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
     registerGameProgressHandler,
     removeGameHandlers,
   } = useWebsocketStore();
-  const { applyState } = useOpponentBoardStateStore();
+  const { applyState } = useBoardStateStore(true);
   const { applyGameProgress } = useGameStateStore(true);
   const { clearScores: clearPlayerScores } = useScoreStore(false);
   const { clearScores: clearOpponentScores, applyScore } = useScoreStore(true);
@@ -51,9 +51,8 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
     });
 
     registerGameStateHandler((state: Partial<BoardStateVars>) => {
-      
       applyState({
-        ...state
+        ...state,
       });
     });
 

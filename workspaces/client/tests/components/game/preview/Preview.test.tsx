@@ -1,5 +1,5 @@
 import { Preview } from '@/src/components/game/preview/Preview';
-import { useBoardStateStore } from '@/src/domain/state/boardState/boardStateStore';
+import { usePlayerBoardStateStore } from '@/src/domain/state/boardState/boardStateStore';
 import {
   getPreviewBlocks,
   getRandomBlock,
@@ -36,7 +36,7 @@ describe('Preview component: interface & behaviour', () => {
   const previewBlocks = [getRandomBlock(Difficulty.NORMAL)];
 
   beforeAll(() => {
-    useBoardStateStore.setState({
+    usePlayerBoardStateStore.setState({
       nextBlockShapes: getPreviewBlocks(previewBlocks),
     });
 

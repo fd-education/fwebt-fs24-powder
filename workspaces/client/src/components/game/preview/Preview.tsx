@@ -2,10 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
-import {
-  useBoardStateStore,
-  useOpponentBoardStateStore,
-} from '../../../domain/state/boardState/boardStateStore';
+import { useBoardStateStore } from '../../../domain/state/boardState/boardStateStore';
 import { getObjectSize, renderPreview } from '../../../domain/canvas/canvas';
 import { powderConfig } from '../../../domain/config/PowderConfig';
 import { useTranslation } from 'react-i18next';
@@ -16,9 +13,7 @@ interface PreviewProps {
 }
 
 export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
-  const { nextBlockShapes } = isOpponentPreview
-    ? useOpponentBoardStateStore()
-    : useBoardStateStore();
+  const { nextBlockShapes } = useBoardStateStore(isOpponentPreview);
   const { progress } = useGameStateStore(isOpponentPreview);
   const { t } = useTranslation();
 

@@ -6,7 +6,6 @@ import { GameState, useGameStateStore } from '../domain/state/gameStateStore';
 import {
   BoardState,
   useBoardStateStore,
-  useOpponentBoardStateStore,
 } from '../domain/state/boardState/boardStateStore';
 import { checkCollisions } from '../domain/game/blockPhysics';
 import { KeyMap, opponentKeyMap, playerKeyMap } from '../domain/game/keyMaps';
@@ -178,7 +177,7 @@ const calculateReward = (removed: number): number => {
 export const usePlayerGame = (difficulty: number) =>
   useGame(
     false,
-    useBoardStateStore(),
+    useBoardStateStore(false),
     useScoreStore(false),
     useGameStateStore(false),
     playerKeyMap,
@@ -188,7 +187,7 @@ export const usePlayerGame = (difficulty: number) =>
 export const useLocalOpponentGame = (difficulty: number) =>
   useGame(
     false,
-    useOpponentBoardStateStore(),
+    useBoardStateStore(true),
     useScoreStore(true),
     useGameStateStore(true),
     opponentKeyMap,
@@ -198,7 +197,7 @@ export const useLocalOpponentGame = (difficulty: number) =>
 export const useRemoteOpponentGame = (difficulty: number) =>
   useGame(
     true,
-    useOpponentBoardStateStore(),
+    useBoardStateStore(true),
     useScoreStore(true),
     useGameStateStore(true),
     opponentKeyMap,

@@ -1,10 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Panel } from '../../util/Panel';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
-import {
-  useBoardStateStore,
-  useOpponentBoardStateStore,
-} from '../../../domain/state/boardState/boardStateStore';
+import { useBoardStateStore } from '../../../domain/state/boardState/boardStateStore';
 import { powderConfig } from '../../../domain/config/PowderConfig';
 import {
   getObjectSize,
@@ -20,9 +17,7 @@ interface BoardProps {
 
 export const Board = ({ isOpponentBoard = false }: BoardProps) => {
   const { progress } = useGameStateStore(isOpponentBoard);
-  const { renderedBoard } = isOpponentBoard
-    ? useOpponentBoardStateStore()
-    : useBoardStateStore();
+  const { renderedBoard } = useBoardStateStore(isOpponentBoard);
 
   const { BOARD_ROWS, BOARD_COLS, DESINTEGRATION } = powderConfig;
   const { screenMode } = useScreenModeStore();

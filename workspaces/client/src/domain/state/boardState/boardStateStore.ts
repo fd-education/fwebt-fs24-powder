@@ -140,6 +140,15 @@ const boardStoreDefinition = (
     },
   }) as BoardState;
 
-export const useBoardStateStore = create<BoardState>(boardStoreDefinition);
+export const usePlayerBoardStateStore =
+  create<BoardState>(boardStoreDefinition);
 export const useOpponentBoardStateStore =
   create<BoardState>(boardStoreDefinition);
+
+export const useBoardStateStore = (isOpponent: boolean) => {
+  if (isOpponent) {
+    return useOpponentBoardStateStore();
+  } else {
+    return usePlayerBoardStateStore();
+  }
+};
