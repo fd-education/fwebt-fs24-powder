@@ -22,6 +22,7 @@ const config: Config = {
       'chat-bubble-received': '303C33',
       'chat-bubble-sent': 'rgba(255, 255, 255, 1)',
       'button-color': 'rgba(104, 146, 106, 1)',
+      'button-color-active': 'rgba(53, 183, 129, 1)',
       'powdromino-purple': 'rgba(97, 0, 255, 1)',
       'powdromino-purple-light': 'rgba(177, 131, 253, 1)',
       'powdromino-purple-dark': 'rgba(48, 0, 125, 1)',

@@ -8,6 +8,7 @@ import { LocalMultiplayerGame } from '../components/game/modes/LocalMultiplayerG
 export const GamePage = () => {
   const [searchParams] = useSearchParams();
   const gameMode = searchParams.get('mode');
+  const difficulty = searchParams.get('difficulty');
 
   return (
     <div className='relative h-full w-full flex justify-center gap-16'>

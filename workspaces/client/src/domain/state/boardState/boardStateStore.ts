@@ -17,6 +17,7 @@ import {
   getSettleState,
   getStartingState,
 } from './boardStateGetters';
+import { Difficulty } from '../../enums/Difficulty';
 
 export interface BoardStateVars {
   board: BoardType;
@@ -29,6 +30,7 @@ export interface BoardStateVars {
   isSettling: boolean;
   nextBlocks: BlockInfo[];
   nextBlockShapes: BoardType[];
+  difficulty: Difficulty;
 }
 
 export interface BoardState extends BoardStateVars {
@@ -51,12 +53,13 @@ const initialState: BoardStateVars = {
   renderedBoard: getEmptyBoard(),
   shapeRow: -1 * DESINTEGRATION,
   shapeCol: 3 * DESINTEGRATION,
-  block: getRandomBlock(),
+  block: getRandomBlock(Difficulty.NORMAL),
   shape: scaleBlockShape(blocks[BlockName.I].shape, DESINTEGRATION),
   nextBlocks: [],
   nextBlockShapes: [],
   hasCollision: false,
   isSettling: false,
+  difficulty: Difficulty.NORMAL
 };
 
 const boardStoreDefinition = (
@@ -72,7 +75,7 @@ const boardStoreDefinition = (
   ({
     ...initialState,
     initializeBoard: () => {
-      set(getStartingState());
+      set((state) => getStartingState(state.difficulty));
     },
     dropBlock: () => {
       set((state) => {

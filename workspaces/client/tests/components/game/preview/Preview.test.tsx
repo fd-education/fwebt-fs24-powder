@@ -1,4 +1,5 @@
 import { Preview } from '@/src/components/game/preview/Preview';
+import { Difficulty } from '@/src/domain/enums/Difficulty';
 import { GameProgressStates } from '@/src/domain/game/gameProgress';
 import { useBoardStateStore } from '@/src/domain/state/boardState/boardStateStore';
 import {
@@ -33,7 +34,7 @@ beforeEach(() => {
 });
 
 describe('Preview component: interface & behaviour', () => {
-  const previewBlocks = [getRandomBlock()];
+  const previewBlocks = [getRandomBlock(Difficulty.NORMAL)];
 
   beforeAll(() => {
     useBoardStateStore.setState({

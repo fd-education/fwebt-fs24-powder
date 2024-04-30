@@ -1,6 +1,7 @@
 import { BoardType } from '../../blocks/BlockName';
 import { scaleBlockShape } from '../../blocks/BlockShapes';
 import { powderConfig } from '../../config/PowderConfig';
+import { Difficulty } from '../../enums/Difficulty';
 import { checkCollisions, desintegrateBlocks } from '../../game/blockPhysics';
 import { checkPowdris } from '../../game/powdris';
 import { BoardState } from './boardStateStore';
@@ -14,9 +15,9 @@ import {
 
 const { DESINTEGRATION } = powderConfig;
 
-export const getStartingState = (): Partial<BoardState> => {
-  const firstBlock = getRandomBlock();
-  const nextBlocks = [getRandomBlock(), getRandomBlock(), getRandomBlock()];
+export const getStartingState = (difficulty: Difficulty): Partial<BoardState> => {
+  const firstBlock = getRandomBlock(difficulty);
+  const nextBlocks = [getRandomBlock(difficulty), getRandomBlock(difficulty), getRandomBlock(difficulty)];
 
   return {
     board: getEmptyBoard(),
@@ -157,7 +158,7 @@ export const getNextRoundState = (state: BoardState): Partial<BoardState> => {
     const updatedBoard = state.renderedBoard;
     const updatedBlock = state.nextBlocks.shift();
     const updatedShape = scaleBlockShape(updatedBlock.shape, DESINTEGRATION);
-    const updatedNextBlocks = [...state.nextBlocks, getRandomBlock()];
+    const updatedNextBlocks = [...state.nextBlocks, getRandomBlock(state.difficulty)];
     const hasCollision = checkCollisions(
       updatedBoard,
       updatedShape,

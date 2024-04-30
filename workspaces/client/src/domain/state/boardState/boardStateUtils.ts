@@ -2,6 +2,7 @@ import { BlockColor } from '../../blocks/BlockColor';
 import { BoardType, VoidCell, BlockName } from '../../blocks/BlockName';
 import { BlockInfo, blocks, BlockShape } from '../../blocks/BlockShapes';
 import { powderConfig } from '../../config/PowderConfig';
+import { Difficulty } from '../../enums/Difficulty';
 
 const { BOARD_ROWS, BOARD_COLS, DESINTEGRATION } = powderConfig;
 
@@ -13,14 +14,17 @@ export const getEmptyBoard = (
     .map(() => Array(BOARD_COLS * DESINTEGRATION).fill(VoidCell.VOID));
 };
 
-export const getRandomBlock = (): BlockInfo => {
+export const getRandomBlock = (difficulty: Difficulty): BlockInfo => {
   const blockNames = Object.values(BlockName);
   const name = blockNames[
     Math.floor(Math.random() * blockNames.length)
   ] as BlockName;
+
+  // ensure that the difficulty is limited by the actual number of colors in the game
+  const numberOfColors = Math.min(difficulty, Object.keys(BlockColor).length);
   const blockColors = Object.values(BlockColor);
   const color = blockColors[
-    Math.floor(Math.random() * blockColors.length)
+    Math.floor(Math.random() * numberOfColors)
   ] as BlockColor;
 
   return {
