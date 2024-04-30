@@ -17,6 +17,7 @@ import {
   getSettleState,
   getStartingState,
 } from './boardStateGetters';
+import { Difficulty } from '@powder/common';
 
 export interface BoardStateVars {
   board: BoardType;
@@ -29,10 +30,11 @@ export interface BoardStateVars {
   isSettling: boolean;
   nextBlocks: BlockInfo[];
   nextBlockShapes: BoardType[];
+  difficulty: Difficulty;
 }
 
 export interface BoardState extends BoardStateVars {
-  initializeBoard: () => void;
+  initializeBoard: (difficulty: number) => void;
   dropBlock: () => void;
   moveBlockLeft: () => void;
   moveBlockRight: () => void;
@@ -51,12 +53,13 @@ const initialState: BoardStateVars = {
   renderedBoard: getEmptyBoard(),
   shapeRow: -1 * DESINTEGRATION,
   shapeCol: 3 * DESINTEGRATION,
-  block: getRandomBlock(),
+  block: getRandomBlock(Difficulty.NORMAL),
   shape: scaleBlockShape(blocks[BlockName.I].shape, DESINTEGRATION),
   nextBlocks: [],
   nextBlockShapes: [],
   hasCollision: false,
   isSettling: false,
+  difficulty: Difficulty.NORMAL,
 };
 
 const boardStoreDefinition = (
@@ -71,8 +74,8 @@ const boardStoreDefinition = (
 ) =>
   ({
     ...initialState,
-    initializeBoard: () => {
-      set(getStartingState());
+    initializeBoard: (difficulty: number) => {
+      set(() => getStartingState(difficulty));
     },
     dropBlock: () => {
       set((state) => {
@@ -137,6 +140,15 @@ const boardStoreDefinition = (
     },
   }) as BoardState;
 
-export const useBoardStateStore = create<BoardState>(boardStoreDefinition);
+export const usePlayerBoardStateStore =
+  create<BoardState>(boardStoreDefinition);
 export const useOpponentBoardStateStore =
   create<BoardState>(boardStoreDefinition);
+
+export const useBoardStateStore = (isOpponent: boolean) => {
+  if (isOpponent) {
+    return useOpponentBoardStateStore();
+  } else {
+    return usePlayerBoardStateStore();
+  }
+};

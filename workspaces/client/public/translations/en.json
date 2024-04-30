@@ -16,6 +16,9 @@
     "lobby": {
       "chat_title": "Lobby Chat",
       "write_here": "write here ...",
+      "difficulty": "difficulty",
+      "normal": "normal",
+      "hard": "hard",
       "single_player": "Singleplayer",
       "play": "play",
       "multi_player": "Multiplayer",

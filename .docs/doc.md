@@ -1190,15 +1190,15 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
   <tr>
     <th>Nachbedingung Erfolg</th>
-    <td>Spielfeld wird mit 15 x 20 Block-Kacheln geladen.</td>
+    <td>Das Spiel wird mit 5 Blockfarben gespielt.</td>
   </tr>
   <tr>
     <th>Nachbedingung Alternativ</th>
-    <td>Spielfeld wird mit 10 x 20 Block-Kacheln geladen.</td>
+    <td>Das Spiel wird mit 7 Blockfarben gespielt.</td>
   </tr>
   <tr>
     <th>Klassifizierung</th>
-    <td>Funktional, MUSS</td>
+    <td>Funktional, KANN</td>
   </tr>
   <tr>
     <th>Aufwand</th>

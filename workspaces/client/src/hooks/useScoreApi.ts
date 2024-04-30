@@ -5,7 +5,7 @@ import { powderConfig } from '../domain/config/PowderConfig';
 
 export const useScoreApi = () => {
   const { playerName } = usePlayerStore();
-  const { score } = useScoreStore(true);
+  const { score } = useScoreStore(false);
   const { SERVER_URL, SCORE_ENDPOINT } = powderConfig;
 
   const saveScore = () => {

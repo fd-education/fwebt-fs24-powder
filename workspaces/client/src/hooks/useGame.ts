@@ -2,20 +2,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from './useInterval';
 import { powderConfig } from '../domain/config/PowderConfig';
 import { ScoreState, useScoreStore } from '../domain/state/scoreStore';
-import {
-  GameState,
-  useGameStateStore,
-  useOpponentGameStateStore,
-} from '../domain/state/gameStateStore';
+import { GameState, useGameStateStore } from '../domain/state/gameStateStore';
 import {
   BoardState,
   useBoardStateStore,
-  useOpponentBoardStateStore,
 } from '../domain/state/boardState/boardStateStore';
 import { checkCollisions } from '../domain/game/blockPhysics';
-import { GameProgressStates } from '../domain/game/gameProgress';
 import { KeyMap, opponentKeyMap, playerKeyMap } from '../domain/game/keyMaps';
 import { useWebsocketStore } from '../domain/state/websocketStateStore';
+import { GameProgressStates } from '@powder/common';
 
 const {
   DESINTEGRATION,
@@ -29,7 +24,8 @@ const useGame = (
   boardStateStore: BoardState,
   scoreStore: ScoreState,
   gameStateStore: GameState,
-  keyMap: KeyMap
+  keyMap: KeyMap,
+  difficulty: number
 ) => {
   const { incScore, getScore } = scoreStore;
   const { startGame: start, progress, endGame } = gameStateStore;
@@ -62,7 +58,7 @@ const useGame = (
 
       if (!isRemoteOpponent) {
         setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
-        initializeBoard();
+        initializeBoard(difficulty);
       }
 
       start();
@@ -178,29 +174,32 @@ const calculateReward = (removed: number): number => {
   }
 };
 
-export const usePlayerGame = () =>
+export const usePlayerGame = (difficulty: number) =>
   useGame(
     false,
-    useBoardStateStore(),
+    useBoardStateStore(false),
     useScoreStore(false),
-    useGameStateStore(),
-    playerKeyMap
+    useGameStateStore(false),
+    playerKeyMap,
+    difficulty
   );
 
-export const useLocalOpponentGame = () =>
+export const useLocalOpponentGame = (difficulty: number) =>
   useGame(
     false,
-    useOpponentBoardStateStore(),
+    useBoardStateStore(true),
     useScoreStore(true),
-    useOpponentGameStateStore(),
-    opponentKeyMap
+    useGameStateStore(true),
+    opponentKeyMap,
+    difficulty
   );
 
-export const useRemoteOpponentGame = () =>
+export const useRemoteOpponentGame = (difficulty: number) =>
   useGame(
     true,
-    useOpponentBoardStateStore(),
+    useBoardStateStore(true),
     useScoreStore(true),
-    useOpponentGameStateStore(),
-    opponentKeyMap
+    useGameStateStore(true),
+    opponentKeyMap,
+    difficulty
   );

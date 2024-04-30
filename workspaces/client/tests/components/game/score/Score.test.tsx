@@ -1,5 +1,5 @@
 import { Score } from '@/src/components/game/score/Score';
-import { useGameStateStore } from '@/src/domain/state/gameStateStore';
+import { usePlayerGameStateStore } from '@/src/domain/state/gameStateStore';
 import { usePlayerScoreStore } from '@/src/domain/state/scoreStore';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -37,7 +37,7 @@ describe('Score component: interface & behaviour', () => {
       score: 3333,
     });
 
-    useGameStateStore.setState({
+    usePlayerGameStateStore.setState({
       pauseGame: mockedPauseGame,
       endGame: mockedEndGame,
     });

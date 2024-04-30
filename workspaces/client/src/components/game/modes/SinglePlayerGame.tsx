@@ -1,4 +1,3 @@
-import { GameProgressStates } from '../../../domain/game/gameProgress';
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
 import React, { useEffect } from 'react';
 import { SettingsGroup } from '../../settings/SettingsGroup';
@@ -12,11 +11,13 @@ import { Score } from '../score/Score';
 import { usePlayerGame } from '../../../hooks/useGame';
 import { useScoreStore } from '../../../domain/state/scoreStore';
 import { Lost } from '../Lost';
+import { GameProps } from '../../../pages/Game';
+import { GameProgressStates } from '@powder/common';
 
-export const SinglePlayerGame = () => {
-  const { progress } = useGameStateStore();
+export const SinglePlayerGame = ({ difficulty }: GameProps) => {
+  const { progress } = useGameStateStore(false);
 
-  const { startGame: startPlayerGame } = usePlayerGame();
+  const { startGame: startPlayerGame } = usePlayerGame(difficulty);
   const { clearScores: clearPlayerScores } = useScoreStore(false);
 
   useEffect(() => {

@@ -2,13 +2,10 @@ import React from 'react';
 import { Panel } from '../util/Panel';
 import { PanelHeading } from '../util/PanelHeading';
 import { PowderButton } from '../util/PowderButton';
-import {
-  useGameStateStore,
-  useOpponentGameStateStore,
-} from '../../domain/state/gameStateStore';
+import { useGameStateStore } from '../../domain/state/gameStateStore';
 import { useWebsocketStore } from '../../domain/state/websocketStateStore';
-import { GameProgressStates } from '../../domain/game/gameProgress';
 import { useTranslation } from 'react-i18next';
+import { GameProgressStates } from '@powder/common';
 
 interface PauseProps {
   isOpponent?: boolean;
@@ -16,9 +13,7 @@ interface PauseProps {
 }
 
 export const Pause = ({ isOpponent = false, isRemote = false }: PauseProps) => {
-  const { continueGame: cont } = isOpponent
-    ? useOpponentGameStateStore()
-    : useGameStateStore();
+  const { continueGame: cont } = useGameStateStore(isOpponent);
   const { emitGameProgress } = useWebsocketStore();
   const { t } = useTranslation();
 

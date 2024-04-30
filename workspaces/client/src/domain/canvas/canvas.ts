@@ -88,7 +88,7 @@ export const renderPreview = (
 
   const size = Math.min(ctx.canvas.width / cols, ctx.canvas.height / rows);
 
-  nextBlocks?.reverse().map((block) => {
+  nextBlocks?.map((block) => {
     block.map((row, ri) => {
       const colOffset = (ctx.canvas.width - size * row.length) / 2;
 

@@ -1,12 +1,12 @@
 import { Board } from '@/src/components/game/board/Board';
-import { GameProgressStates } from '@/src/domain/game/gameProgress';
-import { useGameStateStore } from '@/src/domain/state/gameStateStore';
+import { usePlayerGameStateStore } from '@/src/domain/state/gameStateStore';
+import { GameProgressStates } from '@powder/common';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
 describe('Board component: interface & behaviour', () => {
   it('Should not display board if paused', () => {
-    useGameStateStore.setState({ progress: GameProgressStates.paused });
+    usePlayerGameStateStore.setState({ progress: GameProgressStates.paused });
     render(<Board />);
 
     const boardCanvas = screen.getByTestId('board-canvas');
@@ -14,7 +14,7 @@ describe('Board component: interface & behaviour', () => {
   });
 
   it('Should display board if not paused', () => {
-    useGameStateStore.setState({ progress: GameProgressStates.started });
+    usePlayerGameStateStore.setState({ progress: GameProgressStates.started });
     render(<Board />);
 
     const boardCanvas = screen.getByTestId('board-canvas');

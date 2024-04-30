@@ -1,31 +1,20 @@
 import React, { useEffect, useRef } from 'react';
 import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
-import {
-  useGameStateStore,
-  useOpponentGameStateStore,
-} from '../../../domain/state/gameStateStore';
-import {
-  useBoardStateStore,
-  useOpponentBoardStateStore,
-} from '../../../domain/state/boardState/boardStateStore';
-import { GameProgressStates } from '../../../domain/game/gameProgress';
+import { useGameStateStore } from '../../../domain/state/gameStateStore';
+import { useBoardStateStore } from '../../../domain/state/boardState/boardStateStore';
 import { getObjectSize, renderPreview } from '../../../domain/canvas/canvas';
 import { powderConfig } from '../../../domain/config/PowderConfig';
 import { useTranslation } from 'react-i18next';
+import { GameProgressStates } from '@powder/common';
 
 interface PreviewProps {
   isOpponentPreview?: boolean;
 }
 
 export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
-  const { nextBlockShapes } = isOpponentPreview
-    ? useOpponentBoardStateStore()
-    : useBoardStateStore();
-  const { progress } = isOpponentPreview
-    ? useOpponentGameStateStore()
-    : useGameStateStore();
-
+  const { nextBlockShapes } = useBoardStateStore(isOpponentPreview);
+  const { progress } = useGameStateStore(isOpponentPreview);
   const { t } = useTranslation();
 
   const canvasRef = useRef(null);
@@ -44,10 +33,9 @@ export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
     canvas.height = dimensions.height;
     canvas.width = (canvas.height / BOARD_ROWS) * BOARD_COLS;
 
-    const ctx = canvas.getContext('2d');
-
     canvas.hidden = progress !== GameProgressStates.started;
 
+    const ctx = canvas.getContext('2d');
     renderPreview(ctx, nextBlockShapes);
   }, [canvasRef, nextBlockShapes, progress]);
 

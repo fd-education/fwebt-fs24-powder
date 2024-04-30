@@ -1,7 +1,12 @@
 import { Socket, io } from 'socket.io-client';
 import { create } from 'zustand';
 import { BoardStateVars } from './boardState/boardStateStore';
-import { ChatEvents, ChatMessage, MultiplayerEvents } from '@powder/common';
+import {
+  ChallengeRequest,
+  ChatEvents,
+  ChatMessage,
+  MultiplayerEvents,
+} from '@powder/common';
 import { ScoreState } from './scoreStore';
 import { GameProgress } from '../game/gameProgress';
 
@@ -16,7 +21,7 @@ interface WebsocketState {
     handler: (messages: ChatMessage[]) => void
   ) => void;
   registerChatHandler: (handler: (message: ChatMessage) => void) => void;
-  emitGameChallenge: (playername: string) => void;
+  emitGameChallenge: ({ name, difficulty }: ChallengeRequest) => void;
   emitBoardState: (state: Partial<BoardStateVars>) => void;
   emitGameScore: (score: Partial<ScoreState>) => void;
   emitGameProgress: (progress: Partial<GameProgress>) => void;
@@ -80,10 +85,10 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
 
     get().socket.emit(ChatEvents.CHAT_MESSAGE, message);
   },
-  emitGameChallenge: (playerName: string) => {
+  emitGameChallenge: (req: ChallengeRequest) => {
     if (!get().isConnected) return;
 
-    get().socket.emit(MultiplayerEvents.CHALLENGE, playerName);
+    get().socket.emit(MultiplayerEvents.CHALLENGE, req);
   },
   emitBoardState: (state: Partial<BoardStateVars>) => {
     if (!get().isConnected) return;

@@ -1,10 +1,4 @@
-export enum GameProgressStates {
-  initial = 'initial',
-  started = 'started',
-  paused = 'paused',
-  ended = 'ended',
-  lost = 'lost',
-}
+import { GameProgressStates } from '@powder/common';
 
 export enum GameActions {
   start_game = 'start_game',
@@ -25,6 +19,7 @@ type GameProgressMachine = {
 const gameProgressMachine: GameProgressMachine = {
   [GameProgressStates.initial]: {
     [GameActions.start_game]: GameProgressStates.started,
+    [GameActions.end_game]: GameProgressStates.ended,
   },
   [GameProgressStates.started]: {
     [GameActions.pause_game]: GameProgressStates.paused,

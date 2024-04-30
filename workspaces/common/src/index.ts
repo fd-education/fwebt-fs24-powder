@@ -36,6 +36,28 @@ export enum MultiplayerEvents{
   DISCONNECT = 'game_disconnect',
 }
 
+export type ChallengeRequest = {
+  name: string,
+  difficulty: Difficulty,
+}
+
+/**
+ * Levels of difficulty of the game.
+ * Controls how many colors are in the game and how many points are rewarded.
+ */
+export enum Difficulty {
+  NORMAL = 5,
+  HARD = 7
+}
+
+export enum GameProgressStates {
+  initial = 'initial',
+  started = 'started',
+  paused = 'paused',
+  ended = 'ended',
+  lost = 'lost',
+}
+
 export enum ChatEvents{
   CHAT_MESSAGE = 'chat_message',
   CHAT_HISTORY = 'chat_history'

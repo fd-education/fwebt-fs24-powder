@@ -2,17 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PowderButton } from '../util/PowderButton';
 import { useScoreApi } from '../../hooks/useScoreApi';
-import {
-  useGameStateStore,
-  useOpponentGameStateStore,
-} from '../../domain/state/gameStateStore';
+import { useGameStateStore } from '../../domain/state/gameStateStore';
 import { useTranslation } from 'react-i18next';
 
 export const BackHomeButton = () => {
   const navigate = useNavigate();
   const { saveScore } = useScoreApi();
-  const { initialiseGame } = useGameStateStore();
-  const { initialiseGame: initialiseOppGame } = useOpponentGameStateStore();
+  const { initialiseGame } = useGameStateStore(false);
+  const { initialiseGame: initialiseOppGame } = useGameStateStore(true);
   const { t } = useTranslation();
 
   const handleBackHome = () => {

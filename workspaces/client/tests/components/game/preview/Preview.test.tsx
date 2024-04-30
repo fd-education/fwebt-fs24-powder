@@ -1,11 +1,11 @@
 import { Preview } from '@/src/components/game/preview/Preview';
-import { GameProgressStates } from '@/src/domain/game/gameProgress';
-import { useBoardStateStore } from '@/src/domain/state/boardState/boardStateStore';
+import { usePlayerBoardStateStore } from '@/src/domain/state/boardState/boardStateStore';
 import {
   getPreviewBlocks,
   getRandomBlock,
 } from '@/src/domain/state/boardState/boardStateUtils';
-import { useGameStateStore } from '@/src/domain/state/gameStateStore';
+import { usePlayerGameStateStore } from '@/src/domain/state/gameStateStore';
+import { Difficulty, GameProgressStates } from '@powder/common';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
@@ -33,14 +33,14 @@ beforeEach(() => {
 });
 
 describe('Preview component: interface & behaviour', () => {
-  const previewBlocks = [getRandomBlock()];
+  const previewBlocks = [getRandomBlock(Difficulty.NORMAL)];
 
   beforeAll(() => {
-    useBoardStateStore.setState({
+    usePlayerBoardStateStore.setState({
       nextBlockShapes: getPreviewBlocks(previewBlocks),
     });
 
-    useGameStateStore.setState({
+    usePlayerGameStateStore.setState({
       progress: GameProgressStates.started,
     });
   });
@@ -58,7 +58,7 @@ describe('Preview component: interface & behaviour', () => {
   });
 
   it('Should hide preview during pause', () => {
-    useGameStateStore.setState({
+    usePlayerGameStateStore.setState({
       progress: GameProgressStates.paused,
     });
     render(<Preview />);

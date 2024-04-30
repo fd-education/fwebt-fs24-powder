@@ -16,6 +16,9 @@
     "lobby": {
       "chat_title": "Lobby Chat",
       "write_here": "hier tippen...",
+      "difficulty": "schwierigkeit",
+      "normal": "normal",
+      "hard": "schwer",
       "single_player": "Einzelspieler",
       "play": "starten",
       "multi_player": "Mehrspieler",
