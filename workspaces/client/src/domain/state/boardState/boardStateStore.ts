@@ -34,7 +34,7 @@ export interface BoardStateVars {
 }
 
 export interface BoardState extends BoardStateVars {
-  initializeBoard: () => void;
+  initializeBoard: (difficulty: number) => void;
   dropBlock: () => void;
   moveBlockLeft: () => void;
   moveBlockRight: () => void;
@@ -74,8 +74,8 @@ const boardStoreDefinition = (
 ) =>
   ({
     ...initialState,
-    initializeBoard: () => {
-      set((state) => getStartingState(state.difficulty));
+    initializeBoard: (difficulty: number) => {
+      set(() => getStartingState(difficulty));
     },
     dropBlock: () => {
       set((state) => {

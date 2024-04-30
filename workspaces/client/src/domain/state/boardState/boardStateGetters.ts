@@ -36,6 +36,7 @@ export const getStartingState = (difficulty: Difficulty): Partial<BoardState> =>
     nextBlockShapes: getPreviewBlocks(nextBlocks),
     hasCollision: false,
     isSettling: false,
+    difficulty
   };
 };
 

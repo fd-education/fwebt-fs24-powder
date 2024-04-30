@@ -12,11 +12,12 @@ import { Score } from '../score/Score';
 import { usePlayerGame } from '../../../hooks/useGame';
 import { useScoreStore } from '../../../domain/state/scoreStore';
 import { Lost } from '../Lost';
+import { GameProps } from '../../../pages/Game';
 
-export const SinglePlayerGame = () => {
+export const SinglePlayerGame = ({difficulty}: GameProps) => {
   const { progress } = useGameStateStore();
 
-  const { startGame: startPlayerGame } = usePlayerGame();
+  const { startGame: startPlayerGame } = usePlayerGame(difficulty);
   const { clearScores: clearPlayerScores } = useScoreStore(false);
 
   useEffect(() => {

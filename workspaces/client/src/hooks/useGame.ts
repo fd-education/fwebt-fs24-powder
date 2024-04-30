@@ -29,7 +29,8 @@ const useGame = (
   boardStateStore: BoardState,
   scoreStore: ScoreState,
   gameStateStore: GameState,
-  keyMap: KeyMap
+  keyMap: KeyMap,
+  difficulty: number
 ) => {
   const { incScore, getScore } = scoreStore;
   const { startGame: start, progress, endGame } = gameStateStore;
@@ -62,7 +63,7 @@ const useGame = (
 
       if (!isRemoteOpponent) {
         setLoopSpeed(BASE_STANDARD_LOOP_SPEED / DESINTEGRATION);
-        initializeBoard();
+        initializeBoard(difficulty);
       }
 
       start();
@@ -178,29 +179,32 @@ const calculateReward = (removed: number): number => {
   }
 };
 
-export const usePlayerGame = () =>
+export const usePlayerGame = (difficulty: number) =>
   useGame(
     false,
     useBoardStateStore(),
     useScoreStore(false),
     useGameStateStore(),
-    playerKeyMap
+    playerKeyMap,
+    difficulty
   );
 
-export const useLocalOpponentGame = () =>
+export const useLocalOpponentGame = (difficulty: number) =>
   useGame(
     false,
     useOpponentBoardStateStore(),
     useScoreStore(true),
     useOpponentGameStateStore(),
-    opponentKeyMap
+    opponentKeyMap,
+    difficulty
   );
 
-export const useRemoteOpponentGame = () =>
+export const useRemoteOpponentGame = (difficulty: number) =>
   useGame(
     true,
     useOpponentBoardStateStore(),
     useScoreStore(true),
     useOpponentGameStateStore(),
-    opponentKeyMap
+    opponentKeyMap,
+    difficulty
   );

@@ -10,12 +10,12 @@ import { usePlayerStore } from '../../../domain/state/playerNameStore';
 import { usePlayerGame, useRemoteOpponentGame } from '../../../hooks/useGame';
 import { ScoreState, useScoreStore } from '../../../domain/state/scoreStore';
 import { MultiplayerBoard } from './MultiplayerBoard';
+import { GameProps } from '../../../pages/Game';
 
-export const RemoteMultiplayerGame = () => {
+export const RemoteMultiplayerGame = ({difficulty}: GameProps) => {
   const { playerName } = usePlayerStore();
-  const { startGame: startPlayerGame } = usePlayerGame();
-  const { startGame: startRemoteOpponentGame } = useRemoteOpponentGame();
-  // const [_, setOpponentName] = useState('');
+  const { startGame: startPlayerGame } = usePlayerGame(difficulty);
+  const { startGame: startRemoteOpponentGame } = useRemoteOpponentGame(difficulty);
   const [opponentDisconnected, setOpponentDisconnected] = useState(false);
 
   const {
