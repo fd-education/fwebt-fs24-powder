@@ -17,7 +17,7 @@ import {
   getSettleState,
   getStartingState,
 } from './boardStateGetters';
-import { Difficulty } from '../../enums/Difficulty';
+import { Difficulty } from '@powder/common';
 
 export interface BoardStateVars {
   board: BoardType;

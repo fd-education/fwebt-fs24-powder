@@ -1,7 +1,7 @@
+import { Difficulty } from '@powder/common';
 import { BoardType } from '../../blocks/BlockName';
 import { scaleBlockShape } from '../../blocks/BlockShapes';
 import { powderConfig } from '../../config/PowderConfig';
-import { Difficulty } from '../../enums/Difficulty';
 import { checkCollisions, desintegrateBlocks } from '../../game/blockPhysics';
 import { checkPowdris } from '../../game/powdris';
 import { BoardState } from './boardStateStore';

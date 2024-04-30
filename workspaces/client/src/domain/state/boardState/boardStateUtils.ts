@@ -1,8 +1,8 @@
+import { Difficulty } from '@powder/common';
 import { BlockColor } from '../../blocks/BlockColor';
 import { BoardType, VoidCell, BlockName } from '../../blocks/BlockName';
 import { BlockInfo, blocks, BlockShape } from '../../blocks/BlockShapes';
 import { powderConfig } from '../../config/PowderConfig';
-import { Difficulty } from '../../enums/Difficulty';
 
 const { BOARD_ROWS, BOARD_COLS, DESINTEGRATION } = powderConfig;
 

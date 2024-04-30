@@ -8,8 +8,10 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import {
+  ChallengeRequest,
   ChatEvents,
   ChatMessage,
+  Difficulty,
   MultiplayerEvents,
   PowderNamespace,
 } from '@powder/common';
@@ -25,7 +27,10 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   connectedPlayers = new Map<string, Player>();
   playerPairs = new Map<string, string>();
-  waiting: Player = null;
+  normalWaiting: Player = null;
+  hardWaiting: Player = null;
+
+  queues = new Map<Difficulty, Player>();
 
   constructor(private chatsService: ChatsService) {}
 
@@ -48,8 +53,15 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
       this.playerPairs.delete(opponentId);
     }
 
-    if (this.waiting && this.waiting.socket.id === client.id) {
-      this.waiting === null;
+    const normalWaiting = this.queues.get(Difficulty.NORMAL);
+    const hardWaiting = this.queues.get(Difficulty.HARD);
+
+    if (normalWaiting?.socket.id === client.id) {
+      this.normalWaiting === null;
+    }
+
+    if (hardWaiting?.socket.id === client.id) {
+      this.hardWaiting === null;
     }
 
     if (this.connectedPlayers.has(opponentId)) {
@@ -62,22 +74,46 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage(MultiplayerEvents.CHALLENGE)
   async handleMultiplayerChallenge(
     @ConnectedSocket() client: Socket,
-    @MessageBody() playerName: string,
+    @MessageBody() challenge: ChallengeRequest,
   ) {
     const player = this.connectedPlayers.get(client.id);
-    player.name = playerName;
+    player.name = challenge.name;
     this.connectedPlayers.set(client.id, player);
 
-    if (!this.waiting) {
-      this.waiting = new Player(client);
-    } else {
-      this.playerPairs.set(this.waiting.socket.id, client.id);
-      this.playerPairs.set(client.id, this.waiting.socket.id);
+    console.log(challenge.difficulty);
+    console.log(Difficulty.NORMAL);
+    console.log(challenge.difficulty === Difficulty.NORMAL);
 
-      this.waiting.socket.emit(MultiplayerEvents.START, playerName);
-      client.emit(MultiplayerEvents.START, this.waiting.name);
-      this.waiting = null;
+    if (
+      challenge.difficulty === Difficulty.NORMAL &&
+      !this.queues.has(Difficulty.NORMAL)
+    ) {
+      this.queues.set(Difficulty.NORMAL, player);
+    } else if (
+      challenge.difficulty === Difficulty.HARD &&
+      !this.queues.has(Difficulty.HARD)
+    ) {
+      this.queues.set(Difficulty.HARD, player);
+    } else {
+      const opponent = this.queues.get(challenge.difficulty);
+
+      this.playerPairs.set(opponent.socket.id, client.id);
+      this.playerPairs.set(client.id, opponent.socket.id);
+
+      opponent.socket.emit(MultiplayerEvents.START);
+      client.emit(MultiplayerEvents.START);
+
+      this.queues.delete(challenge.difficulty);
     }
+  }
+
+  startGame(client: Socket, challenge: ChallengeRequest, waiting: Player) {
+    this.playerPairs.set(waiting.socket.id, client.id);
+    this.playerPairs.set(client.id, waiting.socket.id);
+
+    waiting.socket.emit(MultiplayerEvents.START, challenge.name);
+    client.emit(MultiplayerEvents.START, waiting.name);
+    waiting = null;
   }
 
   @SubscribeMessage(MultiplayerEvents.UPDATE)

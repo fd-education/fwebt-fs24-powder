@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { GameMode } from '../domain/enums/GameMode';
 import { SinglePlayerGame } from '../components/game/modes/SinglePlayerGame';
 import { RemoteMultiplayerGame } from '../components/game/modes/RemoteMultiplayerGame';
 import { LocalMultiplayerGame } from '../components/game/modes/LocalMultiplayerGame';
-import { Difficulty } from '../domain/enums/Difficulty';
 
 export interface GameProps{
   difficulty: number;

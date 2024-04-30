@@ -39,7 +39,10 @@ export const RemoteMultiplayerGame = ({difficulty}: GameProps) => {
 
     if (!isConnected) return;
 
-    emitGameChallenge(playerName);
+    emitGameChallenge({
+      name: playerName,
+      difficulty
+    });
 
     registerGameStartHandler(() => {
       startPlayerGame(true);

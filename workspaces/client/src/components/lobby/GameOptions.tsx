@@ -5,7 +5,7 @@ import { PowderButton } from '../util/PowderButton';
 import { useNavigate } from 'react-router-dom';
 import { GameMode } from '../../domain/enums/GameMode';
 import { useTranslation } from 'react-i18next';
-import { Difficulty } from '../../domain/enums/Difficulty';
+import { Difficulty } from '@powder/common';
 
 export const GameOptions = () => {
   const navigate = useNavigate();

@@ -1,5 +1,4 @@
 import { Preview } from '@/src/components/game/preview/Preview';
-import { Difficulty } from '@/src/domain/enums/Difficulty';
 import { GameProgressStates } from '@/src/domain/game/gameProgress';
 import { useBoardStateStore } from '@/src/domain/state/boardState/boardStateStore';
 import {
@@ -7,6 +6,7 @@ import {
   getRandomBlock,
 } from '@/src/domain/state/boardState/boardStateUtils';
 import { useGameStateStore } from '@/src/domain/state/gameStateStore';
+import { Difficulty } from '@powder/common';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
