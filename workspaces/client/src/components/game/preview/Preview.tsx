@@ -33,15 +33,10 @@ export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
     canvas.height = dimensions.height;
     canvas.width = (canvas.height / BOARD_ROWS) * BOARD_COLS;
 
-    const ctx = canvas.getContext('2d');
-
     canvas.hidden = progress !== GameProgressStates.started;
 
-    if (isOpponentPreview) {
-      renderPreview(ctx, nextBlockShapes);
-    } else {
-      renderPreview(ctx, nextBlockShapes);
-    }
+    const ctx = canvas.getContext('2d');
+    renderPreview(ctx, nextBlockShapes);
   }, [canvasRef, nextBlockShapes, progress]);
 
   return (

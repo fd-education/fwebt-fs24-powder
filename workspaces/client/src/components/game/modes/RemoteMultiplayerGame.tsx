@@ -51,9 +51,7 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
     });
 
     registerGameStateHandler((state: Partial<BoardStateVars>) => {
-      applyState({
-        ...state,
-      });
+      applyState(state);
     });
 
     registerGameDisconnectHandler(() => {
