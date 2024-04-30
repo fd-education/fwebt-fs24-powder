@@ -1,8 +1,5 @@
 import { GameProgressStates } from '../../../domain/game/gameProgress';
-import {
-  useGameStateStore,
-  useOpponentGameStateStore,
-} from '../../../domain/state/gameStateStore';
+import { useGameStateStore } from '../../../domain/state/gameStateStore';
 import React from 'react';
 import { SettingsGroup } from '../../settings/SettingsGroup';
 import { End } from '../End';
@@ -20,8 +17,8 @@ export const MultiplayerBoard = ({
   isRemote,
   opponentDisconnected = false,
 }: MultiplayerBoardProps) => {
-  const { progress } = useGameStateStore();
-  const { progress: opponentProgress } = useOpponentGameStateStore();
+  const { progress } = useGameStateStore(false);
+  const { progress: opponentProgress } = useGameStateStore(true);
 
   return (
     <div className='h-full flex flex-col justify-center items-center'>

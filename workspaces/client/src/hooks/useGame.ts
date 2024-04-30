@@ -2,11 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from './useInterval';
 import { powderConfig } from '../domain/config/PowderConfig';
 import { ScoreState, useScoreStore } from '../domain/state/scoreStore';
-import {
-  GameState,
-  useGameStateStore,
-  useOpponentGameStateStore,
-} from '../domain/state/gameStateStore';
+import { GameState, useGameStateStore } from '../domain/state/gameStateStore';
 import {
   BoardState,
   useBoardStateStore,
@@ -184,7 +180,7 @@ export const usePlayerGame = (difficulty: number) =>
     false,
     useBoardStateStore(),
     useScoreStore(false),
-    useGameStateStore(),
+    useGameStateStore(false),
     playerKeyMap,
     difficulty
   );
@@ -194,7 +190,7 @@ export const useLocalOpponentGame = (difficulty: number) =>
     false,
     useOpponentBoardStateStore(),
     useScoreStore(true),
-    useOpponentGameStateStore(),
+    useGameStateStore(true),
     opponentKeyMap,
     difficulty
   );
@@ -204,7 +200,7 @@ export const useRemoteOpponentGame = (difficulty: number) =>
     true,
     useOpponentBoardStateStore(),
     useScoreStore(true),
-    useOpponentGameStateStore(),
+    useGameStateStore(true),
     opponentKeyMap,
     difficulty
   );

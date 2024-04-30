@@ -53,7 +53,17 @@ const gameStateStoreDefinition = (
     applyGameProgress: (progress: GameProgress) => set({ progress }),
   }) as GameState;
 
-export const useGameStateStore = create<GameState>(gameStateStoreDefinition);
+export const usePlayerGameStateStore = create<GameState>(
+  gameStateStoreDefinition
+);
 export const useOpponentGameStateStore = create<GameState>(
   gameStateStoreDefinition
 );
+
+export const useGameStateStore = (isOpponent: boolean) => {
+  if (isOpponent) {
+    return useOpponentGameStateStore();
+  } else {
+    return usePlayerGameStateStore();
+  }
+};

@@ -1,10 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Panel } from '../../util/Panel';
 import { PanelHeading } from '../../util/PanelHeading';
-import {
-  useGameStateStore,
-  useOpponentGameStateStore,
-} from '../../../domain/state/gameStateStore';
+import { useGameStateStore } from '../../../domain/state/gameStateStore';
 import {
   useBoardStateStore,
   useOpponentBoardStateStore,
@@ -22,10 +19,7 @@ export const Preview = ({ isOpponentPreview = false }: PreviewProps) => {
   const { nextBlockShapes } = isOpponentPreview
     ? useOpponentBoardStateStore()
     : useBoardStateStore();
-  const { progress } = isOpponentPreview
-    ? useOpponentGameStateStore()
-    : useGameStateStore();
-
+  const { progress } = useGameStateStore(isOpponentPreview);
   const { t } = useTranslation();
 
   const canvasRef = useRef(null);

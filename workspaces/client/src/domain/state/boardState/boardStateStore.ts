@@ -59,7 +59,7 @@ const initialState: BoardStateVars = {
   nextBlockShapes: [],
   hasCollision: false,
   isSettling: false,
-  difficulty: Difficulty.NORMAL
+  difficulty: Difficulty.NORMAL,
 };
 
 const boardStoreDefinition = (

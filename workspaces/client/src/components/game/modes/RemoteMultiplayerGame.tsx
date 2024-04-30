@@ -1,5 +1,5 @@
 import { GameProgress } from '../../../domain/game/gameProgress';
-import { useOpponentGameStateStore } from '../../../domain/state/gameStateStore';
+import { useGameStateStore } from '../../../domain/state/gameStateStore';
 import React, { useEffect, useState } from 'react';
 import { useWebsocketStore } from '../../../domain/state/websocketStateStore';
 import {
@@ -12,10 +12,11 @@ import { ScoreState, useScoreStore } from '../../../domain/state/scoreStore';
 import { MultiplayerBoard } from './MultiplayerBoard';
 import { GameProps } from '../../../pages/Game';
 
-export const RemoteMultiplayerGame = ({difficulty}: GameProps) => {
+export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
   const { playerName } = usePlayerStore();
   const { startGame: startPlayerGame } = usePlayerGame(difficulty);
-  const { startGame: startRemoteOpponentGame } = useRemoteOpponentGame(difficulty);
+  const { startGame: startRemoteOpponentGame } =
+    useRemoteOpponentGame(difficulty);
   const [opponentDisconnected, setOpponentDisconnected] = useState(false);
 
   const {
@@ -29,7 +30,7 @@ export const RemoteMultiplayerGame = ({difficulty}: GameProps) => {
     removeGameHandlers,
   } = useWebsocketStore();
   const { applyState } = useOpponentBoardStateStore();
-  const { applyGameProgress } = useOpponentGameStateStore();
+  const { applyGameProgress } = useGameStateStore(true);
   const { clearScores: clearPlayerScores } = useScoreStore(false);
   const { clearScores: clearOpponentScores, applyScore } = useScoreStore(true);
 
@@ -41,7 +42,7 @@ export const RemoteMultiplayerGame = ({difficulty}: GameProps) => {
 
     emitGameChallenge({
       name: playerName,
-      difficulty
+      difficulty,
     });
 
     registerGameStartHandler(() => {

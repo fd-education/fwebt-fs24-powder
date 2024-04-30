@@ -80,10 +80,6 @@ export class PowderGateway implements OnGatewayConnection, OnGatewayDisconnect {
     player.name = challenge.name;
     this.connectedPlayers.set(client.id, player);
 
-    console.log(challenge.difficulty);
-    console.log(Difficulty.NORMAL);
-    console.log(challenge.difficulty === Difficulty.NORMAL);
-
     if (
       challenge.difficulty === Difficulty.NORMAL &&
       !this.queues.has(Difficulty.NORMAL)

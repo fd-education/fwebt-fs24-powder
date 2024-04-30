@@ -40,28 +40,28 @@ export const GameOptions = () => {
             }
           />
         </div>
-          <div className='flex flex-col items-center space-y-2'>
-            <PanelHeading text={t('lobby.multi_player')} />
-            <div className='space-x-6'>
-              <PowderButton
-                text={t('lobby.local')}
-                clickHandler={() =>
-                  navigate(
-                    `/game?mode=${GameMode.LOCAL_MULTI}&difficulty=${difficulty}`
-                  )
-                }
-              />
-              <PowderButton
-                text={t('lobby.remote')}
-                clickHandler={() =>
-                  navigate(
-                    `/game?mode=${GameMode.REMOTE_MULTI}&difficulty=${difficulty}`
-                  )
-                }
-              />
-            </div>
+        <div className='flex flex-col items-center space-y-2'>
+          <PanelHeading text={t('lobby.multi_player')} />
+          <div className='space-x-6'>
+            <PowderButton
+              text={t('lobby.local')}
+              clickHandler={() =>
+                navigate(
+                  `/game?mode=${GameMode.LOCAL_MULTI}&difficulty=${difficulty}`
+                )
+              }
+            />
+            <PowderButton
+              text={t('lobby.remote')}
+              clickHandler={() =>
+                navigate(
+                  `/game?mode=${GameMode.REMOTE_MULTI}&difficulty=${difficulty}`
+                )
+              }
+            />
           </div>
         </div>
+      </div>
     </Panel>
   );
 };

@@ -4,10 +4,7 @@ import { PanelHeading } from '../../util/PanelHeading';
 import { PowderButton } from '../../util/PowderButton';
 import { NumberDisplay } from './NumberDisplay';
 import { useScoreStore } from '../../../domain/state/scoreStore';
-import {
-  useGameStateStore,
-  useOpponentGameStateStore,
-} from '../../../domain/state/gameStateStore';
+import { useGameStateStore } from '../../../domain/state/gameStateStore';
 import { useWebsocketStore } from '../../../domain/state/websocketStateStore';
 import { GameProgressStates } from '../../../domain/game/gameProgress';
 import { useTranslation } from 'react-i18next';
@@ -22,9 +19,7 @@ export const Score = ({
   isRemote = false,
 }: ScoreProps) => {
   const { score, lines } = useScoreStore(isOpponentScore);
-  const { pauseGame: pause, endGame: end } = isOpponentScore
-    ? useOpponentGameStateStore()
-    : useGameStateStore();
+  const { pauseGame: pause, endGame: end } = useGameStateStore(isOpponentScore);
   const { emitGameProgress } = useWebsocketStore();
   const { t } = useTranslation();
 

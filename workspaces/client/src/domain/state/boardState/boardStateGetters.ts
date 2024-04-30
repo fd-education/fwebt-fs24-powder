@@ -15,9 +15,15 @@ import {
 
 const { DESINTEGRATION } = powderConfig;
 
-export const getStartingState = (difficulty: Difficulty): Partial<BoardState> => {
+export const getStartingState = (
+  difficulty: Difficulty
+): Partial<BoardState> => {
   const firstBlock = getRandomBlock(difficulty);
-  const nextBlocks = [getRandomBlock(difficulty), getRandomBlock(difficulty), getRandomBlock(difficulty)];
+  const nextBlocks = [
+    getRandomBlock(difficulty),
+    getRandomBlock(difficulty),
+    getRandomBlock(difficulty),
+  ];
 
   return {
     board: getEmptyBoard(),
@@ -36,7 +42,7 @@ export const getStartingState = (difficulty: Difficulty): Partial<BoardState> =>
     nextBlockShapes: getPreviewBlocks(nextBlocks),
     hasCollision: false,
     isSettling: false,
-    difficulty
+    difficulty,
   };
 };
 
@@ -159,7 +165,10 @@ export const getNextRoundState = (state: BoardState): Partial<BoardState> => {
     const updatedBoard = state.renderedBoard;
     const updatedBlock = state.nextBlocks.shift();
     const updatedShape = scaleBlockShape(updatedBlock.shape, DESINTEGRATION);
-    const updatedNextBlocks = [...state.nextBlocks, getRandomBlock(state.difficulty)];
+    const updatedNextBlocks = [
+      ...state.nextBlocks,
+      getRandomBlock(state.difficulty),
+    ];
     const hasCollision = checkCollisions(
       updatedBoard,
       updatedShape,

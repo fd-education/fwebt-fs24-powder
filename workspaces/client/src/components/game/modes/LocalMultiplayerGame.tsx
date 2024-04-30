@@ -4,7 +4,7 @@ import { useScoreStore } from '../../../domain/state/scoreStore';
 import { MultiplayerBoard } from './MultiplayerBoard';
 import { GameProps } from '../../../pages/Game';
 
-export const LocalMultiplayerGame = ({difficulty}: GameProps) => {
+export const LocalMultiplayerGame = ({ difficulty }: GameProps) => {
   const { startGame: startPlayerGame } = usePlayerGame(difficulty);
   const { startGame: startOpponentGame } = useLocalOpponentGame(difficulty);
   const { clearScores: clearPlayerScores } = useScoreStore(false);

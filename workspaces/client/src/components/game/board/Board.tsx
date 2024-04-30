@@ -1,9 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Panel } from '../../util/Panel';
-import {
-  useGameStateStore,
-  useOpponentGameStateStore,
-} from '../../../domain/state/gameStateStore';
+import { useGameStateStore } from '../../../domain/state/gameStateStore';
 import {
   useBoardStateStore,
   useOpponentBoardStateStore,
@@ -22,9 +19,7 @@ interface BoardProps {
 }
 
 export const Board = ({ isOpponentBoard = false }: BoardProps) => {
-  const { progress } = isOpponentBoard
-    ? useOpponentGameStateStore()
-    : useGameStateStore();
+  const { progress } = useGameStateStore(isOpponentBoard);
   const { renderedBoard } = isOpponentBoard
     ? useOpponentBoardStateStore()
     : useBoardStateStore();

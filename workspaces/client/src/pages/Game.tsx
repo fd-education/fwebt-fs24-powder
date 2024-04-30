@@ -5,7 +5,7 @@ import { SinglePlayerGame } from '../components/game/modes/SinglePlayerGame';
 import { RemoteMultiplayerGame } from '../components/game/modes/RemoteMultiplayerGame';
 import { LocalMultiplayerGame } from '../components/game/modes/LocalMultiplayerGame';
 
-export interface GameProps{
+export interface GameProps {
   difficulty: number;
 }
 

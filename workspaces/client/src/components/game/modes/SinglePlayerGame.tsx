@@ -14,8 +14,8 @@ import { useScoreStore } from '../../../domain/state/scoreStore';
 import { Lost } from '../Lost';
 import { GameProps } from '../../../pages/Game';
 
-export const SinglePlayerGame = ({difficulty}: GameProps) => {
-  const { progress } = useGameStateStore();
+export const SinglePlayerGame = ({ difficulty }: GameProps) => {
+  const { progress } = useGameStateStore(false);
 
   const { startGame: startPlayerGame } = usePlayerGame(difficulty);
   const { clearScores: clearPlayerScores } = useScoreStore(false);

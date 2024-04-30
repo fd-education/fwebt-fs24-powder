@@ -1,5 +1,5 @@
 import { Pause } from '@/src/components/game/Pause';
-import { useGameStateStore } from '@/src/domain/state/gameStateStore';
+import { usePlayerGameStateStore } from '@/src/domain/state/gameStateStore';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
@@ -31,7 +31,7 @@ describe('Pause component: interface', () => {
   const mockedContinueGame = jest.fn();
 
   beforeAll(() => {
-    useGameStateStore.setState({
+    usePlayerGameStateStore.setState({
       continueGame: mockedContinueGame,
     });
   });
