@@ -42,7 +42,7 @@ export const useScoreboardStore = create<ScoreboardState>((set) => ({
                 set({ error: true, loading: false, errorData: 'Error fetching scoreboard'});
             }
         } catch (error) {
-            set({ error: true, loading: false, errorData: error });
+            set({ error: true, loading: false, errorData: error.message || 'Error fetching scoreboard' });
         }
     },
 }));
