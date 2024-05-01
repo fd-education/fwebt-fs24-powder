@@ -16,7 +16,6 @@ export const Guide = ({
 }: GuideProps) => {
   const { t } = useTranslation();
 
-  
   const playerControls = ['▲', '◀︎', '▼', '▶︎'];
   const opponentControls = ['w', 'a', 's', 'd'];
 
@@ -28,11 +27,7 @@ export const Guide = ({
           <div className='flex flex-col items-center space-y-8'>
             <PanelHeading text={t('game.controls')} />
             <div className='flex flex-row space-x-32 items-center text-primary-dark dark:text-primary-light text-l text-center'>
-              {isLocalMultiplayer && (
-                <>
-                  <Controls controls={opponentControls} />
-                </>
-              )}
+              {isLocalMultiplayer && <Controls controls={opponentControls} />}
               <Controls controls={playerControls} />
             </div>
             <PowderButton
@@ -47,10 +42,10 @@ export const Guide = ({
 };
 
 interface ControlsProps {
-    controls: string[];
+  controls: string[];
 }
 
-const Controls = ({controls}: ControlsProps) => {
+const Controls = ({ controls }: ControlsProps) => {
   const { t } = useTranslation();
 
   return (
@@ -62,7 +57,7 @@ const Controls = ({controls}: ControlsProps) => {
           <div>
             <kbd className='kbd w-min'>{controls[0]}</kbd>
           </div>
-          <div className='flex flex-row'>
+          <div className='flex flex-row justify-center'>
             <kbd className='kbd w-min h-min'>{controls[1]}</kbd>
             <kbd className='kbd w-min h-min'>{controls[2]}</kbd>
             <kbd className='kbd w-min h-min'>{controls[3]}</kbd>
