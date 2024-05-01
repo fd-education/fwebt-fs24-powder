@@ -1,4 +1,5 @@
 import { Scoreboard } from '@/src/components/lobby/scoreboard/Scoreboard';
+import { useScoreboardStore } from '@/src/domain/state/scoreboardState';
 import { useScoreboardApi } from '@/src/hooks/useScoreboardApi';
 import { ScoreResponse } from '@powder/common';
 import { render, screen } from '@testing-library/react';
@@ -8,37 +9,35 @@ jest.mock('@/src/hooks/useScoreboardApi');
 const mockUseScoreboardAPI = jest.mocked(useScoreboardApi);
 
 describe('Scoreboard component: interface & behaviour', () => {
-  const ranking: ScoreResponse[] = [];
-
-  beforeAll(() => {
-    ranking.push(
-      {
-        id: '1',
-        name: 'Test1',
-        score: 3000,
-        timestamp: '',
-      },
-      {
-        id: '2',
-        name: 'Test2',
-        score: 2000,
-        timestamp: '',
-      },
-      {
-        id: '3',
-        name: 'Test3',
-        score: 1000,
-        timestamp: '',
-      }
-    );
-  });
+  const ranking: ScoreResponse[] = [
+    {
+      id: '1',
+      name: 'Test1',
+      score: 3000,
+      timestamp: '',
+    },
+    {
+      id: '2',
+      name: 'Test2',
+      score: 2000,
+      timestamp: '',
+    },
+    {
+      id: '3',
+      name: 'Test3',
+      score: 1000,
+      timestamp: '',
+    },
+  ];
 
   it('Should handle loading', () => {
-    mockUseScoreboardAPI.mockReturnValue({
+    useScoreboardStore.setState({
       loading: true,
-      data: null,
-      hasError: false,
-      error: '',
+      success: false,
+      error: false,
+      scoreboard: [],
+      errorData: '',
+      fetchScoreboard: jest.fn(),
     });
     render(<Scoreboard />);
 
@@ -47,11 +46,13 @@ describe('Scoreboard component: interface & behaviour', () => {
 
   it('Should handle error', () => {
     const error = 'Test error';
-    mockUseScoreboardAPI.mockReturnValue({
+    useScoreboardStore.setState({
       loading: false,
-      data: null,
-      hasError: true,
-      error,
+      success: false,
+      error: true,
+      scoreboard: [],
+      errorData: error,
+      fetchScoreboard: jest.fn(),
     });
     render(<Scoreboard />);
 
@@ -60,13 +61,13 @@ describe('Scoreboard component: interface & behaviour', () => {
   });
 
   it('Should handle data', () => {
-    mockUseScoreboardAPI.mockReturnValue({
+    useScoreboardStore.setState({
       loading: false,
-      data: {
-        ranking,
-      },
-      hasError: false,
-      error: '',
+      success: true,
+      error: false,
+      scoreboard: ranking,
+      errorData: '',
+      fetchScoreboard: jest.fn(),
     });
     render(<Scoreboard />);
 

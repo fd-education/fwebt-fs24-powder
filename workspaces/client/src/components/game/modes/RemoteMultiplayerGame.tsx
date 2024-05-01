@@ -11,6 +11,9 @@ import { usePlayerGame, useRemoteOpponentGame } from '../../../hooks/useGame';
 import { ScoreState, useScoreStore } from '../../../domain/state/scoreStore';
 import { MultiplayerBoard } from './MultiplayerBoard';
 import { GameProps } from '../../../pages/Game';
+import { Waiting } from '../Waiting';
+import { GameProgressStates } from '@powder/common';
+import { Guide } from '../Guide';
 
 export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
   const { playerName } = usePlayerStore();
@@ -22,6 +25,7 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
   const {
     isConnected,
     emitGameChallenge,
+    emitGameProgress,
     registerGameStartHandler,
     registerGameStateHandler,
     registerGameDisconnectHandler,
@@ -34,7 +38,13 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
   const { clearScores: clearPlayerScores } = useScoreStore(false);
   const { clearScores: clearOpponentScores, applyScore } = useScoreStore(true);
 
+  const [waiting, setIsWaiting] = useState(true);
+  const [ready, setReady] = useState(false);
+
+
   useEffect(() => {
+    if (!ready) return;
+
     clearPlayerScores();
     clearOpponentScores();
 
@@ -46,6 +56,7 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
     });
 
     registerGameStartHandler(() => {
+      setIsWaiting(false);
       startPlayerGame(true);
       startRemoteOpponentGame(true);
     });
@@ -69,12 +80,22 @@ export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
     return () => {
       removeGameHandlers();
     };
-  }, []);
+  }, [ready]);
+
+  const stopWaiting = () => {
+    emitGameProgress(GameProgressStates.ended);
+  }
 
   return (
-    <MultiplayerBoard
-      isRemote={true}
-      opponentDisconnected={opponentDisconnected}
-    />
+    <>
+      {!ready && (
+        <Guide readyHandler={() => setReady(true)} />
+      )}
+      {ready && waiting && <Waiting stopHandler={stopWaiting} />}
+      <MultiplayerBoard
+        isRemote={true}
+        opponentDisconnected={opponentDisconnected}
+      />
+    </>
   );
 };

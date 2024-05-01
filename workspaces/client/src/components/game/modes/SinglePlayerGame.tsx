@@ -1,5 +1,5 @@
 import { useGameStateStore } from '../../../domain/state/gameStateStore';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SettingsGroup } from '../../settings/SettingsGroup';
 import { Title, TitleSize } from '../../util/Title';
 import { End } from '../End';
@@ -13,6 +13,7 @@ import { useScoreStore } from '../../../domain/state/scoreStore';
 import { Lost } from '../Lost';
 import { GameProps } from '../../../pages/Game';
 import { GameProgressStates } from '@powder/common';
+import { Guide } from '../Guide';
 
 export const SinglePlayerGame = ({ difficulty }: GameProps) => {
   const { progress } = useGameStateStore(false);
@@ -20,13 +21,18 @@ export const SinglePlayerGame = ({ difficulty }: GameProps) => {
   const { startGame: startPlayerGame } = usePlayerGame(difficulty);
   const { clearScores: clearPlayerScores } = useScoreStore(false);
 
+  const [ready, setReady] = useState(false);
+
   useEffect(() => {
+    if(!ready) return;
+
     clearPlayerScores();
     startPlayerGame();
-  }, []);
+  }, [ready]);
 
   return (
     <>
+      {!ready && <Guide readyHandler={() => setReady(true)}/>}
       {progress === GameProgressStates.lost && <Lost />}
       <div className='h-full flex flex-col justify-start content-center gap-48'>
         <Title size={TitleSize.SMALL} />

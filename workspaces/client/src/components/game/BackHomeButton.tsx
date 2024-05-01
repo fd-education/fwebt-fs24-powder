@@ -5,7 +5,11 @@ import { useScoreApi } from '../../hooks/useScoreApi';
 import { useGameStateStore } from '../../domain/state/gameStateStore';
 import { useTranslation } from 'react-i18next';
 
-export const BackHomeButton = () => {
+interface BackhomeButtonProps {
+  cleanup?: () => void;
+}
+
+export const BackHomeButton = ({cleanup = () => {}}: BackhomeButtonProps) => {
   const navigate = useNavigate();
   const { saveScore } = useScoreApi();
   const { initialiseGame } = useGameStateStore(false);
@@ -16,6 +20,7 @@ export const BackHomeButton = () => {
     saveScore();
     initialiseGame();
     initialiseOppGame();
+    cleanup();
     navigate('/lobby');
   };
 

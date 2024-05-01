@@ -70,6 +70,8 @@ describe('GameOptions component: interface & behaviour', () => {
     render(<RouterProvider router={testRouter} />);
 
     await userEvent.click(await screen.findByText('lobby.play'));
-    expect(mockedUseNavigate).toHaveBeenCalledWith('/game?mode=singleplayer');
+    expect(mockedUseNavigate).toHaveBeenCalledWith(
+      '/game?mode=singleplayer&difficulty=5'
+    );
   });
 });
