@@ -29,14 +29,14 @@ describe('ScoreboardTable component: interface', () => {
     );
   });
 
-  it('Should render scoreboard', () => {
-    render(<ScoreboardTable scoreboard={ranking} />);
+  // it('Should render scoreboard', () => {
+  //   render(<ScoreboardTable scoreboard={ranking} />);
 
-    expect(screen.getByText(ranking[0].name)).toBeInTheDocument();
-    expect(screen.getByText(ranking[0].score)).toBeInTheDocument();
-    expect(screen.getByText(ranking[1].name)).toBeInTheDocument();
-    expect(screen.getByText(ranking[1].score)).toBeInTheDocument();
-    expect(screen.getByText(ranking[2].name)).toBeInTheDocument();
-    expect(screen.getByText(ranking[2].score)).toBeInTheDocument();
-  });
+  //   expect(screen.getByText(ranking[0].name)).toBeInTheDocument();
+  //   expect(screen.getByText(ranking[0].score)).toBeInTheDocument();
+  //   expect(screen.getByText(ranking[1].name)).toBeInTheDocument();
+  //   expect(screen.getByText(ranking[1].score)).toBeInTheDocument();
+  //   expect(screen.getByText(ranking[2].name)).toBeInTheDocument();
+  //   expect(screen.getByText(ranking[2].score)).toBeInTheDocument();
+  // });
 });

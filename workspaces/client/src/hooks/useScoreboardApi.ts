@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { powderConfig } from '../domain/config/PowderConfig';
-import { usePlayerStore } from '../domain/state/playerNameStore';
 import { ScoreboardResponse } from '@powder/common';
 
 export const useScoreboardApi = () => {
@@ -9,11 +8,10 @@ export const useScoreboardApi = () => {
   const [error, setError] = useState('');
   const [data, setData] = useState<ScoreboardResponse>();
 
-  const { playerName } = usePlayerStore();
   const { SERVER_URL, SCOREBOARD_ENDPOINT } = powderConfig;
 
   useEffect(() => {
-    const url = `${SERVER_URL}/${SCOREBOARD_ENDPOINT}?name=${playerName}`;
+    const url = `${SERVER_URL}/${SCOREBOARD_ENDPOINT}`;
     fetch(url, {
       method: 'GET',
     })
