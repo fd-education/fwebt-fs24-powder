@@ -93,6 +93,10 @@ export const useWebsocketStore = create<WebsocketState>()((set, get) => ({
   emitBoardState: (state: Partial<BoardStateVars>) => {
     if (!get().isConnected) return;
 
+    // Ich würde die Implementation auf jeden Fall so belassen, jedoch im Hinterkopf behalten
+    // - Es sind sehr viele Messages, die über den Socket gesendet / empfangen werden.
+    // - Der Inhalt ist stark wiederholend und liesse sich komprimieren.
+    // Eben, das sprengt auch den Rahmen des Moduls, deshalb so belassen m.M.n.
     get().socket.emit(MultiplayerEvents.UPDATE, state);
   },
   emitGameScore: (score: Partial<ScoreState>) => {

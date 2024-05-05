@@ -7,6 +7,7 @@ interface PowderButtonProps {
   isActive?: boolean;
 }
 
+// Ein sehr gutes Beispiel für sinnvolle & gut angwendete Abstraktion!
 export const PowderButton = ({
   text,
   style,

@@ -15,6 +15,9 @@ import { Waiting } from '../Waiting';
 import { GameProgressStates } from '@powder/common';
 import { Guide } from '../Guide';
 
+// Eine allgemein interessante Frage: Was, wenn der Screen <1700px ist (und das Gameboard nicht mehr vollständig Platz hat)?
+// Ist Responsiveness sinnvoll / mäglich (z.B. mit skaliertem Spielfeld, o.ä.)? Gerade Smartphone-fähig ist das Spiel aktuell gar nicht.
+// -> darf auch eine bewusste Abgrenzung sein!
 export const RemoteMultiplayerGame = ({ difficulty }: GameProps) => {
   const { playerName } = usePlayerStore();
   const { startGame: startPlayerGame } = usePlayerGame(difficulty);
