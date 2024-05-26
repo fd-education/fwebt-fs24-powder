@@ -10,18 +10,21 @@
     "allowJs": true,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
+    "baseUrl": "./",
     "paths": {
-      "@/src/*": ["./src/*"]
+      "@/src/*": ["src/*"]
     }
   },
   "exclude": ["./**/node_modules, cypress.config.js, cypress"],
   "include": [
     "./cypress",
+    "./src",
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./tests/**/*.ts",
     "./tests/**/*.tsx",
-    "jest.config.ts"
+    "jest.config.ts",
+    "cypress.config.ts"
   ],
   "ts-node": {
     "compilerOptions": {

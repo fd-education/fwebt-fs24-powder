@@ -1,7 +1,7 @@
 import React from 'react';
 import { Guide } from '../../src/components/game/Guide';
 
-describe('<Guide />', () => {
+describe('<Guide />: User controls guide', () => {
   it('Calls listener', () => {
     const readySpy = cy.spy().as('readySpy');
     cy.mount(<Guide readyHandler={readySpy} />);
