@@ -14,8 +14,9 @@
       "@/src/*": ["./src/*"]
     }
   },
-  "exclude": ["./**/node_modules"],
+  "exclude": ["./**/node_modules, cypress.config.js, cypress"],
   "include": [
+    "./cypress",
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./tests/**/*.ts",

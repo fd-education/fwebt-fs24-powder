@@ -55,12 +55,20 @@ const Controls = ({ controls }: ControlsProps) => {
         <div className='whitespace-pre-line self-end'>{t('game.left')}</div>
         <div className='flex flex-col m-1'>
           <div>
-            <kbd className='kbd w-min'>{controls[0]}</kbd>
+            <kbd className='kbd w-min' data-cy='rotate'>
+              {controls[0]}
+            </kbd>
           </div>
           <div className='flex flex-row justify-center'>
-            <kbd className='kbd w-min h-min'>{controls[1]}</kbd>
-            <kbd className='kbd w-min h-min'>{controls[2]}</kbd>
-            <kbd className='kbd w-min h-min'>{controls[3]}</kbd>
+            <kbd className='kbd w-min h-min' data-cy='left'>
+              {controls[1]}
+            </kbd>
+            <kbd className='kbd w-min h-min' data-cy='drop'>
+              {controls[2]}
+            </kbd>
+            <kbd className='kbd w-min h-min' data-cy='right'>
+              {controls[3]}
+            </kbd>
           </div>
         </div>
         <div className='whitespace-pre-line self-end'>{t('game.right')}</div>
