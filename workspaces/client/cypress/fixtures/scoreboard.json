@@ -1,0 +1,22 @@
+{
+  "ranking": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "score": 100,
+      "timestamp": "2021-09-01T12:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Jane Doe",
+      "score": 50,
+      "timestamp": "2021-09-01T12:00:00Z"
+    },
+    {
+      "id": "3",
+      "name": "Max Mustermann",
+      "score": 25,
+      "timestamp": "2021-09-01T12:00:00Z"
+    }
+  ]
+}

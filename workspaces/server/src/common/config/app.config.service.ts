@@ -21,13 +21,21 @@ export class AppConfigService {
   }
 
   get mongoUri(): string {
-    return this.isProd()
-      ? this.envConfig.MONGO_URI
-      : this.envConfig.MONGO_URI_DEV;
+    if(this.isProd()){
+      return this.envConfig.MONGO_URI;
+    } if(this.isTest()){
+      return this.envConfig.MONGO_URI_TEST;
+    } else {
+      return this.envConfig.MONGO_URI_DEV;
+    };
   }
 
   private isProd(): boolean {
     return this.stage() === Stage.PROD;
+  }
+
+  public isTest(): boolean {
+    return this.stage() === Stage.TEST;
   }
 
   private stage(): Stage {
@@ -45,6 +53,7 @@ export class AppConfigService {
       MONGO_URI: Joi.string().required(),
 
       MONGO_URI_DEV: Joi.string().required(),
+      MONGO_URI_TEST: Joi.string().required(),
     });
 
     const { error, value: validatedEnvConfig } = envVarsSchema.validate(

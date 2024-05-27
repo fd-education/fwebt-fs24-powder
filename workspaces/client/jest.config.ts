@@ -16,6 +16,7 @@ const config: JestConfigWithTsJest = {
     './src/fonts/*',
     './src/index.tsx',
   ],
+  modulePathIgnorePatterns: ['./tests/cypress-tests']
 };
 
 export default config;
