@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "serve": "webpack serve --mode development",
+    "serve:test": "webpack serve --mode production",
     "format": "npx prettier . --write",
     "lint": "npx eslint src",
     "test": "jest",

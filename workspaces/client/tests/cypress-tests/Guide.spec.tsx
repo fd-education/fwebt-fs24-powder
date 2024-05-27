@@ -1,17 +1,19 @@
 import React from 'react';
 import { Guide } from '../../src/components/game/Guide';
 
+import { mount } from 'cypress/react18';
+
 describe('<Guide />: User controls guide', () => {
   it('Calls listener', () => {
     const readySpy = cy.spy().as('readySpy');
-    cy.mount(<Guide readyHandler={readySpy} />);
+    mount(<Guide readyHandler={readySpy} />);
 
     cy.contains("i'm ready").click();
     cy.get('@readySpy').should('have.been.called');
   });
 
   it('Renders player controls', () => {
-    cy.mount(<Guide readyHandler={cy.spy()} />);
+    mount(<Guide readyHandler={cy.spy()} />);
 
     cy.get('[data-cy=rotate]').should('have.text', '▲');
     cy.get('[data-cy=left]').should('have.text', '◀︎');
@@ -20,7 +22,7 @@ describe('<Guide />: User controls guide', () => {
   });
 
   it('Renders opponent controls', () => {
-    cy.mount(<Guide readyHandler={cy.spy()} isLocalMultiplayer={true} />);
+    mount(<Guide readyHandler={cy.spy()} isLocalMultiplayer={true} />);
 
     cy.get('[data-cy=rotate]').should('have.text', 'w▲');
     cy.get('[data-cy=left]').should('have.text', 'a◀︎');
