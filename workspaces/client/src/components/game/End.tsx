@@ -12,7 +12,7 @@ interface EndProps {
 
 export const End = ({ isOpponent }: EndProps) => {
   const { t } = useTranslation();
-  const { score, lines } = useScoreStore(isOpponent);
+  const { score, lines, clearScores } = useScoreStore(isOpponent);
 
   return (
     <div className='h-fit w-fit absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-20'>
@@ -29,7 +29,7 @@ export const End = ({ isOpponent }: EndProps) => {
               <NumberDisplay number={lines} />
             </div>
           </div>
-          {!isOpponent && <BackHomeButton />}
+          {!isOpponent && <BackHomeButton cleanup={() => clearScores()} />}
         </div>
       </Panel>
     </div>
