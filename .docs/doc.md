@@ -5,13 +5,14 @@
 FS 2024, Fortgeschrittene Web Technologien, Fabian Diemand <br>
 Dozent: Christian Klauenbösch <br>
 Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fwebt/fs24/infp-w-af004-fwebt_pibs-be-1-pva/studs/fwebt-fs24-powder)
---- 
+
+---
 
 ## Inhalt
 
 <!-- TOC -->
+
 - [Dokumentation: Powder](#dokumentation-powder)
-  - [Repository: Powder GitLab Repository](#repository-powder-gitlab-repository)
   - [Inhalt](#inhalt)
   - [1 Projektidee und Geschäftsregeln](#1-projektidee-und-geschäftsregeln)
     - [1.1 Kontext des Projekts](#11-kontext-des-projekts)
@@ -37,25 +38,25 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
       - [3.1.5 FA-005 Powdromino Vorschau](#315-fa-005-powdromino-vorschau)
       - [3.1.6 FA-006 Powdromino bewegen](#316-fa-006-powdromino-bewegen)
       - [3.1.7 FA-007 Powdromino drehen](#317-fa-007-powdromino-drehen)
-      - [3.1.8 FA-008 Powdromino beschleunigen](#318-fa-008-powdromino-beschleunigen)
-      - [3.1.9 FA-009 Powdromino Zerfall](#319-fa-009-powdromino-zerfall)
-      - [3.1.10 FA-010 Schwierigkeitsgrade](#3110-fa-010-schwierigkeitsgrade)
-      - [3.1.11 FA-011 Reihe entfernen](#3111-fa-011-reihe-entfernen)
-      - [3.1.12 FA-012 Niederlage](#3112-fa-012-niederlage)
-      - [3.1.13 FA-013 Score zählen einfach](#3113-fa-013-score-zählen-einfach)
-      - [3.1.14 FA-014 Score zählen mit Multiplikator](#3114-fa-014-score-zählen-mit-multiplikator)
-      - [3.1.15 FA-015 Scoreboard](#3115-fa-015-scoreboard)
+      - [3.1.8 FA-009 Powdromino Zerfall](#318-fa-009-powdromino-zerfall)
+      - [3.1.9 FA-011 Reihe entfernen](#319-fa-011-reihe-entfernen)
+      - [3.1.10 FA-012 Niederlage](#3110-fa-012-niederlage)
+      - [3.1.11 FA-013 Score zählen einfach](#3111-fa-013-score-zählen-einfach)
+      - [3.1.12 FA-014 Score zählen mit Multiplikator](#3112-fa-014-score-zählen-mit-multiplikator)
+      - [3.1.13 FA-015 Scoreboard](#3113-fa-015-scoreboard)
     - [3.2 KANN-Anforderungen](#32-kann-anforderungen)
       - [3.2.1 FA-016 Lokaler Multiplayer-Modus](#321-fa-016-lokaler-multiplayer-modus)
       - [3.2.2 FA-017 Lobby-Chat](#322-fa-017-lobby-chat)
       - [3.2.3 FA-018 Remote Multiplayer-Modus](#323-fa-018-remote-multiplayer-modus)
+      - [3.2.4 FA-008 Powdromino beschleunigen](#324-fa-008-powdromino-beschleunigen)
+      - [3.2.5 FA-010 Schwierigkeitsgrade](#325-fa-010-schwierigkeitsgrade)
   - [4 Nicht-Funktionale Anforderungen](#4-nicht-funktionale-anforderungen)
     - [4.1 MUSS-Anforderungen](#41-muss-anforderungen)
       - [4.1.1 NFA-001 Client-Server](#411-nfa-001-client-server)
       - [4.1.2 NFA-002 Persistenz](#412-nfa-002-persistenz)
     - [4.2 KANN-Anforderungen](#42-kann-anforderungen)
       - [4.2.1 NFA-003 Internationalisierung](#421-nfa-003-internationalisierung)
-    - [4.2.2 NFA-004 Light-/ Dark-Mode](#422-nfa-004-light--dark-mode)
+      - [4.2.2 NFA-004 Light-/ Dark-Mode](#422-nfa-004-light--dark-mode)
   - [5 Planung](#5-planung)
     - [5.1 Prototypen](#51-prototypen)
       - [5.1.1 Landing Page](#511-landing-page)
@@ -65,7 +66,17 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
       - [5.1.5 Game Page: Multiplayer](#515-game-page-multiplayer)
     - [5.2 Architekturentscheidungen](#52-architekturentscheidungen)
       - [5.2.1 Architektur Global](#521-architektur-global)
-<!-- TOC -->
+      - [5.2.2 Architektur Frontend](#522-architektur-frontend)
+      - [5.2.3 Protokolle](#523-protokolle)
+        - [5.2.3.1 Score-API](#5231-score-api)
+        - [5.2.3.2 Scoreboard-API](#5232-scoreboard-api)
+        - [5.2.3.3 Multiplayer Events](#5233-multiplayer-events)
+        - [5.2.3.4 Chat Events](#5234-chat-events)
+  - [6 Testing](#6-testing)
+    - [6.1 Unit Tests](#61-unit-tests)
+    - [6.2 Komponenten Tests](#62-component-tests)
+    - [6.3 E2E Tests](#63-e2e-tests)
+  - [7 Installation](#7-installationsanleitung)
 
 ---
 
@@ -102,13 +113,11 @@ Von Tetris übernommen werden ausserdem die Blockformen und Blockfarben.
 <img src="img/powdrominos/color-blocks.png" alt="Powdromino Farben" width="50%"/>
 <img src="img/powdrominos/powdrominos.png" alt="Powdromino Formen" width="50%"/>
 
-
 Powdrominos sind **nicht** entsprechend ihrer Form gefärbt. Jede Form kann jede Farbe haben.
 
 <img src="img/powdrominos/different-color-powdrominos.png" alt="Powdromino verschiedene Farben" width="50%"/>
 
-
-Die Blöcke, aus denen Powdrominos gebaut sind bestehen aus Substrukturen, die 10x kleiner sind, als die Blöcke selbst.
+Die Blöcke, aus denen Powdrominos gebaut sind bestehen aus Substrukturen, die dreimal kleiner sind, als die Blöcke selbst.
 Beim Aufprall auf den Boden des Spielfelds oder auf andere Blöcke, zerfallen sie in diese Substrukturen.
 Die Substrukturen haben eine eigene Physik bzw. Schwerkraft und bilden in der Folge Haufen.
 
@@ -126,9 +135,9 @@ geben.
 
 Ferner gibt es einen Punktmultiplikator, entsprechend der Anzahl entfernter Substrukturen:
 
-- Faktor 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 2)
-- Faktor 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 3)
-- Faktor 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 10 x 4)
+- Faktor 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 2)
+- Faktor 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 3)
+- Faktor 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 3 x 4)
 
 Damit wird die beim regulären Tetris ein höheres Risiko beim Stapeln der Elemente belohnt.
 
@@ -175,7 +184,8 @@ Optik des Spiels mit überschaubarem Aufwand merklich aufgewertet werden.
 Für DaisyUI kommt die Version 4.6.2 eingesetzt.
 
 ### 2.4 i18next
-[i18next](https://www.i18next.com/) ist ein Framework für die Internationalisierung von Web-Anwendungen und integriert über ein dediziertes Modul ([i18next-react](https://github.com/i18next/react-i18next)) direkt mit React, 
+
+[i18next](https://www.i18next.com/) ist ein Framework für die Internationalisierung von Web-Anwendungen und integriert über ein dediziertes Modul ([i18next-react](https://github.com/i18next/react-i18next)) direkt mit React,
 wodurch Übersetzungen aus den entsprechenden JSON-Files direkt über einen Hook zugänglich werden.
 
 ### 2.5 MongoDB
@@ -245,6 +255,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 ### 3.1 MUSS-Anforderungen
 
 #### 3.1.1 FA-001 Spielername
+
 <table>
   <tr>
     <th>ID</th>
@@ -294,9 +305,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Klein</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.2 FA-002 Spiel-Start
+
 <table>
   <tr>
     <th>ID</th>
@@ -346,9 +362,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Klein</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.3 FA-003 Spiel-Pause
+
 <table>
   <tr>
     <th>ID</th>
@@ -398,9 +419,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Klein</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.4 FA-004 Spiel-Abbruch
+
 <table>
   <tr>
     <th>ID</th>
@@ -450,9 +476,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Klein</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.5 FA-005 Powdromino Vorschau
+
 <table>
   <tr>
     <th>ID</th>
@@ -502,9 +533,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.6 FA-006 Powdromino bewegen
+
 <table>
   <tr>
     <th>ID</th>
@@ -554,9 +590,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.7 FA-007 Powdromino drehen
+
 <table>
   <tr>
     <th>ID</th>
@@ -606,61 +647,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
-</table>
-
-#### 3.1.8 FA-008 Powdromino beschleunigen
-<table>
   <tr>
-    <th>ID</th>
-    <td>FA-008</td>
-  </tr>
-  <tr>
-    <th>Name</th>
-    <td>Powdromino beschleunigen</td>
-  </tr>
-  <tr>
-    <th>Ziel</th>
-    <td>Powdrominos können schneller abgesenkt werden.</td>
-  </tr>
-  <tr>
-    <th>Akteure</th>
-    <td>Spieler</td>
-  </tr>
-  <tr>
-    <th>Ereignis</th>
-    <td>Akteur betätigt die untere Pfeil- oder S-Taste.</td>
-  </tr>
-  <tr>
-    <th>Vorbedingung Standardablauf</th>
-    <td>Akteur befindet sich in einem laufenden Spiel.</td>
-  </tr>
-  <tr>
-    <th>Standardablauf</th>
-    <td>1. Akteur betätigt untere Pfeiltaste oder S<br/>2. Powdromino bewegt sich in doppelter Geschwindigkeit auf den Boden zu</td>
-  </tr>
-  <tr>
-    <th>Alternativablauf</th>
-    <td>-</td>
-  </tr>
-  <tr>
-    <th>Nachbedingung Erfolg</th>
-    <td>Powdromino senkt sich schneller.</td>
-  </tr>
-  <tr>
-    <th>Nachbedingung Alternativ</th>
-    <td>-</td>
-  </tr>
-  <tr>
-    <th>Klassifizierung</th>
-    <td>Funktional, MUSS</td>
-  </tr>
-  <tr>
-    <th>Aufwand</th>
-    <td>Mittel</td>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
   </tr>
 </table>
 
-#### 3.1.9 FA-009 Powdromino Zerfall
+#### 3.1.8 FA-009 Powdromino Zerfall
+
 <table>
   <tr>
     <th>ID</th>
@@ -710,61 +704,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
-</table>
-
-#### 3.1.10 FA-010 Schwierigkeitsgrade
-<table>
   <tr>
-    <th>ID</th>
-    <td>FA-010</td>
-  </tr>
-  <tr>
-    <th>Name</th>
-    <td>Schwierigkeitsgrade</td>
-  </tr>
-  <tr>
-    <th>Ziel</th>
-    <td>Spieler können zwischen zwei Schwierigkeitsgraden wählen.</td>
-  </tr>
-  <tr>
-    <th>Akteure</th>
-    <td>Spieler</td>
-  </tr>
-  <tr>
-    <th>Ereignis</th>
-    <td>Akteur wählt vor dem Spielstart eine Schwierigkeitsoption.</td>
-  </tr>
-  <tr>
-    <th>Vorbedingung Standardablauf</th>
-    <td>Akteur ist namentlich bekannt und startet ein Spiel (vgl. Anforderung 2).</td>
-  </tr>
-  <tr>
-    <th>Standardablauf</th>
-    <td>1. Akteur wählt höheren Schwierigkeitsgrad<br/>2. Akteur klickt "Start"-Knopf</td>
-  </tr>
-  <tr>
-    <th>Alternativablauf</th>
-    <td>1a. Akteur belässt Standard-Schwierigkeitsgrad</td>
-  </tr>
-  <tr>
-    <th>Nachbedingung Erfolg</th>
-    <td>Spielfeld wird mit 15 x 20 Block-Kacheln geladen.</td>
-  </tr>
-  <tr>
-    <th>Nachbedingung Alternativ</th>
-    <td>Spielfeld wird mit 10 x 20 Block-Kacheln geladen.</td>
-  </tr>
-  <tr>
-    <th>Klassifizierung</th>
-    <td>Funktional, MUSS</td>
-  </tr>
-  <tr>
-    <th>Aufwand</th>
-    <td>Klein</td>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
   </tr>
 </table>
 
-#### 3.1.11 FA-011 Reihe entfernen
+#### 3.1.9 FA-011 Reihe entfernen
+
 <table>
   <tr>
     <th>ID</th>
@@ -814,9 +761,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
-#### 3.1.12 FA-012 Niederlage
+#### 3.1.10 FA-012 Niederlage
+
 <table>
     <tr>
         <th>ID</th>
@@ -867,9 +819,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
         <th>Aufwand</th>
         <td>Mittel</td>
     </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
-#### 3.1.13 FA-013 Score zählen einfach
+#### 3.1.11 FA-013 Score zählen einfach
+
 <table>
   <tr>
     <th>ID</th>
@@ -919,9 +876,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Gross</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
-#### 3.1.14 FA-014 Score zählen mit Multiplikator
+#### 3.1.12 FA-014 Score zählen mit Multiplikator
+
 <table>
   <tr>
     <th>ID</th>
@@ -957,7 +919,7 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
   <tr>
     <th>Nachbedingung Erfolg</th>
-    <td>Der Score des entfernten Komplexes wird nach folgender Logik berechnet und zum Gesamt-Score hinzuaddiert:<br/>- Entfernte Substrukturen x 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 2)<br>- Entfernte Substrukturen x 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 10 x 3)<br>- Entfernte Substrukturen x 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 10 x 4)</td>
+    <td>Der Score des entfernten Komplexes wird nach folgender Logik berechnet und zum Gesamt-Score hinzuaddiert:<br/>- Entfernte Substrukturen x 1.5: Wenn Substrukturen für zwei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 2)<br>- Entfernte Substrukturen x 2.5: Wenn Substrukturen für drei komplette Reihen entfernt werden (Spielfeldbreite x 3 x 3)<br>- Entfernte Substrukturen x 4: Wenn Substrukturen für vier komplette Reihen entfernt werden (Spielfeldbreite x 3 x 4)</td>
   </tr>
   <tr>
     <th>Nachbedingung Alternativ</th>
@@ -965,15 +927,20 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   </tr>
   <tr>
     <th>Klassifizierung</th>
-    <td>-</td>
+    <td>Funktional, MUSS</td>
   </tr>
   <tr>
     <th>Aufwand</th>
-    <td>Funktional, MUSS</td>
+    <td>Mittel</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
   </tr>
 </table>
 
-#### 3.1.15 FA-015 Scoreboard
+#### 3.1.13 FA-015 Scoreboard
+
 <table>
   <tr>
     <th>ID</th>
@@ -1023,11 +990,16 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Gross</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 ### 3.2 KANN-Anforderungen
 
 #### 3.2.1 FA-016 Lokaler Multiplayer-Modus
+
 <table>
   <tr>
     <th>ID</th>
@@ -1077,9 +1049,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 4)</td>
+  </tr>
 </table>
 
 #### 3.2.2 FA-017 Lobby-Chat
+
 <table>
   <tr>
     <th>ID</th>
@@ -1129,9 +1106,14 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 5)</td>
+  </tr>
 </table>
 
 #### 3.2.3 FA-018 Remote Multiplayer-Modus
+
 <table>
   <tr>
     <th>ID</th>
@@ -1181,6 +1163,124 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Gross</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 4)</td>
+  </tr>
+</table>
+
+#### 3.2.4 FA-008 Powdromino beschleunigen
+
+<table>
+  <tr>
+    <th>ID</th>
+    <td>FA-008</td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>Powdromino beschleunigen</td>
+  </tr>
+  <tr>
+    <th>Ziel</th>
+    <td>Powdrominos können schneller abgesenkt werden.</td>
+  </tr>
+  <tr>
+    <th>Akteure</th>
+    <td>Spieler</td>
+  </tr>
+  <tr>
+    <th>Ereignis</th>
+    <td>Akteur betätigt die untere Pfeil- oder S-Taste.</td>
+  </tr>
+  <tr>
+    <th>Vorbedingung Standardablauf</th>
+    <td>Akteur befindet sich in einem laufenden Spiel.</td>
+  </tr>
+  <tr>
+    <th>Standardablauf</th>
+    <td>1. Akteur betätigt untere Pfeiltaste oder S<br/>2. Powdromino bewegt sich in doppelter Geschwindigkeit auf den Boden zu</td>
+  </tr>
+  <tr>
+    <th>Alternativablauf</th>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Erfolg</th>
+    <td>Powdromino senkt sich schneller.</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Alternativ</th>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th>Klassifizierung</th>
+    <td>Funktional, MUSS</td>
+  </tr>
+  <tr>
+    <th>Aufwand</th>
+    <td>Mittel</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
+</table>
+
+#### 3.2.5 FA-010 Schwierigkeitsgrade
+
+<table>
+  <tr>
+    <th>ID</th>
+    <td>FA-010</td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>Schwierigkeitsgrade</td>
+  </tr>
+  <tr>
+    <th>Ziel</th>
+    <td>Spieler können zwischen zwei Schwierigkeitsgraden wählen.</td>
+  </tr>
+  <tr>
+    <th>Akteure</th>
+    <td>Spieler</td>
+  </tr>
+  <tr>
+    <th>Ereignis</th>
+    <td>Akteur wählt vor dem Spielstart eine Schwierigkeitsoption.</td>
+  </tr>
+  <tr>
+    <th>Vorbedingung Standardablauf</th>
+    <td>Akteur ist namentlich bekannt und startet ein Spiel (vgl. Anforderung 2).</td>
+  </tr>
+  <tr>
+    <th>Standardablauf</th>
+    <td>1. Akteur wählt höheren Schwierigkeitsgrad<br/>2. Akteur klickt "Start"-Knopf</td>
+  </tr>
+  <tr>
+    <th>Alternativablauf</th>
+    <td>1a. Akteur belässt Standard-Schwierigkeitsgrad</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Erfolg</th>
+    <td>Das Spiel wird mit 5 Blockfarben gespielt.</td>
+  </tr>
+  <tr>
+    <th>Nachbedingung Alternativ</th>
+    <td>Das Spiel wird mit 7 Blockfarben gespielt.</td>
+  </tr>
+  <tr>
+    <th>Klassifizierung</th>
+    <td>Funktional, KANN</td>
+  </tr>
+  <tr>
+    <th>Aufwand</th>
+    <td>Klein</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 7)</td>
+  </tr>
 </table>
 
 ## 4 Nicht-Funktionale Anforderungen
@@ -1188,55 +1288,68 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 ### 4.1 MUSS-Anforderungen
 
 #### 4.1.1 NFA-001 Client-Server
+
 <table>
-    <tr>
-        <th>ID</th>
-        <td>NFA-001</td>
-    </tr>
-    <tr>
-        <th>Name</th>
-        <td>Client-Server</td>
-    </tr>
-    <tr>
-        <th>Ziel</th>
-        <td>Der Datenbank-Zugriff, sowie die eventuell umgesetzte Websocket-Kommunikation finden über eine Server-Komponente statt.</td>
-    </tr>
-    <tr>
-        <th>Klassifizierung</th>
-        <td>Nicht funktional, MUSS</td>
-    </tr>    
-    <tr>
-        <th>Aufwand</th>
-        <td>Mittel</td>
-    </tr>
+  <tr>
+      <th>ID</th>
+      <td>NFA-001</td>
+  </tr>
+  <tr>
+      <th>Name</th>
+      <td>Client-Server</td>
+  </tr>
+  <tr>
+      <th>Ziel</th>
+      <td>Der Datenbank-Zugriff, sowie die eventuell umgesetzte Websocket-Kommunikation finden über eine Server-Komponente statt.</td>
+  </tr>
+  <tr>
+      <th>Klassifizierung</th>
+      <td>Nicht funktional, MUSS</td>
+  </tr>    
+  <tr>
+      <th>Aufwand</th>
+      <td>Mittel</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 4.1.2 NFA-002 Persistenz
+
 <table>
-    <tr>
-        <th>ID</th>
-        <td>NFA-002</td>
-    </tr>
-    <tr>
-        <th>Name</th>
-        <td>Persistenz</td>
-    </tr>
-    <tr>
-        <th>Ziel</th>
-        <td>Spielstände und Chat-Nachrichten werden in einer Datenbank persistiert.</td>
-    </tr>
-    <tr>
-        <th>Klassifizierung</th>
-        <td>Nicht funktional, MUSS</td>
-    </tr>    
-    <tr>
-        <th>Aufwand</th>
-        <td>Mittel</td>
-    </tr>
+  <tr>
+      <th>ID</th>
+      <td>NFA-002</td>
+  </tr>
+  <tr>
+      <th>Name</th>
+      <td>Persistenz</td>
+  </tr>
+  <tr>
+      <th>Ziel</th>
+      <td>Spielstände und Chat-Nachrichten werden in einer Datenbank persistiert.</td>
+  </tr>
+  <tr>
+      <th>Klassifizierung</th>
+      <td>Nicht funktional, MUSS</td>
+  </tr>    
+  <tr>
+      <th>Aufwand</th>
+      <td>Mittel</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Spielstände Done (MS 2.5)  <br>
+    Chat-Nachrichten Done (MS 5)</td>
+  </tr>
 </table>
 
 ### 4.2 KANN-Anforderungen
+
 #### 4.2.1 NFA-003 Internationalisierung
+
 <table>
     <tr>
         <th>ID</th>
@@ -1258,30 +1371,39 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
         <th>Aufwand</th>
         <td>Mittel</td>
     </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 6)</td>
+  </tr>
 </table>
 
-### 4.2.2 NFA-004 Light-/ Dark-Mode
+#### 4.2.2 NFA-004 Light-/ Dark-Mode
+
 <table>
-    <tr>
-        <th>ID</th>
-        <td>NFA-004</td>
-    </tr>
-    <tr>
-        <th>Name</th>
-        <td>Light-/ Dark-Mode</td>
-    </tr>
-    <tr>
-        <th>Ziel</th>
-        <td>Benutzer können das GUI des Spiels zwischen Light- und Dark-Mode umstellen.</td>
-    </tr>
-    <tr>
-        <th>Klassifizierung</th>
-        <td>Nicht funktional, KANN</td>
-    </tr>    
-    <tr>
-        <th>Aufwand</th>
-        <td>Klein</td>
-    </tr>
+  <tr>
+      <th>ID</th>
+      <td>NFA-004</td>
+  </tr>
+  <tr>
+      <th>Name</th>
+      <td>Light-/ Dark-Mode</td>
+  </tr>
+  <tr>
+      <th>Ziel</th>
+      <td>Benutzer können das GUI des Spiels zwischen Light- und Dark-Mode umstellen.</td>
+  </tr>
+  <tr>
+      <th>Klassifizierung</th>
+      <td>Nicht funktional, KANN</td>
+  </tr>    
+  <tr>
+      <th>Aufwand</th>
+      <td>Klein</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 ## 5 Planung
@@ -1289,34 +1411,314 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 ### 5.1 Prototypen
 
 #### 5.1.1 Landing Page
+
 <img src="./img/prototypes/landing-page-light.png" alt="Light Screen Landing Page" width="50%">
 <img src="./img/prototypes/landing-page-dark.png" alt="Dark Screen Landing Page" width="50%">
 
 #### 5.1.2 Menü Page
+
 <img src="./img/prototypes/menu-page-light.png" alt="Light Screen Menu Page" width="50%">
 <img src="./img/prototypes/menu-page-dark.png" alt="Dark Screen Menu Page" width="50%">
 
 #### 5.1.3 Game Page: Singleplayer Einfach
+
 <img src="./img/prototypes/game-page-light-easy.png" alt="Light Screen Easy Game Page" width="50%">
 <img src="./img/prototypes/game-page-dark-easy.png" alt="Dark Screen Easy Game Page" width="50%">
 
 #### 5.1.4 Game Page: Singleplayer Schwer
+
 <img src="./img/prototypes/game-page-light-hard.png" alt="Light Screen Hard Game Page" width="50%">
 <img src="./img/prototypes/game-page-dark-hard.png" alt="Dark Screen Hard Game Page" width="50%">
 
 #### 5.1.5 Game Page: Multiplayer
+
 <img src="./img/prototypes/game-page-multiplayer-light.png" alt="Light Screen Multiplayer Game Page" width="50%">
 <img src="./img/prototypes/game-page-multiplayer-dark.png" alt="Dark Screen Multiplayer Game Page" width="50%">
 
 ### 5.2 Architekturentscheidungen
+
 Die Semesterarbeit wird als Client-Server-Anwendung mit Persistenz implementiert.
 
 <img src="./img/architecture/client-server.jpg" alt="Client-Server Architektur" width="20%">
 
 #### 5.2.1 Architektur Global
+
 Die globale Architektur zeigt das Zusammenspiel von Frontend, Backend und Persistenz zur Erreichung der in [Abschnitt 3](#3-funktionale-anforderungen) dokumentierten
 funktionalen Anforderungen. Dabei werden das Backend und die Persistenz nur Oberflächlich betrachtet. <br/>
 Die Architektur berücksichtigt zu den MUSS- auch die KANN-Anforderungen, um ein umfassendes Bild der beteiligten Komponenten zu zeigen.
 
-<img src="./img/architecture/global-architecture.jpg" alt="Globale Architektur des Spiels" width="50%">
+<img src="./img/architecture/global-architecture.png" alt="Globale Architektur des Spiels" width="50%">
 
+#### 5.2.2 Architektur Frontend
+
+Das Frontend ist modularisiert und entsprechend in Pages und Components eingeteilt. Pages setzen sich aus mehreren Components und weiterem JSX für deren Positionierung zusammen.
+Components dienen der Auslagerung von Darstellung und Logik, damit der Deduplizierung von Code und einer verbesserten Wartbarkeit der Code Base.
+Sie sind bestmöglich nach dem Single Responsibility Prinzip aufgebaut. <br/>
+Sämtliche Pages sind in eine Root Page eingebettet, welche das Parent-Element des Routing Trees darstellt.
+Neben den drei Hauptpages (Landing, Lobby, Game) gibt es eine Error Page, welche genutzt wird, um ein nutzerfreundliches Error-Handling zu erlauben.
+
+<img src="./img/architecture/components.png" alt="Frontend Architektur des Spiels" width="50%">
+
+#### 5.2.3 Protokolle
+
+##### 5.2.3.1 Score-API
+
+Die Schnittstelle für die Score bzw. Scoreboard-Daten unterstützt einen POST-Request für die Ablage von Scores aus abgeschlossenen Spielen und einen GET-Request für die Abfrage der Top-10-Scores vergangener Spiele. Dabei müssen folgende Protokolle eingehalten werden.
+
+**Request:** <br>
+POST /score
+
+```json
+{
+  "name": "<playername>",
+  "score": "<score>",
+  "timestamp": "<timestamp>"
+}
+```
+
+<br>
+
+**Response:** <br>
+Erfolgsfall: <br>
+HTTP 201 - Created
+
+```json
+{
+  "id": "<resource-id>",
+  "name": "<playername>",
+  "score": "<score>",
+  "timestamp": "<timestamp>"
+}
+```
+
+Fehlerfall Client: <br>
+HTTP 400 - Bad Request
+
+```json
+{
+  "statusCode": 400,
+  "message": "Validation error: <error>"
+}
+```
+
+Fehlerfall Server: <br>
+HTTP 500 - Internal Server Error
+
+```json
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+
+##### 5.2.3.2 Scoreboard-API
+
+Die Schnittstelle für die Score bzw. Scoreboard-Daten unterstützt einen POST-Request für die Ablage von Scores aus abgeschlossenen Spielen und einen GET-Request für die Abfrage der Top-10-Scores vergangener Spiele. Dabei müssen folgende Protokolle eingehalten werden.
+
+**Request:**
+GET /scoreboard?name=&lt;playername&gt;
+
+**Response:**
+Erfolgsfall: <br>
+HTTP 200 - OK
+
+```json
+{
+  "ranking": [
+    {
+      "id": "<resource-id>",
+      "name": "<anyplayername>",
+      "score": "<score>",
+      "timestamp": "<timestamp>"
+    },
+    ...,
+    {
+      "id": "<resource-id>",
+      "name": "<playername>",
+      "score": "<score>",
+      "timestamp": "<timestamp>"
+    }
+  ]
+}
+```
+
+Fehlerfall Client: <br>
+HTTP 400 - Bad Request
+
+```json
+{
+  "statusCode": 400,
+  "message": "Validation error: <error>"
+}
+```
+
+Fehlerfall Server: <br>
+HTTP 500 - Internal Server Error
+
+```json
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+
+##### 5.2.3.3 Multiplayer Events
+
+**CHALLENGE**
+
+Event: CHALLENGE <br>
+Nachricht: < Name des Spielers > <br>
+
+Event für den Server, dass ein Spieler an einem Multiplayer-Spiel interessiert wäre. Die Nachricht besteht lediglich aus dem Namen des Spielers. Der Server verwendet den Namen und die ID des Websocket Clients, um entweder den Spieler in eine Warteschlange einzureihen oder direkt ein Multiplayer Spiel zu starten, falls bereits ein Spieler wartet.
+
+**START**
+
+Event: START <br>
+Nachricht: < leer >
+
+Event wird vom Server an Spieler versendet, welche ein Multiplayer Spiel starten wollen, damit die Spiele bei den Spielern gestartet werden. Der Inhalt der Nachricht ist leer.
+
+**UPDATE**
+
+Event: UPDATE <br>
+Nachricht: < Teil des Spielzustands der verändert wurde >
+
+Event wird zu jedem Spiel-Tick verschickt, um den Zustand des eigenen Spielfelds mit dem des Gegners zu synchronisieren. Der Inhalt der Nachricht besteht dabei lediglich aus den Veränderungen, damit nicht ständig der komplette Zustand ausgetauscht werden muss.
+
+**SCORE**
+
+Event: SCORE <br>
+Nachricht: < Score des Spielers >
+
+Event wird immer dann ausgelöst, wenn ein Stein auf dem Spielfeld fixiert wurde (wenn die Change auf ein Powdris besteht). Die Nachricht besteht aus dem aktuellen Punktestand und der Anzahl entfernter Segmente.
+
+**PROGRESS**
+
+Event: PROGRESS <br>
+Nachricht: < Fortschritt des Spiels >
+
+Event wird immer dann ausgelöst, wenn es zu einer Veränderung des Fortschritts des Spiels kommt, damit diese beim Gegner entsprechend gehandhabt werden kann. Die Nachricht besteht aus dem aktuellen Fortschritt.
+
+**DISCONNECT**
+
+Event: DISCONNECT <br>
+Nachricht: < leer >
+
+Event wird ausgelöst, wenn die Websocket-Verbindung eines Spielers aufgelöst wird, damit der Vorfall beim Gegenspieler entsprechend gehandhabt werden kann. Die Nachricht selbst ist leer.
+
+##### 5.2.3.4 Chat Events
+
+**CHAT_MESSAGE**
+
+Event: CHAT_MESSAGE <br>
+Nachricht:
+
+```json
+{
+  "session": "< Uuid der aktuellen Sitzung >",
+  "name": "< Name des Absenders >",
+  "timestamp": "< Sendezeitpunkt der Nachricht >",
+  "text": "< Inhalt der Nachricht >"
+}
+```
+
+Event wird ausgelöst, wenn ein Spieler eine Nachricht verschickt. Der Websocket Server broadcastet alle Nachrichten. Nachrichten werden vom Server persistiert. Beim Besuch der Lobby Seite werden jeweils die letzten 150 Nachrichten angezeigt.
+
+Das session-Attribut der Nachricht dient einer besseren Unterscheidung von Clients, da der Spielername für sich nur unzureichende Einzigartigkeit garantiert.
+
+**CHAT_HISTORY**
+
+Event: CHAT_HISTORY <br>
+Nachricht:
+
+```json
+[
+  {
+    "session": "< Uuid der aktuellen Sitzung >",
+    "name": "< Name des Absenders >",
+    "timestamp": "< Sendezeitpunkt der Nachricht >",
+    "text": "< Inhalt der Nachricht >"
+  },
+  ...
+  ,{
+    "session": "< Uuid der aktuellen Sitzung >",
+    "name": "< Name des Absenders >",
+    "timestamp": "< Sendezeitpunkt der Nachricht >",
+    "text": "< Inhalt der Nachricht >"
+  }
+]
+```
+
+Nachricht wird ausgelöst, wenn sich ein Spieler neu mit dem Chat verbindet, damit die letzten 150 Nachrichten geladen werden können. So hat ein neuer Spieler einen Kontext der bisher ausgetauschten Nachrichten.
+
+## 6 Testing
+Entsprechend des Auftrages für die Semesterarbeit beziehen sich alle Tests auf die React-Anwendung im Frontend und decken da die Kernfunktionen ab.
+
+### 6.1 Unit Tests
+Die Unit-Tests wurden rein mit Jest und React-Testing-Library realisiert. Navigiere in den Client-Root und starte die Tests:
+
+```bash
+# in fwebt-fs24-powder/workspaces/client
+
+# Nur Tests
+npm run test
+
+# Tests mit Coverage
+npm run test:fullcov
+```
+
+### 6.2 Komponenten Tests
+Komponenten-Tests wurden Teils bereits mit Jest und React-Testing-Library umgesetzt. Ein zweiter Teil (Guide, Waiting) wurde mit Cypress erstellt. Navigiere in den Client-Root, starte Cypress und lasse in Cypress die Tests laufen.
+
+```bash
+# in fwebt-fs24-powder/workspaces/client
+npm run cy:comp
+```
+
+### 6.3 E2E Tests
+E2E-Tests wurden ausschliesslich mit Cypress erstellt. Stelle sicher, dass im env-File der Nestjs-Anwendung (fwebt-fs24-powder/workspaces/server/.env) die "STAGE"-Variable auf "test" gesetzt ist.
+
+Navigiere in den Projekt-Root, starte das Backend mit der Test-Datenbank, sowie das Frontend und Cypress. Lasse die E2E-Tests in Cypress laufen. (3 Shells)
+
+```bash
+# im Projekt-Root (fwebt-fs24-powder)
+make powder-start-backend-test
+```
+
+```bash
+# im Projekt-Root (fwebt-fs24-powder)
+make powder-start-frontend
+```
+
+```bash
+# im Client-Root (fwebt-fs24-powder/workspaces/client)
+npm run cy:e2e
+```
+
+## 7 Installationsanleitung
+Die Installation und der Start des Projekts werden durch Make Targets (im Root) vorgenommen. Frontend und Backend müssen in separaten Shells gestartet werden, für die Datenbank wird Docker benötigt.
+
+Das Backend der Anwendung besteht aus einer Nestjs-Anwendung und einer Mongo-Datenbank. Die Datenbank läuft in Docker, das benötigte env-File wird in der Abgabe eingereicht.
+Das Frontend der Anwendung besteht aus einer React-Anwendung.
+
+Installiere alle Abhängigkeiten in Backend und Frontend
+```bash
+# im Projekt-Root (fwebt-fs24-powder)
+make powder-install
+```
+
+Stelle sicher, dass im env-File der Nestjs-Anwendung (fwebt-fs24-powder/workspaces/server/.env) die "STAGE"-Variable auf "prod" gesetzt ist.
+Erstelle DB-Container in Docker und starte Nestjs-Anwendung (im Projekt Root):
+```bash
+# im Projekt-Root (fwebt-fs24-powder)
+make powder-start-backend
+```
+
+In einer anderen Shell: Starte die React-Anwendung:
+```bash
+# im Projekt-Root (fwebt-fs24-powder)
+make powder-start-frontend
+```
+
+Die App kann nun unter http://localhost:8080 aufgerufen werden.
+Die Datenbank enthält einige Einträge für Scores und Chatnachrichten, damit Chat und Scoreboard bereits gefüllt sind.

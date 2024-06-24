@@ -3,12 +3,33 @@
     "outDir": "./dist/",
     "noImplicitAny": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "module": "es6",
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
-    "moduleResolution": "node"
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/src/*": ["src/*"]
+    }
   },
-  "exclude": ["./**/node_modules"],
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+  "exclude": ["./**/node_modules", "./cypress.config.js", "cypress", 
+  "**/*.cy.tsx"],
+  "include": [
+    "./cypress",
+    "./src",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./tests/**/*.ts",
+    "./tests/**/*.tsx",
+    "jest.config.ts",
+    "cypress.config.ts"
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }
