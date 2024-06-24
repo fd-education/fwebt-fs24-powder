@@ -300,6 +300,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Klein</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.2 FA-002 Spiel-Start
@@ -352,6 +356,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   <tr>
     <th>Aufwand</th>
     <td>Klein</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
   </tr>
 </table>
 
@@ -406,6 +414,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Klein</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.4 FA-004 Spiel-Abbruch
@@ -458,6 +470,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   <tr>
     <th>Aufwand</th>
     <td>Klein</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
   </tr>
 </table>
 
@@ -512,6 +528,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.6 FA-006 Powdromino bewegen
@@ -564,6 +584,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   <tr>
     <th>Aufwand</th>
     <td>Mittel</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
   </tr>
 </table>
 
@@ -618,6 +642,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.8 FA-009 Powdromino Zerfall
@@ -671,6 +699,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.9 FA-011 Reihe entfernen
@@ -723,6 +755,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   <tr>
     <th>Aufwand</th>
     <td>Mittel</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
   </tr>
 </table>
 
@@ -778,6 +814,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
         <th>Aufwand</th>
         <td>Mittel</td>
     </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.11 FA-013 Score zählen einfach
@@ -830,6 +870,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   <tr>
     <th>Aufwand</th>
     <td>Gross</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
   </tr>
 </table>
 
@@ -884,6 +928,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 3.1.13 FA-015 Scoreboard
@@ -936,6 +984,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   <tr>
     <th>Aufwand</th>
     <td>Gross</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
   </tr>
 </table>
 
@@ -992,6 +1044,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Mittel</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 4)</td>
+  </tr>
 </table>
 
 #### 3.2.2 FA-017 Lobby-Chat
@@ -1044,6 +1100,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   <tr>
     <th>Aufwand</th>
     <td>Mittel</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 5)</td>
   </tr>
 </table>
 
@@ -1098,6 +1158,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Gross</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 4)</td>
+  </tr>
 </table>
 
 #### 3.2.4 FA-008 Powdromino beschleunigen
@@ -1150,6 +1214,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
   <tr>
     <th>Aufwand</th>
     <td>Mittel</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
   </tr>
 </table>
 
@@ -1204,6 +1272,10 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
     <th>Aufwand</th>
     <td>Klein</td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 7)</td>
+  </tr>
 </table>
 
 ## 4 Nicht-Funktionale Anforderungen
@@ -1213,51 +1285,60 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
 #### 4.1.1 NFA-001 Client-Server
 
 <table>
-    <tr>
-        <th>ID</th>
-        <td>NFA-001</td>
-    </tr>
-    <tr>
-        <th>Name</th>
-        <td>Client-Server</td>
-    </tr>
-    <tr>
-        <th>Ziel</th>
-        <td>Der Datenbank-Zugriff, sowie die eventuell umgesetzte Websocket-Kommunikation finden über eine Server-Komponente statt.</td>
-    </tr>
-    <tr>
-        <th>Klassifizierung</th>
-        <td>Nicht funktional, MUSS</td>
-    </tr>    
-    <tr>
-        <th>Aufwand</th>
-        <td>Mittel</td>
-    </tr>
+  <tr>
+      <th>ID</th>
+      <td>NFA-001</td>
+  </tr>
+  <tr>
+      <th>Name</th>
+      <td>Client-Server</td>
+  </tr>
+  <tr>
+      <th>Ziel</th>
+      <td>Der Datenbank-Zugriff, sowie die eventuell umgesetzte Websocket-Kommunikation finden über eine Server-Komponente statt.</td>
+  </tr>
+  <tr>
+      <th>Klassifizierung</th>
+      <td>Nicht funktional, MUSS</td>
+  </tr>    
+  <tr>
+      <th>Aufwand</th>
+      <td>Mittel</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 #### 4.1.2 NFA-002 Persistenz
 
 <table>
-    <tr>
-        <th>ID</th>
-        <td>NFA-002</td>
-    </tr>
-    <tr>
-        <th>Name</th>
-        <td>Persistenz</td>
-    </tr>
-    <tr>
-        <th>Ziel</th>
-        <td>Spielstände und Chat-Nachrichten werden in einer Datenbank persistiert.</td>
-    </tr>
-    <tr>
-        <th>Klassifizierung</th>
-        <td>Nicht funktional, MUSS</td>
-    </tr>    
-    <tr>
-        <th>Aufwand</th>
-        <td>Mittel</td>
-    </tr>
+  <tr>
+      <th>ID</th>
+      <td>NFA-002</td>
+  </tr>
+  <tr>
+      <th>Name</th>
+      <td>Persistenz</td>
+  </tr>
+  <tr>
+      <th>Ziel</th>
+      <td>Spielstände und Chat-Nachrichten werden in einer Datenbank persistiert.</td>
+  </tr>
+  <tr>
+      <th>Klassifizierung</th>
+      <td>Nicht funktional, MUSS</td>
+  </tr>    
+  <tr>
+      <th>Aufwand</th>
+      <td>Mittel</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Spielstände Done (MS 2.5)  <br>
+    Chat-Nachrichten Done (MS 5)</td>
+  </tr>
 </table>
 
 ### 4.2 KANN-Anforderungen
@@ -1285,31 +1366,39 @@ Für Webpack und Babel werden weitere kleine Abhängigkeiten und Plugins install
         <th>Aufwand</th>
         <td>Mittel</td>
     </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 6)</td>
+  </tr>
 </table>
 
 #### 4.2.2 NFA-004 Light-/ Dark-Mode
 
 <table>
-    <tr>
-        <th>ID</th>
-        <td>NFA-004</td>
-    </tr>
-    <tr>
-        <th>Name</th>
-        <td>Light-/ Dark-Mode</td>
-    </tr>
-    <tr>
-        <th>Ziel</th>
-        <td>Benutzer können das GUI des Spiels zwischen Light- und Dark-Mode umstellen.</td>
-    </tr>
-    <tr>
-        <th>Klassifizierung</th>
-        <td>Nicht funktional, KANN</td>
-    </tr>    
-    <tr>
-        <th>Aufwand</th>
-        <td>Klein</td>
-    </tr>
+  <tr>
+      <th>ID</th>
+      <td>NFA-004</td>
+  </tr>
+  <tr>
+      <th>Name</th>
+      <td>Light-/ Dark-Mode</td>
+  </tr>
+  <tr>
+      <th>Ziel</th>
+      <td>Benutzer können das GUI des Spiels zwischen Light- und Dark-Mode umstellen.</td>
+  </tr>
+  <tr>
+      <th>Klassifizierung</th>
+      <td>Nicht funktional, KANN</td>
+  </tr>    
+  <tr>
+      <th>Aufwand</th>
+      <td>Klein</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>Done (MS 2.5)</td>
+  </tr>
 </table>
 
 ## 5 Planung
@@ -1517,7 +1606,8 @@ Event wird ausgelöst, wenn die Websocket-Verbindung eines Spielers aufgelöst w
 **CHAT_MESSAGE**
 
 Event: CHAT_MESSAGE <br>
-Nachricht: 
+Nachricht:
+
 ```json
 {
   "session": "< Uuid der aktuellen Sitzung >",
@@ -1535,6 +1625,7 @@ Das session-Attribut der Nachricht dient einer besseren Unterscheidung von Clien
 
 Event: CHAT_HISTORY <br>
 Nachricht:
+
 ```json
 [
   {
@@ -1542,7 +1633,7 @@ Nachricht:
     "name": "< Name des Absenders >",
     "timestamp": "< Sendezeitpunkt der Nachricht >",
     "text": "< Inhalt der Nachricht >"
-  }, 
+  },
   ...
   ,{
     "session": "< Uuid der aktuellen Sitzung >",
