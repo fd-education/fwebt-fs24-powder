@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  mongo:
+    container_name: powder-mongodb-prod
+    image: mongo:7.0
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: powder
+      MONGO_INITDB_ROOT_PASSWORD: powder
+    volumes:
+      - ./mongo/scripts:/docker-entrypoint-initdb.d
+    ports:
+      - 27017:27017

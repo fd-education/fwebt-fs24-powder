@@ -13,8 +13,8 @@
     "test:fullcov": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'",
     "build:dev": "webpack --mode development",
     "build:prod": "webpack --mode production",
-    "cy:test-comp": "cypress open --component --config-file ./test/cypress.config.js --project .",
-    "cy:test-e2e": "cypress open"
+    "cy:comp": "cypress open --component --config-file ./cypress.config.js --project .",
+    "cy:e2e": "cypress open --e2e"
   },
   "dependencies": {
     "i18next": "^23.11.2",

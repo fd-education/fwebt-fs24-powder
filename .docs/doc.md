@@ -72,6 +72,11 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
         - [5.2.3.2 Scoreboard-API](#5232-scoreboard-api)
         - [5.2.3.3 Multiplayer Events](#5233-multiplayer-events)
         - [5.2.3.4 Chat Events](#5234-chat-events)
+  - [6 Testing](#6-testing)
+    - [5.1 Prototypen](#61-unit-tests)
+    - [5.1 Prototypen](#62-component-tests)
+    - [5.1 Prototypen](#63-e2e-tests)
+  - [7 Installation](#7-installationsanleitung)
 
 ---
 
@@ -1645,3 +1650,75 @@ Nachricht:
 ```
 
 Nachricht wird ausgelöst, wenn sich ein Spieler neu mit dem Chat verbindet, damit die letzten 150 Nachrichten geladen werden können. So hat ein neuer Spieler einen Kontext der bisher ausgetauschten Nachrichten.
+
+## 6 Testing
+Entsprechend des Auftrages für die Semesterarbeit beziehen sich alle Tests auf die React-Anwendung im Frontend und decken da die Kernfunktionen ab.
+
+### 6.1 Unit Tests
+Die Unit-Tests wurden rein mit Jest und React-Testing-Library realisiert. Navigiere in den Client-Root und starte die Tests:
+
+```bash
+# in fwebt-fs24-powder/workspaces/client
+
+# Nur Tests
+npm run test
+
+# Tests mit Coverage
+npm run test:fullcov
+```
+
+### 6.2 Component Tests
+Komponenten-Tests wurden Teils bereits mit Jest und React-Testing-Library umgesetzt. Ein zweiter Teil (Guide, Waiting) wurde mit Cypress erstellt. Navigiere in den Client-Root, starte Cypress und lasse in Cypress die Tests laufen.
+
+```bash
+# in fwebt-fs24-powder/workspaces/client
+npm run cy:comp
+```
+
+### 6.3 E2E Tests
+E2E-Tests wurden ausschliesslich mit Cypress erstellt. Stelle sicher, dass im env-File der Nestjs-Anwendung (fwebt-fs24-powder/workspaces/server/.env) die "STAGE"-Variable auf "test" gesetzt ist.
+
+Navigiere in den Projekt-Root, starte das Backend mit der Test-Datenbank, sowie das Frontend und Cypress. Lasse die E2E-Tests in Cypress laufen. (3 Shells)
+
+```bash
+# im Projekt-Root (fwebt-fs24-powder)
+make powder-start-backend-test
+```
+
+```bash
+# im Projekt-Root (fwebt-fs24-powder)
+make powder-start-frontend
+```
+
+```bash
+# im Client-Root (fwebt-fs24-powder/workspaces/client)
+npm run cy:e2e
+```
+
+## 7 Installationsanleitung
+Die Installation und der Start des Projekts werden durch Make Targets (im Root) vorgenommen. Frontend und Backend müssen in separaten Shells gestartet werden, für die Datenbank wird Docker benötigt.
+
+Das Backend der Anwendung besteht aus einer Nestjs-Anwendung und einer Mongo-Datenbank. Die Datenbank läuft in Docker, das benötigte env-File wird in der Abgabe eingereicht.
+Das Frontend der Anwendung besteht aus einer React-Anwendung.
+
+Installiere alle Abhängigkeiten in Backend und Frontend
+```bash
+# im Projekt-Root (fwebt-fs24-powder)
+make powder-install
+```
+
+Stelle sicher, dass im env-File der Nestjs-Anwendung (fwebt-fs24-powder/workspaces/server/.env) die "STAGE"-Variable auf "prod" gesetzt ist.
+Erstelle DB-Container in Docker und starte Nestjs-Anwendung (im Projekt Root):
+```bash
+# im Projekt-Root (fwebt-fs24-powder)
+make powder-start-backend
+```
+
+In einer anderen Shell: Starte die React-Anwendung:
+```bash
+# im Projekt-Root (fwebt-fs24-powder)
+make powder-start-frontend
+```
+
+Die App sollte nun unter http://localhost:8080 aufgerufen werden können.
+Die Datenbank enthält einige Einträge für Scores und Chatnachrichten, damit Chat und Scoreboard bereits gefüllt sind.
