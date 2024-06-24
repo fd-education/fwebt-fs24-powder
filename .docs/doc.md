@@ -73,9 +73,9 @@ Repository: [Powder GitLab Repository](https://git.ffhs.ch/web-technologien/fweb
         - [5.2.3.3 Multiplayer Events](#5233-multiplayer-events)
         - [5.2.3.4 Chat Events](#5234-chat-events)
   - [6 Testing](#6-testing)
-    - [5.1 Prototypen](#61-unit-tests)
-    - [5.1 Prototypen](#62-component-tests)
-    - [5.1 Prototypen](#63-e2e-tests)
+    - [6.1 Unit Tests](#61-unit-tests)
+    - [6.2 Komponenten Tests](#62-component-tests)
+    - [6.3 E2E Tests](#63-e2e-tests)
   - [7 Installation](#7-installationsanleitung)
 
 ---
@@ -1667,7 +1667,7 @@ npm run test
 npm run test:fullcov
 ```
 
-### 6.2 Component Tests
+### 6.2 Komponenten Tests
 Komponenten-Tests wurden Teils bereits mit Jest und React-Testing-Library umgesetzt. Ein zweiter Teil (Guide, Waiting) wurde mit Cypress erstellt. Navigiere in den Client-Root, starte Cypress und lasse in Cypress die Tests laufen.
 
 ```bash
@@ -1720,5 +1720,5 @@ In einer anderen Shell: Starte die React-Anwendung:
 make powder-start-frontend
 ```
 
-Die App sollte nun unter http://localhost:8080 aufgerufen werden können.
+Die App kann nun unter http://localhost:8080 aufgerufen werden.
 Die Datenbank enthält einige Einträge für Scores und Chatnachrichten, damit Chat und Scoreboard bereits gefüllt sind.
