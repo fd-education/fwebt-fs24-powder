@@ -49,9 +49,7 @@ export class AppConfigService {
         .required()
         .valid(...Object.values(Stage)),
       PORT: Joi.number().port().required(),
-
       MONGO_URI: Joi.string().required(),
-
       MONGO_URI_DEV: Joi.string().required(),
       MONGO_URI_TEST: Joi.string().required(),
     });

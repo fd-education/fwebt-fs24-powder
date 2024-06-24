@@ -15,7 +15,7 @@ export const useScoreApi = () => {
 
     const payload: ScoreRequest = {
       name: playerName,
-      score: 1,
+      score,
       timestamp: new Date().toISOString(),
     };
     const url = `${SERVER_URL}/${SCORE_ENDPOINT}`;

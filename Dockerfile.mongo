@@ -1,0 +1,13 @@
+FROM mongo:7.0
+
+ENV MONGO_INITDB_ROOT_PASSWORD powder
+ENV MONGO_INITDB_ROOT_USERNAME powder
+ENV MONGO_INITDB_DATABASE test
+
+# Copy the data from the host to the container
+COPY ./mongo/chats.json /chats.json
+COPY ./mongo/scores.json /scores.json
+
+# CMD mongoimport --host localhost --db test --collection chats --type json --file /chats.json --jsonArray; mongoimport --host localhost --db test --collection scores --type json --file /scores.json --jsonArray
+
+CMD mongoimport --uri mongodb://powder:powder@mongodb:27017 --collection chats --type json --file /chats.json --jsonArray

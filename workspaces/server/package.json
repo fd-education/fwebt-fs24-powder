@@ -1,6 +1,6 @@
 {
   "name": "@powder/server",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Server side (backend) of the Powder game.",
   "author": "Fabian Diemand, fabian.diemand@students.ffhs.ch",
   "scripts": {
